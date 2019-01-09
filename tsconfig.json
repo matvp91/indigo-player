@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "esnext",
+    "lib": ["dom", "es5", "es2015.promise"],
+    "sourceMap": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

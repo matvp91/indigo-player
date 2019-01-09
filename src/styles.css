@@ -1,0 +1,15 @@
+.ig-container {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: #000;
+}
+
+.ig-player,
+.ig-ads,
+.ig-ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
