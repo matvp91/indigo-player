@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
+    "removeComments": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": false,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "jsx": "react",
     "baseUrl": ".",
+    "module": "esnext",
     "paths": {
       "@src/*": ["src/*"]
     },
-    "target": "es5",
-    "moduleResolution": "node",
-    "module": "esnext",
-    "lib": ["dom", "es5", "es2015.promise", "es2016"],
+    "lib": ["dom", "es2018"],
     "sourceMap": true
   },
   "include": [

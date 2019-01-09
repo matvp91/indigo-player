@@ -19,7 +19,7 @@ import {
   ModuleLoaderTypes,
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';
-import * as EventEmitter from 'eventemitter3';
+import EventEmitter from 'eventemitter3';
 
 export class Instance implements IInstance {
   /**
