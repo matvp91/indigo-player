@@ -11,6 +11,7 @@ Highly extensible, modern, JavaScript player.
 [![](https://img.shields.io/npm/v/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 [![](https://img.shields.io/github/license/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
+[![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 
 **Important:** This package is under construction and although it offers a fair amount of features already, this is a work in progress. At the moment, it lacks the proper documentation but with time comes improvement.
 
@@ -21,6 +22,7 @@ Highly extensible, modern, JavaScript player.
 * Support for HLS. - *hls.js*
 * Advertisement support with FreeWheel.
 * A modular structure that allows any developer to hook into the player logic and write custom business rules and extensions. Basically the entire player structure is built as a set of modules.
+* Bundle splitting, only loads JS files (eg: HLS.js) when actually needed.
 
 **Note:** Native HLS (+ FairPlay) is a work in progress
 
@@ -54,3 +56,8 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 </html>
 
 ```
+
+## Thanks2u
+* [@ambroos](https://github.com/ambroos) for being a video nerd!
+* [@google](https://github.com/google) for maintaining [shaka-player](https://github.com/google/shaka-player)
+* [@video-dev](https://github.com/video-dev) for maintaining [hls.js](https://github.com/video-dev/hls.js/)
