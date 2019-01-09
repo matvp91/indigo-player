@@ -56,3 +56,8 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 </html>
 
 ```
+
+## Thanks2u
+* [@ambroos](https://github.com/ambroos)
+* [@google](https://github.com/google) for maintaining [shaka-player](https://github.com/google/shaka-player)
+* [@video-dev](https://github.com/video-dev) for maintaining [hls.js](https://github.com/video-dev/hls.js/)
