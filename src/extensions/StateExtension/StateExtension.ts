@@ -109,6 +109,11 @@ export class StateExtension extends Module {
       draft.adBreakCurrentTime = null;
     });
     this.on(Events.ADBREAK_ENDED, resetAdBreak);
+
+    this.emit(Events.STATE_CHANGE, {
+      state: this.state,
+      prevState: null,
+    } as StateChangeEventData);
   }
 
   public dispatch = fn => {
