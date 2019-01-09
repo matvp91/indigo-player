@@ -15,8 +15,11 @@
     "url": "https://github.com/matvp91/indigo-player.git"
   },
   "devDependencies": {
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^4.0.0-beta.5",
     "prettier": "^1.15.3",
     "prettier-tslint": "^0.4.2",
     "style-loader": "^0.23.1",
@@ -28,7 +31,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "dev": "webpack-dev-server --mode development --hot",
+    "dev": "webpack-dev-server --mode development --hot --builds dev,player",
     "build": "rm -rf lib && webpack --mode production",
     "lint": "prettier-tslint fix '**/*.ts'"
   },
@@ -37,7 +40,10 @@
     "can-autoplay": "^3.0.0",
     "eventemitter3": "^3.1.0",
     "hls.js": "^0.12.2",
+    "immer": "^1.10.0",
     "lodash": "^4.17.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "screenfull": "^4.0.0",
     "shaka-player": "^2.5.0-beta2"
   }

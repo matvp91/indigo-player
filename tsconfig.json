@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]
@@ -7,7 +8,7 @@
     "target": "es5",
     "moduleResolution": "node",
     "module": "esnext",
-    "lib": ["dom", "es5", "es2015.promise"],
+    "lib": ["dom", "es5", "es2015.promise", "es2016"],
     "sourceMap": true
   },
   "include": [

@@ -7,7 +7,7 @@ export const BaseControllerLoader = {
 
   create: (instance: Instance) => new BaseController(instance),
 
-  isSupported: (config: Config): boolean => {
+  isSupported: ({ config }: { config: Config }): boolean => {
     return config.sources.length > 0;
   },
 } as ModuleLoader<BaseController>;

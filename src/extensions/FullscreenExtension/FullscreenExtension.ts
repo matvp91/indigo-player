@@ -20,7 +20,7 @@ export class FullscreenExtension extends Module {
     }
   }
 
-  toggleFullscreen() {
+  public toggleFullscreen() {
     if (screenfull.enabled) {
       screenfull.toggle(this.instance.container);
     }

@@ -1,5 +1,10 @@
 import { Player } from '@src/player/Player';
-import { Events, TimeUpdateEventData, VolumeChangeEventData } from '@src/types';
+import {
+  Events,
+  ReadyEventData,
+  TimeUpdateEventData,
+  VolumeChangeEventData,
+} from '@src/types';
 
 export class HTML5Player extends Player {
   public name = 'html5';
@@ -45,7 +50,9 @@ export class HTML5Player extends Player {
     });
 
     this.mediaElement.addEventListener('loadedmetadata', () => {
-      this.emit(Events.PLAYER_STATE_READY);
+      this.emit(Events.PLAYER_STATE_READY, {
+        duration: this.mediaElement.duration,
+      } as ReadyEventData);
     });
 
     this.mediaElement.addEventListener('waiting', () => {

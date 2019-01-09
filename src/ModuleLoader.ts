@@ -1,13 +1,14 @@
 import { BaseControllerLoader } from '@src/controller/BaseController/BaseControllerLoader';
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
+import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
+import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
 import { Instance } from '@src/Instance';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
 import { Module } from '@src/Module';
 import { HTML5PlayerLoader } from '@src/player/HTML5Player/HTML5PlayerLoader';
-import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import {
   EventCallback,
   EventData,
@@ -28,6 +29,7 @@ const modules: Array<ModuleLoader<Module>> = [
   BenchmarkExtensionLoader,
   FreeWheelExtensionLoader,
   FullscreenExtensionLoader,
+  StateExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(
@@ -38,7 +40,7 @@ export async function createFirstSupported<T>(
   const items = modules.filter(item => item.type === type);
 
   for (const loader of items) {
-    if (await loader.isSupported(isSupportedArgs)) {
+    if (await loader.isSupported(instance, isSupportedArgs)) {
       return ((await loader.create(instance)) as unknown) as T;
     }
   }
@@ -56,7 +58,7 @@ export async function createAllSupported<T>(
   const instances: T[] = [];
 
   for (const loader of items) {
-    if (await loader.isSupported(isSupportedArgs)) {
+    if (await loader.isSupported(instance, isSupportedArgs)) {
       instances.push(((await loader.create(instance)) as unknown) as T);
     }
   }

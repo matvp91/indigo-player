@@ -17,7 +17,7 @@ export const DashMediaLoader = {
       ({ DashMedia }) => new DashMedia(instance),
     ),
 
-  isSupported: async (format: Format): Promise<boolean> => {
+  isSupported: async (instance: Instance, format: Format): Promise<boolean> => {
     if (format.type !== FormatTypes.DASH) {
       return false;
     }

@@ -7,7 +7,7 @@ export const FreeWheelExtensionLoader = {
 
   create: async (instance: Instance) => new FreeWheelExtension(instance),
 
-  isSupported: (config: Config): boolean => {
+  isSupported: ({ config }: { config: Config }): boolean => {
     return config.freewheel && config.freewheel.clientSide;
   },
 } as ModuleLoader<FreeWheelExtension>;

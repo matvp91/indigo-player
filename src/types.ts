@@ -110,6 +110,9 @@ export enum Events {
   // Misc
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
+
+  // State
+  STATE_CHANGE = 'state:change',
 }
 
 export enum ErrorCodes {
@@ -147,6 +150,15 @@ export interface FullscreenEventData {
   fullscreen: boolean;
 }
 
+export interface ReadyEventData {
+  duration: number;
+}
+
+export interface StateChangeEventData {
+  state: any,
+  prevState: any,
+}
+
 export type EventData =
   | TimeUpdateEventData
   | VolumeChangeEventData
@@ -154,7 +166,9 @@ export type EventData =
   | ErrorEventData
   | AdBreaksEventData
   | AdBreakEventData
-  | FullscreenEventData;
+  | FullscreenEventData
+  | ReadyEventData
+  | StateChangeEventData;
 
 export enum HookActions {
   ABORT,
@@ -179,7 +193,10 @@ export enum ModuleLoaderTypes {
 export interface ModuleLoader<T> {
   type: ModuleLoaderTypes;
   create(instance: Instance): T | Promise<T>;
-  isSupported(isSupportedArgs?: any): boolean | Promise<boolean>;
+  isSupported(
+    instance: Instance,
+    isSupportedArgs?: any,
+  ): boolean | Promise<boolean>;
 }
 
 /**

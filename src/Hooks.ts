@@ -8,9 +8,7 @@ export class Hooks {
   }
 
   public canExecute(name: string, ...args: any) {
-    const selectedHooks: Hook[] = this.hooks.filter(
-      hook => hook.name === name,
-    );
+    const selectedHooks: Hook[] = this.hooks.filter(hook => hook.name === name);
 
     for (const hook of selectedHooks) {
       const action: HookActions = hook.method(...args);
