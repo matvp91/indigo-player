@@ -9,19 +9,21 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 ```javascript
 <html>
   <body>
-    <script src="indigoPlayer.js"></script>
-    const config = {
-      autoplay: false,
-      sources: [
-        {
-          type: 'mp4',
-          src: 'https://samples.com/BigBuckBunny.mp4',
-        }
-      ],
-    };
+    <script src="https://unpkg.com/indigo-player/lib/indigo-player.js"></script>
+    <script>
+      const config = {
+        autoplay: false,
+        sources: [
+          {
+            type: 'mp4',
+            src: 'https://samples.com/BigBuckBunny.mp4',
+          }
+        ],
+      };
 
-    const element = document.getElementById('player');
-    const player = IndigoPlayer.init(element, config);
+      const element = document.getElementById('player');
+      const player = IndigoPlayer.init(element, config);
+    </script>
   </body>
 </html>
 ```
