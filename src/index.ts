@@ -1,7 +1,7 @@
 import { Instance } from '@src/Instance';
 import { addModuleLoader } from '@src/ModuleLoader';
 import { exposeEnum } from '@src/utils/exposeEnum';
-import { Config, ModuleLoaderTypes, Events } from './types';
+import { Config, Events, ModuleLoaderTypes } from './types';
 
 declare var __webpack_public_path__: string;
 

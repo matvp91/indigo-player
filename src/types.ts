@@ -155,8 +155,8 @@ export interface ReadyEventData {
 }
 
 export interface StateChangeEventData {
-  state: any,
-  prevState: any,
+  state: any;
+  prevState: any;
 }
 
 export type EventData =
