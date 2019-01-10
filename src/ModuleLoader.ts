@@ -1,5 +1,6 @@
 import { BaseControllerLoader } from '@src/controller/BaseController/BaseControllerLoader';
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
+import { CaptionsExtensionLoader } from '@src/extensions/CaptionsExtension/CaptionsExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
@@ -30,6 +31,7 @@ const modules: Array<ModuleLoader<Module>> = [
   FreeWheelExtensionLoader,
   FullscreenExtensionLoader,
   StateExtensionLoader,
+  CaptionsExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(

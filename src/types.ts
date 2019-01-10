@@ -47,6 +47,12 @@ export interface Ad {
 
 export type Cuepoint = AdBreakType | number;
 
+export interface CaptionConfig {
+  label: string;
+  srclang: string;
+  src: string;
+}
+
 export interface Config {
   autoplay: boolean;
   sources: Format[];
@@ -61,6 +67,7 @@ export interface Config {
     profile: string;
     cuepoints: Cuepoint[];
   };
+  captions?: CaptionConfig[];
 }
 
 export interface Env {
@@ -79,6 +86,7 @@ export interface Env {
 
 export enum FormatTypes {
   MP4 = 'mp4',
+  WEBM = 'webm',
   MOV = 'mov',
   DASH = 'dash',
   HLS = 'hls',

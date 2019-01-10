@@ -11,17 +11,17 @@ const IndigoPlayer = (window as any).IndigoPlayer;
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
   showNativeControls: true,
-  freewheel: {
-    clientSide: true,
-    network: 96749,
-    server: 'https://demo.v.fwmrm.net/ad/g/1',
-    videoAsset: 'DemoVideoGroup.01',
-    // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
-    duration: 594,
-    siteSection: 'DemoSiteGroup.01',
-    profile: 'global-js',
-    cuepoints: ['preroll', 12, 'postroll'],
-  },
+  // freewheel: {
+  //   clientSide: true,
+  //   network: 96749,
+  //   server: 'https://demo.v.fwmrm.net/ad/g/1',
+  //   videoAsset: 'DemoVideoGroup.01',
+  //   // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
+  //   duration: 594,
+  //   siteSection: 'DemoSiteGroup.01',
+  //   profile: 'global-js',
+  //   cuepoints: ['preroll', 12, 'postroll'],
+  // },
   sources: [
     // {
     //   type: 'mp4',
@@ -39,9 +39,20 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //     },
     //   },
     // },
+    // {
+    //   type: 'hls',
+    //   src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+    // },
     {
-      type: 'hls',
-      src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+      type: 'webm',
+      src: 'http://ptgmedia.pearsoncmg.com/imprint_downloads/peachpit/peachpit/downloads/0321793935/media//elephants-dream-medium.webm',
+    },
+  ],
+  captions: [
+    {
+      label: 'English',
+      srclang: 'en',
+      src: './dev-assets/en-subs.vtt',
     },
   ],
 });

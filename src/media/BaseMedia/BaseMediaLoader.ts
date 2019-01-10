@@ -13,7 +13,11 @@ export const BaseMediaLoader = {
   create: (instance: Instance) => new BaseMedia(instance),
 
   isSupported: (instance: Instance, format: Format): boolean => {
-    if (format.type === FormatTypes.MP4 || format.type === FormatTypes.MOV) {
+    if (
+      format.type === FormatTypes.MP4 ||
+      format.type === FormatTypes.MOV ||
+      format.type === FormatTypes.WEBM
+    ) {
       return true;
     }
     return false;

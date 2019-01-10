@@ -224,6 +224,16 @@ export class FreeWheelExtension extends Module {
     }
   }
 
+  public adClick() {
+    if (!this.currentAd) {
+      return;
+    }
+
+    this.currentAd.freewheelAdInstance
+      .getRendererController()
+      .processEvent({ name: this.sdk.EVENT_AD_CLICK });
+  }
+
   private onSlotStarted(event) {
     const slot: any = event.slot;
 
@@ -322,15 +332,5 @@ export class FreeWheelExtension extends Module {
       this.instance.media.play();
     }
     this.instance.adsContainer.style.display = 'block';
-  }
-
-  public adClick() {
-    if (!this.currentAd) {
-      return;
-    }
-
-    this.currentAd.freewheelAdInstance
-      .getRendererController()
-      .processEvent({ name: this.sdk.EVENT_AD_CLICK });
   }
 }

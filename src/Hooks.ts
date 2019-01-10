@@ -13,9 +13,7 @@ interface IHook {
  * Decorator to let a class know that methods inside can
  * be hooked.
  */
-export function Hookable<T extends new (...args: any[]) => {}>(
-  constructor: T,
-) {
+export function Hookable<T extends new (...args: any[]) => {}>(constructor: T) {
   return class extends constructor {
     public hooks = new Hooks((this as unknown) as Module);
   };
