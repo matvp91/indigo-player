@@ -1,7 +1,9 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { Events, StateChangeEventData } from '@src/types';
+import { AdBreakType } from '@src/types';
 import produce from 'immer';
+import find from 'lodash/find';
 
 interface State {
   ready: boolean;
@@ -12,6 +14,7 @@ interface State {
   playing: boolean;
   paused: boolean;
   buffering: boolean;
+  ended: boolean;
 
   currentTime: number;
   duration: number;
@@ -32,6 +35,7 @@ export class StateExtension extends Module {
     playing: false,
     paused: false,
     buffering: false,
+    ended: false,
 
     currentTime: null,
     duration: null,
@@ -74,7 +78,13 @@ export class StateExtension extends Module {
       draft.playing = false;
       draft.paused = true;
     }, Events.STATE_PAUSED);
-    this.on(Events.PLAYER_STATE_PAUSE, setPaused);
+    this.on(Events.PLAYER_STATE_PAUSE, () => {
+      // If an adbreak plays, we don't care if the media is paused or not.
+      if (this.state.adBreak) {
+        return;
+      }
+      setPaused();
+    });
     this.on(Events.ADBREAK_STATE_PAUSE, setPaused);
 
     const setCurrentTime = this.dispatch((draft, data) => {
@@ -119,6 +129,25 @@ export class StateExtension extends Module {
     }, Events.STATE_AD_ENDED);
     this.on(Events.AD_ENDED, resetAd);
 
+    const setEnded = this.dispatch(draft => {
+      draft.playRequested = false;
+      draft.playing = false;
+      draft.ended = true;
+    }, Events.STATE_ENDED);
+    this.on(Events.PLAYER_STATE_ENDED, () => {
+      // If the player ended, but we still have a postroll to play, do not set it to ended.
+      if (find(this.state.adBreaks, { type: AdBreakType.POSTROLL })) {
+        return;
+      }
+
+      setEnded();
+    });
+    this.on(Events.ADBREAK_ENDED, (data: any) => {
+      if (data.adBreak.type === AdBreakType.POSTROLL) {
+        setEnded();
+      }
+    });
+
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
       prevState: null,
@@ -139,6 +168,15 @@ export class StateExtension extends Module {
       const prevState = this.state;
       this.state = newState;
 
+      const diff = {};
+      Object.keys(this.state).forEach(key => {
+        if (this.state[key] !== prevState[key]) {
+          diff[key] = { from: prevState[key], to: this.state[key] };
+        }
+      });
+      if (emitEvent !== 'state:currenttime-change') {
+        console.log(emitEvent, diff);
+      }
       this.emit(emitEvent, {
         state: this.state,
         prevState,

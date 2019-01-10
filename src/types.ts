@@ -127,6 +127,7 @@ export enum Events {
   STATE_ADBREAK_ENDED = 'state:adbreak-ended',
   STATE_AD_STARTED = 'state:ad-started',
   STATE_AD_ENDED = 'state:ad-ended',
+  STATE_ENDED = 'state:ended',
 }
 
 export enum ErrorCodes {

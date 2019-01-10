@@ -95,11 +95,6 @@ export class Instance implements IInstance {
     this.emitter = new EventEmitter();
     this.env = await getEnv();
 
-    // Now that we know we can autoplay, actually do it.
-    if (this.canAutoplay()) {
-      this.once(Events.PLAYER_STATE_READY, () => this.play());
-    }
-
     this.controller = await createFirstSupported<Controller>(
       ModuleLoaderTypes.CONTROLLER,
       this,
@@ -129,6 +124,11 @@ export class Instance implements IInstance {
     this.media = media;
 
     await this.controller.load();
+
+    // Now that we know we can autoplay, actually do it.
+    if (this.canAutoplay()) {
+      this.once(Events.PLAYER_STATE_READY, () => this.play());
+    }
 
     this.emit(Events.READY);
   }

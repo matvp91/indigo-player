@@ -19,7 +19,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     duration: 594,
     siteSection: 'DemoSiteGroup.01',
     profile: 'global-js',
-    cuepoints: ['preroll', 12, 'postroll'],
+    cuepoints: [/*'preroll', 12, */'postroll'],
   },
   sources: [
     // {
@@ -50,21 +50,14 @@ player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
   render(state);
 });
 
-const STATE_EVENTS_BLACKLIST = [IndigoPlayer.Events.STATE_CHANGE, IndigoPlayer.Events.STATE_CURRENTTIME_CHANGE];
-const STATE_EVENTS = filter(IndigoPlayer.Events, (value, key) => key.startsWith('STATE_'));
-
-STATE_EVENTS.forEach(name => {
-  player.on(name, () => {
-    if (includes(STATE_EVENTS_BLACKLIST, name)) {
-      return;
-    }
-    console.log(name);
-  });
-});
-
 export interface StateProps { state: any };
 
-export const State = (props: StateProps) => <pre>{JSON.stringify(props.state, null, 2)}</pre>;
+export const State = (props: StateProps) => (
+  <div>
+    <pre>{JSON.stringify(props.state, null, 2)}</pre>
+    <button onClick={() => location.reload()}>Reload</button>
+  </div>
+);
 
 function render(state) {
   ReactDOM.render(<State state={state} />, document.getElementById('state'));

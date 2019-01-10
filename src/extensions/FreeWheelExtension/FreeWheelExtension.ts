@@ -1,15 +1,15 @@
+import { NextHook } from '@src/Hooks';
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { NextHook } from '@src/Hooks';
 import {
+  Ad,
   AdBreak,
   AdBreakEventData,
   AdBreaksEventData,
   AdBreakType,
-  Ad,
+  AdEventData,
   Events,
   TimeUpdateEventData,
-  AdEventData,
 } from '@src/types';
 import find from 'lodash/find';
 
@@ -42,23 +42,34 @@ export class FreeWheelExtension extends Module {
 
     this.once(Events.READY, this.onReady.bind(this));
     this.on(Events.PLAYER_STATE_TIMEUPDATE, this.onPlayerTimeUpdate.bind(this));
+    this.on(Events.PLAYER_STATE_ENDED, this.onPlayerEnded.bind(this));
 
-    this.instance.controller.hooks.create('play', this.onControllerPlay.bind(this));
-    this.instance.controller.hooks.create('pause', this.onControllerPause.bind(this));
-    this.instance.controller.hooks.create('setVolume', this.onControllerSetVolume.bind(this));
-    this.instance.controller.hooks.create('seekTo', this.onControllerSeekTo.bind(this));
+    this.instance.controller.hooks.create(
+      'play',
+      this.onControllerPlay.bind(this),
+    );
+    this.instance.controller.hooks.create(
+      'pause',
+      this.onControllerPause.bind(this),
+    );
+    this.instance.controller.hooks.create(
+      'setVolume',
+      this.onControllerSetVolume.bind(this),
+    );
+    this.instance.controller.hooks.create(
+      'seekTo',
+      this.onControllerSeekTo.bind(this),
+    );
   }
 
   public onControllerPlay(next: NextHook) {
     if (!this.adsRequested) {
+      this.emit(Events.ADBREAK_STATE_PLAY);
       this.adContext.submitRequest();
       return;
     }
 
     if (this.currentAdBreak) {
-      // Emit STATE_PLAY here because FreeWheel pauses the video element first,
-      // and we don't want a pause -> play -> playing cycle after each ad.
-      // This makes video.addEventListener('pause') unreliable.
       this.emit(Events.ADBREAK_STATE_PLAY);
       this.mediaElement.play();
       return;
@@ -94,6 +105,10 @@ export class FreeWheelExtension extends Module {
     this.mediaElement = document.createElement('video');
     this.mediaElement.style.width = '100%';
     this.mediaElement.style.height = '100%';
+
+    if (this.instance.config.showNativeControls) {
+      this.mediaElement.controls = true;
+    }
 
     this.mediaElement.addEventListener('playing', () => {
       this.emit(Events.ADBREAK_STATE_PLAYING);
@@ -207,14 +222,14 @@ export class FreeWheelExtension extends Module {
   private onSlotStarted(event) {
     const slot: any = event.slot;
 
-    this.instance.media.pause();
-
     const adBreak = this.slotToAdBreak(slot);
     this.currentAdBreak = adBreak;
 
     this.emit(Events.ADBREAK_STARTED, {
       adBreak,
     } as AdBreakEventData);
+
+    this.instance.media.pause();
   }
 
   private onSlotEnded(event) {
@@ -229,7 +244,9 @@ export class FreeWheelExtension extends Module {
       adBreak,
     } as AdBreakEventData);
 
-    this.instance.media.play();
+    if (adBreak.type !== AdBreakType.POSTROLL) {
+      this.instance.media.play();
+    }
 
     this.instance.adsContainer.style.display = 'none';
   }
@@ -265,6 +282,18 @@ export class FreeWheelExtension extends Module {
 
     if (midroll) {
       this.playAdBreak(midroll);
+    }
+  }
+
+  private onPlayerEnded() {
+    const postroll: AdBreak = find(
+      this.adBreaks,
+      adBreak =>
+        adBreak.type === AdBreakType.POSTROLL && !adBreak.hasBeenWatched,
+    );
+
+    if (postroll) {
+      this.playAdBreak(postroll);
     }
   }
 

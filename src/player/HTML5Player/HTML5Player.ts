@@ -21,14 +21,6 @@ export class HTML5Player extends Player {
       this.mediaElement.controls = true;
     }
 
-    this.mediaElement.addEventListener('play', () => {
-      this.emit(Events.PLAYER_STATE_PLAY);
-    });
-
-    this.mediaElement.addEventListener('pause', () => {
-      this.emit(Events.PLAYER_STATE_PAUSE);
-    });
-
     this.mediaElement.addEventListener('playing', () => {
       this.emit(Events.PLAYER_STATE_PLAYING);
     });
@@ -79,10 +71,12 @@ export class HTML5Player extends Player {
   }
 
   public play() {
+    this.emit(Events.PLAYER_STATE_PLAY);
     this.mediaElement.play();
   }
 
   public pause() {
+    this.emit(Events.PLAYER_STATE_PAUSE);
     this.mediaElement.pause();
   }
 

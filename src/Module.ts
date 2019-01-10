@@ -6,9 +6,9 @@ import { EventCallback, EventData, IModule } from '@src/types';
 export class Module implements IModule {
   public name = 'unknown';
 
-  protected instance: Instance;
-
   public hooks: any;
+
+  protected instance: Instance;
 
   constructor(instance: Instance) {
     this.instance = instance;

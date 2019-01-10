@@ -1,5 +1,5 @@
-import filter from 'lodash/filter';
 import { Module } from '@src/Module';
+import filter from 'lodash/filter';
 
 export type NextHook = (...args: any) => void;
 
@@ -13,16 +13,18 @@ interface IHook {
  * Decorator to let a class know that methods inside can
  * be hooked.
  */
-export function Hookable<T extends {new(...args:any[]):{}}>(constructor:T) {
+export function Hookable<T extends new (...args: any[]) => {}>(
+  constructor: T,
+) {
   return class extends constructor {
     public hooks = new Hooks((this as unknown) as Module);
-  }
+  };
 }
 
 class Hooks {
   private module: Module;
 
-  private hooks: Array<IHook> = [];
+  private hooks: IHook[] = [];
 
   private origFunctions: any = {};
 
@@ -41,7 +43,11 @@ class Hooks {
 
   private hookFunction(name: string) {
     if (typeof this.module[name] !== 'function') {
-      throw new Error(`The method "${name}" does not exist in ${this.module.constructor.name}`);
+      throw new Error(
+        `The method "${name}" does not exist in ${
+          this.module.constructor.name
+        }`,
+      );
     }
 
     if (this.origFunctions[name]) {
@@ -57,10 +63,11 @@ class Hooks {
     const selectedHooks = filter(this.hooks, { name });
     let index = -1;
 
-    const runOrigFunction = () => this.origFunctions[name].call(this.module, ...args);
+    const runOrigFunction = () =>
+      this.origFunctions[name].call(this.module, ...args);
 
     const runNextHook = () => {
-      const hook = selectedHooks[index += 1];
+      const hook = selectedHooks[(index += 1)];
 
       // If we have no hook to call anymore, call the original function.
       if (!hook) {
