@@ -6,7 +6,7 @@
 
 # indigo-player
 
-Highly extensible, modern, JavaScript player.
+Highly extensible, modern, JavaScript player. 👊
 
 [![](https://img.shields.io/npm/v/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 [![](https://img.shields.io/github/license/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
@@ -28,7 +28,7 @@ Highly extensible, modern, JavaScript player.
 
 ## Documentation
 
-Visit the [documentation](https://matvp91.github.io/indigo-player).
+Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
 ## Getting started
 
@@ -59,7 +59,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 
 ```
 
-## Thanks2u
+## Cheers 🍺
 * [@ambroos](https://github.com/ambroos) for being a video nerd!
 * [@google](https://github.com/google) for maintaining [shaka-player](https://github.com/google/shaka-player)
 * [@video-dev](https://github.com/video-dev) for maintaining [hls.js](https://github.com/video-dev/hls.js/)
