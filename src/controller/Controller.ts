@@ -19,26 +19,18 @@ export class Controller extends Module implements IController {
   }
 
   public play() {
-    if (this.hooks.canExecute('play')) {
-      this.instance.media.play();
-    }
+    this.instance.media.play();
   }
 
   public pause() {
-    if (this.hooks.canExecute('pause')) {
-      this.instance.media.pause();
-    }
+    this.instance.media.pause();
   }
 
   public seekTo(time: number) {
-    if (this.hooks.canExecute('seekTo', time)) {
-      this.instance.media.seekTo(time);
-    }
+    this.instance.media.seekTo(time);
   }
 
   public setVolume(volume: number) {
-    if (this.hooks.canExecute('setVolume', volume)) {
-      this.instance.media.setVolume(volume);
-    }
+    this.instance.media.setVolume(volume);
   }
 }

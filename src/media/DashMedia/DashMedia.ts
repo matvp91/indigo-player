@@ -5,8 +5,6 @@ import { Events, Format, ShakaInstanceEventData } from '@src/types';
 import * as shaka from 'shaka-player';
 
 export class DashMedia extends Media {
-  public name = 'shaka-player';
-
   public player: any;
 
   constructor(instance: Instance) {

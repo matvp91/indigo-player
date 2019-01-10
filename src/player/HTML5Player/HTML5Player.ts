@@ -7,8 +7,6 @@ import {
 } from '@src/types';
 
 export class HTML5Player extends Player {
-  public name = 'html5';
-
   public mediaElement: HTMLMediaElement;
 
   public load() {

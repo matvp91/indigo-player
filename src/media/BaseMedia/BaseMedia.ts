@@ -1,8 +1,6 @@
 import { Media } from '@src/media/Media';
 
 export class BaseMedia extends Media {
-  public name = 'base';
-
   public async load() {
     await super.load();
 

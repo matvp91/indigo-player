@@ -1,13 +1,14 @@
-import { Hooks } from '@src/Hooks';
+import { Hookable } from '@src/Hooks';
 import { Instance } from '@src/Instance';
 import { EventCallback, EventData, IModule } from '@src/types';
 
+@Hookable
 export class Module implements IModule {
   public name = 'unknown';
 
-  public hooks: Hooks = new Hooks();
-
   protected instance: Instance;
+
+  public hooks: any;
 
   constructor(instance: Instance) {
     this.instance = instance;

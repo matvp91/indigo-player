@@ -4,8 +4,6 @@ import { Events, FullscreenEventData } from '@src/types';
 import * as screenfull from 'screenfull';
 
 export class FullscreenExtension extends Module {
-  public name = 'fullscreen';
-
   constructor(instance: Instance) {
     super(instance);
 

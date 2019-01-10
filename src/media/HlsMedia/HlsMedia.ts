@@ -5,8 +5,6 @@ import { Events, Format } from '@src/types';
 import HlsJs from 'hls.js';
 
 export class HlsMedia extends Media {
-  public name = 'hlsjs';
-
   public player: any;
 
   public async load() {

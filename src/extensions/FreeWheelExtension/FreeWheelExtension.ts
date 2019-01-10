@@ -1,20 +1,17 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
+import { NextHook } from '@src/Hooks';
 import {
   AdBreak,
   AdBreakEventData,
   AdBreaksEventData,
   AdType,
   Events,
-  Hook,
-  HookActions,
   TimeUpdateEventData,
 } from '@src/types';
 import find from 'lodash/find';
 
 export class FreeWheelExtension extends Module {
-  public name = 'freewheel';
-
   private sdk: any;
 
   private mediaElement: HTMLMediaElement;
@@ -39,46 +36,40 @@ export class FreeWheelExtension extends Module {
     this.sdk = (window as any).tv.freewheel.SDK;
     this.sdk.setLogLevel(this.sdk.LOG_LEVEL_QUIET);
 
-    instance.controller.hooks.create({
-      name: 'play',
-      method: this.onHookControllerPlay.bind(this),
-    });
-
-    instance.controller.hooks.create({
-      name: 'pause',
-      method: this.onHookControllerPause.bind(this),
-    });
-
-    instance.controller.hooks.create({
-      name: 'setVolume',
-      method: this.onHookControllerSetVolume.bind(this),
-    });
-
     this.once(Events.READY, this.onReady.bind(this));
     this.on(Events.PLAYER_STATE_TIMEUPDATE, this.onPlayerTimeUpdate.bind(this));
+
+    this.instance.controller.hooks.create('play', this.onControllerPlay.bind(this));
+    this.instance.controller.hooks.create('pause', this.onControllerPause.bind(this));
+    this.instance.controller.hooks.create('setVolume', this.onControllerSetVolume.bind(this));
   }
 
-  public onHookControllerPlay(): HookActions {
+  public onControllerPlay(next: NextHook) {
     if (!this.adsRequested) {
       this.adContext.submitRequest();
-      return HookActions.ABORT;
+      return;
     }
 
-    return HookActions.CONTINUE;
+    if (this.currentAdBreak) {
+      this.mediaElement.play();
+      return;
+    }
+
+    next();
   }
 
-  public onHookControllerPause(): HookActions {
+  public onControllerPause(next: NextHook) {
     if (this.currentAdBreak) {
       this.mediaElement.pause();
-      return HookActions.ABORT;
+      return;
     }
 
-    return HookActions.CONTINUE;
+    next();
   }
 
-  public onHookControllerSetVolume(volume: number): HookActions {
+  public onControllerSetVolume(next: NextHook, volume: number) {
     this.mediaElement.volume = volume;
-    return HookActions.CONTINUE;
+    next();
   }
 
   public createMediaElement() {

@@ -170,16 +170,6 @@ export type EventData =
   | ReadyEventData
   | StateChangeEventData;
 
-export enum HookActions {
-  ABORT,
-  CONTINUE,
-}
-
-export interface Hook {
-  name: string;
-  method: (...args: any) => HookActions;
-}
-
 /**
  * Modules
  */
@@ -205,7 +195,7 @@ export interface ModuleLoader<T> {
  * a media element (HLSjs, Shaka, ...), the controller and the general instance.
  */
 export interface IModule {
-  name: string;
+  hooks?: (...args: any) => void;
 
   on(name: string, callback: EventCallback);
   once(name: string, callback: EventCallback);

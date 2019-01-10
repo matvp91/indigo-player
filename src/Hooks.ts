@@ -1,23 +1,87 @@
-import { Hook, HookActions } from '@src/types';
+import filter from 'lodash/filter';
+import { Module } from '@src/Module';
 
-export class Hooks {
-  public hooks: Hook[] = [];
+export type NextHook = (...args: any) => void;
 
-  public create(hook: Hook) {
-    this.hooks.push(hook);
+interface IHook {
+  name: string;
+  callback: NextHook;
+}
+
+/**
+ * @Hookable
+ * Decorator to let a class know that methods inside can
+ * be hooked.
+ */
+export function Hookable<T extends {new(...args:any[]):{}}>(constructor:T) {
+  return class extends constructor {
+    public hooks = new Hooks((this as unknown) as Module);
+  }
+}
+
+class Hooks {
+  private module: Module;
+
+  private hooks: Array<IHook> = [];
+
+  private origFunctions: any = {};
+
+  constructor(module: Module) {
+    this.module = module;
   }
 
-  public canExecute(name: string, ...args: any) {
-    const selectedHooks: Hook[] = this.hooks.filter(hook => hook.name === name);
+  public create(name: string, callback: NextHook) {
+    this.hookFunction(name);
 
-    for (const hook of selectedHooks) {
-      const action: HookActions = hook.method(...args);
+    this.hooks.push({
+      name,
+      callback,
+    });
+  }
 
-      if (action === HookActions.ABORT) {
-        return false;
-      }
+  private hookFunction(name: string) {
+    if (typeof this.module[name] !== 'function') {
+      throw new Error(`The method "${name}" does not exist in ${this.module.constructor.name}`);
     }
 
-    return true;
+    if (this.origFunctions[name]) {
+      return;
+    }
+
+    // Store the original function and apply a hook.
+    this.origFunctions[name] = this.module[name];
+    this.module[name] = this.hookedFunction(name);
   }
+
+  private hookedFunction = (name: string) => (...args: any) => {
+    const selectedHooks = filter(this.hooks, { name });
+    let index = -1;
+
+    const runOrigFunction = () => this.origFunctions[name].call(this.module, ...args);
+
+    const runNextHook = () => {
+      const hook = selectedHooks[index += 1];
+
+      // If we have no hook to call anymore, call the original function.
+      if (!hook) {
+        runOrigFunction();
+        return;
+      }
+
+      let proceed = false;
+      const next = () => {
+        proceed = true;
+      };
+
+      // We've got a hook to call, call it.
+      hook.callback.call(null, next, ...args);
+
+      // Did the hook proceed?
+      if (proceed) {
+        runNextHook();
+      }
+    };
+
+    runNextHook();
+  };
 }
