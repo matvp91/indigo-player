@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
+import omit from 'lodash/omit';
 
 // Start the player
 
@@ -19,7 +20,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     duration: 594,
     siteSection: 'DemoSiteGroup.01',
     profile: 'global-js',
-    cuepoints: [/*'preroll', 12, */'postroll'],
+    cuepoints: ['preroll', 12, 'postroll'],
   },
   sources: [
     // {
@@ -52,12 +53,15 @@ player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
 
 export interface StateProps { state: any };
 
-export const State = (props: StateProps) => (
-  <div>
-    <pre>{JSON.stringify(props.state, null, 2)}</pre>
-    <button onClick={() => location.reload()}>Reload</button>
-  </div>
-);
+export const State = (props: StateProps) => {
+  const state = omit(props.state, ['ad.freewheelAdInstance']);
+  return (
+    <div>
+      <pre>{JSON.stringify(state, null, 2)}</pre>
+      <button onClick={() => location.reload()}>Reload</button>
+    </div>
+   );
+};
 
 function render(state) {
   ReactDOM.render(<State state={state} />, document.getElementById('state'));

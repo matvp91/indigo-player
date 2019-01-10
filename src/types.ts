@@ -31,14 +31,19 @@ export enum AdBreakType {
 }
 
 export interface AdBreak {
+  sequenceIndex: number;
   id: string;
   type: AdBreakType;
   startsAt: number;
   hasBeenWatched: boolean;
+  maxAds: number;
   freewheelSlot?: any;
 }
 
-export interface Ad {}
+export interface Ad {
+  sequenceIndex: number;
+  freewheelAdInstance?: any;
+}
 
 export type Cuepoint = AdBreakType | number;
 

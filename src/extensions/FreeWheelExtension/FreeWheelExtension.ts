@@ -12,6 +12,7 @@ import {
   TimeUpdateEventData,
 } from '@src/types';
 import find from 'lodash/find';
+import get from 'lodash/get';
 
 export class FreeWheelExtension extends Module {
   private sdk: any;
@@ -30,10 +31,12 @@ export class FreeWheelExtension extends Module {
 
   private currentAd: Ad;
 
+  private adSequenceIndex: number;
+
   constructor(instance: Instance) {
     super(instance);
 
-    if (!(window as any).tv.freewheel.SDK) {
+    if (!get(window, 'tv.freewheel.SDK')) {
       return;
     }
 
@@ -196,12 +199,14 @@ export class FreeWheelExtension extends Module {
     if (event.success) {
       const slots = this.adContext.getTemporalSlots();
       this.adBreaks = slots.map(
-        slot =>
+        (slot, index) =>
           ({
+            sequenceIndex: index,
             id: slot.getCustomId(),
             type: slot.getAdUnit(),
             startsAt: slot.getTimePosition(),
             hasBeenWatched: false,
+            maxAds: slot.getAdCount(),
             freewheelSlot: slot,
           } as AdBreak),
       );
@@ -252,7 +257,12 @@ export class FreeWheelExtension extends Module {
   }
 
   private onAdImpression(event) {
-    this.currentAd = {};
+    this.adSequenceIndex = 0;
+
+    this.currentAd = {
+      sequenceIndex: this.adSequenceIndex,
+      freewheelAdInstance: event.adInstance,
+    };
 
     this.emit(Events.AD_STARTED, {
       adBreak: this.currentAdBreak,
@@ -269,6 +279,8 @@ export class FreeWheelExtension extends Module {
       adBreak: this.currentAdBreak,
       ad,
     } as AdEventData);
+
+    this.adSequenceIndex += 1;
   }
 
   private onPlayerTimeUpdate({ currentTime }: TimeUpdateEventData) {
@@ -310,5 +322,15 @@ export class FreeWheelExtension extends Module {
       this.instance.media.play();
     }
     this.instance.adsContainer.style.display = 'block';
+  }
+
+  public adClick() {
+    if (!this.currentAd) {
+      return;
+    }
+
+    this.currentAd.freewheelAdInstance
+      .getRendererController()
+      .processEvent({ name: this.sdk.EVENT_AD_CLICK });
   }
 }

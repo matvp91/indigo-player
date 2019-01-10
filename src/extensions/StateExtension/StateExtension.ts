@@ -67,6 +67,7 @@ export class StateExtension extends Module {
 
     const setPlaying = this.dispatch(draft => {
       draft.playing = true;
+      draft.playRequested = true;
       draft.buffering = false;
       draft.paused = false;
     }, Events.STATE_PLAYING);
@@ -168,15 +169,17 @@ export class StateExtension extends Module {
       const prevState = this.state;
       this.state = newState;
 
-      const diff = {};
-      Object.keys(this.state).forEach(key => {
-        if (this.state[key] !== prevState[key]) {
-          diff[key] = { from: prevState[key], to: this.state[key] };
-        }
-      });
-      if (emitEvent !== 'state:currenttime-change') {
-        console.log(emitEvent, diff);
-      }
+      // TODO: Remove this, but for now, it's great for debugging!
+      // const diff = {};
+      // Object.keys(this.state).forEach(key => {
+      //   if (this.state[key] !== prevState[key]) {
+      //     diff[key] = { from: prevState[key], to: this.state[key] };
+      //   }
+      // });
+      // if (emitEvent !== 'state:currenttime-change') {
+      //   console.log(emitEvent, diff);
+      // }
+
       this.emit(emitEvent, {
         state: this.state,
         prevState,
