@@ -28,7 +28,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 </html>
 ```
 
-<div class="sample-player">
+<div class="sample-player" data-expose-player="player">
 {
   autoplay: false,
   showNativeControls: true,
@@ -40,6 +40,8 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
   ],
 }
 </div>
+
+**Note:** Open up the console, and use `window.player` to interact with the player above.
 
 ## Features
 

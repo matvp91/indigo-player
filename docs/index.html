@@ -7,6 +7,11 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <style>
+    section.cover .cover-main > p:last-child a:hover {
+      color: #fff !important;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
@@ -15,16 +20,22 @@
       hook.doneEach(function () {
         var elements = document.querySelectorAll('.sample-player');
         elements.forEach(function (element) {
+          const expose = element.getAttribute('data-expose-player');
           var config = eval('(' + element.innerText + ')');
           element.innerHTML = '';
-          IndigoPlayer.init(element, config);
+          const player = IndigoPlayer.init(element, config);
+          if (expose) {
+            window[expose] = player;
+          }
         });
       });
     }
 
     window.$docsify = {
       loadSidebar: true,
-      subMaxLevel: 2,
+      themeColor: '#4b0082',
+      subMaxLevel: 3,
+      coverpage: true,
       plugins: [
         samplePlayer,
       ],
