@@ -19,6 +19,7 @@ interface State {
   adBreaks: any;
   adBreak: any;
   adBreakCurrentTime: number;
+  ad: any;
 }
 
 export class StateExtension extends Module {
@@ -38,6 +39,7 @@ export class StateExtension extends Module {
     adBreaks: [],
     adBreak: null,
     adBreakCurrentTime: null,
+    ad: null,
   };
 
   constructor(instance: Instance) {
@@ -47,7 +49,7 @@ export class StateExtension extends Module {
       draft.ready = true;
       draft.duration = data.duration;
       draft.waitingForUser = !instance.canAutoplay();
-    });
+    }, Events.STATE_READY);
     this.on(Events.PLAYER_STATE_READY, setReady);
 
     const setPlayRequested = this.dispatch(draft => {
@@ -55,7 +57,7 @@ export class StateExtension extends Module {
       draft.playRequested = true;
       draft.paused = false;
       draft.videoSessionStarted = true;
-    });
+    }, Events.STATE_PLAY_REQUESTED);
     this.on(Events.PLAYER_STATE_PLAY, setPlayRequested);
     this.on(Events.ADBREAK_STATE_PLAY, setPlayRequested);
 
@@ -63,7 +65,7 @@ export class StateExtension extends Module {
       draft.playing = true;
       draft.buffering = false;
       draft.paused = false;
-    });
+    }, Events.STATE_PLAYING);
     this.on(Events.PLAYER_STATE_PLAYING, setPlaying);
     this.on(Events.ADBREAK_STATE_PLAYING, setPlaying);
 
@@ -71,42 +73,51 @@ export class StateExtension extends Module {
       draft.playRequested = false;
       draft.playing = false;
       draft.paused = true;
-    });
+    }, Events.STATE_PAUSED);
     this.on(Events.PLAYER_STATE_PAUSE, setPaused);
     this.on(Events.ADBREAK_STATE_PAUSE, setPaused);
 
     const setCurrentTime = this.dispatch((draft, data) => {
       draft.currentTime = data.currentTime;
-    });
+    }, Events.STATE_CURRENTTIME_CHANGE);
     this.on(Events.PLAYER_STATE_TIMEUPDATE, setCurrentTime);
 
     const setAdBreakCurrentTime = this.dispatch((draft, data) => {
       draft.adBreakCurrentTime = data.currentTime;
-    });
+    }, Events.STATE_CURRENTTIME_CHANGE);
     this.on(Events.ADBREAK_STATE_TIMEUPDATE, setAdBreakCurrentTime);
 
     const setBuffering = this.dispatch(draft => {
       draft.playing = false;
       draft.buffering = true;
-    });
+    }, Events.STATE_BUFFERING);
     this.on(Events.PLAYER_STATE_WAITING, setBuffering);
 
     const setAdBreaks = this.dispatch((draft, data) => {
       draft.adBreaks = data.adBreaks;
-    });
+    }, Events.STATE_ADBREAKS);
     this.on(Events.ADBREAKS, setAdBreaks);
 
     const setAdBreak = this.dispatch((draft, data) => {
       draft.adBreak = data.adBreak;
-    });
-
+    }, Events.STATE_ADBREAK_STARTED);
     this.on(Events.ADBREAK_STARTED, setAdBreak);
 
     const resetAdBreak = this.dispatch(draft => {
       draft.adBreak = null;
       draft.adBreakCurrentTime = null;
-    });
+    }, Events.STATE_ADBREAK_ENDED);
     this.on(Events.ADBREAK_ENDED, resetAdBreak);
+
+    const setAd = this.dispatch((draft, data) => {
+      draft.ad = data.ad;
+    }, Events.STATE_AD_STARTED);
+    this.on(Events.AD_STARTED, setAd);
+
+    const resetAd = this.dispatch(draft => {
+      draft.ad = null;
+    }, Events.STATE_AD_ENDED);
+    this.on(Events.AD_ENDED, resetAd);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
@@ -114,8 +125,8 @@ export class StateExtension extends Module {
     } as StateChangeEventData);
   }
 
-  public dispatch = fn => {
-    return data => {
+  public dispatch = (fn, emitEvent: Events) => {
+    return (data?: any) => {
       const newState = produce(this.state, draft => {
         fn(draft, data);
         return draft;
@@ -127,6 +138,11 @@ export class StateExtension extends Module {
 
       const prevState = this.state;
       this.state = newState;
+
+      this.emit(emitEvent, {
+        state: this.state,
+        prevState,
+      } as StateChangeEventData);
 
       this.emit(Events.STATE_CHANGE, {
         state: this.state,

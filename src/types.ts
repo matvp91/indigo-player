@@ -24,7 +24,7 @@ export interface Format {
   };
 }
 
-export enum AdType {
+export enum AdBreakType {
   PREROLL = 'preroll',
   MIDROLL = 'midroll',
   POSTROLL = 'postroll',
@@ -32,13 +32,15 @@ export enum AdType {
 
 export interface AdBreak {
   id: string;
-  type: AdType;
+  type: AdBreakType;
   startsAt: number;
   hasBeenWatched: boolean;
   freewheelSlot?: any;
 }
 
-export type Cuepoint = AdType | number;
+export interface Ad {}
+
+export type Cuepoint = AdBreakType | number;
 
 export interface Config {
   autoplay: boolean;
@@ -104,6 +106,7 @@ export enum Events {
   ADBREAK_STATE_PLAY = 'ad-state:adbreak-play',
   ADBREAK_STATE_PAUSE = 'ad-state:adbreak-pause',
   ADBREAK_STATE_PLAYING = 'ad-state:adbreak-playing',
+  ADBREAK_STATE_BUFFERING = 'ad-state:adbreak-buffering',
   AD_STARTED = 'ad:ad-started',
   AD_ENDED = 'ad:ad-ended',
 
@@ -113,6 +116,17 @@ export enum Events {
 
   // State
   STATE_CHANGE = 'state:change',
+  STATE_READY = 'state:ready',
+  STATE_PLAY_REQUESTED = 'state:playrequested',
+  STATE_PLAYING = 'state:playing',
+  STATE_PAUSED = 'state:paused',
+  STATE_CURRENTTIME_CHANGE = 'state:currenttime-change',
+  STATE_BUFFERING = 'state:buffering',
+  STATE_ADBREAKS = 'state:adbreaks',
+  STATE_ADBREAK_STARTED = 'state:adbreak-started',
+  STATE_ADBREAK_ENDED = 'state:adbreak-ended',
+  STATE_AD_STARTED = 'state:ad-started',
+  STATE_AD_ENDED = 'state:ad-ended',
 }
 
 export enum ErrorCodes {
@@ -146,6 +160,10 @@ export interface AdBreakEventData {
   adBreak: AdBreak;
 }
 
+export interface AdEventData {
+  ad: Ad;
+}
+
 export interface FullscreenEventData {
   fullscreen: boolean;
 }
@@ -168,7 +186,8 @@ export type EventData =
   | AdBreakEventData
   | FullscreenEventData
   | ReadyEventData
-  | StateChangeEventData;
+  | StateChangeEventData
+  | AdEventData;
 
 /**
  * Modules

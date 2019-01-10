@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import filter from 'lodash/filter';
+import includes from 'lodash/includes';
 
 // Start the player
 
@@ -46,6 +48,18 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
 
 player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
   render(state);
+});
+
+const STATE_EVENTS_BLACKLIST = [IndigoPlayer.Events.STATE_CHANGE, IndigoPlayer.Events.STATE_CURRENTTIME_CHANGE];
+const STATE_EVENTS = filter(IndigoPlayer.Events, (value, key) => key.startsWith('STATE_'));
+
+STATE_EVENTS.forEach(name => {
+  player.on(name, () => {
+    if (includes(STATE_EVENTS_BLACKLIST, name)) {
+      return;
+    }
+    console.log(name);
+  });
 });
 
 export interface StateProps { state: any };
