@@ -1,6 +1,6 @@
 # Configuration
 
-In order to start the player, provide a config object to `IndigoPlayer.init(element, config`.
+In order to start the player, provide a config object to `IndigoPlayer.init(element, config)`. You'll get a `player` object in return, which can be used to interact with the player.
 
 ### Autoplay
 
