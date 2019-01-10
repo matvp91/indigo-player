@@ -107,6 +107,7 @@ export enum Events {
   PLAYER_STATE_READY = 'player-state:ready',
   PLAYER_STATE_WAITING = 'player-state:waiting',
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
+  PLAYER_STATE_CAPTIONSCHANGE = 'player-state:captionschange',
 
   // Shaka
   SHAKA_INSTANCE = 'shaka:instance',
@@ -191,6 +192,10 @@ export interface StateChangeEventData {
   prevState: any;
 }
 
+export interface CaptionsChangeEventData {
+  srclang: string;
+}
+
 export type EventData =
   | TimeUpdateEventData
   | VolumeChangeEventData
@@ -201,7 +206,8 @@ export type EventData =
   | FullscreenEventData
   | ReadyEventData
   | StateChangeEventData
-  | AdEventData;
+  | AdEventData
+  | CaptionsChangeEventData;
 
 /**
  * Modules
@@ -228,6 +234,8 @@ export interface ModuleLoader<T> {
  * a media element (HLSjs, Shaka, ...), the controller and the general instance.
  */
 export interface IModule {
+  name: string;
+
   hooks?: (...args: any) => void;
 
   on(name: string, callback: EventCallback);
@@ -244,6 +252,7 @@ export interface IController extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  setSubtitle(srclang: string);
 }
 
 export interface IPlayer extends IModule {
@@ -256,6 +265,7 @@ export interface IPlayer extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  setSubtitle(srclang: string);
 }
 
 export interface IMedia extends IModule {
@@ -266,6 +276,7 @@ export interface IMedia extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  setSubtitle(srclang: string);
 }
 
 export interface IInstance {

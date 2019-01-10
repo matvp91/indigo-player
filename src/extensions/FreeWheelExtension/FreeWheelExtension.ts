@@ -15,6 +15,8 @@ import find from 'lodash/find';
 import get from 'lodash/get';
 
 export class FreeWheelExtension extends Module {
+  public name: string = 'FreeWheelExtension';
+
   private sdk: any;
 
   private mediaElement: HTMLMediaElement;

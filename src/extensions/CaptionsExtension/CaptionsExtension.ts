@@ -4,14 +4,12 @@ import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { CaptionConfig, Events } from '@src/types';
 
 export class CaptionsExtension extends Module {
+  public name: string = 'CaptionsExtension';
+
   private tracks: HTMLTrackElement[];
 
   constructor(instance: Instance) {
     super(instance);
-
-    if (!instance.config.captions) {
-      return;
-    }
 
     this.tracks = instance.config.captions.map(caption => {
       const track = document.createElement('track');

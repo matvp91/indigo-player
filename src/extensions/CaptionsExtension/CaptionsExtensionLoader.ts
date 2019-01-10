@@ -8,6 +8,6 @@ export const CaptionsExtensionLoader = {
   create: async (instance: Instance) => new CaptionsExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
-    return true;
+    return !!config.captions;
   },
 } as ModuleLoader<CaptionsExtension>;

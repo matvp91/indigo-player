@@ -26,6 +26,8 @@ interface State {
 }
 
 export class StateExtension extends Module {
+  public name: string = 'StateExtension';
+
   private state: State = {
     ready: false,
     videoSessionStarted: false,

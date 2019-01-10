@@ -5,6 +5,8 @@ import { Events } from '@src/types';
 const startTime = performance.now();
 
 export class BenchmarkExtension extends Module {
+  public name: string = 'BenchmarkExtension';
+
   public startupTimeExtension: number;
 
   public startupTimePlayer: number;

@@ -4,7 +4,7 @@ import { EventCallback, EventData, IModule } from '@src/types';
 
 @Hookable
 export class Module implements IModule {
-  public name = 'unknown';
+  public name = 'Unknown';
 
   public hooks: any;
 

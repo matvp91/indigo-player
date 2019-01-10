@@ -21,4 +21,8 @@ export class Media extends Module implements IMedia {
   public setVolume(volume: number) {
     this.instance.player.setVolume(volume);
   }
+
+  public setSubtitle(srclang: string) {
+    this.instance.player.setSubtitle(srclang);
+  }
 }

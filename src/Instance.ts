@@ -20,6 +20,7 @@ import {
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';
 import EventEmitter from 'eventemitter3';
+import find from 'lodash/find';
 
 export class Instance implements IInstance {
   /**
@@ -70,7 +71,7 @@ export class Instance implements IInstance {
     this.init(config);
   }
 
-  public createContainers(element: HTMLElement) {
+  private createContainers(element: HTMLElement) {
     this.container = document.createElement('div');
     this.container.classList.add('ig-container');
 
@@ -91,7 +92,7 @@ export class Instance implements IInstance {
     element.appendChild(this.container);
   }
 
-  public async init(config: Config) {
+  private async init(config: Config) {
     this.emitter = new EventEmitter();
     this.env = await getEnv();
 
@@ -158,6 +159,10 @@ export class Instance implements IInstance {
     this.controller.setVolume(volume);
   }
 
+  public setSubtitle(srclang: string) {
+    this.controller.setSubtitle(srclang);
+  }
+
   public setError(error: PlayerError) {
     this.controller.unload();
     this.emit(Events.ERROR, {
@@ -187,5 +192,25 @@ export class Instance implements IInstance {
     }
 
     this.container.remove();
+  }
+
+  public getStats() {
+    return {
+      controller: [this.controller.name, this.controller],
+      media: [this.media.name, this.media],
+      player: [this.player.name, this.player],
+      extensions: this.extensions.map(extension => [extension.name, extension]),
+    };
+  }
+
+  public getModule(name: string): Module {
+    const modules = [
+      ...this.extensions,
+      this.controller,
+      this.media,
+      this.player,
+    ];
+
+    return find(modules, { name });
   }
 }
