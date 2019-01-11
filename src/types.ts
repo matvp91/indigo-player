@@ -57,6 +57,7 @@ export interface Config {
   autoplay: boolean;
   sources: Format[];
   showNativeControls: boolean;
+  ignorePolyfills: boolean;
   freewheel?: {
     clientSide: boolean;
     server: string;

@@ -1105,7 +1105,7 @@ core-js@^2.4.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.1.tgz#87416ae817de957a3f249b3b5ca475d4aaed6042"
 
-core-js@^2.5.0:
+core-js@^2.5.0, core-js@^2.5.7:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.2.tgz#267988d7268323b349e20b4588211655f0e83944"
 
@@ -5398,6 +5398,12 @@ ts-jest@^23.10.5:
     resolve "1.x"
     semver "^5.5"
     yargs-parser "10.x"
+
+ts-polyfill@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ts-polyfill/-/ts-polyfill-3.0.1.tgz#484aac900273831782f44b32eb32e478b27d2908"
+  dependencies:
+    core-js "^2.5.7"
 
 tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"

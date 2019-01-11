@@ -68,6 +68,8 @@ export class Instance implements IInstance {
 
     this.createContainers(element);
 
+    this.emitter = new EventEmitter();
+
     this.init(config);
   }
 
@@ -176,7 +178,10 @@ export class Instance implements IInstance {
   }
 
   private async init(config: Config) {
-    this.emitter = new EventEmitter();
+    if (!config.ignorePolyfills) {
+      await import('ts-polyfill');
+    }
+
     this.env = await getEnv();
 
     this.controller = await createFirstSupported<Controller>(
