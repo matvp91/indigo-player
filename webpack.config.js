@@ -1,7 +1,9 @@
+const webpack = require('webpack');
 const path = require('path');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const pkg = require('./package.json');
 
 function createWebpackConfig(build, argv) {
   const isProduction = argv.mode === 'production';
@@ -27,7 +29,11 @@ function createWebpackConfig(build, argv) {
         new TsConfigPathsPlugin(),
       ],
     },
-    plugins: [],
+    plugins: [
+      new webpack.DefinePlugin({
+        VERSION: JSON.stringify(pkg.version),
+      }),
+    ],
   };
 
   if (isProduction) {
@@ -53,7 +59,7 @@ function createWebpackConfig(build, argv) {
       config.entry = 'src/index.ts';
       config.output = {
         path: path.resolve(__dirname, 'lib'),
-        filename: 'indigo-player.js',
+        filename: `${pkg.name}.js`,
         chunkFilename: '[name].[chunkhash].js',
         libraryTarget: 'umd',
       };

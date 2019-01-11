@@ -2,6 +2,13 @@
 
 **indigo-player** is an **extensible**, **modern**, JavaScript player. With our module system, it's childsplay for developers to add their own logic. Whether it's ads, custom business rules or supporting a new stream format, this documentation should get you started in no time.
 
+## Hosting
+
+* unpkg.com: https://unpkg.com/indigo-player/lib/indigo-player.js
+* by using your own host:
+  * 1) Let's say you host it at *https://mysite.com/js/indigo-player.js*,
+  * 2) Make sure you set *IndigoPlayer.setChunksPath('https://mysite.com/js/')** before calling `init(...)` as the chunks path.
+
 ## Basic example
 
 The example below will load a simple MP4 file, and attempt to autoplay it. In order to interact with the player, you can use the `player` object returned when initializing indigo-player.

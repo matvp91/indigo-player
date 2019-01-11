@@ -1,10 +1,10 @@
 import { Player } from '@src/player/Player';
 import {
+  CaptionsChangeEventData,
   Events,
   ReadyEventData,
   TimeUpdateEventData,
   VolumeChangeEventData,
-  CaptionsChangeEventData,
 } from '@src/types';
 
 export class HTML5Player extends Player {

@@ -71,74 +71,14 @@ export class Instance implements IInstance {
     this.init(config);
   }
 
-  private createContainers(element: HTMLElement) {
-    this.container = document.createElement('div');
-    this.container.classList.add('ig-container');
-
-    this.playerContainer = document.createElement('div');
-    this.playerContainer.classList.add('ig-player');
-    this.container.appendChild(this.playerContainer);
-
-    this.adsContainer = document.createElement('div');
-    this.adsContainer.classList.add('ig-ads');
-    this.adsContainer.style.display = 'none';
-    this.container.appendChild(this.adsContainer);
-
-    this.uiContainer = document.createElement('div');
-    this.uiContainer.classList.add('ig-ui');
-    this.uiContainer.style.display = 'none';
-    this.container.appendChild(this.uiContainer);
-
-    element.appendChild(this.container);
-  }
-
-  private async init(config: Config) {
-    this.emitter = new EventEmitter();
-    this.env = await getEnv();
-
-    this.controller = await createFirstSupported<Controller>(
-      ModuleLoaderTypes.CONTROLLER,
-      this,
-      this.config,
-    );
-    await this.controller.boot();
-
-    this.extensions = await createAllSupported<Module>(
-      ModuleLoaderTypes.EXTENSION,
-      this,
-      this.config,
-    );
-
-    this.player = await createFirstSupported<Player>(
-      ModuleLoaderTypes.PLAYER,
-      this,
-    );
-
-    const [format, media] = await selectMedia(this, config.sources);
-
-    if (!format) {
-      this.setError(new PlayerError(ErrorCodes.NO_SUPPORTED_FORMAT_FOUND));
-      return;
-    }
-
-    this.format = format;
-    this.media = media;
-
-    await this.controller.load();
-
-    // Now that we know we can autoplay, actually do it.
-    if (this.canAutoplay()) {
-      this.once(Events.PLAYER_STATE_READY, () => this.play());
-    }
-
-    this.emit(Events.READY);
-  }
-
   public on = (name: string, callback: EventCallback) =>
     this.emitter.on(name, callback);
 
   public once = (name: string, callback: EventCallback) =>
     this.emitter.once(name, callback);
+
+  public removeListener = (name: string, callback: EventCallback) =>
+    this.emitter.removeListener(name, callback);
 
   public emit = (name: string, eventData?: EventData) =>
     this.emitter.emit(name, eventData);
@@ -212,5 +152,68 @@ export class Instance implements IInstance {
     ];
 
     return find(modules, { name });
+  }
+
+  private createContainers(element: HTMLElement) {
+    this.container = document.createElement('div');
+    this.container.classList.add('ig-container');
+
+    this.playerContainer = document.createElement('div');
+    this.playerContainer.classList.add('ig-player');
+    this.container.appendChild(this.playerContainer);
+
+    this.adsContainer = document.createElement('div');
+    this.adsContainer.classList.add('ig-ads');
+    this.adsContainer.style.display = 'none';
+    this.container.appendChild(this.adsContainer);
+
+    this.uiContainer = document.createElement('div');
+    this.uiContainer.classList.add('ig-ui');
+    this.uiContainer.style.display = 'none';
+    this.container.appendChild(this.uiContainer);
+
+    element.appendChild(this.container);
+  }
+
+  private async init(config: Config) {
+    this.emitter = new EventEmitter();
+    this.env = await getEnv();
+
+    this.controller = await createFirstSupported<Controller>(
+      ModuleLoaderTypes.CONTROLLER,
+      this,
+      this.config,
+    );
+    await this.controller.boot();
+
+    this.extensions = await createAllSupported<Module>(
+      ModuleLoaderTypes.EXTENSION,
+      this,
+      this.config,
+    );
+
+    this.player = await createFirstSupported<Player>(
+      ModuleLoaderTypes.PLAYER,
+      this,
+    );
+
+    const [format, media] = await selectMedia(this, config.sources);
+
+    if (!format) {
+      this.setError(new PlayerError(ErrorCodes.NO_SUPPORTED_FORMAT_FOUND));
+      return;
+    }
+
+    this.format = format;
+    this.media = media;
+
+    await this.controller.load();
+
+    // Now that we know we can autoplay, actually do it.
+    if (this.canAutoplay()) {
+      this.once(Events.PLAYER_STATE_READY, () => this.play());
+    }
+
+    this.emit(Events.READY);
   }
 }
