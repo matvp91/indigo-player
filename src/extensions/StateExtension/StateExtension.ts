@@ -1,8 +1,8 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
+import { PlayerError } from '@src/PlayerError';
 import { Events, StateChangeEventData } from '@src/types';
 import { AdBreakType } from '@src/types';
-import { PlayerError } from '@src/PlayerError';
 import produce from 'immer';
 import find from 'lodash/find';
 

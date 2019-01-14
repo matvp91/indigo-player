@@ -2,8 +2,8 @@ import { BaseControllerLoader } from '@src/controller/BaseController/BaseControl
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
 import { CaptionsExtensionLoader } from '@src/extensions/CaptionsExtension/CaptionsExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
-import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
+import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
 import { Instance } from '@src/Instance';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';

@@ -9,7 +9,7 @@
     "quotemark": [true, "single"],
     "object-literal-sort-keys": false,
     "no-empty": false,
-    "interface-over-type-literal": false,
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }

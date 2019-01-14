@@ -3,12 +3,12 @@ import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import {
   Ad,
-  AdBreak,
   AdBreakEventData,
   AdBreaksEventData,
   AdBreakType,
   AdEventData,
   Events,
+  FreeWheelAdBreak,
   TimeUpdateEventData,
 } from '@src/types';
 import find from 'lodash/find';
@@ -27,9 +27,9 @@ export class FreeWheelExtension extends Module {
 
   private adsRequested: boolean = false;
 
-  private adBreaks: AdBreak[] = [];
+  private adBreaks: FreeWheelAdBreak[] = [];
 
-  private currentAdBreak: AdBreak;
+  private currentAdBreak: FreeWheelAdBreak;
 
   private currentAd: Ad;
 
@@ -218,7 +218,7 @@ export class FreeWheelExtension extends Module {
             hasBeenWatched: false,
             maxAds: slot.getAdCount(),
             freewheelSlot: slot,
-          } as AdBreak),
+          } as FreeWheelAdBreak),
       );
     }
 
@@ -226,7 +226,9 @@ export class FreeWheelExtension extends Module {
       adBreaks: this.adBreaks,
     } as AdBreaksEventData);
 
-    const preroll: AdBreak = find(this.adBreaks, { type: AdBreakType.PREROLL });
+    const preroll: FreeWheelAdBreak = find(this.adBreaks, {
+      type: AdBreakType.PREROLL,
+    });
     if (preroll) {
       this.playAdBreak(preroll);
     } else {
@@ -304,7 +306,7 @@ export class FreeWheelExtension extends Module {
   }
 
   private onPlayerTimeUpdate({ currentTime }: TimeUpdateEventData) {
-    const midroll: AdBreak = find(
+    const midroll: FreeWheelAdBreak = find(
       this.adBreaks,
       adBreak =>
         adBreak.type === AdBreakType.MIDROLL &&
@@ -318,7 +320,7 @@ export class FreeWheelExtension extends Module {
   }
 
   private onPlayerEnded() {
-    const postroll: AdBreak = find(
+    const postroll: FreeWheelAdBreak = find(
       this.adBreaks,
       adBreak =>
         adBreak.type === AdBreakType.POSTROLL && !adBreak.hasBeenWatched,
@@ -329,13 +331,13 @@ export class FreeWheelExtension extends Module {
     }
   }
 
-  private slotToAdBreak(slot: any): AdBreak {
+  private slotToAdBreak(slot: any): FreeWheelAdBreak {
     return find(this.adBreaks, {
       id: slot.getCustomId(),
     });
   }
 
-  private playAdBreak(adBreak: AdBreak) {
+  private playAdBreak(adBreak: FreeWheelAdBreak) {
     try {
       adBreak.freewheelSlot.play();
     } catch (error) {

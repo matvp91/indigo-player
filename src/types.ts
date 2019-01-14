@@ -68,8 +68,15 @@ export interface AdBreak {
   type: AdBreakType;
   startsAt: number;
   hasBeenWatched: boolean;
+}
+
+export interface FreeWheelAdBreak extends AdBreak {
   maxAds: number;
   freewheelSlot?: any;
+}
+
+export interface GoogleIMAAdBreak extends AdBreak {
+  googleIMAAd?: any;
 }
 
 export interface Ad {
