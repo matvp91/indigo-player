@@ -1,0 +1,40 @@
+.ig-ui--view--controls {
+  .ig-ui--controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+
+    &:before {
+      content: '';
+      position: absolute;
+      background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: -20px;
+      z-index: -1;
+    }
+  }
+
+  .ig-ui--controls--buttons {
+    > button {
+      padding-bottom: 6px;
+
+      &:first-child {
+        padding-left: 12px;
+      }
+
+      &:last-child {
+        padding-right: 12px;
+      }
+    }
+  }
+
+  display: none; /* TODO: MAKE NONE */
+
+  .ig-ui--active & {
+    display: block;
+  }
+}

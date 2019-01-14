@@ -5,7 +5,7 @@ import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
 import { Player } from '@src/player/Player';
 import { PlayerError } from '@src/PlayerError';
 import { selectMedia } from '@src/selectMedia';
-import '@src/styles.css';
+import '@src/styles.scss';
 import {
   Config,
   Env,

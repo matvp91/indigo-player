@@ -18,6 +18,7 @@ import {
   IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
+import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
 
 const modules: Array<IModuleLoader<Module>> = [
   BaseControllerLoader,
@@ -34,6 +35,8 @@ const modules: Array<IModuleLoader<Module>> = [
   StateExtensionLoader,
   CaptionsExtensionLoader,
   GoogleIMAExtensionLoader,
+
+  UiExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(

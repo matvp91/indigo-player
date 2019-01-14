@@ -1,0 +1,16 @@
+.ig-ui--view--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ig-ui-icon--spinner {
+    font-size: 28px;
+    animation: spin 2000ms linear infinite;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
