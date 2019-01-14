@@ -1,6 +1,5 @@
 import { Player } from '@src/player/Player';
 import {
-  CaptionsChangeEventData,
   Events,
   ReadyEventData,
   TimeUpdateEventData,
@@ -89,16 +88,5 @@ export class HTML5Player extends Player {
 
   public setVolume(volume: number) {
     this.mediaElement.volume = volume;
-  }
-
-  public setSubtitle(srclang: string) {
-    for (let i = 0; i < this.mediaElement.textTracks.length; i++) {
-      const track = this.mediaElement.textTracks[i];
-      track.mode = track.language === srclang ? 'showing' : 'hidden';
-    }
-
-    this.emit(Events.PLAYER_STATE_CAPTIONSCHANGE, {
-      srclang,
-    } as CaptionsChangeEventData);
   }
 }

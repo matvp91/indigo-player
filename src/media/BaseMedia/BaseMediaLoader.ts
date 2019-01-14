@@ -3,7 +3,7 @@ import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
 import {
   Format,
   FormatTypes,
-  ModuleLoader,
+  IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
 
@@ -22,4 +22,4 @@ export const BaseMediaLoader = {
     }
     return false;
   },
-} as ModuleLoader<BaseMedia>;
+} as IModuleLoader<BaseMedia>;

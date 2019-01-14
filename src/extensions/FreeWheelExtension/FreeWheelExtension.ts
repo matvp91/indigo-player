@@ -25,7 +25,7 @@ export class FreeWheelExtension extends Module {
 
   private adContext: any;
 
-  private adsRequested: boolean;
+  private adsRequested: boolean = false;
 
   private adBreaks: AdBreak[] = [];
 
@@ -34,6 +34,8 @@ export class FreeWheelExtension extends Module {
   private currentAd: Ad;
 
   private adSequenceIndex: number;
+
+  private adContainer: HTMLElement;
 
   constructor(instance: Instance) {
     super(instance);
@@ -128,13 +130,20 @@ export class FreeWheelExtension extends Module {
     this.mediaElement.addEventListener('waiting', () => {
       this.emit(Events.ADBREAK_STATE_BUFFERING);
     });
+
+    this.adContainer.appendChild(this.mediaElement);
   }
 
   public onReady() {
+    this.adContainer = document.createElement('div');
+    this.adContainer.style.width = '100%';
+    this.adContainer.style.height = '100%';
+    this.adContainer.style.display = 'none';
+    this.adContainer.id = 'fwAdsContainer';
+    this.instance.adsContainer.appendChild(this.adContainer);
+
     // Create ads specific media element.
     this.createMediaElement();
-
-    this.instance.adsContainer.appendChild(this.mediaElement);
 
     const { AdManager }: { AdManager: any } = this.sdk;
     this.adManager = new AdManager();
@@ -191,8 +200,7 @@ export class FreeWheelExtension extends Module {
       }
     });
 
-    this.instance.adsContainer.id = 'freewheelAdsContainer';
-    this.adContext.registerVideoDisplayBase(this.instance.adsContainer.id);
+    this.adContext.registerVideoDisplayBase(this.adContainer.id);
   }
 
   public onAdRequestComplete(event) {
@@ -265,7 +273,7 @@ export class FreeWheelExtension extends Module {
       this.instance.media.play();
     }
 
-    this.instance.adsContainer.style.display = 'none';
+    this.adContainer.style.display = 'none';
   }
 
   private onAdImpression(event) {
@@ -333,6 +341,6 @@ export class FreeWheelExtension extends Module {
     } catch (error) {
       this.instance.media.play();
     }
-    this.instance.adsContainer.style.display = 'block';
+    this.adContainer.style.display = 'block';
   }
 }

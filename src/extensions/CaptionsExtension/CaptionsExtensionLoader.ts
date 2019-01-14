@@ -1,6 +1,6 @@
 import { CaptionsExtension } from '@src/extensions/CaptionsExtension/CaptionsExtension';
 import { Instance } from '@src/Instance';
-import { Config, ModuleLoader, ModuleLoaderTypes } from '@src/types';
+import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
 
 export const CaptionsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
@@ -10,4 +10,4 @@ export const CaptionsExtensionLoader = {
   isSupported: ({ config }: { config: Config }): boolean => {
     return !!config.captions;
   },
-} as ModuleLoader<CaptionsExtension>;
+} as IModuleLoader<CaptionsExtension>;

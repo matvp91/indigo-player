@@ -1,5 +1,5 @@
 import { Module } from '@src/Module';
-import { Format, IMedia } from '@src/types';
+import { IMedia } from '@src/types';
 
 export class Media extends Module implements IMedia {
   public async load() {}
@@ -20,9 +20,5 @@ export class Media extends Module implements IMedia {
 
   public setVolume(volume: number) {
     this.instance.player.setVolume(volume);
-  }
-
-  public setSubtitle(srclang: string) {
-    this.instance.player.setSubtitle(srclang);
   }
 }

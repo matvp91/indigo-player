@@ -15,6 +15,4 @@ export class Player extends Module implements IPlayer {
   public setVolume(volume: number) {}
 
   public setSource(src: string) {}
-
-  public setSubtitle(srclang: string) {}
 }

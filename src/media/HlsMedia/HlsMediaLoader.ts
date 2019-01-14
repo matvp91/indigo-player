@@ -3,7 +3,7 @@ import { Media } from '@src/media/Media';
 import {
   Format,
   FormatTypes,
-  ModuleLoader,
+  IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
 import { isSupported } from 'hls.js/src/is-supported';
@@ -31,4 +31,4 @@ export const HlsMediaLoader = {
 
     return true;
   },
-} as ModuleLoader<Media>;
+} as IModuleLoader<Media>;

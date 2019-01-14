@@ -4,7 +4,7 @@ import { Media } from '@src/media/Media';
 import {
   Format,
   FormatTypes,
-  ModuleLoader,
+  IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
 import { getDrmSupport } from '@src/utils/getDrmSupport';
@@ -35,4 +35,4 @@ export const DashMediaLoader = {
 
     return true;
   },
-} as ModuleLoader<Media>;
+} as IModuleLoader<Media>;

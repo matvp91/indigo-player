@@ -4,11 +4,12 @@ import { Player } from '@src/player/Player';
 import { PlayerError } from '@src/PlayerError';
 import { ListenerFn } from 'eventemitter3';
 
-// GLOBALS
-declare global {
-  interface Window {
-    ActiveXObject: any;
-  }
+export enum FormatTypes {
+  MP4 = 'mp4',
+  WEBM = 'webm',
+  MOV = 'mov',
+  DASH = 'dash',
+  HLS = 'hls',
 }
 
 export interface Format {
@@ -23,6 +24,37 @@ export interface Format {
     };
   };
 }
+
+export interface Caption {
+  label: string;
+  srclang: string;
+  src: string;
+}
+
+export type Cuepoint = 'preroll' | 'postroll' | number;
+
+export interface Config {
+  autoplay: boolean;
+  sources: Format[];
+  showNativeControls: boolean;
+  ignorePolyfills: boolean;
+  freewheel?: {
+    clientSide: boolean;
+    server: string;
+    videoAsset: string;
+    duration: number;
+    network: number;
+    siteSection: string;
+    profile: string;
+    cuepoints: Cuepoint[];
+  };
+  googleIMA?: {
+    src: string;
+  };
+  captions?: Caption[];
+}
+
+// ADS
 
 export enum AdBreakType {
   PREROLL = 'preroll',
@@ -45,31 +77,7 @@ export interface Ad {
   freewheelAdInstance?: any;
 }
 
-export type Cuepoint = AdBreakType | number;
-
-export interface CaptionConfig {
-  label: string;
-  srclang: string;
-  src: string;
-}
-
-export interface Config {
-  autoplay: boolean;
-  sources: Format[];
-  showNativeControls: boolean;
-  ignorePolyfills: boolean;
-  freewheel?: {
-    clientSide: boolean;
-    server: string;
-    videoAsset: string;
-    duration: number;
-    network: number;
-    siteSection: string;
-    profile: string;
-    cuepoints: Cuepoint[];
-  };
-  captions?: CaptionConfig[];
-}
+// Env
 
 export interface Env {
   // Browser support
@@ -85,13 +93,7 @@ export interface Env {
   canAutoplay: boolean;
 }
 
-export enum FormatTypes {
-  MP4 = 'mp4',
-  WEBM = 'webm',
-  MOV = 'mov',
-  DASH = 'dash',
-  HLS = 'hls',
-}
+// Events
 
 export enum Events {
   ERROR = 'error', // An unrecoverable error occured
@@ -143,59 +145,56 @@ export enum Events {
   STATE_AD_STARTED = 'state:ad-started',
   STATE_AD_ENDED = 'state:ad-ended',
   STATE_ENDED = 'state:ended',
-}
-
-export enum ErrorCodes {
-  NO_SUPPORTED_FORMAT_FOUND = 1001,
+  STATE_ERROR = 'state:error',
 }
 
 export type EventCallback = ListenerFn;
 
-export interface TimeUpdateEventData {
+export type TimeUpdateEventData = {
   currentTime: number;
-}
+};
 
-export interface VolumeChangeEventData {
+export type VolumeChangeEventData = {
   volume: number;
-}
+};
 
-export interface ShakaInstanceEventData {
+export type ShakaInstanceEventData = {
   shaka: any;
   player: any;
-}
+};
 
-export interface ErrorEventData {
+export type ErrorEventData = {
   error: PlayerError;
-}
+};
 
-export interface AdBreaksEventData {
+export type AdBreaksEventData = {
   adBreaks: AdBreak[];
-}
+};
 
-export interface AdBreakEventData {
+export type AdBreakEventData = {
   adBreak: AdBreak;
-}
+};
 
-export interface AdEventData {
+export type AdEventData = {
   ad: Ad;
-}
+};
 
-export interface FullscreenEventData {
+export type FullscreenEventData = {
   fullscreen: boolean;
-}
+};
 
-export interface ReadyEventData {
+export type ReadyEventData = {
   duration: number;
-}
+};
 
-export interface StateChangeEventData {
+export type StateChangeEventData = {
   state: any;
   prevState: any;
-}
+};
 
-export interface CaptionsChangeEventData {
+export type CaptionsChangeEventData = {
   srclang: string;
-}
+};
 
 export type EventData =
   | TimeUpdateEventData
@@ -210,9 +209,14 @@ export type EventData =
   | AdEventData
   | CaptionsChangeEventData;
 
-/**
- * Modules
- */
+// Errors
+
+export enum ErrorCodes {
+  NO_SUPPORTED_FORMAT_FOUND = 1001,
+}
+
+// Modules
+
 export enum ModuleLoaderTypes {
   EXTENSION,
   CONTROLLER,
@@ -220,7 +224,7 @@ export enum ModuleLoaderTypes {
   PLAYER,
 }
 
-export interface ModuleLoader<T> {
+export interface IModuleLoader<T> {
   type: ModuleLoaderTypes;
   create(instance: Instance): T | Promise<T>;
   isSupported(
@@ -253,7 +257,6 @@ export interface IController extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
-  setSubtitle(srclang: string);
 }
 
 export interface IPlayer extends IModule {
@@ -266,7 +269,6 @@ export interface IPlayer extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
-  setSubtitle(srclang: string);
 }
 
 export interface IMedia extends IModule {
@@ -277,7 +279,6 @@ export interface IMedia extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
-  setSubtitle(srclang: string);
 }
 
 export interface IInstance {

@@ -33,8 +33,4 @@ export class Controller extends Module implements IController {
   public setVolume(volume: number) {
     this.instance.media.setVolume(volume);
   }
-
-  public setSubtitle(srclang: string) {
-    this.instance.media.setSubtitle(srclang);
-  }
 }

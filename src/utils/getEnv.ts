@@ -12,7 +12,8 @@ export async function getEnv(): Promise<Env> {
   const isEdge: boolean = /edge/i.test(userAgent);
 
   const isIE: boolean =
-    Boolean(window.ActiveXObject) || /trident.*rv:1\d/i.test(userAgent);
+    Boolean((window as any).ActiveXObject) ||
+    /trident.*rv:1\d/i.test(userAgent);
 
   const isChrome: boolean = /chrome/i.test(userAgent) && !isEdge;
 

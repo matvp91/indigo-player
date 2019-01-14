@@ -1,6 +1,6 @@
 import { BenchmarkExtension } from '@src/extensions/BenchmarkExtension/BenchmarkExtension';
 import { Instance } from '@src/Instance';
-import { Config, ModuleLoader, ModuleLoaderTypes } from '@src/types';
+import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
 
 export const BenchmarkExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
@@ -10,4 +10,4 @@ export const BenchmarkExtensionLoader = {
   isSupported: ({ config }: { config: Config }): boolean => {
     return true;
   },
-} as ModuleLoader<BenchmarkExtension>;
+} as IModuleLoader<BenchmarkExtension>;

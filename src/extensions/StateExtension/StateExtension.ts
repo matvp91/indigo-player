@@ -2,6 +2,7 @@ import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { Events, StateChangeEventData } from '@src/types';
 import { AdBreakType } from '@src/types';
+import { PlayerError } from '@src/PlayerError';
 import produce from 'immer';
 import find from 'lodash/find';
 
@@ -23,6 +24,8 @@ interface State {
   adBreak: any;
   adBreakCurrentTime: number;
   ad: any;
+
+  error: PlayerError;
 }
 
 export class StateExtension extends Module {
@@ -46,6 +49,8 @@ export class StateExtension extends Module {
     adBreak: null,
     adBreakCurrentTime: null,
     ad: null,
+
+    error: null,
   };
 
   constructor(instance: Instance) {
@@ -150,6 +155,11 @@ export class StateExtension extends Module {
         setEnded();
       }
     });
+
+    const setError = this.dispatch((draft, data) => {
+      draft.error = data.error;
+    }, Events.STATE_ERROR);
+    this.on(Events.ERROR, setError);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

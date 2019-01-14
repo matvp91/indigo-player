@@ -1,7 +1,7 @@
 import { Instance } from '@src/Instance';
+import { PlayerError } from '@src/PlayerError';
 import { EventCallback, EventData } from '@src/types';
 import { createFunctionFn } from '@src/utils/defineProperty';
-import { PlayerError } from '@src/PlayerError';
 
 /**
  * Defines the public API, this is the return value of init().
@@ -49,9 +49,6 @@ export function createAPI(instance: Instance) {
 
     // Set the volume
     ['setVolume', (volume: number) => instance.setVolume(volume)],
-
-    // Set a subtitle
-    ['setSubtitle', (srclang: string) => instance.setSubtitle(srclang)],
 
     // Set a fatal error
     ['setError', (error: PlayerError) => instance.setError(error)],

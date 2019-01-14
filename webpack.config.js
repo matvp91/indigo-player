@@ -81,7 +81,7 @@ function createWebpackConfig(build, argv) {
         template: path.resolve(__dirname, 'dev/template.html'),
       }));
       config.devServer = {
-        contentBase: './lib',
+        contentBase: './dev',
       };
       break;
   }

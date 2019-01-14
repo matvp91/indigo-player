@@ -101,10 +101,6 @@ export class Instance implements IInstance {
     this.controller.setVolume(volume);
   }
 
-  public setSubtitle(srclang: string) {
-    this.controller.setSubtitle(srclang);
-  }
-
   public setError(error: PlayerError) {
     this.controller.unload();
     this.emit(Events.ERROR, {
@@ -166,12 +162,10 @@ export class Instance implements IInstance {
 
     this.adsContainer = document.createElement('div');
     this.adsContainer.classList.add('ig-ads');
-    this.adsContainer.style.display = 'none';
     this.container.appendChild(this.adsContainer);
 
     this.uiContainer = document.createElement('div');
     this.uiContainer.classList.add('ig-ui');
-    this.uiContainer.style.display = 'none';
     this.container.appendChild(this.uiContainer);
 
     element.appendChild(this.container);

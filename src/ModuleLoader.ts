@@ -2,6 +2,7 @@ import { BaseControllerLoader } from '@src/controller/BaseController/BaseControl
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
 import { CaptionsExtensionLoader } from '@src/extensions/CaptionsExtension/CaptionsExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
+import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
 import { Instance } from '@src/Instance';
@@ -14,11 +15,11 @@ import {
   EventCallback,
   EventData,
   IModule,
-  ModuleLoader,
+  IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
 
-const modules: Array<ModuleLoader<Module>> = [
+const modules: Array<IModuleLoader<Module>> = [
   BaseControllerLoader,
 
   BaseMediaLoader,
@@ -32,6 +33,7 @@ const modules: Array<ModuleLoader<Module>> = [
   FullscreenExtensionLoader,
   StateExtensionLoader,
   CaptionsExtensionLoader,
+  GoogleIMAExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(
@@ -68,6 +70,6 @@ export async function createAllSupported<T>(
   return instances;
 }
 
-export function addModuleLoader(mod: ModuleLoader<Module>) {
+export function addModuleLoader(mod: IModuleLoader<Module>) {
   modules.push(mod);
 }

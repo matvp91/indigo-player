@@ -1,6 +1,6 @@
 import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
 import { Instance } from '@src/Instance';
-import { Config, ModuleLoader, ModuleLoaderTypes } from '@src/types';
+import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
 
 export const StateExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
@@ -8,4 +8,4 @@ export const StateExtensionLoader = {
   create: async (instance: Instance) => new StateExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
-} as ModuleLoader<StateExtension>;
+} as IModuleLoader<StateExtension>;

@@ -8,7 +8,7 @@ declare var __webpack_public_path__: string;
 declare var VERSION: string;
 
 export const IndigoPlayer = {
-  VERSION: VERSION,
+  VERSION,
   setChunksPath(chunksPath: string) {
     __webpack_public_path__ = chunksPath;
   },

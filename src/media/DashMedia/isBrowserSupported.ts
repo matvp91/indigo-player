@@ -1,8 +1,8 @@
-function MediaSourceEngine_isBrowserSupported(): boolean {
+function mediaSourceEngineSupported(): boolean {
   return !!(window as any).MediaSource && !!MediaSource.isTypeSupported;
 }
 
-function DrmEngine_isBrowserSupported(): boolean {
+function drmEngineSupported(): boolean {
   const basic =
     !!(window as any).MediaKeys &&
     !!(window as any).navigator &&
@@ -21,7 +21,7 @@ export const isBrowserSupported = (): boolean => {
 
   return (
     basic &&
-    MediaSourceEngine_isBrowserSupported() &&
-    DrmEngine_isBrowserSupported()
+    mediaSourceEngineSupported() &&
+    drmEngineSupported()
   );
 };
