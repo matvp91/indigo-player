@@ -19,6 +19,7 @@ export const Main = withState((props: MainProps) => (
     onMouseLeave={props.actions.hideControls}
     onMouseDown={props.actions.showControls}
     className={cx(
+      'igui_main',
       {
         ['igui_state-active']: props.data.visibleControls,
       },
