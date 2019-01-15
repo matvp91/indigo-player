@@ -35,6 +35,7 @@ export type Cuepoint = 'preroll' | 'postroll' | number;
 
 export interface Config {
   autoplay: boolean;
+  ui: boolean;
   sources: Format[];
   showNativeControls: boolean;
   ignorePolyfills: boolean;
@@ -118,6 +119,7 @@ export enum Events {
   PLAYER_STATE_WAITING = 'player-state:waiting',
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
   PLAYER_STATE_CAPTIONSCHANGE = 'player-state:captionschange',
+  PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
 
   // Shaka
   SHAKA_INSTANCE = 'shaka:instance',
@@ -153,6 +155,8 @@ export enum Events {
   STATE_AD_ENDED = 'state:ad-ended',
   STATE_ENDED = 'state:ended',
   STATE_ERROR = 'state:error',
+  STATE_BUFFERED = 'state:buffered',
+  STATE_VOLUMECHANGE = 'state:volume-change',
 }
 
 export type EventCallback = ListenerFn;
@@ -203,6 +207,10 @@ export type CaptionsChangeEventData = {
   srclang: string;
 };
 
+export type BufferedChangeEventData = {
+  percentage: number;
+};
+
 export type EventData =
   | TimeUpdateEventData
   | VolumeChangeEventData
@@ -214,7 +222,8 @@ export type EventData =
   | ReadyEventData
   | StateChangeEventData
   | AdEventData
-  | CaptionsChangeEventData;
+  | CaptionsChangeEventData
+  | BufferedChangeEventData;
 
 // Errors
 

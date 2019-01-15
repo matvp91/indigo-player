@@ -5,7 +5,7 @@ import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
 import { Player } from '@src/player/Player';
 import { PlayerError } from '@src/PlayerError';
 import { selectMedia } from '@src/selectMedia';
-import '@src/styles.css';
+import '@src/styles.scss';
 import {
   Config,
   Env,
@@ -198,7 +198,7 @@ export class Instance implements IInstance {
 
     const [format, media] = await selectMedia(this, config.sources);
 
-    if (!format) {
+    if (!media) {
       this.setError(new PlayerError(ErrorCodes.NO_SUPPORTED_FORMAT_FOUND));
       return;
     }

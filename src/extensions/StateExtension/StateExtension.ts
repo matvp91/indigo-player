@@ -26,6 +26,9 @@ interface State {
   ad: any;
 
   error: PlayerError;
+
+  bufferedPercentage: number;
+  volume: number;
 }
 
 export class StateExtension extends Module {
@@ -51,6 +54,9 @@ export class StateExtension extends Module {
     ad: null,
 
     error: null,
+
+    bufferedPercentage: 0,
+    volume: 1,
   };
 
   constructor(instance: Instance) {
@@ -156,10 +162,20 @@ export class StateExtension extends Module {
       }
     });
 
+    const setBufferedPercentage = this.dispatch((draft, data) => {
+      draft.bufferedPercentage = data.percentage;
+    }, Events.STATE_BUFFERED);
+    this.on(Events.PLAYER_STATE_BUFFEREDCHANGE, setBufferedPercentage);
+
     const setError = this.dispatch((draft, data) => {
       draft.error = data.error;
     }, Events.STATE_ERROR);
     this.on(Events.ERROR, setError);
+
+    const setVolume = this.dispatch((draft, data) => {
+      draft.volume = data.volume;
+    }, Events.STATE_VOLUMECHANGE);
+    this.on(Events.PLAYER_STATE_VOLUMECHANGE, setVolume);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

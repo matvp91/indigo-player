@@ -1,0 +1,57 @@
+$volumebar-height: 3px;
+$volumebar-scrubber-radius: 14px;
+
+.igui_volume {
+  display: flex;
+  align-items: center;
+}
+
+.igui_volume_container {
+  padding: 0 7px;
+}
+
+.igui_volume_collapse {
+  overflow: hidden;
+  width: 0;
+  transition: width 150ms ease-in-out;
+
+  .igui_volume_state-open & {
+    width: 64px;
+  }
+}
+
+.igui_volumebar {
+  cursor: pointer;
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.igui_volumebar_container {
+  height: $volumebar-height;
+  background-color: #fff;
+  position: relative;
+  width: 50px;
+}
+
+.igui_volumebar_progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: #4b0082;
+  height: 100%;
+}
+
+.igui_volumebar_scrubber {
+  width: $volumebar-scrubber-radius;
+  height: $volumebar-scrubber-radius;
+  background-color: #4b0082;
+  border-radius: 100%;
+  position: relative;
+  top: (($volumebar-height / 2) - ($volumebar-scrubber-radius / 2));
+  left: -($volumebar-scrubber-radius / 2);
+}

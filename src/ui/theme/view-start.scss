@@ -1,0 +1,12 @@
+.igui_view_start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+
+  .igui_icon_play {
+    font-size: 28px;
+  }
+}
