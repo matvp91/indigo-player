@@ -38,7 +38,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 <div class="sample-player" data-expose-player="player">
 {
   autoplay: false,
-  showNativeControls: true,
+  ui: true,
   sources: [
     {
       type: 'mp4',
