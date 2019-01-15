@@ -1,5 +1,6 @@
 import { Player } from '@src/player/Player';
 import {
+  BufferedChangeEventData,
   Events,
   ReadyEventData,
   TimeUpdateEventData,
@@ -56,6 +57,13 @@ export class HTML5Player extends Player {
         volume: this.mediaElement.volume,
       } as VolumeChangeEventData);
     });
+
+    this.mediaElement.addEventListener('loadeddata', () =>
+      this.monitorProgress(),
+    );
+    this.mediaElement.addEventListener('progress', () =>
+      this.monitorProgress(),
+    );
   }
 
   public unload() {
@@ -83,10 +91,33 @@ export class HTML5Player extends Player {
   }
 
   public seekTo(time: number) {
+    this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
+      currentTime: time,
+    } as TimeUpdateEventData);
+
     this.mediaElement.currentTime = time;
   }
 
   public setVolume(volume: number) {
     this.mediaElement.volume = volume;
+  }
+
+  private monitorProgress() {
+    const buffered: any = this.mediaElement.buffered;
+    const time: number = this.mediaElement.currentTime;
+    let percentage: number;
+
+    for (let range = 0; range < buffered.length; range += 1) {
+      if (buffered.start(range) <= time && buffered.end(range) > time) {
+        percentage = buffered.end(range) / this.mediaElement.duration;
+        break;
+      }
+    }
+
+    if (percentage !== undefined) {
+      this.emit(Events.PLAYER_STATE_BUFFEREDCHANGE, {
+        percentage,
+      } as BufferedChangeEventData);
+    }
   }
 }

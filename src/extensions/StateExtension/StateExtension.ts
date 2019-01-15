@@ -26,6 +26,8 @@ interface State {
   ad: any;
 
   error: PlayerError;
+
+  bufferedPercentage: number;
 }
 
 export class StateExtension extends Module {
@@ -51,6 +53,8 @@ export class StateExtension extends Module {
     ad: null,
 
     error: null,
+
+    bufferedPercentage: 0,
   };
 
   constructor(instance: Instance) {
@@ -155,6 +159,11 @@ export class StateExtension extends Module {
         setEnded();
       }
     });
+
+    const setBufferedPercentage = this.dispatch((draft, data) => {
+      draft.bufferedPercentage = data.percentage;
+    }, Events.STATE_BUFFERED);
+    this.on(Events.PLAYER_STATE_BUFFEREDCHANGE, setBufferedPercentage);
 
     const setError = this.dispatch((draft, data) => {
       draft.error = data.error;

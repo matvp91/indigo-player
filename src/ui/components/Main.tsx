@@ -17,6 +17,7 @@ export const Main = withState((props: MainProps) => (
     onMouseEnter={props.actions.showControls}
     onMouseMove={props.actions.showControls}
     onMouseLeave={props.actions.hideControls}
+    onMouseDown={props.actions.showControls}
     className={cx(
       'ig-ui--main',
       {

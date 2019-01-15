@@ -33,26 +33,30 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   type: 'mp4',
     //   src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     // },
-    // {
-    //   type: 'dash',
-    //   src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
-    //   drm: {
-    //     widevine: {
-    //       licenseUrl: 'https://widevine-proxy.appspot.com/proxy',
-    //     },
-    //     playready: {
-    //       licenseUrl: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw==',
-    //     },
-    //   },
-    // },
+    {
+      type: 'dash',
+      src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
+      drm: {
+        widevine: {
+          licenseUrl: 'https://widevine-proxy.appspot.com/proxy',
+        },
+        playready: {
+          licenseUrl: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw==',
+        },
+      },
+    },
     // {
     //   type: 'hls',
     //   src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
     // },
-    {
-      type: 'webm',
-      src: 'http://ptgmedia.pearsoncmg.com/imprint_downloads/peachpit/peachpit/downloads/0321793935/media//elephants-dream-medium.webm',
-    },
+    // {
+    //   type: 'webm',
+    //   src: 'http://ptgmedia.pearsoncmg.com/imprint_downloads/peachpit/peachpit/downloads/0321793935/media//elephants-dream-medium.webm',
+    // },
+    // {
+    //   type: 'mp4',
+    //   src: 'http://techslides.com/demos/sample-videos/small.mp4',
+    // },
   ],
   captions: [
     {

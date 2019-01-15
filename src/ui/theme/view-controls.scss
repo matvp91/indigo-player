@@ -1,40 +1,130 @@
+$seekbar-height: 3px;
+$scrubber-radius: 14px;
+
 .ig-ui--view--controls {
-  .ig-ui--controls {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-
-    &:before {
-      content: '';
-      position: absolute;
-      background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: -20px;
-      z-index: -1;
-    }
-  }
-
-  .ig-ui--controls--buttons {
-    > button {
-      padding-bottom: 6px;
-
-      &:first-child {
-        padding-left: 12px;
-      }
-
-      &:last-child {
-        padding-right: 12px;
-      }
-    }
-  }
-
-  display: none; /* TODO: MAKE NONE */
+  display: block; /* TODO: MAKE NONE */
 
   .ig-ui--active & {
     display: block;
   }
+}
+
+.ig-ui--controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: -20px;
+    z-index: -1;
+  }
+
+  .ig-ui--button--controls {
+    padding: 12px 9px;
+  }
+
+  > .ig-ui--button {
+    &:first-child {
+      padding-left: 18px;
+    }
+
+    &:last-child {
+      padding-right: 18px;
+    }
+  }
+
+  > .ig-ui--controls-seekbar {
+    padding: 0 12px;
+    flex-grow: 1;
+  display: flex;
+  align-items: center;
+  }
+}
+
+.ig-ui--seekbar-scrubber {
+  width: $scrubber-radius;
+  height: $scrubber-radius;
+  background-color: #4b0082;
+  border-radius: 100%;
+  position: relative;
+  top: (($seekbar-height / 2) - ($scrubber-radius / 2));
+  left: -($scrubber-radius / 2);
+  transition: transform 100ms linear;
+  transform-origin: center;
+  transform: scale(0);
+
+  .ig-ui--seekbar--active &,
+  .ig-ui--seekbar--seeking & {
+    transform: scale(1);
+  }
+}
+
+.ig-ui--seekbar-hit-area {
+  cursor: pointer;
+  width: 100%;
+}
+
+.ig-ui--seekbar {
+  height: $seekbar-height;
+  background-color: rgba(255, 255, 255, .3);;
+  position: relative;
+  width: 100%;
+
+  .ig-ui--seekbar-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform-origin: left;
+    background-color: #4b0082;
+  }
+
+  .ig-ui--seekbar-active-ahead {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform-origin: left;
+    background-color: rgba(255, 255, 255, .3);
+    z-index: -1;
+  }
+
+  .ig-ui--seekbar-buffered {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform-origin: left;
+    background-color: rgba(255, 255, 255, .3);
+  }
+}
+
+.ig-ui--volumebar {
+  height: 3px;
+  background-color: green;
+  position: relative;
+  width: 100px;
+
+  .ig-ui--volumebar-progress {
+    transform-origin: left;
+    background-color: yellow;
+    height: 100%;
+  }
+}
+
+.ig-ui--volume {
+  display: flex;
+  align-items: center;
 }
