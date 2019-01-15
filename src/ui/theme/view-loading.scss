@@ -1,9 +1,11 @@
-.ig-ui--view--loading {
+.igui_view_loading {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 
-  .ig-ui-icon--spinner {
+  .igui_icon_spinner {
     font-size: 28px;
     animation: spin 2000ms linear infinite;
   }

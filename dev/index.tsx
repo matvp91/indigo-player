@@ -10,6 +10,7 @@ const IndigoPlayer = (window as any).IndigoPlayer;
 
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
+  ui: true,
   // freewheel: {
   //   clientSide: true,
   //   network: 96749,

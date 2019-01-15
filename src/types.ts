@@ -35,6 +35,7 @@ export type Cuepoint = 'preroll' | 'postroll' | number;
 
 export interface Config {
   autoplay: boolean;
+  ui: boolean;
   sources: Format[];
   showNativeControls: boolean;
   ignorePolyfills: boolean;
@@ -155,6 +156,7 @@ export enum Events {
   STATE_ENDED = 'state:ended',
   STATE_ERROR = 'state:error',
   STATE_BUFFERED = 'state:buffered',
+  STATE_VOLUMECHANGE = 'state:volume-change',
 }
 
 export type EventCallback = ListenerFn;

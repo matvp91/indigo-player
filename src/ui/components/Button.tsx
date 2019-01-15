@@ -12,13 +12,8 @@ interface ButtonProps {
 export const Button = (props: ButtonProps) => (
   <button
     onClick={props.onClick}
-    className={cx(
-      'ig-ui--button',
-      {
-         [`ig-ui--button--${props.type}`]: !!props.type,
-      },
-    )}
-   >
+    className="igui_button"
+  >
     {!!props.children && props.children}
     {props.icon && <Icon icon={props.icon} />}
   </button>

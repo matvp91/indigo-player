@@ -12,14 +12,14 @@ interface ControlsViewProps {
 
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
-    <div className="ig-ui--view ig-ui--view--controls">
-      <div className="ig-ui--controls">
+    <div className="igui_view_controls">
+      <div className="igui_container_controls">
         {props.data.paused
           ? <Button type="controls" icon="play" onClick={props.actions.play} />
           : <Button type="controls" icon="pause" onClick={props.actions.pause} />
         }
         <VolumeButton />
-        <div className="ig-ui--controls-seekbar">
+        <div className="igui_container_controls_seekbar">
           <Seekbar />
         </div>
       </div>

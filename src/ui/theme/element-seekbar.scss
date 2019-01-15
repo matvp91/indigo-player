@@ -1,0 +1,66 @@
+$seekbar-height: 3px;
+$seekbar-scrubber-radius: 14px;
+
+.igui_seekbar {
+  cursor: pointer;
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.igui_seekbar_container {
+  height: $seekbar-height;
+  background-color: rgba(255, 255, 255, .3);;
+  position: relative;
+  width: 100%;
+}
+
+.igui_seekbar_progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: #4b0082;
+}
+
+.igui_seekbar_ahead {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: rgba(255, 255, 255, .3);
+  z-index: -1;
+}
+
+.igui_seekbar_buffered {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: rgba(255, 255, 255, .3);
+}
+
+.igui_seekbar_scrubber {
+  width: $seekbar-scrubber-radius;
+  height: $seekbar-scrubber-radius;
+  background-color: #4b0082;
+  border-radius: 100%;
+  position: relative;
+  top: (($seekbar-height / 2) - ($seekbar-scrubber-radius / 2));
+  left: -($seekbar-scrubber-radius / 2);
+  transition: transform 100ms linear;
+  transform-origin: center;
+  transform: scale(0);
+
+  .igui_seekbar_state-active &,
+  .igui_seekbar_state-seeking & {
+    transform: scale(1);
+  }
+}

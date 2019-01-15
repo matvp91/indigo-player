@@ -9,7 +9,7 @@ interface StartViewProps {
 
 export const StartView = withState((props: StartViewProps) => {
   return (
-    <div className="ig-ui--view ig-ui--view--start" onClick={props.actions.play}>
+    <div className="igui_view_start" onClick={props.actions.play}>
       <Icon icon="play" />
     </div>
   );

@@ -17,6 +17,7 @@ interface StateStoreState {
   seekBarWidth: number;
   seekBarPercentage: number;
   isVolumeControlsOpen: boolean;
+  isVolumeSeeking: boolean;
 }
 
 export class StateStore extends React.Component<StateStoreProps, StateStoreState> {
@@ -33,6 +34,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       seekBarPercentage: null,
       isSeekbarActive: false,
       isVolumeControlsOpen: false,
+      isVolumeSeeking: false,
     };
 
     (window as any).addEventListener('mousemove', this.onWindowMouseMove);
@@ -54,7 +56,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
     this.setState({ visibleControls: false });
   };
 
-  setSliderActive = (type: SeekbarTypes) => (event) => { // TODO: Name this setSliderActive
+  setSliderActive = (type: SeekbarTypes) => (event) => {
     event.preventDefault();
 
     const bounding = event.currentTarget.getBoundingClientRect();
@@ -84,10 +86,34 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
     if (type === SeekbarTypes.PROGRESS) {
       this.setState({ isSeeking: true });
     }
+    if (type === SeekbarTypes.VOLUME) {
+      this.setState({ isVolumeSeeking: true });
+    }
+  };
+
+  setVolumeControlsOpen = () => {
+    this.setState({ isVolumeControlsOpen: true });
+  };
+
+  setVolumeControlsClosed = () => {
+    this.setState({ isVolumeControlsOpen: false });
+  };
+
+  toggleMute = () => {
+     if (this.props.player.volume) {
+       this.props.instance.setVolume(0);
+     } else {
+       this.props.instance.setVolume(1);
+     }
   };
 
   onWindowMouseMove = (event) => {
-    if (this.state.isSeekbarActive || this.state.isSeeking) {
+    const shouldMeasure =
+      this.state.isSeekbarActive ||
+      this.state.isSeeking ||
+      this.state.isVolumeSeeking;
+
+    if (shouldMeasure) {
       if (event.preventDefault) {
         event.preventDefault();
       }
@@ -97,16 +123,27 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
 
       percent = Math.min(Math.max(percent, 0), 1);
 
-      this.setState({ seekBarPercentage: percent });
+      if (this.state.isSeekbarActive || this.state.isSeeking) {
+        this.setState({ seekBarPercentage: percent });
+      } else if (this.state.isVolumeSeeking) {
+        this.props.instance.setVolume(percent);
+      }
     }
   };
 
-  onWindowMouseUp = () => {
+  onWindowMouseUp = (event) => {
+    // A click without a mousemove should also register the desired seek percentages.
+    this.onWindowMouseMove({ pageX: event.pageX });
+
     if (this.state.isSeeking) {
       this.props.instance.seekTo(this.props.player.duration * this.state.seekBarPercentage);
       this.setState({ isSeeking: false });
 
       this.showControls();
+    }
+
+    if (this.state.isVolumeSeeking) {
+      this.setState({ isVolumeSeeking: false });
     }
   };
 
@@ -129,6 +166,11 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       progressPercentage = this.state.seekBarPercentage;
     }
 
+    let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
+    if (this.state.isVolumeSeeking) {
+      isVolumeControlsOpen = true;
+    }
+
     return {
       view,
       paused: this.props.player.paused,
@@ -138,7 +180,8 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       isSeeking: this.state.isSeeking,
       progressPercentage,
       bufferedPercentage: this.props.player.bufferedPercentage,
-      volumePercentage: 0.5,
+      volumeBarPercentage: this.props.player.volume,
+      isVolumeControlsOpen,
     };
   }
 
@@ -151,6 +194,9 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       setSliderSeeking: this.setSliderSeeking,
       setSliderActive: this.setSliderActive,
       setSliderInactive: this.setSliderInactive,
+      setVolumeControlsOpen: this.setVolumeControlsOpen,
+      setVolumeControlsClosed: this.setVolumeControlsClosed,
+      toggleMute: this.toggleMute,
     };
   }
 

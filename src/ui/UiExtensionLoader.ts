@@ -7,7 +7,5 @@ export const UiExtensionLoader = {
 
   create: async (instance: Instance) => new UiExtension(instance),
 
-  isSupported: ({ config }: { config: Config }): boolean => {
-    return true;
-  },
+  isSupported: ({ config }: { config: Config }): boolean => !!config.ui,
 } as IModuleLoader<UiExtension>;

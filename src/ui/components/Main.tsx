@@ -19,9 +19,8 @@ export const Main = withState((props: MainProps) => (
     onMouseLeave={props.actions.hideControls}
     onMouseDown={props.actions.showControls}
     className={cx(
-      'ig-ui--main',
       {
-        ['ig-ui--active']: props.data.visibleControls,
+        ['igui_state-active']: props.data.visibleControls,
       },
     )}
   >

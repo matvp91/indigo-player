@@ -7,7 +7,8 @@ export interface IData {
   isSeeking: boolean;
   progressPercentage: number;
   bufferedPercentage: number;
-  volumePercentage: number;
+  volumeBarPercentage: number;
+  isVolumeControlsOpen: boolean;
 }
 
 export interface IActions {
@@ -18,6 +19,9 @@ export interface IActions {
   setSliderSeeking(type: SeekbarTypes);
   setSliderActive(type: SeekbarTypes);
   setSliderInactive(type: SeekbarTypes);
+  setVolumeControlsOpen();
+  setVolumeControlsClosed();
+  toggleMute();
 }
 
 export enum ViewTypes {
