@@ -15,6 +15,8 @@ Highly extensible, modern, JavaScript player. 👊
 
 **Important:** This package is under construction and although it offers a fair amount of features already, this is a work in progress. At the moment, it lacks the proper documentation but with time comes improvement.
 
+<img width="350px" align="center" src="https://raw.githubusercontent.com/matvp91/indigo-player/master/docs/example.gif">
+
 ## Features
 
 * Fluid mp4 playback.
