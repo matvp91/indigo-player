@@ -12,7 +12,7 @@ export const HlsMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
   create: (instance: Instance) =>
-    import('@src/media/HlsMedia/HlsMedia').then(
+    import(/* webpackChunkName: 'HlsMedia' */ '@src/media/HlsMedia/HlsMedia').then(
       ({ HlsMedia }) => new HlsMedia(instance),
     ),
 

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "removeComments": true,
+    "removeComments": false,
     "moduleResolution": "node",
     "noEmit": true,
     "strict": false,

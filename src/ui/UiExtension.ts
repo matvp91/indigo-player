@@ -11,11 +11,6 @@ export class UiExtension extends Module {
   constructor(instance: Instance) {
     super(instance);
 
-    this.onReady();
-    // instance.once(Events.READY, this.onReady.bind(this));
-  }
-
-  public onReady() {
     const container = this.instance.container.querySelector(
       '.ig-ui',
     ) as HTMLElement;

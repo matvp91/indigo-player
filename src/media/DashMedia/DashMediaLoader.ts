@@ -13,7 +13,7 @@ export const DashMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
   create: (instance: Instance) =>
-    import('@src/media/DashMedia/DashMedia').then(
+    import(/* webpackChunkName: 'DashMedia' */ '@src/media/DashMedia/DashMedia').then(
       ({ DashMedia }) => new DashMedia(instance),
     ),
 

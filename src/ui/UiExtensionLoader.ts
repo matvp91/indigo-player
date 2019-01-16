@@ -6,7 +6,7 @@ export const UiExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
   create: (instance: Instance) =>
-    import('@src/ui/UiExtension').then(
+    import(/* webpackChunkName: 'UiExtension' */ '@src/ui/UiExtension').then(
       ({ UiExtension }) => new UiExtension(instance),
     ),
 
