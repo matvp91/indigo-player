@@ -18,7 +18,7 @@ export const VolumeButton = withState((props: VolumeButtonProps) => (
     onMouseEnter={props.actions.setVolumeControlsOpen}
     onMouseLeave={props.actions.setVolumeControlsClosed}
    >
-    <Button icon="volume-up" type="controls" onClick={props.actions.toggleMute} />
+    <Button icon="volume" type="controls" onClick={props.actions.toggleMute} />
     <div className="igui_volume_collapse">
       <div className="igui_volume_container">
         <Slider

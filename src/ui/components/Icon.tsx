@@ -7,7 +7,7 @@ interface IconProps {
 
 const map = name => {
   if (name === 'play') return 'play_arrow';
-  if (name === 'volume-up') return 'volume_up';
+  if (name === 'volume') return 'volume_up';
   return name;
 };
 
