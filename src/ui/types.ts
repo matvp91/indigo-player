@@ -2,9 +2,6 @@ export interface IData {
   paused: boolean;
   view: ViewTypes;
   visibleControls: boolean;
-  seekBarPercentage: number;
-  isSeekbarActive: boolean;
-  isSeeking: boolean;
   progressPercentage: number;
   bufferedPercentage: number;
   volumeBarPercentage: number;
@@ -14,23 +11,18 @@ export interface IData {
 export interface IActions {
   play();
   pause();
+  seekToPercentage(percentage: number);
+  setVolume(volume: number);
   showControls();
   hideControls();
-  setSliderSeeking(type: SeekbarTypes);
-  setSliderActive(type: SeekbarTypes);
-  setSliderInactive(type: SeekbarTypes);
   setVolumeControlsOpen();
   setVolumeControlsClosed();
   toggleMute();
+  toggleFullscreen();
 }
 
 export enum ViewTypes {
   LOADING,
   START,
   CONTROLS,
-}
-
-export enum SeekbarTypes {
-  PROGRESS,
-  VOLUME,
 }

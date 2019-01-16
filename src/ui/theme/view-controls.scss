@@ -26,20 +26,18 @@
   }
 
   .igui_button {
-    font-size: 18px;
-    min-width: 32px;
+    .igui_icon {
+      font-size: 26px;
+    }
+    width: 36px;
+    height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 9px;
   }
 
-  > .igui_button:first-child {
-    padding-left: 18px;
-  }
-
-  > .igui_button:last-child {
-    padding-right: 18px;
+  .igui_button_name-playpause {
+    margin-left: 9px;
   }
 
   .igui_state-active & {

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { withState } from '@src/ui/withState';
-import { IActions, IData, SeekbarTypes } from '@src/ui/types';
+import { IActions, IData } from '@src/ui/types';
+import { Slider } from '@src/ui/components/Slider';
 
 interface SeekbarProps {
   actions: IActions,
@@ -10,23 +11,30 @@ interface SeekbarProps {
 
 export const Seekbar = withState((props: SeekbarProps) => {
   return (
-    <div
+    <Slider
       className="igui_seekbar"
-      onMouseEnter={props.actions.setSliderActive(SeekbarTypes.PROGRESS)}
-      onMouseLeave={props.actions.setSliderInactive(SeekbarTypes.PROGRESS)}
-      onMouseDown={props.actions.setSliderSeeking(SeekbarTypes.PROGRESS)}
+      onSeeked={percentage => props.actions.seekToPercentage(percentage)}
     >
-      <div className={cx('igui_seekbar_container', {
-        'igui_seekbar_state-active': props.data.isSeekbarActive,
-        'igui_seekbar_state-seeking': props.data.isSeeking,
-      })}>
-        <div className="igui_seekbar_buffered" style={{ transform: `scaleX(${props.data.bufferedPercentage})` }} />
-        <div className="igui_seekbar_progress" style={{ transform: `scaleX(${props.data.progressPercentage})` }} />
-        {props.data.isSeekbarActive && !props.data.isSeeking && <div className="igui_seekbar_ahead" style={{ transform: `scaleX(${props.data.seekBarPercentage})` }} />}
-        <div style={{ transform: `translateX(${props.data.progressPercentage * 100}%)` }}>
-          <div className="igui_seekbar_scrubber" />
-        </div>
-      </div>
-    </div>
+      {sliderInfo => {
+        let progressPercentage = props.data.progressPercentage;
+        if (sliderInfo.isSeeking) {
+          progressPercentage = sliderInfo.percentage;
+        }
+
+        return (
+          <div className={cx('igui_seekbar_container', {
+            'igui_seekbar_state-active': sliderInfo.isHover,
+            'igui_seekbar_state-seeking': sliderInfo.isSeeking,
+          })}>
+            <div className="igui_seekbar_buffered" style={{ transform: `scaleX(${props.data.bufferedPercentage})` }} />
+            <div className="igui_seekbar_progress" style={{ transform: `scaleX(${progressPercentage})` }} />
+            {sliderInfo.isHover && !sliderInfo.isSeeking && <div className="igui_seekbar_ahead" style={{ transform: `scaleX(${sliderInfo.percentage})` }} />}
+            <div style={{ transform: `translateX(${progressPercentage * 100}%)` }}>
+              <div className="igui_seekbar_scrubber" />
+            </div>
+          </div>
+        );
+      }}
+    </Slider>
   );
 });

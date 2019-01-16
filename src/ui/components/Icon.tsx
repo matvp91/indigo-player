@@ -5,13 +5,20 @@ interface IconProps {
   icon: string;
 }
 
+const map = name => {
+  if (name === 'play') return 'play_arrow';
+  if (name === 'volume-up') return 'volume_up';
+  return name;
+};
+
 export const Icon = (props: IconProps) => (
   <i className={cx(
-      'fas',
-      `fa-${props.icon}`,
-      'igui_icon',
-      {
-         [`igui_icon_${props.icon}`]: !!props.icon,
-      },
-    )} />
+    'igui_icon',
+    {
+       [`igui_icon_${props.icon}`]: !!props.icon,
+    },
+    'material-icons',
+  )}>
+    {map(props.icon)}
+  </i>
 );
