@@ -16,10 +16,12 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 ```javascript
 <html>
   <body>
+    <div id="playerContainer"></div>
     <script src="https://unpkg.com/indigo-player/lib/indigo-player.js"></script>
     <script>
       const config = {
         autoplay: false,
+        ui: true,
         sources: [
           {
             type: 'mp4',
@@ -28,7 +30,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
         ],
       };
 
-      const element = document.getElementById('player');
+      const element = document.getElementById('playerContainer');
       const player = IndigoPlayer.init(element, config);
     </script>
   </body>
@@ -59,6 +61,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 * **player** - HTML5 video element
 * **ads** - FreeWheel (client-side)
 * **misc** - Fullscreen
+* **misc** - UI
 
 ## Supported browsers
 

@@ -14,7 +14,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <div className="igui_view_controls">
       <div className="igui_container_controls">
-        <Button name="play" icon={props.data.paused ? 'play' : 'pause'} onClick={props.actions.playOrPause} />
+        <Button name="play" icon={props.data.playRequested ? 'pause' : 'play'} onClick={props.actions.playOrPause} />
         <VolumeButton />
         <div className="igui_container_controls_seekbar">
           <Seekbar />

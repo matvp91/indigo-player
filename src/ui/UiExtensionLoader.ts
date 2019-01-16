@@ -5,7 +5,10 @@ import { UiExtension } from '@src/ui/UiExtension';
 export const UiExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: Instance) => new UiExtension(instance),
+  create: (instance: Instance) =>
+    import('@src/ui/UiExtension').then(
+      ({ UiExtension }) => new UiExtension(instance),
+    ),
 
   isSupported: ({ config }: { config: Config }): boolean => !!config.ui,
 } as IModuleLoader<UiExtension>;

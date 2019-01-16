@@ -8,6 +8,7 @@ export interface IData {
   isVolumeControlsOpen: boolean;
   isFullscreen: boolean;
   fullscreenSupported: boolean;
+  playRequested: boolean;
 }
 
 export interface IActions {

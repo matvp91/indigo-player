@@ -93,6 +93,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       isVolumeControlsOpen,
       fullscreenSupported: this.props.player.fullscreenSupported,
       isFullscreen: this.props.player.fullscreen,
+      playRequested: this.props.player.playRequested,
     } as IData;
   }
 
