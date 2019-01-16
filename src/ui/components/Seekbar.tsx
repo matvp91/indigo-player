@@ -14,6 +14,7 @@ export const Seekbar = withState((props: SeekbarProps) => {
     <Slider
       className="igui_seekbar"
       onSeeked={percentage => props.actions.seekToPercentage(percentage)}
+      disabled={!!props.data.adBreakData}
     >
       {sliderInfo => {
         let progressPercentage = props.data.progressPercentage;
@@ -21,8 +22,13 @@ export const Seekbar = withState((props: SeekbarProps) => {
           progressPercentage = sliderInfo.percentage;
         }
 
+        if (props.data.adBreakData) {
+          progressPercentage = props.data.adBreakData.progressPercentage;
+        }
+
         return (
           <div className={cx('igui_seekbar_container', {
+            'igui_seekbar_container_ads': !!props.data.adBreakData,
             'igui_seekbar_state-active': sliderInfo.isHover,
             'igui_seekbar_state-seeking': sliderInfo.isSeeking,
           })}>

@@ -8,6 +8,7 @@ interface SliderInfo {
 
 interface SliderProps {
   className: string;
+  disabled?: boolean;
   children(data: SliderInfo);
   onSeeked?(percentage: number);
   onSeeking?();
@@ -163,6 +164,9 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     return (
       <div
         className={this.props.className}
+        style={{
+          pointerEvents: this.props.disabled ? 'none' : 'all',
+        }}
         ref={ref => {
           this.ref = ref;
         }}

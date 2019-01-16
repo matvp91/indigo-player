@@ -68,6 +68,7 @@ export interface AdBreak {
   id: string;
   type: AdBreakType;
   startsAt: number;
+  duration: number;
   hasBeenWatched: boolean;
 }
 

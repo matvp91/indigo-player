@@ -81,7 +81,14 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       progressPercentage = 0;
     }
 
-    let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
+    const isVolumeControlsOpen = this.state.isVolumeControlsOpen;
+
+    let adBreakData;
+    if (this.props.player.adBreak) {
+      adBreakData = {
+        progressPercentage: this.props.player.adBreakCurrentTime / this.props.player.adBreak.duration,
+      };
+    }
 
     return {
       view,
@@ -94,6 +101,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       fullscreenSupported: this.props.player.fullscreenSupported,
       isFullscreen: this.props.player.fullscreen,
       playRequested: this.props.player.playRequested,
+      adBreakData,
     } as IData;
   }
 

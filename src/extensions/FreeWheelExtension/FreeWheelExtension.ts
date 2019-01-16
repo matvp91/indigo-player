@@ -215,6 +215,7 @@ export class FreeWheelExtension extends Module {
             id: slot.getCustomId(),
             type: slot.getAdUnit(),
             startsAt: slot.getTimePosition(),
+            duration: slot.getTotalDuration(),
             hasBeenWatched: false,
             maxAds: slot.getAdCount(),
             freewheelSlot: slot,

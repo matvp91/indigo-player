@@ -30,7 +30,7 @@ $volumebar-scrubber-radius: 14px;
 
 .igui_volumebar_container {
   height: $volumebar-height;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, .5);
   position: relative;
   width: 50px;
 }
@@ -42,14 +42,14 @@ $volumebar-scrubber-radius: 14px;
   top: 0;
   bottom: 0;
   transform-origin: left;
-  background-color: #4b0082;
+  background-color: #ffffff;
   height: 100%;
 }
 
 .igui_volumebar_scrubber {
   width: $volumebar-scrubber-radius;
   height: $volumebar-scrubber-radius;
-  background-color: #4b0082;
+  background-color: #ffffff;
   border-radius: 100%;
   position: relative;
   top: (($volumebar-height / 2) - ($volumebar-scrubber-radius / 2));

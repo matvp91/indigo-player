@@ -11,17 +11,17 @@ const IndigoPlayer = (window as any).IndigoPlayer;
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
   ui: true,
-  // freewheel: {
-  //   clientSide: true,
-  //   network: 96749,
-  //   server: 'https://demo.v.fwmrm.net/ad/g/1',
-  //   videoAsset: 'DemoVideoGroup.01',
-  //   // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
-  //   duration: 594,
-  //   siteSection: 'DemoSiteGroup.01',
-  //   profile: 'global-js',
-  //   cuepoints: ['preroll', 12, 'postroll'],
-  // },
+  freewheel: {
+    clientSide: true,
+    network: 96749,
+    server: 'https://demo.v.fwmrm.net/ad/g/1',
+    videoAsset: 'DemoVideoGroup.01',
+    // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
+    duration: 594,
+    siteSection: 'DemoSiteGroup.01',
+    profile: 'global-js',
+    cuepoints: ['preroll', 12, 'postroll'],
+  },
   // googleIMA: {
   //   // src: 'https://pubads.g.doubleclick.net/gampad/ads?' +
   //   // 'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +

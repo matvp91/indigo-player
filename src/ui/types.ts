@@ -9,6 +9,9 @@ export interface IData {
   isFullscreen: boolean;
   fullscreenSupported: boolean;
   playRequested: boolean;
+  adBreakData?: {
+    progressPercentage: number;
+  };
 }
 
 export interface IActions {
