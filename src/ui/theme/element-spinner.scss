@@ -1,0 +1,14 @@
+.igui_spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #ffffff;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -73,6 +73,9 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
     if (this.props.player.videoSessionStarted) {
       view = ViewTypes.CONTROLS;
     }
+    if (this.props.player.playRequested && !this.props.player.started) {
+      view = ViewTypes.LOADING;
+    }
 
     let visibleControls = this.state.visibleControls;
 

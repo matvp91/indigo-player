@@ -19,7 +19,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         <div className="igui_container_controls_seekbar">
           <Seekbar />
         </div>
-        <Button name="fullscreen" icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen_exit'} onClick={props.actions.toggleFullscreen} />
+        <Button name="fullscreen" icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit'} onClick={props.actions.toggleFullscreen} />
       </div>
     </div>
   );

@@ -32,6 +32,8 @@ interface State {
 
   fullscreenSupported: boolean;
   fullscreen: boolean;
+
+  started: boolean;
 }
 
 export class StateExtension extends Module {
@@ -63,6 +65,8 @@ export class StateExtension extends Module {
 
     fullscreenSupported: false,
     fullscreen: false,
+
+    started: false,
   };
 
   constructor(instance: Instance) {
@@ -84,6 +88,7 @@ export class StateExtension extends Module {
     this.on(Events.ADBREAK_STATE_PLAY, setPlayRequested);
 
     const setPlaying = this.dispatch(draft => {
+      draft.started = true;
       draft.playing = true;
       draft.playRequested = true;
       draft.buffering = false;
@@ -154,6 +159,7 @@ export class StateExtension extends Module {
     this.on(Events.AD_ENDED, resetAd);
 
     const setEnded = this.dispatch(draft => {
+      draft.started = false;
       draft.playRequested = false;
       draft.playing = false;
       draft.ended = true;

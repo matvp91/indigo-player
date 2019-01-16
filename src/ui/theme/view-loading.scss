@@ -4,15 +4,4 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-
-  .igui_icon_spinner {
-    font-size: 28px;
-    animation: spin 2000ms linear infinite;
-  }
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
 }

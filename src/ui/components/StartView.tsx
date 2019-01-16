@@ -10,7 +10,7 @@ interface StartViewProps {
 export const StartView = withState((props: StartViewProps) => {
   return (
     <div className="igui_view_start" onClick={props.actions.playOrPause}>
-      <Icon icon="play" />
+      <Icon icon="play-rounded" />
     </div>
   );
 });

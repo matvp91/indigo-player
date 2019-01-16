@@ -21,6 +21,10 @@ function createWebpackConfig(build, argv) {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
         },
+        {
+          test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+          use: ['file-loader'],
+        },
       ],
     },
     resolve: {
