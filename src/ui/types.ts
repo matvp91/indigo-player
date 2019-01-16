@@ -6,11 +6,12 @@ export interface IData {
   bufferedPercentage: number;
   volumeBarPercentage: number;
   isVolumeControlsOpen: boolean;
+  isFullscreen: boolean;
+  fullscreenSupported: boolean;
 }
 
 export interface IActions {
-  play();
-  pause();
+  playOrPause();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
   showControls();

@@ -14,15 +14,12 @@ export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <div className="igui_view_controls">
       <div className="igui_container_controls">
-        {props.data.paused
-          ? <Button name="playpause" type="controls" icon="play" onClick={props.actions.play} />
-          : <Button name="playpause" type="controls" icon="pause" onClick={props.actions.pause} />
-        }
+        <Button name="play" icon={props.data.paused ? 'play' : 'pause'} onClick={props.actions.playOrPause} />
         <VolumeButton />
-        {/*<Button type="controls" icon="arrows-alt" onClick={props.actions.toggleFullscreen} />*/}
         <div className="igui_container_controls_seekbar">
           <Seekbar />
         </div>
+        <Button name="fullscreen" icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen_exit'} onClick={props.actions.toggleFullscreen} />
       </div>
     </div>
   );

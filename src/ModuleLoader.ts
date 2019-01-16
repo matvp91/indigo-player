@@ -29,10 +29,10 @@ const modules: Array<IModuleLoader<Module>> = [
 
   HTML5PlayerLoader,
 
+  StateExtensionLoader,
   BenchmarkExtensionLoader,
   FreeWheelExtensionLoader,
   FullscreenExtensionLoader,
-  StateExtensionLoader,
   CaptionsExtensionLoader,
   GoogleIMAExtensionLoader,
 

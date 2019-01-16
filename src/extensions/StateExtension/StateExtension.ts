@@ -29,6 +29,9 @@ interface State {
 
   bufferedPercentage: number;
   volume: number;
+
+  fullscreenSupported: boolean;
+  fullscreen: boolean;
 }
 
 export class StateExtension extends Module {
@@ -57,6 +60,9 @@ export class StateExtension extends Module {
 
     bufferedPercentage: 0,
     volume: 1,
+
+    fullscreenSupported: false,
+    fullscreen: false,
   };
 
   constructor(instance: Instance) {
@@ -180,6 +186,16 @@ export class StateExtension extends Module {
       draft.volume = data.volume;
     }, Events.STATE_VOLUMECHANGE);
     this.on(Events.PLAYER_STATE_VOLUMECHANGE, setVolume);
+
+    const setFullscreenSupported = this.dispatch(draft => {
+      draft.fullscreenSupported = true;
+    }, Events.STATE_FULLSCREEN_SUPPORTED);
+    this.on(Events.FULLSCREEN_SUPPORTED, setFullscreenSupported);
+
+    const setFullscreenChanged = this.dispatch((draft, data) => {
+      draft.fullscreen = data.fullscreen;
+    }, Events.STATE_FULLSCREEN_CHANGED);
+    this.on(Events.FULLSCREEN_CHANGE, setFullscreenChanged);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

@@ -4,7 +4,6 @@ import { Icon } from '@src/ui/components/Icon';
 
 interface ButtonProps {
   children?: JSX.Element | string;
-  type?: string;
   icon?: string;
   name?: string;
   onClick();

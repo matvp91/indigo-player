@@ -57,6 +57,14 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
      }
   };
 
+  playOrPause = () => {
+    if (!this.props.player.playRequested) {
+      this.props.instance.play();
+    } else {
+      this.props.instance.pause();
+    }
+  };
+
   createData() {
     let view = ViewTypes.LOADING;
     if (this.props.player.ready && this.props.player.waitingForUser) {
@@ -83,13 +91,14 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       bufferedPercentage: this.props.player.bufferedPercentage,
       volumeBarPercentage: this.props.player.volume,
       isVolumeControlsOpen,
+      fullscreenSupported: this.props.player.fullscreenSupported,
+      isFullscreen: this.props.player.fullscreen,
     } as IData;
   }
 
   createActions() {
     return {
-      play: () => this.props.instance.play(),
-      pause: () => this.props.instance.pause(),
+      playOrPause: this.playOrPause,
       seekToPercentage: (percentage: number) => this.props.instance.seekTo(this.props.player.duration * percentage),
       setVolume: (volume: number) => this.props.instance.setVolume(volume),
       toggleFullscreen: () => (this.props.instance.getModule('FullscreenExtension') as any).toggleFullscreen(),

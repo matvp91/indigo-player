@@ -26,18 +26,33 @@
   }
 
   .igui_button {
-    .igui_icon {
-      font-size: 26px;
-    }
     width: 36px;
     height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    .igui_icon {
+      font-size: 26px;
+    }
   }
 
-  .igui_button_name-playpause {
-    margin-left: 9px;
+  .igui_button_name-play {
+    left: 9px;
+    bottom: 0;
+    position: absolute;
+  }
+
+  .igui_volume {
+    left: 45px;
+    bottom: 0;
+    position: absolute;
+  }
+
+  .igui_button_name-fullscreen {
+    right: 9px;
+    bottom: 0;
+    position: absolute;
   }
 
   .igui_state-active & {
