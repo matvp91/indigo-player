@@ -34,20 +34,26 @@ function createWebpackConfig(build, argv) {
         VERSION: JSON.stringify(pkg.version),
       }),
     ],
+    optimization: {
+      splitChunks: {
+        chunks: 'async',
+        cacheGroups: {
+          vendors: false,
+        },
+      },
+    },
   };
 
   if (isProduction) {
-    config.optimization = {
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            output: {
-              comments: false,
-            },
+    config.optimization.minimizer = [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false,
           },
-        }),
-      ],
-    };
+        },
+      }),
+    ];
   }
 
   // Build specific
