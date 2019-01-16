@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "indigo-player",
     "description": "Extensible, modern, JS video player",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "homepage": "https://github.com/matvp91/indigo-player",
     "author": "Matthias Van Parijs",
     "maintainers": [
@@ -49,6 +49,7 @@ npm manifest:
       "@types/react-dom": "^16.0.11",
       "awesome-typescript-loader": "^5.2.1",
       "css-loader": "^2.1.0",
+      "file-loader": "^3.0.1",
       "html-webpack-plugin": "^4.0.0-beta.5",
       "jest": "^23.6.0",
       "node-sass": "^4.11.0",
@@ -2067,6 +2068,13 @@ Lockfile:
     dependencies:
       escape-string-regexp "^1.0.5"
   
+  file-loader@^3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-3.0.1.tgz#f8e0ba0b599918b51adfe45d66d1e771ad560faa"
+    dependencies:
+      loader-utils "^1.0.2"
+      schema-utils "^1.0.0"
+  
   filename-regex@^2.0.0:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -3558,7 +3566,7 @@ Lockfile:
     version "2.3.1"
     resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.1.tgz#026f12fe7c3115992896ac02ba022ba92971b979"
   
-  loader-utils@^1.0.1, loader-utils@^1.1.0, loader-utils@^1.2.1:
+  loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.1:
     version "1.2.3"
     resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.2.3.tgz#1ff5dc6911c9f0a062531a4c04b609406108c2c7"
     dependencies:
