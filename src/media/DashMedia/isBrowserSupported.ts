@@ -19,5 +19,9 @@ export const isBrowserSupported = (): boolean => {
     !!(window as any).Uint8Array &&
     !!Array.prototype.forEach;
 
-  return basic && mediaSourceEngineSupported() && drmEngineSupported();
+  return basic && mediaSourceEngineSupported();
+};
+
+export const isBrowserSupportedDRM = (): boolean => {
+  return isBrowserSupported() && drmEngineSupported();
 };

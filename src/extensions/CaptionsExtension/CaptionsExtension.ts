@@ -22,7 +22,7 @@ export class CaptionsExtension extends Module {
       return track;
     });
 
-    this.once(Events.PLAYER_STATE_READY, () => {
+    this.once(Events.READY, () => {
       const mediaElement: HTMLMediaElement = (this.instance
         .player as HTML5Player).mediaElement;
 

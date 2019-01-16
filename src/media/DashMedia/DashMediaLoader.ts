@@ -1,5 +1,5 @@
 import { Instance } from '@src/Instance';
-import { isBrowserSupported } from '@src/media/DashMedia/isBrowserSupported';
+import { isBrowserSupported, isBrowserSupportedDRM } from '@src/media/DashMedia/isBrowserSupported';
 import { Media } from '@src/media/Media';
 import {
   Format,
@@ -27,6 +27,10 @@ export const DashMediaLoader = {
     }
 
     if (format.drm) {
+      if (!isBrowserSupportedDRM()) {
+        return false;
+      }
+
       const support: any = await getDrmSupport();
       if (!support.drmSupport.widevine && !support.drmSupport.playready) {
         return false;

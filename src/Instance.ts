@@ -208,11 +208,11 @@ export class Instance implements IInstance {
 
     await this.controller.load();
 
+    this.emit(Events.READY);
+
     // Now that we know we can autoplay, actually do it.
     if (this.canAutoplay()) {
-      this.once(Events.PLAYER_STATE_READY, () => this.play());
+      this.play();
     }
-
-    this.emit(Events.READY);
   }
 }

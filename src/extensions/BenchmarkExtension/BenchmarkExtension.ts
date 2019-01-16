@@ -20,10 +20,6 @@ export class BenchmarkExtension extends Module {
 
     this.startupTimeExtension = performance.now() - startTime;
 
-    this.once(Events.PLAYER_STATE_READY, () => {
-      this.startupTimePlayer = performance.now() - startTime;
-    });
-
     this.once(Events.READY, () => {
       this.startupTimeInstance = performance.now() - startTime;
     });

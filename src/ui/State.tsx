@@ -165,6 +165,9 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
     if (this.state.isSeeking) {
       progressPercentage = this.state.seekBarPercentage;
     }
+    if (!this.props.player.duration) {
+      progressPercentage = 0;
+    }
 
     let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
     if (this.state.isVolumeSeeking) {

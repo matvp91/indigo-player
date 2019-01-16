@@ -4,9 +4,9 @@ import { IController } from '@src/types';
 export class Controller extends Module implements IController {
   public async boot() {}
 
-  public load() {
+  public async load() {
     this.instance.player.load();
-    this.instance.media.load();
+    await this.instance.media.load();
   }
 
   public unload() {

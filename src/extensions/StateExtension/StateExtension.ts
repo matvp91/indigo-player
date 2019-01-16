@@ -64,10 +64,9 @@ export class StateExtension extends Module {
 
     const setReady = this.dispatch((draft, data) => {
       draft.ready = true;
-      draft.duration = data.duration;
       draft.waitingForUser = !instance.canAutoplay();
     }, Events.STATE_READY);
-    this.on(Events.PLAYER_STATE_READY, setReady);
+    this.on(Events.READY, setReady);
 
     const setPlayRequested = this.dispatch(draft => {
       draft.waitingForUser = false;
@@ -105,6 +104,11 @@ export class StateExtension extends Module {
       draft.currentTime = data.currentTime;
     }, Events.STATE_CURRENTTIME_CHANGE);
     this.on(Events.PLAYER_STATE_TIMEUPDATE, setCurrentTime);
+
+    const setDuraton = this.dispatch((draft, data) => {
+      draft.duration = data.duration;
+    }, Events.STATE_DURATION_CHANGE);
+    this.on(Events.PLAYER_STATE_DURATIONCHANGE, setDuraton);
 
     const setAdBreakCurrentTime = this.dispatch((draft, data) => {
       draft.adBreakCurrentTime = data.currentTime;

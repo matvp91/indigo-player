@@ -2,7 +2,7 @@ import { Player } from '@src/player/Player';
 import {
   BufferedChangeEventData,
   Events,
-  ReadyEventData,
+  DurationChangeEventData,
   TimeUpdateEventData,
   VolumeChangeEventData,
 } from '@src/types';
@@ -36,16 +36,16 @@ export class HTML5Player extends Player {
       this.emit(Events.PLAYER_STATE_SEEKED);
     });
 
+    this.mediaElement.addEventListener('durationchange', () => {
+      this.emit(Events.PLAYER_STATE_DURATIONCHANGE, {
+        duration: this.mediaElement.duration,
+      } as DurationChangeEventData);
+    });
+
     this.mediaElement.addEventListener('timeupdate', () => {
       this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
         currentTime: this.mediaElement.currentTime,
       } as TimeUpdateEventData);
-    });
-
-    this.mediaElement.addEventListener('loadedmetadata', () => {
-      this.emit(Events.PLAYER_STATE_READY, {
-        duration: this.mediaElement.duration,
-      } as ReadyEventData);
     });
 
     this.mediaElement.addEventListener('waiting', () => {
@@ -58,12 +58,8 @@ export class HTML5Player extends Player {
       } as VolumeChangeEventData);
     });
 
-    this.mediaElement.addEventListener('loadeddata', () =>
-      this.monitorProgress(),
-    );
-    this.mediaElement.addEventListener('progress', () =>
-      this.monitorProgress(),
-    );
+    this.mediaElement.addEventListener('loadeddata', () => this.monitorProgress());
+    this.mediaElement.addEventListener('progress', () => this.monitorProgress());
   }
 
   public unload() {

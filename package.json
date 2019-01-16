@@ -37,7 +37,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "dev": "webpack-dev-server --mode development --hot --builds dev,player",
+    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
     "build": "rm -rf lib && webpack --mode production",
     "lint": "prettier-tslint fix '**/*.ts'",
     "test": "jest"

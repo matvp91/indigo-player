@@ -11,7 +11,8 @@ export class UiExtension extends Module {
   constructor(instance: Instance) {
     super(instance);
 
-    instance.once(Events.READY, this.onReady.bind(this));
+    this.onReady();
+    // instance.once(Events.READY, this.onReady.bind(this));
   }
 
   public onReady() {

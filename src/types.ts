@@ -115,6 +115,7 @@ export enum Events {
   PLAYER_STATE_ENDED = 'player-state:ended',
   PLAYER_STATE_SEEKED = 'player-state:seeked',
   PLAYER_STATE_TIMEUPDATE = 'player-state:timeupdate',
+  PLAYER_STATE_DURATIONCHANGE = 'player-state:durationchange',
   PLAYER_STATE_READY = 'player-state:ready',
   PLAYER_STATE_WAITING = 'player-state:waiting',
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
@@ -157,6 +158,7 @@ export enum Events {
   STATE_ERROR = 'state:error',
   STATE_BUFFERED = 'state:buffered',
   STATE_VOLUMECHANGE = 'state:volume-change',
+  STATE_DURATION_CHANGE = 'state:duration-change',
 }
 
 export type EventCallback = ListenerFn;
@@ -194,7 +196,7 @@ export type FullscreenEventData = {
   fullscreen: boolean;
 };
 
-export type ReadyEventData = {
+export type DurationChangeEventData = {
   duration: number;
 };
 
@@ -219,7 +221,7 @@ export type EventData =
   | AdBreaksEventData
   | AdBreakEventData
   | FullscreenEventData
-  | ReadyEventData
+  | DurationChangeEventData
   | StateChangeEventData
   | AdEventData
   | CaptionsChangeEventData
