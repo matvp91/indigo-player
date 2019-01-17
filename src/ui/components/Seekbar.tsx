@@ -38,6 +38,15 @@ export const Seekbar = withState((props: SeekbarProps) => {
             <div style={{ transform: `translateX(${progressPercentage * 100}%)` }}>
               <div className="igui_seekbar_scrubber" />
             </div>
+            {!props.data.adBreakData && (
+              <div className="igui_seekbar_cuepoints">
+                {props.data.cuePoints.map(cuePoint => (
+                  <div key={cuePoint} className="igui_seekbar_cuepoint" style={{ left: `${cuePoint * 100}%` }}>
+
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         );
       }}

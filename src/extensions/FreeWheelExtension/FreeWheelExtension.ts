@@ -123,9 +123,11 @@ export class FreeWheelExtension extends Module {
     });
 
     this.mediaElement.addEventListener('timeupdate', () => {
-      this.emit(Events.ADBREAK_STATE_TIMEUPDATE, {
-        currentTime: this.mediaElement.currentTime,
-      } as TimeUpdateEventData);
+      if (this.currentAdBreak) {
+        this.emit(Events.ADBREAK_STATE_TIMEUPDATE, {
+          currentTime: this.currentAdBreak.freewheelSlot.getPlayheadTime(),
+        } as TimeUpdateEventData);
+      }
     });
 
     this.mediaElement.addEventListener('waiting', () => {

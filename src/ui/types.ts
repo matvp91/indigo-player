@@ -12,6 +12,7 @@ export interface IData {
   adBreakData?: {
     progressPercentage: number;
   };
+  cuePoints: number[];
 }
 
 export interface IActions {

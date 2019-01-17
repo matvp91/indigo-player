@@ -20,7 +20,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     duration: 594,
     siteSection: 'DemoSiteGroup.01',
     profile: 'global-js',
-    cuepoints: ['preroll', 12, 'postroll'],
+    cuepoints: [/*'preroll',*/ 12, 'postroll'],
   },
   // googleIMA: {
   //   // src: 'https://pubads.g.doubleclick.net/gampad/ads?' +

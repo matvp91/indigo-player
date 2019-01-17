@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Instance } from '@src/Instance';
 import { ViewTypes, IData, IActions } from '@src/ui/types';
+import { AdBreakType } from '@src/types';
 
 export const StateContext = React.createContext({});
 
@@ -93,6 +94,13 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       };
     }
 
+    let cuePoints = [];
+    if (this.props.player.duration) {
+      cuePoints = this.props.player.adBreaks
+        .filter(adBreak => adBreak.type === AdBreakType.MIDROLL && !adBreak.hasBeenWatched)
+        .map(adBreak => adBreak.startsAt / this.props.player.duration);
+    }
+
     return {
       view,
       paused: this.props.player.paused,
@@ -105,6 +113,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       isFullscreen: this.props.player.fullscreen,
       playRequested: this.props.player.playRequested,
       adBreakData,
+      cuePoints,
     } as IData;
   }
 
