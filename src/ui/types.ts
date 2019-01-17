@@ -13,6 +13,7 @@ export interface IData {
     progressPercentage: number;
   };
   cuePoints: number[];
+  rebuffering: boolean;
 }
 
 export interface IActions {

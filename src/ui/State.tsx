@@ -114,6 +114,7 @@ export class StateStore extends React.Component<StateStoreProps, StateStoreState
       playRequested: this.props.player.playRequested,
       adBreakData,
       cuePoints,
+      rebuffering: this.props.player.buffering,
     } as IData;
   }
 
