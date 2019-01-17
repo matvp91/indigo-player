@@ -21,21 +21,51 @@
       padding-top: 16px;
       padding-bottom: 16px;
     }
+
+    .example-button {
+      border: 1px solid var(--theme-color, #42b983);
+      color: var(--theme-color, #42b983);
+      border-radius: 2rem;
+      padding: .75em 2rem;
+      display: inline-block;
+      cursor: pointer;
+    }
   </style>
+  <script src="https://mssl.fwmrm.net/libs/adm/6.23.0/AdManager.js"></script>
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 <body>
   <div id="app"></div>
   <script>
+    function renderPlayer(element, config) {
+      var player = IndigoPlayer.init(element, config);
+
+      var expose = element.getAttribute('data-expose-player');
+      if (expose) {
+        window[expose] = player;
+      }
+    }
+
     function samplePlayer(hook) {
       hook.doneEach(function () {
         var elements = document.querySelectorAll('.sample-player');
         elements.forEach(function (element) {
-          const expose = element.getAttribute('data-expose-player');
           var config = eval('(' + element.innerText + ')');
+          var optin = element.getAttribute('data-optin');
+
           element.innerHTML = '';
-          const player = IndigoPlayer.init(element, config);
-          if (expose) {
-            window[expose] = player;
+
+          if (optin) {
+            var handle = document.createElement('div');
+            handle.innerHTML = 'Run example above';
+            handle.setAttribute('class', 'example-button');
+            handle.onclick = function () {
+              element.innerHTML = '';
+              renderPlayer(element, config);
+            };
+            element.appendChild(handle);
+          } else {
+            renderPlayer(element, config);
           }
         });
       });
@@ -44,7 +74,7 @@
     window.$docsify = {
       loadSidebar: true,
       themeColor: '#4b0082',
-      subMaxLevel: 3,
+      subMaxLevel: 4,
       coverpage: true,
       plugins: [
         samplePlayer,

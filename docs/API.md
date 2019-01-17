@@ -11,7 +11,7 @@ Use the following methods to instruct the player to do an action.
     <tr>
         <th>Method</th>
         <th>Arguments</th>
-        <th>Description>
+        <th>Description</th>
     </tr>
   </thead>
   <tbody>
@@ -45,15 +45,6 @@ Use the following methods to instruct the player to do an action.
         </ul>
       </td>
       <td>Seeks to a time in the content</td>
-    </tr>
-    <tr>
-      <td><code>player.setSubtitle(srclang)</code></td>
-      <td>
-        <ul>
-          <li>srclang: <i>string</i> from the config.captions list.</li>
-        </ul>
-      </td>
-      <td>Sets the captions if found. If no caption can be found, none is shown.</td>
     </tr>
     <tr>
       <td><code>player.setError(error)</code></td>
@@ -134,6 +125,156 @@ Use the following methods to instruct the player to do an action.
 
 ## Events
 
-The player can emit the following events:
+The player emits a lot of events. Most events are used for development purposes. The ones listed here are related to the state of the player and the events that get triggered when the state changes. State events are standardized events across the different modules.
 
-TBD
+All events are available in `IndigoPlayer.Events.<Event>`.
+
+<table class="api-table">
+  <thead>
+    <tr>
+        <th>Event</th>
+        <th>Parameters</th>
+        <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3" class="title">State</td>
+    </tr>
+    <tr>
+      <td><code>STATE_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>state: <i>State</i></li>
+          <li>prevState: <i>State</i></li>
+        </ul>
+      </td>
+      <td>Whenever the state changes, this event is triggered. The state argument is <b>immutable</b>, this is great for UI's like React.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_READY</code></td>
+      <td></td>
+      <td>The player is ready.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_PLAY_REQUESTED</code></td>
+      <td></td>
+      <td>Playback has been requested (for content or ads), can be by a user click / tap or by autoplay.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_PLAYING</code></td>
+      <td></td>
+      <td>The video (content or ads) is actually playing.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_PAUSED</code></td>
+      <td></td>
+      <td>The video (content or ads) is paused.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_CURRENTTIME_CHANGE</code></td>
+      <td></td>
+      <td>The current time (content or ads) has changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_BUFFERING</code></td>
+      <td></td>
+      <td>The video is buffering (or rebuffering).</td>
+    </tr>
+    <tr>
+      <td><code>STATE_ADBREAKS</code></td>
+      <td>
+        <ul>
+          <li>adBreaks: <i>Array<AdBreak></i></li>
+        </ul>
+      </td>
+      <td>An ad provider has provided a list of ads.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_ADBREAK_STARTED</code></td>
+      <td>
+        <ul>
+          <li>adBreak: <i>AdBreak</i></li>
+        </ul>
+      </td>
+      <td>The given ad break has started.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_AD_STARTED</code></td>
+      <td>
+        <ul>
+          <li>ad: <i>Ad</i></li>
+        </ul>
+      </td>
+      <td>An ad inside an ad break has started.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_AD_ENDED</code></td>
+      <td>
+        <ul>
+          <li>ad: <i>Ad</i></li>
+        </ul>
+      </td>
+      <td>An ad inside an ad break has ended.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_ADBREAK_ENDED</code></td>
+      <td>
+        <ul>
+          <li>adBreak - <i>AdBreak</i></li>
+        </ul>
+      </td>
+      <td>The ad break has ended.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_ENDED</code></td>
+      <td></td>
+      <td>The video has ended.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_ERROR</code></td>
+      <td>
+        <ul>
+          <li>error - <i>PlayerError</i></li>
+        </ul>
+      </td>
+      <td>An <b>unrecoverable</b> error occured.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_VOLUME_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>volume - <i>number</i></li>
+        </ul>
+      </td>
+      <td>The volume has changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_DURATION_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>duration - <i>number</i></li>
+        </ul>
+      </td>
+      <td>The duration has changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_FULLSCREEN_SUPPORTED</code></td>
+      <td>
+        <ul>
+          <li>fullscreenSupported - <i>boolean</i></li>
+        </ul>
+      </td>
+      <td>The native fullscreen API is supported.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_FULLSCREEN_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>fullscreen - <i>boolean</i></li>
+        </ul>
+      </td>
+      <td>The fullscreen state has changed.</td>
+    </tr>
+  </tbody>
+</table>

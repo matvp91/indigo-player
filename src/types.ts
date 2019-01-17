@@ -157,11 +157,11 @@ export enum Events {
   STATE_AD_ENDED = 'state:ad-ended',
   STATE_ENDED = 'state:ended',
   STATE_ERROR = 'state:error',
-  STATE_BUFFERED = 'state:buffered',
-  STATE_VOLUMECHANGE = 'state:volume-change',
+  STATE_BUFFERED_CHANGE = 'state:buffered',
+  STATE_VOLUME_CHANGE = 'state:volume-change',
   STATE_DURATION_CHANGE = 'state:duration-change',
   STATE_FULLSCREEN_SUPPORTED = 'state:fullscreen-supported',
-  STATE_FULLSCREEN_CHANGED = 'state:fullscreen-changed',
+  STATE_FULLSCREEN_CHANGE = 'state:fullscreen-changed',
 }
 
 export type EventCallback = ListenerFn;

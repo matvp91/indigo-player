@@ -180,7 +180,7 @@ export class StateExtension extends Module {
 
     const setBufferedPercentage = this.dispatch((draft, data) => {
       draft.bufferedPercentage = data.percentage;
-    }, Events.STATE_BUFFERED);
+    }, Events.STATE_BUFFERED_CHANGE);
     this.on(Events.PLAYER_STATE_BUFFEREDCHANGE, setBufferedPercentage);
 
     const setError = this.dispatch((draft, data) => {
@@ -190,7 +190,7 @@ export class StateExtension extends Module {
 
     const setVolume = this.dispatch((draft, data) => {
       draft.volume = data.volume;
-    }, Events.STATE_VOLUMECHANGE);
+    }, Events.STATE_VOLUME_CHANGE);
     this.on(Events.PLAYER_STATE_VOLUMECHANGE, setVolume);
 
     const setFullscreenSupported = this.dispatch(draft => {
@@ -200,7 +200,7 @@ export class StateExtension extends Module {
 
     const setFullscreenChanged = this.dispatch((draft, data) => {
       draft.fullscreen = data.fullscreen;
-    }, Events.STATE_FULLSCREEN_CHANGED);
+    }, Events.STATE_FULLSCREEN_CHANGE);
     this.on(Events.FULLSCREEN_CHANGE, setFullscreenChanged);
 
     this.emit(Events.STATE_CHANGE, {

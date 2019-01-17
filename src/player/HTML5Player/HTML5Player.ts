@@ -18,6 +18,8 @@ export class HTML5Player extends Player {
     this.mediaElement = document.createElement('video');
     this.mediaElement.style.width = '100%';
     this.mediaElement.style.height = '100%';
+    this.mediaElement.preload = 'metadata';
+    this.mediaElement.crossOrigin = 'anonymous';
     this.instance.playerContainer.appendChild(this.mediaElement);
 
     if (this.instance.config.showNativeControls) {

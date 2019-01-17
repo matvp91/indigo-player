@@ -10,6 +10,7 @@ import {
   TimeUpdateEventData,
   AdBreakType,
 } from '@src/types';
+import get from 'lodash/get';
 
 export class GoogleIMAExtension extends Module {
   public name: string = 'GoogleIMAExtension';
@@ -32,6 +33,10 @@ export class GoogleIMAExtension extends Module {
 
   constructor(instance: Instance) {
     super(instance);
+
+    if (!get(window, 'google.ima')) {
+      return;
+    }
 
     this.ima = (window as any).google.ima;
 

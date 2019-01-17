@@ -20,12 +20,11 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
     <script src="https://unpkg.com/indigo-player/lib/indigo-player.js"></script>
     <script>
       const config = {
-        autoplay: false,
         ui: true,
         sources: [
           {
             type: 'mp4',
-            src: 'https://samples.com/BigBuckBunny.mp4',
+            src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
           }
         ],
       };
@@ -39,7 +38,6 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 
 <div class="sample-player" data-expose-player="player">
 {
-  autoplay: false,
   ui: true,
   sources: [
     {
@@ -50,7 +48,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 }
 </div>
 
-**Note:** Open up the console, and use `window.player` to interact with the player above.
+?> Open up the console, and use `window.player` to interact with the player above.
 
 ## Features
 
@@ -60,8 +58,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 * **media** - Native HLS (+ FairPlay) - *work in progress*
 * **player** - HTML5 video element
 * **ads** - FreeWheel (client-side)
-* **misc** - Fullscreen
-* **misc** - UI
+* **ads** - Google IMA (client-side)
 
 ## Supported browsers
 
@@ -69,3 +66,5 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 * Firefox 64+
 * Edge 44+ on Windows 10
 * IE11 on Windows 7 except for DRM content
+
+Previous browser versions will most likely work because we rely heavily on feature detection based on the given configuration.
