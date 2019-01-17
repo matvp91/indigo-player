@@ -77,9 +77,3 @@ export async function createAllSupported<T>(
 export function addModuleLoader(mod: IModuleLoader<Module>) {
   modules.push(mod);
 }
-
-(window as any).__indigoDebugPreloadUI = () => {
-  try {
-    UiExtensionLoader.create(null);
-  } catch (_) {}
-};
