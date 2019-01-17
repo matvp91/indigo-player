@@ -13,19 +13,27 @@ interface MainProps {
 }
 
 class MainComponent extends React.Component<MainProps, {}> {
-  componentDidMount() {
+  public componentDidMount() {
     ['mouseenter', 'mousemove', 'mousedown'].forEach(eventName => {
-      this.props.data.container.addEventListener(eventName, this.props.actions.showControls);
+      this.props.data.container.addEventListener(
+        eventName,
+        this.props.actions.showControls,
+      );
     });
-    this.props.data.container.addEventListener('mouseleave', this.props.actions.hideControls);
+    this.props.data.container.addEventListener(
+      'mouseleave',
+      this.props.actions.hideControls,
+    );
   }
 
-  render() {
+  public render() {
     const props = this.props;
     return (
-      <div className={cx({
-        'igui_state-active': this.props.data.visibleControls,
-      })}>
+      <div
+        className={cx({
+          'igui_state-active': this.props.data.visibleControls,
+        })}
+      >
         {this.props.data.view === ViewTypes.LOADING && <LoadingView />}
         {this.props.data.view === ViewTypes.START && <StartView />}
         {this.props.data.view === ViewTypes.CONTROLS && <ControlsView />}

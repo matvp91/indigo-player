@@ -20,6 +20,14 @@ export const BaseMediaLoader = {
     ) {
       return true;
     }
+
+    if (
+      format.type === FormatTypes.HLS &&
+      (instance.env.isSafari || instance.env.isIOS)
+    ) {
+      return true;
+    }
+
     return false;
   },
 } as IModuleLoader<BaseMedia>;

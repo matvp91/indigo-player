@@ -5,10 +5,10 @@ import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import {
   AdBreakEventData,
   AdBreaksEventData,
+  AdBreakType,
   Events,
   GoogleIMAAdBreak,
   TimeUpdateEventData,
-  AdBreakType,
 } from '@src/types';
 import get from 'lodash/get';
 
