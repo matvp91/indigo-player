@@ -12,18 +12,26 @@ interface MainProps {
   actions: IActions;
 }
 
-export const Main = withState((props: MainProps) => (
-  <div
-    onMouseEnter={props.actions.showControls}
-    onMouseMove={props.actions.showControls}
-    onMouseLeave={props.actions.hideControls}
-    onMouseDown={props.actions.showControls}
-    className={cx('igui_main', {
-      ['igui_state-active']: props.data.visibleControls,
-    })}
-  >
-    {props.data.view === ViewTypes.LOADING && <LoadingView />}
-    {props.data.view === ViewTypes.START && <StartView />}
-    {props.data.view === ViewTypes.CONTROLS && <ControlsView />}
-  </div>
-));
+class MainComponent extends React.Component<MainProps, {}> {
+  componentDidMount() {
+    ['mouseenter', 'mousemove', 'mousedown'].forEach(eventName => {
+      this.props.data.container.addEventListener(eventName, this.props.actions.showControls);
+    });
+    this.props.data.container.addEventListener('mouseleave', this.props.actions.hideControls);
+  }
+
+  render() {
+    const props = this.props;
+    return (
+      <div className={cx({
+        'igui_state-active': this.props.data.visibleControls,
+      })}>
+        {this.props.data.view === ViewTypes.LOADING && <LoadingView />}
+        {this.props.data.view === ViewTypes.START && <StartView />}
+        {this.props.data.view === ViewTypes.CONTROLS && <ControlsView />}
+      </div>
+    );
+  }
+}
+
+export const Main = withState(MainComponent);

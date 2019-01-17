@@ -57,8 +57,11 @@ export class GoogleIMAExtension extends Module {
 
   private onReady() {
     this.adContainer = document.createElement('div');
-    this.adContainer.style.width = '100%';
-    this.adContainer.style.height = '100%';
+    this.adContainer.style.position = 'absolute';
+    this.adContainer.style.left = '0px';
+    this.adContainer.style.right = '0px';
+    this.adContainer.style.top = '0px';
+    this.adContainer.style.bottom = '0px';
     this.instance.adsContainer.appendChild(this.adContainer);
 
     const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)

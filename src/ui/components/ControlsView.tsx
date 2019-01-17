@@ -13,7 +13,7 @@ interface ControlsViewProps {
 
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
-    <div className='igui_view_controls'>
+    <>
       {props.data.rebuffering && <Rebuffer />}
       <div className='igui_container_controls'>
         <Button
@@ -31,6 +31,6 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           onClick={props.actions.toggleFullscreen}
         />
       </div>
-    </div>
+    </>
   );
 });

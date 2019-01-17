@@ -139,8 +139,11 @@ export class FreeWheelExtension extends Module {
 
   public onReady() {
     this.adContainer = document.createElement('div');
-    this.adContainer.style.width = '100%';
-    this.adContainer.style.height = '100%';
+    this.adContainer.style.position = 'absolute';
+    this.adContainer.style.left = '0px';
+    this.adContainer.style.right = '0px';
+    this.adContainer.style.top = '0px';
+    this.adContainer.style.bottom = '0px';
     this.adContainer.style.display = 'none';
     this.adContainer.id = 'fwAdsContainer';
     this.instance.adsContainer.appendChild(this.adContainer);

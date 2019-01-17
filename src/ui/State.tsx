@@ -111,6 +111,7 @@ export class StateStore extends React.Component<
     }
 
     return {
+      container: this.props.instance.container,
       view,
       paused: this.props.player.paused,
       visibleControls,

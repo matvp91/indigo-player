@@ -1,4 +1,5 @@
 export interface IData {
+  container: HTMLElement,
   paused: boolean;
   view: ViewTypes;
   visibleControls: boolean;
