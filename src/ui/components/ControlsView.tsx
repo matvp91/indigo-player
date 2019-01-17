@@ -2,6 +2,7 @@ import { Button } from '@src/ui/components/Button';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
+import { TimeStat } from '@src/ui/components/TimeStat';
 import { IActions, IData } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
@@ -22,6 +23,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           onClick={props.actions.playOrPause}
         />
         <VolumeButton />
+        <TimeStat />
         <div className='igui_container_controls_seekbar'>
           <Seekbar />
         </div>

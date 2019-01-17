@@ -8,7 +8,7 @@
 
   opacity: 0;
   transition: opacity 100ms linear;
-
+opacity:1;
   &:before {
     content: '';
     position: absolute;
@@ -43,6 +43,17 @@
     left: 45px;
     bottom: 0;
     position: absolute;
+  }
+
+  .igui_timestat {
+    left: 91px;
+    bottom: 12px;
+    position: absolute;
+    transition: left 150ms ease-in-out;
+
+    .igui_state-volumecontrols-open & {
+      left: 155px;
+    }
   }
 
   .igui_button_name-fullscreen {

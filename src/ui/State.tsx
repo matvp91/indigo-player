@@ -2,6 +2,7 @@ import { Instance } from '@src/Instance';
 import { AdBreakType } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
 import * as React from 'react';
+import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 
 export const StateContext = React.createContext({});
 
@@ -110,6 +111,11 @@ export class StateStore extends React.Component<
         .map(adBreak => adBreak.startsAt / this.props.player.duration);
     }
 
+    let timeStat = '';
+    if (this.props.player.duration) {
+      timeStat = `${secondsToHMS(this.props.player.currentTime)} / ${secondsToHMS(this.props.player.duration)}`;
+    }
+
     return {
       container: this.props.instance.container,
       view,
@@ -125,6 +131,7 @@ export class StateStore extends React.Component<
       adBreakData,
       cuePoints,
       rebuffering: this.props.player.buffering,
+      timeStat,
     } as IData;
   }
 

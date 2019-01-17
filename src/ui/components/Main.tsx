@@ -32,6 +32,7 @@ class MainComponent extends React.Component<MainProps, {}> {
       <div
         className={cx({
           'igui_state-active': this.props.data.visibleControls,
+          'igui_state-volumecontrols-open': this.props.data.isVolumeControlsOpen,
         })}
       >
         {this.props.data.view === ViewTypes.LOADING && <LoadingView />}

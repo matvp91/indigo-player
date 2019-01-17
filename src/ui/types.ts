@@ -15,6 +15,7 @@ export interface IData {
   };
   cuePoints: number[];
   rebuffering: boolean;
+  timeStat: string;
 }
 
 export interface IActions {
