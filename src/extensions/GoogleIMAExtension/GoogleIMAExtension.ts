@@ -8,6 +8,7 @@ import {
   Events,
   GoogleIMAAdBreak,
   TimeUpdateEventData,
+  AdBreakType,
 } from '@src/types';
 
 export class GoogleIMAExtension extends Module {
@@ -40,9 +41,21 @@ export class GoogleIMAExtension extends Module {
       'play',
       this.onControllerPlay.bind(this),
     );
+    this.instance.controller.hooks.create(
+      'pause',
+      this.onControllerPause.bind(this),
+    );
+    this.instance.controller.hooks.create(
+      'setVolume',
+      this.onControllerSetVolume.bind(this),
+    );
+    this.instance.controller.hooks.create(
+      'seekTo',
+      this.onControllerSeekTo.bind(this),
+    );
   }
 
-  public onReady() {
+  private onReady() {
     this.adContainer = document.createElement('div');
     this.adContainer.style.width = '100%';
     this.adContainer.style.height = '100%';
@@ -73,13 +86,41 @@ export class GoogleIMAExtension extends Module {
     );
   }
 
-  public onControllerPlay(next: NextHook) {
+  private onControllerPlay(next: NextHook) {
     if (!this.adsRequested) {
       this.emit(Events.ADBREAK_STATE_PLAY);
       this.requestAds();
       return;
     }
 
+    if (this.currentAdBreak) {
+      this.emit(Events.ADBREAK_STATE_PLAY);
+      this.adsManager.resume();
+      return;
+    }
+
+    next();
+  }
+
+  private onControllerPause(next: NextHook) {
+    if (this.currentAdBreak) {
+      this.emit(Events.ADBREAK_STATE_PAUSE);
+      this.adsManager.pause();
+      return;
+    }
+
+    next();
+  }
+
+  private onControllerSetVolume(next: NextHook, volume: number) {
+    this.adsManager.setVolume(volume);
+    next();
+  }
+
+  private onControllerSeekTo(next: NextHook) {
+    if (this.currentAdBreak) {
+      return;
+    }
     next();
   }
 
@@ -97,16 +138,29 @@ export class GoogleIMAExtension extends Module {
   }
 
   private onAdsManagerLoaded(event: any) {
+    this.adsRequested = true;
+
     const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)
       .mediaElement;
 
     this.adsManager = event.getAdsManager(mediaElement);
 
-    this.adBreaks = this.adsManager.getCuePoints().map((cuepoint, index) => ({
-      sequenceIndex: index,
-      startsAt: cuepoint,
-      hasBeenWatched: false,
-    }));
+    this.adBreaks = this.adsManager.getCuePoints().map((cuepoint, index) => {
+      let type = AdBreakType.MIDROLL;
+      if (cuepoint === 0) {
+        type = AdBreakType.PREROLL;
+      } else if (cuepoint === -1) {
+        type = AdBreakType.POSTROLL;
+      }
+
+      return {
+        sequenceIndex: index,
+        id: `ima-${type === AdBreakType.MIDROLL ? cuepoint : type}`,
+        type,
+        startsAt: cuepoint,
+        hasBeenWatched: false,
+      };
+    });
 
     this.emit(Events.ADBREAKS, {
       adBreaks: this.adBreaks,
@@ -125,11 +179,6 @@ export class GoogleIMAExtension extends Module {
     this.adsManager.addEventListener(
       this.ima.AdEvent.Type.AD_PROGRESS,
       this.onAdProgress.bind(this),
-    );
-
-    this.adsManager.addEventListener(
-      this.ima.AdEvent.Type.PAUSED,
-      this.onPaused.bind(this),
     );
 
     this.adsManager.addEventListener(
@@ -172,10 +221,6 @@ export class GoogleIMAExtension extends Module {
     } as TimeUpdateEventData);
   }
 
-  private onPaused() {
-    this.emit(Events.ADBREAK_STATE_PAUSE);
-  }
-
   private onResumed() {
     this.emit(Events.ADBREAK_STATE_PLAYING);
   }
@@ -189,6 +234,8 @@ export class GoogleIMAExtension extends Module {
     ];
 
     this.currentAdBreak = adBreak;
+
+    this.updateAdBreakData(event);
 
     this.emit(Events.ADBREAK_STARTED, {
       adBreak,
@@ -206,5 +253,18 @@ export class GoogleIMAExtension extends Module {
     this.emit(Events.ADBREAK_ENDED, {
       adBreak,
     } as AdBreakEventData);
+  }
+
+  private updateAdBreakData(imaEvent) {
+    const ad = imaEvent.getAd();
+    const duration = ad.getDuration();
+
+    const adBreak = this.adBreaks[ad.getAdPodInfo().getPodIndex()];
+
+    adBreak.duration = duration;
+
+    this.emit(Events.ADBREAKS, {
+      adBreaks: this.adBreaks,
+    } as AdBreaksEventData);
   }
 }
