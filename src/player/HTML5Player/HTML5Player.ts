@@ -1,8 +1,8 @@
 import { Player } from '@src/player/Player';
 import {
   BufferedChangeEventData,
-  Events,
   DurationChangeEventData,
+  Events,
   TimeUpdateEventData,
   VolumeChangeEventData,
 } from '@src/types';
@@ -58,8 +58,12 @@ export class HTML5Player extends Player {
       } as VolumeChangeEventData);
     });
 
-    this.mediaElement.addEventListener('loadeddata', () => this.monitorProgress());
-    this.mediaElement.addEventListener('progress', () => this.monitorProgress());
+    this.mediaElement.addEventListener('loadeddata', () =>
+      this.monitorProgress(),
+    );
+    this.mediaElement.addEventListener('progress', () =>
+      this.monitorProgress(),
+    );
   }
 
   public unload() {

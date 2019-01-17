@@ -32,6 +32,7 @@
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.2.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
@@ -40,7 +41,7 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
     "build": "rm -rf lib && webpack --mode production",
-    "lint": "prettier-tslint fix '**/*.ts'",
+    "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
   "main": "lib/indigo-player.js",

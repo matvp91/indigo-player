@@ -1,13 +1,13 @@
-import * as React from 'react';
-import cx from 'classnames';
 import { Icon } from '@src/ui/components/Icon';
+import cx from 'classnames';
+import * as React from 'react';
 
 interface ButtonProps {
   children?: JSX.Element | string;
   icon?: string;
   name?: string;
   onClick();
-};
+}
 
 export const Button = (props: ButtonProps) => (
   <button

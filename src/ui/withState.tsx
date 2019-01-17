@@ -4,20 +4,14 @@ import { StateContext } from '@src/ui/State';
 
 export function withState(WrappedComponent) {
   return class extends React.Component {
-    render() {
+    public render() {
       return (
         <StateContext.Consumer>
           {value => {
-            return (
-              <WrappedComponent
-                {...this.props}
-                {...value}
-              />
-             );
-            }
-          }
+            return <WrappedComponent {...this.props} {...value} />;
+          }}
         </StateContext.Consumer>
       );
     }
-  }
+  };
 }

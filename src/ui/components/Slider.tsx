@@ -13,7 +13,7 @@ interface SliderProps {
   onSeeked?(percentage: number);
   onSeeking?();
   onChange?(percentage: number);
-};
+}
 
 interface SliderState {
   isHover: boolean;
@@ -22,7 +22,7 @@ interface SliderState {
 }
 
 export class Slider extends React.Component<SliderProps, SliderState> {
-  ref: HTMLElement;
+  public ref: HTMLElement;
 
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.ref.addEventListener('mouseenter', this.onMouseEnter);
     this.ref.addEventListener('mouseleave', this.onMouseLeave);
 
@@ -54,7 +54,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     });
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.ref.removeEventListener('mouseenter', this.onMouseEnter);
     this.ref.removeEventListener('mouseleave', this.onMouseLeave);
 
@@ -70,7 +70,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
 
   // Mouse
 
-  onMouseDown = event => {
+  public onMouseDown = event => {
     event.preventDefault();
 
     this.setState({ isSeeking: true });
@@ -81,11 +81,11 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     }
   };
 
-  onWindowMouseMove = event => {
+  public onWindowMouseMove = event => {
     this.calcSliderPercentage(event.pageX);
   };
 
-  onWindowMouseUp = () => {
+  public onWindowMouseUp = () => {
     if (this.state.isSeeking) {
       this.setState({ isSeeking: false });
 
@@ -95,17 +95,17 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     }
   };
 
-  onMouseEnter = () => {
+  public onMouseEnter = () => {
     this.setState({ isHover: true });
   };
 
-  onMouseLeave = () => {
+  public onMouseLeave = () => {
     this.setState({ isHover: false });
   };
 
   // Touch
 
-  onTouchStart = event => {
+  public onTouchStart = event => {
     event.preventDefault();
 
     this.setState({
@@ -121,13 +121,13 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     }
   };
 
-  onWindowTouchMove = event => {
+  public onWindowTouchMove = event => {
     if (event.touches.length) {
       this.calcSliderPercentage(event.touches[0].pageX);
     }
   };
 
-  onWindowTouchEnd = event => {
+  public onWindowTouchEnd = event => {
     if (this.state.isSeeking) {
       this.setState({
         isSeeking: false,
@@ -140,7 +140,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     }
   };
 
-  calcSliderPercentage(pageOffsetX) {
+  public calcSliderPercentage(pageOffsetX) {
     const scrollX = window.scrollX || window.pageXOffset;
 
     const bounding = this.ref.getBoundingClientRect();
@@ -154,7 +154,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
     }
   }
 
-  render() {
+  public render() {
     const sliderInfo = {
       isHover: this.state.isHover,
       isSeeking: this.state.isSeeking,

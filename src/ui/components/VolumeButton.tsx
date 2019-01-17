@@ -1,14 +1,14 @@
-import * as React from 'react';
-import cx from 'classnames';
-import { withState } from '@src/ui/withState';
 import { Button } from '@src/ui/components/Button';
-import { IActions, IData } from '@src/ui/types';
 import { Slider } from '@src/ui/components/Slider';
+import { IActions, IData } from '@src/ui/types';
+import { withState } from '@src/ui/withState';
+import cx from 'classnames';
+import * as React from 'react';
 
 interface VolumeButtonProps {
-  data: IData,
-  actions: IActions,
-};
+  data: IData;
+  actions: IActions;
+}
 
 export const VolumeButton = withState((props: VolumeButtonProps) => (
   <div
@@ -17,22 +17,32 @@ export const VolumeButton = withState((props: VolumeButtonProps) => (
     })}
     onMouseEnter={props.actions.setVolumeControlsOpen}
     onMouseLeave={props.actions.setVolumeControlsClosed}
-   >
-    <Button icon="volume-2" onClick={props.actions.toggleMute} />
-    <div className="igui_volume_collapse">
-      <div className="igui_volume_container">
+  >
+    <Button icon='volume-2' onClick={props.actions.toggleMute} />
+    <div className='igui_volume_collapse'>
+      <div className='igui_volume_container'>
         <Slider
-          className="igui_volumebar"
+          className='igui_volumebar'
           onChange={percentage => props.actions.setVolume(percentage)}
         >
           {sliderInfo => (
-            <div className="igui_volumebar_container">
-              <div className="igui_volumebar_progress" style={{ transform: `scaleX(${props.data.volumeBarPercentage})` }} />
-              <div style={{ transform: `translateX(${props.data.volumeBarPercentage * 100}%)` }}>
-                <div className="igui_volumebar_scrubber" />
+            <div className='igui_volumebar_container'>
+              <div
+                className='igui_volumebar_progress'
+                style={{
+                  transform: `scaleX(${props.data.volumeBarPercentage})`,
+                }}
+              />
+              <div
+                style={{
+                  transform: `translateX(${props.data.volumeBarPercentage *
+                    100}%)`,
+                }}
+              >
+                <div className='igui_volumebar_scrubber' />
               </div>
             </div>
-           )}
+          )}
         </Slider>
       </div>
     </div>

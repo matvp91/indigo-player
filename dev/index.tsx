@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 import omit from 'lodash/omit';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // Start the player
 
@@ -52,7 +52,8 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     // },
     {
       type: 'hls',
-      src: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+      src:
+        'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
     },
     // {
     //   type: 'webm',
@@ -77,7 +78,9 @@ player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
   render(state);
 });
 
-export interface StateProps { state: any };
+export interface StateProps {
+  state: any;
+}
 
 export const State = (props: StateProps) => {
   const state = omit(props.state, ['ad.freewheelAdInstance']);
@@ -86,7 +89,7 @@ export const State = (props: StateProps) => {
       <pre>{JSON.stringify(state, null, 2)}</pre>
       <button onClick={() => location.reload()}>Reload</button>
     </div>
-   );
+  );
 };
 
 function render(state) {

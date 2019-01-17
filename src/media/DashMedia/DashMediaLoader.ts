@@ -1,5 +1,8 @@
 import { Instance } from '@src/Instance';
-import { isBrowserSupported, isBrowserSupportedDRM } from '@src/media/DashMedia/isBrowserSupported';
+import {
+  isBrowserSupported,
+  isBrowserSupportedDRM,
+} from '@src/media/DashMedia/isBrowserSupported';
 import { Media } from '@src/media/Media';
 import {
   Format,
