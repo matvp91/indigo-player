@@ -30,14 +30,13 @@ const modules: Array<IModuleLoader<Module>> = [
 
   HTML5PlayerLoader,
 
+  UiExtensionLoader,
   StateExtensionLoader,
   BenchmarkExtensionLoader,
   FreeWheelExtensionLoader,
   FullscreenExtensionLoader,
   CaptionsExtensionLoader,
   GoogleIMAExtensionLoader,
-
-  UiExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(
