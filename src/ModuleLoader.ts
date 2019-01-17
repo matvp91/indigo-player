@@ -19,6 +19,7 @@ import {
   ModuleLoaderTypes,
 } from '@src/types';
 import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
+import find from 'lodash/find';
 
 const modules: Array<IModuleLoader<Module>> = [
   BaseControllerLoader,
@@ -76,3 +77,9 @@ export async function createAllSupported<T>(
 export function addModuleLoader(mod: IModuleLoader<Module>) {
   modules.push(mod);
 }
+
+(window as any).__indigoDebugPreloadUI = () => {
+  try {
+    UiExtensionLoader.create(null);
+  } catch (_) {}
+};
