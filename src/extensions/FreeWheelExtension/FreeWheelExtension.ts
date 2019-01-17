@@ -97,6 +97,7 @@ export class FreeWheelExtension extends Module {
 
   public onControllerSetVolume(next: NextHook, volume: number) {
     this.mediaElement.volume = volume;
+    this.mediaElement.muted = volume === 0;
     next();
   }
 

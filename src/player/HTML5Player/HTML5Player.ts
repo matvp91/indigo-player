@@ -96,6 +96,7 @@ export class HTML5Player extends Player {
 
   public setVolume(volume: number) {
     this.mediaElement.volume = volume;
+    this.mediaElement.muted = volume === 0;
   }
 
   private monitorProgress() {
