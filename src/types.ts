@@ -36,6 +36,9 @@ export type Cuepoint = 'preroll' | 'postroll' | number;
 export interface Config {
   autoplay: boolean;
   ui: boolean;
+  uiOptions?: {
+    enablePip?: boolean;
+  };
   sources: Format[];
   showNativeControls: boolean;
   ignorePolyfills: boolean;
@@ -162,7 +165,8 @@ export enum Events {
   STATE_VOLUME_CHANGE = 'state:volume-change',
   STATE_DURATION_CHANGE = 'state:duration-change',
   STATE_FULLSCREEN_SUPPORTED = 'state:fullscreen-supported',
-  STATE_FULLSCREEN_CHANGE = 'state:fullscreen-changed',
+  STATE_FULLSCREEN_CHANGE = 'state:fullscreen-change',
+  STATE_PIP_CHANGE = 'state:pip-change',
 }
 
 export type EventCallback = ListenerFn;

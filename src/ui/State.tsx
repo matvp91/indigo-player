@@ -137,6 +137,10 @@ export class StateStore extends React.Component<
       isVolumeControlsOpen,
       fullscreenSupported: this.props.player.fullscreenSupported,
       isFullscreen: this.props.player.fullscreen,
+      isPip: this.props.player.pip,
+      pipSupported:
+        this.props.instance.config.uiOptions &&
+        this.props.instance.config.uiOptions.enablePip,
       playRequested: this.props.player.playRequested,
       adBreakData,
       cuePoints,
@@ -161,6 +165,8 @@ export class StateStore extends React.Component<
       setVolumeControlsOpen: this.setVolumeControlsOpen,
       setVolumeControlsClosed: this.setVolumeControlsClosed,
       toggleMute: this.toggleMute,
+      togglePip: () =>
+        (this.props.instance.getModule('PipExtension') as any).togglePip(),
     } as IActions;
   }
 

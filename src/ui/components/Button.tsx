@@ -6,6 +6,7 @@ interface ButtonProps {
   children?: JSX.Element | string;
   icon?: string;
   name?: string;
+  disabled?: boolean;
   onClick();
 }
 
@@ -14,6 +15,7 @@ export const Button = (props: ButtonProps) => (
     onClick={props.onClick}
     className={cx('igui_button', {
       [`igui_button_name-${props.name}`]: !!props.name,
+      'igui_button_state-disabled': props.disabled,
     })}
   >
     {!!props.children && props.children}

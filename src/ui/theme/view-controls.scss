@@ -63,6 +63,12 @@
     position: absolute;
   }
 
+  .igui_button_name-pip {
+    right: 45px;
+    bottom: 0;
+    position: absolute;
+  }
+
   .igui_state-active & {
     opacity: 1;
   }

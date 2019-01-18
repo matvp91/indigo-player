@@ -1,6 +1,6 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { Events } from '@src/types';
+import { Events, PipChangeEventData } from '@src/types';
 import './pip.scss';
 
 export class PipExtension extends Module {
@@ -19,6 +19,8 @@ export class PipExtension extends Module {
 
   private internalMoveDragging: any;
   private internalStopDragging: any;
+
+  private pipEnabled: boolean = false;
 
   constructor(instance: Instance) {
     super(instance);
@@ -51,15 +53,35 @@ export class PipExtension extends Module {
 
     container.appendChild(this.playerContainer);
     document.body.appendChild(container);
+
+    this.pipEnabled = true;
+
+    this.emit(Events.PIP_CHANGE, {
+      pip: this.pipEnabled,
+    } as PipChangeEventData);
   }
 
   public disablePip() {
     this.playerContainerParent.appendChild(this.playerContainer);
     this.pipPlaceholder.parentElement.removeChild(this.pipPlaceholder);
     this.pipContainer.parentElement.removeChild(this.pipContainer);
+
+    this.pipEnabled = false;
+
+    this.emit(Events.PIP_CHANGE, {
+      pip: this.pipEnabled,
+    } as PipChangeEventData);
   }
 
-  public startDragging(event) {
+  public togglePip() {
+    if (this.pipEnabled) {
+      this.disablePip();
+    } else {
+      this.enablePip();
+    }
+  }
+
+  private startDragging(event) {
     event.preventDefault();
 
     this.moveStartX = event.clientX;
@@ -71,7 +93,7 @@ export class PipExtension extends Module {
     document.addEventListener('mouseup', this.internalStopDragging);
   }
 
-  public moveDragging(event) {
+  private moveDragging(event) {
     event.preventDefault();
 
     const diffX = this.moveStartX - event.clientX;
@@ -84,7 +106,7 @@ export class PipExtension extends Module {
     this.moveStartY = event.clientY;
   }
 
-  public stopDragging(event) {
+  private stopDragging(event) {
     document.removeEventListener('mousemove', this.internalMoveDragging);
     document.removeEventListener('mouseup', this.internalStopDragging);
   }

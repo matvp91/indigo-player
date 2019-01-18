@@ -10,6 +10,8 @@ export interface IData {
   volumeBarPercentage: number;
   isVolumeControlsOpen: boolean;
   isFullscreen: boolean;
+  isPip: boolean;
+  pipSupported: boolean;
   fullscreenSupported: boolean;
   playRequested: boolean;
   adBreakData?: {
@@ -31,6 +33,7 @@ export interface IActions {
   setVolumeControlsClosed();
   toggleMute();
   toggleFullscreen();
+  togglePip();
 }
 
 export enum ViewTypes {

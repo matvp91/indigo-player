@@ -9,3 +9,8 @@
   outline: none;
   user-select: none;
 }
+
+.igui_button_state-disabled {
+  pointer-events: none;
+  opacity: .5;
+}

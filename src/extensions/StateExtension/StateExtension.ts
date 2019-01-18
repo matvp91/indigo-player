@@ -32,6 +32,7 @@ interface State {
 
   fullscreenSupported: boolean;
   fullscreen: boolean;
+  pip: boolean;
 
   started: boolean;
 }
@@ -65,6 +66,7 @@ export class StateExtension extends Module {
 
     fullscreenSupported: false,
     fullscreen: false,
+    pip: false,
 
     started: false,
   };
@@ -202,6 +204,11 @@ export class StateExtension extends Module {
       draft.fullscreen = data.fullscreen;
     }, Events.STATE_FULLSCREEN_CHANGE);
     this.on(Events.FULLSCREEN_CHANGE, setFullscreenChanged);
+
+    const setPipChanged = this.dispatch((draft, data) => {
+      draft.pip = data.pip;
+    }, Events.STATE_PIP_CHANGE);
+    this.on(Events.PIP_CHANGE, setPipChanged);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
