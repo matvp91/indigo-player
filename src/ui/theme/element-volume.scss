@@ -4,6 +4,11 @@ $volumebar-scrubber-radius: 14px;
 .igui_volume {
   display: flex;
   align-items: center;
+
+  .igui_button .igui_icon_volume-1 {
+    position: relative;
+    left: -2px;
+  }
 }
 
 .igui_volume_container {

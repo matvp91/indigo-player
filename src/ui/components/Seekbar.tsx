@@ -13,6 +13,7 @@ export const Seekbar = withState((props: SeekbarProps) => {
   return (
     <Slider
       className='igui_seekbar'
+      onSeeking={props.actions.startSeeking}
       onSeeked={percentage => props.actions.seekToPercentage(percentage)}
       disabled={!!props.data.adBreakData}
     >

@@ -25,12 +25,15 @@ export interface IData {
 
 export interface IActions {
   playOrPause();
+  startSeeking();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
   showControls();
   hideControls();
   setVolumeControlsOpen();
   setVolumeControlsClosed();
+  startVolumebarSeeking();
+  stopVolumebarSeeking();
   toggleMute();
   toggleFullscreen();
   togglePip();
