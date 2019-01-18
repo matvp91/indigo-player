@@ -17,7 +17,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 <html>
   <body>
     <div id="playerContainer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/indigo-player/lib/indigo-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1/lib/indigo-player.js"></script>
     <script>
       const config = {
         ui: true,
