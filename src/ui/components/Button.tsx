@@ -12,6 +12,8 @@ interface ButtonProps {
 
 export const Button = (props: ButtonProps) => (
   <button
+    type="button"
+    tabIndex={0}
     onClick={props.onClick}
     className={cx('igui_button', {
       [`igui_button_name-${props.name}`]: !!props.name,

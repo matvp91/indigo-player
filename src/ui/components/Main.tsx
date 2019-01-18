@@ -15,17 +15,52 @@ interface MainProps {
 
 class MainComponent extends React.Component<MainProps, {}> {
   public componentDidMount() {
-    ['mouseenter', 'mousemove', 'mousedown'].forEach(eventName => {
-      this.props.data.container.addEventListener(
-        eventName,
-        this.props.actions.showControls,
-      );
-    });
+
+    this.props.data.container.addEventListener(
+      'mouseenter',
+      this.props.actions.showControls,
+    );
+    this.props.data.container.addEventListener(
+      'mousemove',
+      this.props.actions.showControls,
+    );
+    this.props.data.container.addEventListener(
+      'mousedown',
+      this.props.actions.showControls,
+    );
     this.props.data.container.addEventListener(
       'mouseleave',
       this.props.actions.hideControls,
     );
+    document.addEventListener('keyup', this.onHandleProbablyKeyboardNav, false);
+    document.addEventListener('mousedown', this.onHandleProbablyKeyboardNav, false);
   }
+
+  componentWillUnmount() {
+    this.props.data.container.removeEventListener(
+      'mouseenter',
+      this.props.actions.showControls,
+    );
+    this.props.data.container.removeEventListener(
+      'mousemove',
+      this.props.actions.showControls,
+    );
+    this.props.data.container.removeEventListener(
+      'mousedown',
+      this.props.actions.showControls,
+    );
+    this.props.data.container.removeEventListener(
+      'mouseleave',
+      this.props.actions.hideControls,
+    );
+    document.removeEventListener('keyup', this.onHandleProbablyKeyboardNav, false);
+    document.removeEventListener('mousedown', this.onHandleProbablyKeyboardNav, false);
+  }
+
+  private onHandleProbablyKeyboardNav = (event: KeyboardEvent) => {
+   const code:number = event.keyCode || event.which;
+   this.props.actions.setProbablyKeyboardNav(code === 9);
+  };
 
   public render() {
     const props = this.props;
@@ -35,6 +70,7 @@ class MainComponent extends React.Component<MainProps, {}> {
           'igui_state-active': this.props.data.visibleControls,
           'igui_state-volumecontrols-open': this.props.data
             .isVolumeControlsOpen,
+          'igui_state-isprobablykeyboardnav': this.props.data.isProbablyKeyboardNav,
         })}
       >
         {this.props.data.view === ViewTypes.ERROR && <ErrorView />}

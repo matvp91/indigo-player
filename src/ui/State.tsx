@@ -14,6 +14,7 @@ interface StateStoreProps {
 interface StateStoreState {
   visibleControls: boolean;
   isVolumeControlsOpen: boolean;
+  isProbablyKeyboardNav: boolean;
 }
 
 export class StateStore extends React.Component<
@@ -28,6 +29,7 @@ export class StateStore extends React.Component<
     this.state = {
       visibleControls: false,
       isVolumeControlsOpen: false,
+      isProbablyKeyboardNav: false,
     };
   }
 
@@ -52,6 +54,10 @@ export class StateStore extends React.Component<
 
   public setVolumeControlsClosed = () => {
     this.setState({ isVolumeControlsOpen: false });
+  };
+
+  public setProbablyKeyboardNav = (isProbablyKeyboardNav: boolean) => {
+    this.setState({ isProbablyKeyboardNav });
   };
 
   public toggleMute = () => {
@@ -147,6 +153,7 @@ export class StateStore extends React.Component<
       rebuffering: this.props.player.buffering,
       timeStat,
       error,
+      isProbablyKeyboardNav: this.state.isProbablyKeyboardNav,
     } as IData;
   }
 
@@ -156,6 +163,7 @@ export class StateStore extends React.Component<
       seekToPercentage: (percentage: number) =>
         this.props.instance.seekTo(this.props.player.duration * percentage),
       setVolume: (volume: number) => this.props.instance.setVolume(volume),
+      setProbablyKeyboardNav: this.setProbablyKeyboardNav,
       toggleFullscreen: () =>
         (this.props.instance.getModule(
           'FullscreenExtension',

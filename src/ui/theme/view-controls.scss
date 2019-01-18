@@ -69,7 +69,8 @@
     position: absolute;
   }
 
-  .igui_state-active & {
+  .igui_state-active &,
+  .igui_state-isprobablykeyboardnav &  {
     opacity: 1;
   }
 }

@@ -21,6 +21,7 @@ export interface IData {
   rebuffering: boolean;
   timeStat: string;
   error?: PlayerError;
+  isProbablyKeyboardNav: boolean;
 }
 
 export interface IActions {
@@ -34,6 +35,7 @@ export interface IActions {
   toggleMute();
   toggleFullscreen();
   togglePip();
+  setProbablyKeyboardNav(isProbablyKeyboardNav: boolean);
 }
 
 export enum ViewTypes {

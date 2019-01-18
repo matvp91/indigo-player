@@ -37,10 +37,10 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   type: 'hls',
     //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     // },
-    // {
-    //   type: 'mp4',
-    //   src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    // },
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
     // {
     //   type: 'dash',
     //   src:
