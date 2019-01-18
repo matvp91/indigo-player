@@ -27,7 +27,7 @@ export class PipExtension extends Module {
     this.playerContainerParent = this.instance.container.parentElement;
   }
 
-  enablePip() {
+  public enablePip() {
     const container = document.createElement('div');
     container.classList.add('ig_pip-container');
 
@@ -49,19 +49,17 @@ export class PipExtension extends Module {
     this.pipPlaceholder = placeholder;
     this.pipContainer = container;
 
-
-
     container.appendChild(this.playerContainer);
     document.body.appendChild(container);
   }
 
-  disablePip() {
+  public disablePip() {
     this.playerContainerParent.appendChild(this.playerContainer);
     this.pipPlaceholder.parentElement.removeChild(this.pipPlaceholder);
     this.pipContainer.parentElement.removeChild(this.pipContainer);
   }
 
-  startDragging(event) {
+  public startDragging(event) {
     event.preventDefault();
 
     this.moveStartX = event.clientX;
@@ -73,7 +71,7 @@ export class PipExtension extends Module {
     document.addEventListener('mouseup', this.internalStopDragging);
   }
 
-  moveDragging(event) {
+  public moveDragging(event) {
     event.preventDefault();
 
     const diffX = this.moveStartX - event.clientX;
@@ -86,7 +84,7 @@ export class PipExtension extends Module {
     this.moveStartY = event.clientY;
   }
 
-  stopDragging(event) {
+  public stopDragging(event) {
     document.removeEventListener('mousemove', this.internalMoveDragging);
     document.removeEventListener('mouseup', this.internalStopDragging);
   }
