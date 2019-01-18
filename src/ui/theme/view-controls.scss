@@ -50,6 +50,7 @@ opacity:1;
     bottom: 12px;
     position: absolute;
     transition: left 150ms ease-in-out;
+    user-select: none;
 
     .igui_state-volumecontrols-open & {
       left: 155px;

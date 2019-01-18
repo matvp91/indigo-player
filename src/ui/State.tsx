@@ -1,8 +1,8 @@
 import { Instance } from '@src/Instance';
 import { AdBreakType } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
-import * as React from 'react';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
+import * as React from 'react';
 
 export const StateContext = React.createContext({});
 
@@ -81,6 +81,9 @@ export class StateStore extends React.Component<
     if (this.props.player.playRequested && !this.props.player.started) {
       view = ViewTypes.LOADING;
     }
+    if (this.props.player.error) {
+      view = ViewTypes.ERROR;
+    }
 
     const visibleControls = this.state.visibleControls;
 
@@ -113,7 +116,14 @@ export class StateStore extends React.Component<
 
     let timeStat = '';
     if (this.props.player.duration) {
-      timeStat = `${secondsToHMS(this.props.player.currentTime)} / ${secondsToHMS(this.props.player.duration)}`;
+      timeStat = `${secondsToHMS(
+        this.props.player.currentTime,
+      )} / ${secondsToHMS(this.props.player.duration)}`;
+    }
+
+    let error;
+    if (this.props.player.error) {
+      error = this.props.player.error;
     }
 
     return {
@@ -132,6 +142,7 @@ export class StateStore extends React.Component<
       cuePoints,
       rebuffering: this.props.player.buffering,
       timeStat,
+      error,
     } as IData;
   }
 

@@ -172,6 +172,8 @@ Before you start, you must load the `AdManager.js` (https://mssl.fwmrm.net/libs/
 
 !> **Disable your adblocker** before you run the sample.
 
+!> FreeWheel seems to serve some ads over http in their demo configuration above, some ads may not be seen. It's best to give this a try with your own parameters. **When ads fail to fetch / play, the player will continue the content**.
+
 <div class="sample-player" data-optin="1">
 {
   ui: true,

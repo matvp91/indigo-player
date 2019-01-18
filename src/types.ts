@@ -234,6 +234,9 @@ export type EventData =
 
 export enum ErrorCodes {
   NO_SUPPORTED_FORMAT_FOUND = 1001,
+  CONTROLLER_LOAD_FAILED = 1002,
+
+  SHAKA_CRITICAL_ERROR = 2001,
 }
 
 // Modules

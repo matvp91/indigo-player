@@ -8,9 +8,5 @@ interface TimeStatProps {
 }
 
 export const TimeStat = withState((props: TimeStatProps) => {
-  return (
-    <div className="igui_timestat">
-      {props.data.timeStat}
-    </div>
-  );
+  return <div className='igui_timestat'>{props.data.timeStat}</div>;
 });

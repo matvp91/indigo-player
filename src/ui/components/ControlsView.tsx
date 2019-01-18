@@ -1,8 +1,8 @@
 import { Button } from '@src/ui/components/Button';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
-import { VolumeButton } from '@src/ui/components/VolumeButton';
 import { TimeStat } from '@src/ui/components/TimeStat';
+import { VolumeButton } from '@src/ui/components/VolumeButton';
 import { IActions, IData } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';

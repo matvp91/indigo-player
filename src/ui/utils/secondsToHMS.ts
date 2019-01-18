@@ -1,6 +1,5 @@
 export function secondsToHMS(seconds: number): string {
-  const pad = num =>
-    (10 ** 2 + Math.floor(num)).toString().substring(1);
+  const pad = num => (10 ** 2 + Math.floor(num)).toString().substring(1);
 
   seconds = Math.ceil(seconds);
 

@@ -206,7 +206,12 @@ export class Instance implements IInstance {
     this.format = format;
     this.media = media;
 
-    await this.controller.load();
+    try {
+      await this.controller.load();
+    } catch (error) {
+      this.setError(new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error));
+      return;
+    }
 
     this.emit(Events.READY);
 

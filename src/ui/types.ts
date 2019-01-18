@@ -1,3 +1,5 @@
+import { PlayerError } from '@src/PlayerError';
+
 export interface IData {
   container: HTMLElement;
   paused: boolean;
@@ -16,6 +18,7 @@ export interface IData {
   cuePoints: number[];
   rebuffering: boolean;
   timeStat: string;
+  error?: PlayerError;
 }
 
 export interface IActions {
@@ -31,6 +34,7 @@ export interface IActions {
 }
 
 export enum ViewTypes {
+  ERROR,
   LOADING,
   START,
   CONTROLS,
