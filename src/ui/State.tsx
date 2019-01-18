@@ -174,6 +174,7 @@ export class StateStore extends React.Component<
       rebuffering: this.props.player.buffering,
       timeStat,
       error,
+      isVolumeControlsVisible: !this.props.instance.env.isMobile,
     } as IData;
   }
 
