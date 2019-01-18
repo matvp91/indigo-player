@@ -1,7 +1,7 @@
 {
   "name": "indigo-player",
   "description": "Extensible, modern, JS video player",
-  "version": "1.0.1O",
+  "version": "1.0.11",
   "homepage": "https://github.com/matvp91/indigo-player",
   "author": "Matthias Van Parijs",
   "maintainers": [
