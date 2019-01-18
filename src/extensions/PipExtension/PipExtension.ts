@@ -1,8 +1,6 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { Events } from '@src/types';
-import { addStyle } from '@src/utils/addStyle';
-
 import './pip.scss';
 
 export class PipExtension extends Module {
