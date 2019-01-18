@@ -48,6 +48,8 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 }
 </div>
 
+<a class="github-button" href="https://github.com/matvp91/indigo-player" data-size="large" data-show-count="true" aria-label="Star matvp91/indigo-player on GitHub">Star</a>
+
 ?> Open up the console, and use `window.player` to interact with the player above.
 
 ## Features
