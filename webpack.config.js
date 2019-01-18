@@ -37,7 +37,7 @@ function createWebpackConfig(build, argv) {
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(pkg.version),
       }),
-      new webpack.BannerPlugin(`indigo-player ${pkg.version} - [name] - ${+new Date()}`),
+      new webpack.BannerPlugin(`indigo-player v${pkg.version} - [name] - ${+new Date()}`),
     ],
     optimization: {
       splitChunks: {
@@ -54,7 +54,7 @@ function createWebpackConfig(build, argv) {
       new TerserPlugin({
         terserOptions: {
           output: {
-            comments: false,
+            comments: /indigo-player/i,
           },
         },
       }),
