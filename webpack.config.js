@@ -76,7 +76,7 @@ function createWebpackConfig(build, argv) {
       };
 
       if (isProduction) {
-        const publicPath = `https://unpkg.com/indigo-player@${process.env.VERSION}/lib/`;
+        const publicPath = `https://cdn.jsdelivr.net/npm/indigo-player@${process.env.VERSION}/lib/`;
         config.output.publicPath = publicPath;
       }
       break;

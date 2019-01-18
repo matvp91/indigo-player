@@ -4,7 +4,7 @@
 
 ## Hosting
 
-* unpkg.com: https://unpkg.com/indigo-player/lib/indigo-player.js
+* jsdelivr.net: https://cdn.jsdelivr.net/npm/indigo-player/lib/indigo-player.js
 * by using your own host:
   * 1) Let's say you host it at *https://mysite.com/js/indigo-player.js*,
   * 2) Make sure you set *IndigoPlayer.setChunksPath('https://mysite.com/js/')** before calling `init(...)` as the chunks path.
@@ -17,7 +17,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it. In or
 <html>
   <body>
     <div id="playerContainer"></div>
-    <script src="https://unpkg.com/indigo-player/lib/indigo-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player/lib/indigo-player.js"></script>
     <script>
       const config = {
         ui: true,
