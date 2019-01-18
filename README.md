@@ -39,26 +39,26 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 ```javascript
 <html>
   <body>
+    <div id="playerContainer"></div>
     <script src="https://cdn.jsdelivr.net/npm/indigo-player/lib/indigo-player.js"></script>
     <script>
       const config = {
-        autoplay: true,
+        ui: true,
         sources: [
           {
             type: 'mp4',
-            src: 'https://samples.com/BigBuckBunny.mp4',
-          },
+            src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          }
         ],
       };
 
-      const element = document.getElementById('player');
+      const element = document.getElementById('playerContainer');
       const player = IndigoPlayer.init(element, config);
-    
+
       // You can use the player object now to access the player and it's methods (play, pause, ...)
     </script>
   </body>
 </html>
-
 ```
 
 ## Cheers 🍺
