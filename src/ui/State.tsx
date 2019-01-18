@@ -64,6 +64,7 @@ export class StateStore extends React.Component<
 
   public stopVolumebarSeeking = () => {
     this.setState({ isVolumebarSeeking: false });
+    this.showControls(); // Show the controls for x-seconds after a seek.
   };
 
   public startSeeking = () => {
@@ -72,6 +73,7 @@ export class StateStore extends React.Component<
 
   public seekToPercentage = (percentage: number) => {
     this.setState({ isSeekbarSeeking: false });
+    this.showControls();
     this.props.instance.seekTo(this.props.player.duration * percentage);
   };
 
@@ -154,7 +156,7 @@ export class StateStore extends React.Component<
     }
 
     let isCenterClickAllowed = true;
-    if (adBreakData) {
+    if (adBreakData || this.props.instance.env.isMobile) {
       isCenterClickAllowed = false;
     }
 
