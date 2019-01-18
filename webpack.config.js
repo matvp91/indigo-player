@@ -37,6 +37,7 @@ function createWebpackConfig(build, argv) {
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(pkg.version),
       }),
+      new webpack.BannerPlugin(`indigo-player ${pkg.version} - [name] - ${+new Date()}`),
     ],
     optimization: {
       splitChunks: {
