@@ -151,7 +151,9 @@ export class GoogleIMAExtension extends Module {
     const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)
       .mediaElement;
 
-    this.adsManager = event.getAdsManager(mediaElement);
+    this.adsManager = event.getAdsManager(mediaElement, {
+      autoAlign: false,
+    });
 
     this.adBreaks = this.adsManager.getCuePoints().map((cuepoint, index) => {
       let type = AdBreakType.MIDROLL;
@@ -269,10 +271,12 @@ export class GoogleIMAExtension extends Module {
 
     const adBreak = this.adBreaks[ad.getAdPodInfo().getPodIndex()];
 
-    adBreak.duration = duration;
+    if (adBreak) {
+      adBreak.duration = duration;
 
-    this.emit(Events.ADBREAKS, {
-      adBreaks: this.adBreaks,
-    } as AdBreaksEventData);
+      this.emit(Events.ADBREAKS, {
+        adBreaks: this.adBreaks,
+      } as AdBreaksEventData);
+    }
   }
 }

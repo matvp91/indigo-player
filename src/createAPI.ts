@@ -9,7 +9,8 @@ import { createFunctionFn } from '@src/utils/defineProperty';
  * @return {Object}   External API.
  */
 export function createAPI(instance: Instance) {
-  const api = {};
+  const api: any = {};
+
   const createFunction = createFunctionFn(api);
 
   [
@@ -62,6 +63,8 @@ export function createAPI(instance: Instance) {
     // Get a specific module by name
     ['getModule', (name: string) => instance.getModule(name)],
   ].forEach(tuple => createFunction(tuple[0], tuple[1]));
+
+  api._getInstanceForDev = () => instance;
 
   return api;
 }

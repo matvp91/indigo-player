@@ -26,6 +26,14 @@ export class HlsMedia extends Media {
     this.player.startLoad();
   }
 
+  public seekTo(time: number) {
+    if (time === Infinity) {
+      this.instance.player.seekTo(this.player.liveSyncPosition);
+      return;
+    }
+    super.seekTo(time);
+  }
+
   public unload() {
     this.player.destroy();
     this.player = null;
