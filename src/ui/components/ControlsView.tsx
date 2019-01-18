@@ -1,4 +1,5 @@
 import { Button } from '@src/ui/components/Button';
+import { Center } from '@src/ui/components/Center';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
 import { TimeStat } from '@src/ui/components/TimeStat';
@@ -15,6 +16,7 @@ interface ControlsViewProps {
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <>
+      {props.data.isCenterClickAllowed && <Center />}
       {props.data.rebuffering && <Rebuffer />}
       <div className='igui_container_controls'>
         <Button
