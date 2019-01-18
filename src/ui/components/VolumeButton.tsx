@@ -23,6 +23,8 @@ export const VolumeButton = withState((props: VolumeButtonProps) => (
       <div className='igui_volume_container'>
         <Slider
           className='igui_volumebar'
+          onSeeking={props.actions.startVolumebarSeeking}
+          onSeeked={props.actions.stopVolumebarSeeking}
           onChange={percentage => props.actions.setVolume(percentage)}
         >
           {sliderInfo => (

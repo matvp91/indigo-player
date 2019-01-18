@@ -14,6 +14,8 @@ interface StateStoreProps {
 interface StateStoreState {
   visibleControls: boolean;
   isVolumeControlsOpen: boolean;
+  isSeekbarSeeking: boolean;
+  isVolumebarSeeking: boolean;
 }
 
 export class StateStore extends React.Component<
@@ -28,6 +30,8 @@ export class StateStore extends React.Component<
     this.state = {
       visibleControls: false,
       isVolumeControlsOpen: false,
+      isSeekbarSeeking: false,
+      isVolumebarSeeking: false,
     };
   }
 
@@ -52,6 +56,23 @@ export class StateStore extends React.Component<
 
   public setVolumeControlsClosed = () => {
     this.setState({ isVolumeControlsOpen: false });
+  };
+
+  public startVolumebarSeeking = () => {
+    this.setState({ isVolumebarSeeking: true });
+  };
+
+  public stopVolumebarSeeking = () => {
+    this.setState({ isVolumebarSeeking: false });
+  };
+
+  public startSeeking = () => {
+    this.setState({ isSeekbarSeeking: true });
+  };
+
+  public seekToPercentage = (percentage: number) => {
+    this.setState({ isSeekbarSeeking: false });
+    this.props.instance.seekTo(this.props.player.duration * percentage);
   };
 
   public toggleMute = () => {
@@ -85,7 +106,10 @@ export class StateStore extends React.Component<
       view = ViewTypes.ERROR;
     }
 
-    const visibleControls = this.state.visibleControls;
+    let visibleControls = this.state.visibleControls;
+    if (this.state.isSeekbarSeeking || this.state.isVolumebarSeeking) {
+      visibleControls = true;
+    }
 
     let progressPercentage =
       this.props.player.currentTime / this.props.player.duration;
@@ -93,7 +117,10 @@ export class StateStore extends React.Component<
       progressPercentage = 0;
     }
 
-    const isVolumeControlsOpen = this.state.isVolumeControlsOpen;
+    let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
+    if (this.state.isVolumebarSeeking) {
+      isVolumeControlsOpen = true;
+    }
 
     let adBreakData;
     if (this.props.player.adBreak) {
@@ -153,9 +180,11 @@ export class StateStore extends React.Component<
   public createActions() {
     return {
       playOrPause: this.playOrPause,
-      seekToPercentage: (percentage: number) =>
-        this.props.instance.seekTo(this.props.player.duration * percentage),
+      startSeeking: this.startSeeking,
+      seekToPercentage: this.seekToPercentage,
       setVolume: (volume: number) => this.props.instance.setVolume(volume),
+      startVolumebarSeeking: this.startVolumebarSeeking,
+      stopVolumebarSeeking: this.stopVolumebarSeeking,
       toggleFullscreen: () =>
         (this.props.instance.getModule(
           'FullscreenExtension',
