@@ -40,7 +40,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
         'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
       drm: {
         widevine: {
-          licenseUrl: 'zhttps://widevine-proxy.appspot.com/proxy',
+          licenseUrl: 'https://widevine-proxy.appspot.com/proxy',
         },
         playready: {
           licenseUrl:

@@ -141,6 +141,7 @@ export enum Events {
   // Misc
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
+  PIP_CHANGE = 'pip:change',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -216,6 +217,10 @@ export type BufferedChangeEventData = {
   percentage: number;
 };
 
+export type PipChangeEventData = {
+  pip: boolean;
+};
+
 export type EventData =
   | TimeUpdateEventData
   | VolumeChangeEventData
@@ -228,7 +233,8 @@ export type EventData =
   | StateChangeEventData
   | AdEventData
   | CaptionsChangeEventData
-  | BufferedChangeEventData;
+  | BufferedChangeEventData
+  | PipChangeEventData;
 
 // Errors
 

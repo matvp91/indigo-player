@@ -1,0 +1,35 @@
+.ig_pip-container {
+  position: fixed;
+  z-index: 91337;
+  bottom: 12px;
+  right: 12px;
+  width: 400px;
+  height: 400px / 16 * 9;
+  box-shadow: 0px 0px 28px rgba(0, 0, 0, .3);
+}
+
+.ig_pip-handler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  z-index: 1;
+  cursor: grabbing;
+}
+
+.ig_pip-close {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  right: 0;
+  top: -28px;
+  font-size: 28px;
+  cursor: pointer;
+  text-align: right;
+}
+
+.ig_pip-placeholder {
+  padding-bottom: 56.25%;
+  background-color: #222222;
+}

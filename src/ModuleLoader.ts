@@ -5,6 +5,7 @@ import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/Fre
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
+import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoader';
 import { Instance } from '@src/Instance';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
@@ -30,6 +31,7 @@ const modules: Array<IModuleLoader<Module>> = [
 
   HTML5PlayerLoader,
 
+  PipExtensionLoader,
   UiExtensionLoader,
   StateExtensionLoader,
   BenchmarkExtensionLoader,

@@ -7,7 +7,5 @@ export const BenchmarkExtensionLoader = {
 
   create: async (instance: Instance) => new BenchmarkExtension(instance),
 
-  isSupported: ({ config }: { config: Config }): boolean => {
-    return true;
-  },
+  isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<BenchmarkExtension>;
