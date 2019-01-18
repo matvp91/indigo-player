@@ -39,7 +39,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 ```javascript
 <html>
   <body>
-    <script src="https://unpkg.com/indigo-player/lib/indigo-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player/lib/indigo-player.js"></script>
     <script>
       const config = {
         autoplay: true,
