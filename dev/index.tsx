@@ -39,7 +39,8 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     // },
     {
       type: 'mp4',
-      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      src:
+        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     },
     // {
     //   type: 'dash',

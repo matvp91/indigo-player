@@ -21,6 +21,7 @@ export interface IData {
   rebuffering: boolean;
   timeStat: string;
   error?: PlayerError;
+  isCenterClickAllowed: boolean;
 }
 
 export interface IActions {

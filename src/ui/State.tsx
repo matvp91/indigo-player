@@ -153,6 +153,11 @@ export class StateStore extends React.Component<
       error = this.props.player.error;
     }
 
+    let isCenterClickAllowed = true;
+    if (adBreakData) {
+      isCenterClickAllowed = false;
+    }
+
     return {
       container: this.props.instance.container,
       view,
@@ -174,6 +179,7 @@ export class StateStore extends React.Component<
       rebuffering: this.props.player.buffering,
       timeStat,
       error,
+      isCenterClickAllowed,
     } as IData;
   }
 
