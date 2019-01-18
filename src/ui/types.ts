@@ -22,6 +22,7 @@ export interface IData {
   timeStat: string;
   error?: PlayerError;
   isCenterClickAllowed: boolean;
+  isVolumeControlsVisible: boolean;
 }
 
 export interface IActions {

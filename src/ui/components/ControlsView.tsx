@@ -24,7 +24,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           icon={props.data.playRequested ? 'pause' : 'play'}
           onClick={props.actions.playOrPause}
         />
-        <VolumeButton />
+        {props.data.isVolumeControlsVisible && <VolumeButton />}
         <TimeStat />
         <div className='igui_container_controls_seekbar'>
           <Seekbar />

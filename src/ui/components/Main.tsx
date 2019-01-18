@@ -33,6 +33,7 @@ class MainComponent extends React.Component<MainProps, {}> {
       <div
         className={cx({
           'igui_state-active': this.props.data.visibleControls,
+          'igui_state-volumecontrols-visible': this.props.data.isVolumeControlsVisible,
           'igui_state-volumecontrols-open': this.props.data
             .isVolumeControlsOpen,
         })}

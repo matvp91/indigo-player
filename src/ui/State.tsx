@@ -180,6 +180,7 @@ export class StateStore extends React.Component<
       timeStat,
       error,
       isCenterClickAllowed,
+      isVolumeControlsVisible: !this.props.instance.env.isMobile,
     } as IData;
   }
 
