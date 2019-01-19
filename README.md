@@ -36,7 +36,7 @@ Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
 The example below will load a simple MP4 file, and attempt to autoplay it.
 
-```javascript
+```html
 <html>
   <body>
     <div id="playerContainer"></div>
