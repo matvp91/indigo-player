@@ -2,6 +2,7 @@ import { Instance } from '@src/Instance';
 import { AdBreakType } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
+import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import * as React from 'react';
 
 export const StateContext = React.createContext({});
@@ -24,6 +25,8 @@ export class StateStore extends React.Component<
 > {
   public activeTimer: number;
 
+  private unsubscribe: EventUnsubscribeFn;
+
   constructor(props) {
     super(props);
 
@@ -33,6 +36,23 @@ export class StateStore extends React.Component<
       isSeekbarSeeking: false,
       isVolumebarSeeking: false,
     };
+
+    this.unsubscribe = attachEvents([
+      {
+        element: this.props.instance.container,
+        events: ['mouseenter', 'mousemove', 'mousedown'],
+        callback: this.showControls,
+      },
+      {
+        element: this.props.instance.container,
+        events: ['mouseleave'],
+        callback: this.hideControls,
+      }
+    ]);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   public showControls = () => {
@@ -161,7 +181,6 @@ export class StateStore extends React.Component<
     }
 
     return {
-      container: this.props.instance.container,
       view,
       paused: this.props.player.paused,
       visibleControls,
@@ -198,8 +217,6 @@ export class StateStore extends React.Component<
         (this.props.instance.getModule(
           'FullscreenExtension',
         ) as any).toggleFullscreen(),
-      showControls: this.showControls,
-      hideControls: this.hideControls,
       setVolumeControlsOpen: this.setVolumeControlsOpen,
       setVolumeControlsClosed: this.setVolumeControlsClosed,
       toggleMute: this.toggleMute,

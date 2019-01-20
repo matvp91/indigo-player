@@ -1,7 +1,6 @@
 import { PlayerError } from '@src/PlayerError';
 
 export interface IData {
-  container: HTMLElement;
   paused: boolean;
   view: ViewTypes;
   visibleControls: boolean;
@@ -30,8 +29,6 @@ export interface IActions {
   startSeeking();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
-  showControls();
-  hideControls();
   setVolumeControlsOpen();
   setVolumeControlsClosed();
   startVolumebarSeeking();
