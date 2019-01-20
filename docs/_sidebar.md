@@ -4,3 +4,4 @@
   * [API](API.md)
 * Development
   * [Module structure](ModuleStructure.md)
+  * [Theming](Theming.md)

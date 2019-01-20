@@ -23,7 +23,7 @@ $seekbar-scrubber-radius: 14px;
   top: 0;
   bottom: 0;
   transform-origin: left;
-  background-color: #4b0082;
+  background-color: #ffffff;
 }
 
 .igui_seekbar_ahead {
@@ -50,7 +50,7 @@ $seekbar-scrubber-radius: 14px;
 .igui_seekbar_scrubber {
   width: $seekbar-scrubber-radius;
   height: $seekbar-scrubber-radius;
-  background-color: #4b0082;
+  background-color: #ffffff;
   border-radius: 100%;
   position: relative;
   top: (($seekbar-height / 2) - ($seekbar-scrubber-radius / 2));

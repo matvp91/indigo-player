@@ -12,7 +12,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
   ui: true,
   uiOptions: {
-    enablePip: true,
+    enablePip: false,
   },
   // freewheel: {
   //   clientSide: true,
