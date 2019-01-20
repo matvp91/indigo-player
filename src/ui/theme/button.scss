@@ -1,13 +1,8 @@
 .igui_button {
-  margin: 0;
-  padding: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  border: none;
-  outline: none;
+  @include reset-button();
   user-select: none;
+  cursor: pointer;
+  outline: none;
 }
 
 .igui_button_state-disabled {

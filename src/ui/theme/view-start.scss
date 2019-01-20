@@ -1,5 +1,7 @@
 .igui_view_start {
   @include stretch();
+  @include reset-button();
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
