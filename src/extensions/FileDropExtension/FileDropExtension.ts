@@ -1,5 +1,6 @@
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
+import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { Events } from '@src/types';
 
 export class FileDropExtension extends Module {
@@ -35,11 +36,20 @@ export class FileDropExtension extends Module {
     const videoFile = files.find(file => file.type.startsWith('video/'));
 
     if (videoFile) {
-      this.instance.once(Events.READY, () => {
+      this.loadVideo(videoFile);
+    }
+  }
+
+  private loadVideo = (videoFile: File) => {
+    const player = this.instance.player as HTML5Player;
+
+    if (!player.mediaElement.paused) {
+      this.instance.once(Events.STATE_DURATION_CHANGE, () => {
         this.instance.play();
       });
-      this.instance.pause();
-      this.instance.player.setSource(URL.createObjectURL(videoFile));
     }
+
+    this.instance.pause();
+    player.setSource(URL.createObjectURL(videoFile));
   }
 }
