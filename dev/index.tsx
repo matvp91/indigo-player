@@ -81,6 +81,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
       src: './en-subs.vtt',
     },
   ],
+  fileDrop: true,
 });
 (window as any).player = player;
 

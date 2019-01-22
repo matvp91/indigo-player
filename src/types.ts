@@ -56,6 +56,7 @@ export interface Config {
     src: string;
   };
   captions?: Caption[];
+  fileDrop?: boolean;
 }
 
 // ADS
