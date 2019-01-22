@@ -2,12 +2,12 @@ import { createAPI } from '@src/createAPI';
 import { Instance } from '@src/Instance';
 import { addModuleLoader } from '@src/ModuleLoader';
 import { exposeEnum } from '@src/utils/exposeEnum';
-import { Config, Events, ModuleLoaderTypes } from './types';
+import { Config, ErrorCodes, Events, ModuleLoaderTypes } from './types';
 
 declare var __webpack_public_path__: string;
 declare var VERSION: string;
 
-export const IndigoPlayer = {
+const IndigoPlayer = {
   VERSION,
   setChunksPath(chunksPath: string) {
     __webpack_public_path__ = chunksPath;
@@ -17,6 +17,14 @@ export const IndigoPlayer = {
     return createAPI(instance);
   },
   addModuleLoader,
-  ModuleLoaderTypes: exposeEnum(ModuleLoaderTypes),
   Events: exposeEnum(Events),
+  ErrorCodes: exposeEnum(ErrorCodes),
 };
+
+(window as any).IndigoPlayer = IndigoPlayer;
+
+export { Module } from '@src/Module';
+
+export { IModuleLoader, ModuleLoaderTypes, Events } from '@src/types';
+
+export { Instance } from '@src/Instance';

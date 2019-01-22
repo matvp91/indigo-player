@@ -72,7 +72,6 @@ function createWebpackConfig(build, argv) {
         path: path.resolve(__dirname, 'lib'),
         filename: `${pkg.name}.js`,
         chunkFilename: '[name].[chunkhash].js',
-        libraryTarget: 'umd',
       };
 
       if (isProduction) {
