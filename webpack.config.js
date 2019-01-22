@@ -67,7 +67,7 @@ function createWebpackConfig(build, argv) {
       throw new Error('Specify a build...');
 
     case 'player':
-      config.entry = 'src/index.ts';
+      config.entry = 'src/indexBrowser.ts';
       config.output = {
         path: path.resolve(__dirname, 'lib'),
         filename: `${pkg.name}.js`,
@@ -78,6 +78,15 @@ function createWebpackConfig(build, argv) {
         const publicPath = `https://cdn.jsdelivr.net/npm/indigo-player@${process.env.VERSION}/lib/`;
         config.output.publicPath = publicPath;
       }
+      break;
+
+    case 'module':
+      config.entry = 'src/indexModule.ts';
+      config.output = {
+        path: path.resolve(__dirname, 'lib'),
+        filename: `${pkg.name}-module.js`,
+        libraryTarget: 'umd',
+      };
       break;
 
     case 'dev':
@@ -100,7 +109,7 @@ function createWebpackConfig(build, argv) {
 }
 
 module.exports = (env, argv) => {
-  let builds = ['player']; // Default builds
+  let builds = ['player', 'module']; // Default builds
   if (argv.builds) {
     builds = argv.builds.split(',');
   }

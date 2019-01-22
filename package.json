@@ -41,10 +41,11 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
     "build": "rm -rf lib && webpack --mode production",
+    "build:dev": "rm -rf lib && webpack --mode production --watch",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
-  "main": "lib/indigo-player.js",
+  "main": "lib/indigo-player-module.js",
   "dependencies": {
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",
