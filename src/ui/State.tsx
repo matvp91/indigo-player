@@ -1,8 +1,8 @@
 import { Instance } from '@src/Instance';
 import { AdBreakType } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
-import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
+import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import * as React from 'react';
 
 export const StateContext = React.createContext({});
@@ -47,11 +47,11 @@ export class StateStore extends React.Component<
         element: this.props.instance.container,
         events: ['mouseleave'],
         callback: this.hideControls,
-      }
+      },
     ]);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.unsubscribe();
   }
 
