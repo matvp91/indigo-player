@@ -46,6 +46,7 @@
     "test": "jest"
   },
   "main": "lib/indigo-player-module.js",
+  "types": "src/types.ts",
   "dependencies": {
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",

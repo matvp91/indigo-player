@@ -1,9 +1,3 @@
-import { Controller } from '@src/controller/Controller';
-import { Instance } from '@src/Instance';
-import { Player } from '@src/player/Player';
-import { PlayerError } from '@src/PlayerError';
-import { ListenerFn } from 'eventemitter3';
-
 export enum FormatTypes {
   MP4 = 'mp4',
   WEBM = 'webm',
@@ -169,7 +163,7 @@ export enum Events {
   STATE_PIP_CHANGE = 'state:pip-change',
 }
 
-export type EventCallback = ListenerFn;
+export type EventCallback = any;
 
 export type TimeUpdateEventData = {
   currentTime: number;
@@ -185,7 +179,7 @@ export type ShakaInstanceEventData = {
 };
 
 export type ErrorEventData = {
-  error: PlayerError;
+  error: IPlayerError;
 };
 
 export type AdBreaksEventData = {
@@ -242,6 +236,11 @@ export type EventData =
 
 // Errors
 
+export interface IPlayerError {
+  code: ErrorCodes;
+  underlyingError: Error;
+}
+
 export enum ErrorCodes {
   NO_SUPPORTED_FORMAT_FOUND = 1001,
   CONTROLLER_LOAD_FAILED = 1002,
@@ -260,9 +259,9 @@ export enum ModuleLoaderTypes {
 
 export interface IModuleLoader<T> {
   type: ModuleLoaderTypes;
-  create(instance: Instance): T | Promise<T>;
+  create(instance: IInstance): T | Promise<T>;
   isSupported(
-    instance: Instance,
+    instance: IInstance,
     isSupportedArgs?: any,
   ): boolean | Promise<boolean>;
 }
@@ -320,8 +319,8 @@ export interface IInstance {
   container: HTMLElement;
   playerContainer: HTMLElement;
 
-  controller: Controller;
-  player: Player;
+  controller: IController;
+  player: IPlayer;
 
   // Methods
   play();

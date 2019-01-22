@@ -1,6 +1,6 @@
-import { ErrorCodes } from '@src/types';
+import { ErrorCodes, IPlayerError } from '@src/types';
 
-export class PlayerError extends Error {
+export class PlayerError extends Error implements IPlayerError {
   public code: ErrorCodes;
 
   public underlyingError: any;
