@@ -1,48 +1,44 @@
-$seekbar-height: 3px;
-$seekbar-scrubber-radius: 14px;
+$seekbar-bars-height: 5px;
+$seekbar-scrubber-radius: 13px;
 
 .igui_seekbar {
   cursor: pointer;
   width: 100%;
-  height: 16px;
+  position: relative;
   display: flex;
   align-items: center;
+  padding-bottom: 6px;
+  padding-top: 16px;
 }
 
-.igui_seekbar_container {
-  height: $seekbar-height;
+.igui_seekbar_bars {
+  height: $seekbar-bars-height;
   background-color: rgba(255, 255, 255, .3);;
   position: relative;
   width: 100%;
+  transform: scaleY(0.6);
+  transition: transform 75ms linear;
+
+  .igui_seekbar_state-active & {
+    transform: scaleY(1);
+  }
 }
 
 .igui_seekbar_progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  @include stretch();
   transform-origin: left;
   background-color: #ffffff;
 }
 
 .igui_seekbar_ahead {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  @include stretch();
   transform-origin: left;
   background-color: rgba(255, 255, 255, .3);
   z-index: -1;
 }
 
 .igui_seekbar_buffered {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  @include stretch();
   transform-origin: left;
   background-color: rgba(255, 255, 255, .3);
 }
@@ -52,31 +48,45 @@ $seekbar-scrubber-radius: 14px;
   height: $seekbar-scrubber-radius;
   background-color: #ffffff;
   border-radius: 100%;
-  position: relative;
-  top: (($seekbar-height / 2) - ($seekbar-scrubber-radius / 2));
-  left: -($seekbar-scrubber-radius / 2);
-  transition: transform 100ms linear;
+  position: absolute;
+  transition: transform 75ms linear;
   transform-origin: center;
   transform: scale(0);
+  margin-left: -($seekbar-scrubber-radius / 2);
+  z-index: 1;
 
-  .igui_seekbar_state-active &,
-  .igui_seekbar_state-seeking & {
+  .igui_seekbar_state-active & {
     transform: scale(1);
   }
 }
 
-.igui_seekbar_container_ads {
+.igui_seekbar_state-playingad {
+  pointer-events: none;
+
   .igui_seekbar_progress {
     background-color: #ffe600;
   }
 }
 
-.igui_seekbar_cuepoints {
-  .igui_seekbar_cuepoint {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    background-color: #ffe600;
+.igui_seekbar_cuepoint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: #ffe600;
+}
+
+.igui_seekbar_tooltip {
+  position: absolute;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 4px 6px;
+  background-color: #222222;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+
+  .igui_seekbar_state-active & {
+    opacity: 1;
   }
 }
