@@ -1,6 +1,5 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { Events } from '@src/types';
+import { Events, IInstance } from '@src/types';
 
 const startTime = performance.now();
 
@@ -15,7 +14,7 @@ export class BenchmarkExtension extends Module {
 
   public startupTimeWithAutoplay: number;
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     this.startupTimeExtension = performance.now() - startTime;

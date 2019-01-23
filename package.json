@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "awesome-typescript-loader": "^5.2.1",
@@ -41,12 +42,11 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
     "build": "rm -rf lib && webpack --mode production",
-    "build:dev": "rm -rf lib && webpack --mode production --watch",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
-  "main": "lib/indigo-player-module.js",
-  "types": "src/types.ts",
+  "main": "lib/indigo-player.js",
+  "types": "src/index.d.ts",
   "dependencies": {
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",

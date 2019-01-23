@@ -1,14 +1,13 @@
-import { Instance } from '@src/Instance';
 import { PlayerError } from '@src/PlayerError';
-import { EventCallback, EventData } from '@src/types';
+import { IInstance, EventCallback, EventData } from '@src/types';
 import { createFunctionFn } from '@src/utils/defineProperty';
 
 /**
  * Defines the public API, this is the return value of init().
- * @param  {Instance} instance
+ * @param  {IInstance} instance
  * @return {Object}   External API.
  */
-export function createAPI(instance: Instance) {
+export function createAPI(instance: IInstance) {
   const api: any = {};
 
   const createFunction = createFunctionFn(api);

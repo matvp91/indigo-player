@@ -1,14 +1,13 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { CaptionsChangeEventData, Events } from '@src/types';
+import { IInstance, CaptionsChangeEventData, Events } from '@src/types';
 
 export class CaptionsExtension extends Module {
   public name: string = 'CaptionsExtension';
 
   private tracks: HTMLTrackElement[];
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     this.tracks = instance.config.captions.map(caption => {

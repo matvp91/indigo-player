@@ -1,14 +1,10 @@
-import { Controller } from '@src/controller/Controller';
-import { Media } from '@src/media/Media';
-import { Module } from '@src/Module';
 import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
-import { Player } from '@src/player/Player';
 import { PlayerError } from '@src/PlayerError';
 import { selectMedia } from '@src/selectMedia';
 import '@src/styles.scss';
 import {
   Config,
-  Env,
+  IEnv,
   ErrorCodes,
   ErrorEventData,
   EventCallback,
@@ -17,6 +13,11 @@ import {
   Format,
   IInstance,
   ModuleLoaderTypes,
+  IController,
+  IMedia,
+  IModule,
+  IPlayer,
+  IPlayerError,
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';
 import EventEmitter from 'eventemitter3';
@@ -45,17 +46,17 @@ export class Instance implements IInstance {
 
   public uiContainer: HTMLElement;
 
-  public env: Env;
+  public env: IEnv;
 
-  public controller: Controller;
+  public controller: IController;
 
-  public player: Player;
+  public player: IPlayer;
 
-  public media: Media;
+  public media: IMedia;
 
   public format: Format;
 
-  public extensions: Module[];
+  public extensions: Array<IModule>;
 
   /**
    * Allow the instance to emit and listen to events.
@@ -101,7 +102,7 @@ export class Instance implements IInstance {
     this.controller.setVolume(volume);
   }
 
-  public setError(error: PlayerError) {
+  public setError(error: IPlayerError) {
     this.controller.unload();
     this.emit(Events.ERROR, {
       error,
@@ -141,7 +142,7 @@ export class Instance implements IInstance {
     };
   }
 
-  public getModule(name: string): Module {
+  public getModule(name: string): IModule {
     const modules = [
       ...this.extensions,
       this.controller,
@@ -178,20 +179,20 @@ export class Instance implements IInstance {
 
     this.env = await getEnv();
 
-    this.controller = await createFirstSupported<Controller>(
+    this.controller = await createFirstSupported<IController>(
       ModuleLoaderTypes.CONTROLLER,
       this,
       this.config,
     );
     await this.controller.boot();
 
-    this.extensions = await createAllSupported<Module>(
+    this.extensions = await createAllSupported<IModule>(
       ModuleLoaderTypes.EXTENSION,
       this,
       this.config,
     );
 
-    this.player = await createFirstSupported<Player>(
+    this.player = await createFirstSupported<IPlayer>(
       ModuleLoaderTypes.PLAYER,
       this,
     );

@@ -1,6 +1,5 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { Events } from '@src/types';
+import { IInstance, Events } from '@src/types';
 import { render } from '@src/ui/render';
 
 import '@src/ui/theme/index.scss';
@@ -8,7 +7,7 @@ import '@src/ui/theme/index.scss';
 export class UiExtension extends Module {
   public name: string = 'UiExtension';
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     const container = this.instance.container.querySelector(

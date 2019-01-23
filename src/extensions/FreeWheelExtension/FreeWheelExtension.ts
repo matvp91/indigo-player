@@ -1,7 +1,6 @@
-import { NextHook } from '@src/Hooks';
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import {
+  NextHook,
   Ad,
   AdBreakEventData,
   AdBreaksEventData,
@@ -10,6 +9,7 @@ import {
   Events,
   FreeWheelAdBreak,
   TimeUpdateEventData,
+  IInstance,
 } from '@src/types';
 import find from 'lodash/find';
 import get from 'lodash/get';
@@ -37,7 +37,7 @@ export class FreeWheelExtension extends Module {
 
   private adContainer: HTMLElement;
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     if (!get(window, 'tv.freewheel.SDK')) {

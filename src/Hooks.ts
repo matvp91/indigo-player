@@ -1,7 +1,5 @@
-import { Module } from '@src/Module';
+import { NextHook, IHooks, IModule } from '@src/types';
 import filter from 'lodash/filter';
-
-export type NextHook = (...args: any) => void;
 
 interface IHook {
   name: string;
@@ -15,18 +13,18 @@ interface IHook {
  */
 export function Hookable<T extends new (...args: any[]) => {}>(constructor: T) {
   return class extends constructor {
-    public hooks = new Hooks((this as unknown) as Module);
+    public hooks = new Hooks((this as unknown) as IModule);
   };
 }
 
-class Hooks {
-  private module: Module;
+class Hooks implements IHooks {
+  private module: IModule;
 
   private hooks: IHook[] = [];
 
   private origFunctions: any = {};
 
-  constructor(module: Module) {
+  constructor(module: IModule) {
     this.module = module;
   }
 

@@ -1,14 +1,15 @@
-import { NextHook } from '@src/Hooks';
 import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import {
+  NextHook,
   AdBreakEventData,
   AdBreaksEventData,
   AdBreakType,
   Events,
   GoogleIMAAdBreak,
   TimeUpdateEventData,
+  IInstance,
 } from '@src/types';
 import get from 'lodash/get';
 
@@ -31,7 +32,7 @@ export class GoogleIMAExtension extends Module {
 
   private currentAdBreak: GoogleIMAAdBreak;
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     if (!get(window, 'google.ima')) {
