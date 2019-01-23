@@ -1,7 +1,8 @@
 interface EventDefinition {
   element: HTMLElement;
   events: string[];
-  callback();
+  callback: any;
+  passive?: boolean;
 }
 
 export type EventUnsubscribeFn = () => void;
@@ -12,7 +13,7 @@ export function attachEvents(defs: EventDefinition[]) {
   defs.forEach(def => {
     def.events.forEach(name => {
       // Register the event listener.
-      def.element.addEventListener(name, def.callback);
+      def.element.addEventListener(name, def.callback, def.passive);
 
       // Create an unsubscribe method.
       const unsubscribe = () =>

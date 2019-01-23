@@ -58,5 +58,5 @@ $volumebar-scrubber-radius: 14px;
   border-radius: 100%;
   position: relative;
   top: (($volumebar-height / 2) - ($volumebar-scrubber-radius / 2));
-  left: -($volumebar-scrubber-radius / 2);
+  margin-left: -($volumebar-scrubber-radius / 2);
 }

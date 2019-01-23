@@ -46,15 +46,11 @@
   }
 
   .igui_timestat {
-    left: 48px;
+    left: 91px;
     bottom: 12px;
     position: absolute;
     transition: left 150ms ease-in-out;
     user-select: none;
-
-    .igui_state-volumecontrols-visible & {
-      left: 91px;
-    }
 
     .igui_state-volumecontrols-open & {
       left: 155px;
@@ -86,5 +82,4 @@
   left: 0;
   right: 0;
   bottom: 34px;
-  overflow: hidden;
 }
