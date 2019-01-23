@@ -21,7 +21,12 @@ export interface IData {
   timeStat: string;
   error?: PlayerError;
   isCenterClickAllowed: boolean;
-  isVolumeControlsVisible: boolean;
+
+  isSeekbarHover: boolean;
+  isSeekbarSeeking: boolean;
+  seekbarPercentage: number;
+  seekbarTooltipText: string;
+  seekbarTooltipPercentage: number;
 }
 
 export interface IActions {
@@ -29,13 +34,14 @@ export interface IActions {
   startSeeking();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
-  setVolumeControlsOpen();
-  setVolumeControlsClosed();
+  setVolumeControlsOpen(isVolumeControlsOpen: boolean);
   startVolumebarSeeking();
   stopVolumebarSeeking();
   toggleMute();
   toggleFullscreen();
   togglePip();
+  setSeekbarState(state: any);
+  setVolumebarState(state: any);
 }
 
 export enum ViewTypes {
