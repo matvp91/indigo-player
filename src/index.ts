@@ -3,6 +3,9 @@ const { Instance } = require('@src/Instance');
 const { addModuleLoader } = require('@src/ModuleLoader');
 const { ErrorCodes, Events, ModuleLoaderTypes } = require('@src/types');
 const { Module } = require('@src/Module');
+const { Controller } = require('@src/controller/Controller');
+const { Media } = require('@src/media/Media');
+const { Player } = require('@src/player/Player');
 
 import { Config } from '@src/types';
 
@@ -27,4 +30,7 @@ module.exports = {
 
   // Export class constructors
   Module,
+  Controller,
+  Media,
+  Player,
 };

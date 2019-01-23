@@ -7,11 +7,15 @@ import {
   AdBreaksEventData,
   AdBreakType,
   Events,
-  GoogleIMAAdBreak,
+  AdBreak,
   TimeUpdateEventData,
   IInstance,
 } from '@src/types';
 import get from 'lodash/get';
+
+interface GoogleIMAAdBreak extends AdBreak {
+  googleIMAAd?: any;
+}
 
 export class GoogleIMAExtension extends Module {
   public name: string = 'GoogleIMAExtension';

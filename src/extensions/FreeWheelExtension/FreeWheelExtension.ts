@@ -7,12 +7,17 @@ import {
   AdBreakType,
   AdEventData,
   Events,
-  FreeWheelAdBreak,
+  AdBreak,
   TimeUpdateEventData,
   IInstance,
 } from '@src/types';
 import find from 'lodash/find';
 import get from 'lodash/get';
+
+interface FreeWheelAdBreak extends AdBreak {
+  maxAds: number;
+  freewheelSlot?: any;
+}
 
 export class FreeWheelExtension extends Module {
   public name: string = 'FreeWheelExtension';

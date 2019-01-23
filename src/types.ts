@@ -136,9 +136,7 @@ export interface Config {
   captions?: Caption[];
 }
 
-// ADS
-
-
+// Ads
 
 export interface AdBreak {
   sequenceIndex: number;
@@ -147,15 +145,6 @@ export interface AdBreak {
   startsAt: number;
   duration: number;
   hasBeenWatched: boolean;
-}
-
-export interface FreeWheelAdBreak extends AdBreak {
-  maxAds: number;
-  freewheelSlot?: any;
-}
-
-export interface GoogleIMAAdBreak extends AdBreak {
-  googleIMAAd?: any;
 }
 
 export interface Ad {
