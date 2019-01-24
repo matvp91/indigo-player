@@ -119,7 +119,6 @@ export interface Config {
   };
   sources: Format[];
   showNativeControls: boolean;
-  ignorePolyfills: boolean;
   freewheel?: {
     clientSide: boolean;
     server: string;

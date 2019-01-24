@@ -1,18 +1,16 @@
-const { createAPI } = require('@src/createAPI');
-const { Instance } = require('@src/Instance');
-const { addModuleLoader } = require('@src/ModuleLoader');
-const { ErrorCodes, Events, ModuleLoaderTypes } = require('@src/types');
-const { Module } = require('@src/Module');
-const { Controller } = require('@src/controller/Controller');
-const { Media } = require('@src/media/Media');
-const { Player } = require('@src/player/Player');
-
-import { Config } from '@src/types';
+import { createAPI } from '@src/createAPI';
+import { Instance } from '@src/Instance';
+import { addModuleLoader } from '@src/ModuleLoader';
+import { ErrorCodes, Events, ModuleLoaderTypes, Config } from '@src/types';
+import { Module } from '@src/Module';
+import { Controller } from '@src/controller/Controller';
+import { Media } from '@src/media/Media';
+import { Player } from '@src/player/Player';
 
 declare var __webpack_public_path__: string;
 declare var VERSION: string;
 
-module.exports = {
+export default {
   VERSION,
   setChunksPath(chunksPath: string) {
     __webpack_public_path__ = chunksPath;

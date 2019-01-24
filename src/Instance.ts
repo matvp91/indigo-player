@@ -173,10 +173,6 @@ export class Instance implements IInstance {
   }
 
   private async init(config: Config) {
-    if (!config.ignorePolyfills) {
-      await import(/* webpackChunkName: 'polyfills' */ 'ts-polyfill');
-    }
-
     this.env = await getEnv();
 
     this.controller = await createFirstSupported<IController>(
