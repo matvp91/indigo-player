@@ -1,14 +1,12 @@
-import { Instance } from '@src/Instance';
-import { Media } from '@src/media/Media';
 import { createFirstSupported } from '@src/ModuleLoader';
-import { Format, ModuleLoaderTypes } from '@src/types';
+import { IInstance, IMedia, Format, ModuleLoaderTypes } from '@src/types';
 
 export async function selectMedia(
-  instance: Instance,
+  instance: IInstance,
   sources: Format[],
-): Promise<[Format, Media]> {
+): Promise<[Format, IMedia]> {
   for (const format of sources) {
-    const media = await createFirstSupported<Media>(
+    const media = await createFirstSupported<IMedia>(
       ModuleLoaderTypes.MEDIA,
       instance,
       format,

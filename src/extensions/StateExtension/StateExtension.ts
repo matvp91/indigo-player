@@ -1,8 +1,6 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
-import { Events, StateChangeEventData } from '@src/types';
-import { AdBreakType } from '@src/types';
+import { IInstance, Events, StateChangeEventData, AdBreakType } from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';
 
@@ -71,7 +69,7 @@ export class StateExtension extends Module {
     started: false,
   };
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     const setReady = this.dispatch((draft, data) => {

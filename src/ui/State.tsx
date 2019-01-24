@@ -1,5 +1,4 @@
-import { Instance } from '@src/Instance';
-import { AdBreakType } from '@src/types';
+import { IInstance, AdBreakType } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
@@ -8,7 +7,7 @@ import React, { RefObject } from 'react';
 export const StateContext = React.createContext({});
 
 interface StateStoreProps {
-  instance: Instance;
+  instance: IInstance;
   player: any;
 }
 

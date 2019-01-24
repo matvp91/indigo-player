@@ -1,3 +1,5 @@
+// Enums
+
 export enum FormatTypes {
   MP4 = 'mp4',
   WEBM = 'webm',
@@ -6,100 +8,18 @@ export enum FormatTypes {
   HLS = 'hls',
 }
 
-export interface Format {
-  type: FormatTypes;
-  src: string;
-  drm?: {
-    widevine?: {
-      licenseUrl: string;
-    };
-    playready?: {
-      licenseUrl: string;
-    };
-  };
+export enum ModuleLoaderTypes {
+  EXTENSION,
+  CONTROLLER,
+  MEDIA,
+  PLAYER,
 }
-
-export interface Caption {
-  label: string;
-  srclang: string;
-  src: string;
-}
-
-export type Cuepoint = 'preroll' | 'postroll' | number;
-
-export interface Config {
-  autoplay: boolean;
-  ui: boolean;
-  uiOptions?: {
-    enablePip?: boolean;
-  };
-  sources: Format[];
-  showNativeControls: boolean;
-  ignorePolyfills: boolean;
-  freewheel?: {
-    clientSide: boolean;
-    server: string;
-    videoAsset: string;
-    duration: number;
-    network: number;
-    siteSection: string;
-    profile: string;
-    cuepoints: Cuepoint[];
-  };
-  googleIMA?: {
-    src: string;
-  };
-  captions?: Caption[];
-}
-
-// ADS
 
 export enum AdBreakType {
   PREROLL = 'preroll',
   MIDROLL = 'midroll',
   POSTROLL = 'postroll',
 }
-
-export interface AdBreak {
-  sequenceIndex: number;
-  id: string;
-  type: AdBreakType;
-  startsAt: number;
-  duration: number;
-  hasBeenWatched: boolean;
-}
-
-export interface FreeWheelAdBreak extends AdBreak {
-  maxAds: number;
-  freewheelSlot?: any;
-}
-
-export interface GoogleIMAAdBreak extends AdBreak {
-  googleIMAAd?: any;
-}
-
-export interface Ad {
-  sequenceIndex: number;
-  freewheelAdInstance?: any;
-}
-
-// Env
-
-export interface Env {
-  // Browser support
-  isSafari: boolean;
-  isEdge: boolean;
-  isIE: boolean;
-  isChrome: boolean;
-  isMobile: boolean;
-  isIOS: boolean;
-  isFacebook: boolean;
-
-  // Autoplay
-  canAutoplay: boolean;
-}
-
-// Events
 
 export enum Events {
   ERROR = 'error', // An unrecoverable error occured
@@ -162,6 +82,92 @@ export enum Events {
   STATE_FULLSCREEN_CHANGE = 'state:fullscreen-change',
   STATE_PIP_CHANGE = 'state:pip-change',
 }
+
+export enum ErrorCodes {
+  NO_SUPPORTED_FORMAT_FOUND = 1001,
+  CONTROLLER_LOAD_FAILED = 1002,
+
+  SHAKA_CRITICAL_ERROR = 2001,
+}
+
+export interface Format {
+  type: FormatTypes;
+  src: string;
+  drm?: {
+    widevine?: {
+      licenseUrl: string;
+    };
+    playready?: {
+      licenseUrl: string;
+    };
+  };
+}
+
+export interface Caption {
+  label: string;
+  srclang: string;
+  src: string;
+}
+
+export type Cuepoint = 'preroll' | 'postroll' | number;
+
+export interface Config {
+  autoplay: boolean;
+  ui: boolean;
+  uiOptions?: {
+    enablePip?: boolean;
+  };
+  sources: Format[];
+  showNativeControls: boolean;
+  freewheel?: {
+    clientSide: boolean;
+    server: string;
+    videoAsset: string;
+    duration: number;
+    network: number;
+    siteSection: string;
+    profile: string;
+    cuepoints: Cuepoint[];
+  };
+  googleIMA?: {
+    src: string;
+  };
+  captions?: Caption[];
+}
+
+// Ads
+
+export interface AdBreak {
+  sequenceIndex: number;
+  id: string;
+  type: AdBreakType;
+  startsAt: number;
+  duration: number;
+  hasBeenWatched: boolean;
+}
+
+export interface Ad {
+  sequenceIndex: number;
+  freewheelAdInstance?: any;
+}
+
+// Env
+
+export interface IEnv {
+  // Browser support
+  isSafari: boolean;
+  isEdge: boolean;
+  isIE: boolean;
+  isChrome: boolean;
+  isMobile: boolean;
+  isIOS: boolean;
+  isFacebook: boolean;
+
+  // Autoplay
+  canAutoplay: boolean;
+}
+
+// Events
 
 export type EventCallback = any;
 
@@ -241,21 +247,15 @@ export interface IPlayerError {
   underlyingError: Error;
 }
 
-export enum ErrorCodes {
-  NO_SUPPORTED_FORMAT_FOUND = 1001,
-  CONTROLLER_LOAD_FAILED = 1002,
+// Hooks
 
-  SHAKA_CRITICAL_ERROR = 2001,
+export type NextHook = (...args: any) => void;
+
+export interface IHooks {
+  create(name: string, callback: NextHook);
 }
 
 // Modules
-
-export enum ModuleLoaderTypes {
-  EXTENSION,
-  CONTROLLER,
-  MEDIA,
-  PLAYER,
-}
 
 export interface IModuleLoader<T> {
   type: ModuleLoaderTypes;
@@ -274,7 +274,7 @@ export interface IModuleLoader<T> {
 export interface IModule {
   name: string;
 
-  hooks?: (...args: any) => void;
+  hooks?: IHooks;
 
   on(name: string, callback: EventCallback);
   once(name: string, callback: EventCallback);
@@ -283,7 +283,7 @@ export interface IModule {
 
 export interface IController extends IModule {
   boot(): Promise<any>;
-  load(format: Format);
+  load();
   unload();
 
   play();
@@ -305,7 +305,7 @@ export interface IPlayer extends IModule {
 }
 
 export interface IMedia extends IModule {
-  load(format: Format);
+  load();
   unload();
 
   play();
@@ -318,9 +318,15 @@ export interface IInstance {
   config: Config;
   container: HTMLElement;
   playerContainer: HTMLElement;
+  uiContainer: HTMLElement;
+  adsContainer: HTMLElement;
 
+  env: IEnv;
   controller: IController;
   player: IPlayer;
+  media: IMedia;
+  format: Format;
+  extensions: Array<IModule>;
 
   // Methods
   play();
@@ -328,4 +334,15 @@ export interface IInstance {
   seekTo(time: number);
   setVolume(volume: number);
   destroy();
+
+  on(name: string, callback: EventCallback);
+  once(name: string, callback: EventCallback);
+  removeListener(name: string, callback: EventCallback);
+  emit(name: string, eventData?: EventData);
+
+  setError(error: IPlayerError);
+  canAutoplay(): boolean;
+
+  getModule(name: string): IModule;
+  getStats(): any;
 }

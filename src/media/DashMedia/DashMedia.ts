@@ -1,8 +1,7 @@
-import { Instance } from '@src/Instance';
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { PlayerError } from '@src/PlayerError';
-import { ErrorCodes, Events, Format, ShakaInstanceEventData } from '@src/types';
+import { IInstance, ErrorCodes, Events, Format, ShakaInstanceEventData } from '@src/types';
 import * as shaka from 'shaka-player';
 
 export class DashMedia extends Media {
@@ -10,7 +9,7 @@ export class DashMedia extends Media {
 
   public player: any;
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     shaka.polyfill.installAll();

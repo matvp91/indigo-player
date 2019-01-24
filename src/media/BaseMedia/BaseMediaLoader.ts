@@ -1,6 +1,6 @@
-import { Instance } from '@src/Instance';
 import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
 import {
+  IInstance,
   Format,
   FormatTypes,
   IModuleLoader,
@@ -10,9 +10,9 @@ import {
 export const BaseMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
-  create: (instance: Instance) => new BaseMedia(instance),
+  create: (instance: IInstance) => new BaseMedia(instance),
 
-  isSupported: (instance: Instance, format: Format): boolean => {
+  isSupported: (instance: IInstance, format: Format): boolean => {
     if (
       format.type === FormatTypes.MP4 ||
       format.type === FormatTypes.MOV ||

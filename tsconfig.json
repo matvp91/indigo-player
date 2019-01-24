@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "removeComments": false,
     "moduleResolution": "node",
     "noEmit": true,
@@ -17,5 +18,9 @@
   },
   "include": [
     "./src/**/*"
-  ]
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "babelCore": "@babel/core"
+  }
 }

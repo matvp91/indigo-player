@@ -6,11 +6,9 @@ import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/F
 import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
-import { Instance } from '@src/Instance';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
-import { Module } from '@src/Module';
 import { HTML5PlayerLoader } from '@src/player/HTML5Player/HTML5PlayerLoader';
 import {
   EventCallback,
@@ -18,11 +16,12 @@ import {
   IModule,
   IModuleLoader,
   ModuleLoaderTypes,
+  IInstance,
 } from '@src/types';
 import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
 import find from 'lodash/find';
 
-const modules: Array<IModuleLoader<Module>> = [
+const modules: Array<IModuleLoader<IModule>> = [
   BaseControllerLoader,
 
   BaseMediaLoader,
@@ -43,7 +42,7 @@ const modules: Array<IModuleLoader<Module>> = [
 
 export async function createFirstSupported<T>(
   type: ModuleLoaderTypes,
-  instance: Instance,
+  instance: IInstance,
   isSupportedArgs?: any,
 ): Promise<T> {
   const items = modules.filter(item => item.type === type);
@@ -59,7 +58,7 @@ export async function createFirstSupported<T>(
 
 export async function createAllSupported<T>(
   type: ModuleLoaderTypes,
-  instance: Instance,
+  instance: IInstance,
   isSupportedArgs?: any,
 ): Promise<T[]> {
   const items = modules.filter(item => item.type === type);
@@ -75,6 +74,6 @@ export async function createAllSupported<T>(
   return instances;
 }
 
-export function addModuleLoader(mod: IModuleLoader<Module>) {
+export function addModuleLoader(mod: IModuleLoader<IModule>) {
   modules.push(mod);
 }

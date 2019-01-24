@@ -1,6 +1,5 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { Events, PipChangeEventData } from '@src/types';
+import { IInstance, Events, PipChangeEventData } from '@src/types';
 import './pip.scss';
 
 export class PipExtension extends Module {
@@ -22,7 +21,7 @@ export class PipExtension extends Module {
 
   private pipEnabled: boolean = false;
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     this.playerContainer = this.instance.container;

@@ -1,7 +1,7 @@
-import { Env } from '@src/types';
+import { IEnv } from '@src/types';
 import canAutoplayLib from 'can-autoplay';
 
-export async function getEnv(): Promise<Env> {
+export async function getEnv(): Promise<IEnv> {
   const userAgent: string = navigator.userAgent;
 
   const canAutoplay: boolean = (await canAutoplayLib.video()).result;
@@ -26,7 +26,7 @@ export async function getEnv(): Promise<Env> {
   const isFacebook: boolean =
     /FBAN/i.test(userAgent) && /FBAV/i.test(userAgent);
 
-  const env: Env = {
+   return {
     isSafari,
     isEdge,
     isIE,
@@ -36,6 +36,4 @@ export async function getEnv(): Promise<Env> {
     isFacebook,
     canAutoplay,
   };
-
-  return env;
 }

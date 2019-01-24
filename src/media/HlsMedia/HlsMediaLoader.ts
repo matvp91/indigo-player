@@ -1,6 +1,6 @@
-import { Instance } from '@src/Instance';
-import { Media } from '@src/media/Media';
+import { HlsMedia } from '@src/media/HlsMedia/HlsMedia';
 import {
+  IInstance,
   Format,
   FormatTypes,
   IModuleLoader,
@@ -11,12 +11,12 @@ import { isSupported } from 'hls.js/src/is-supported';
 export const HlsMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
-  create: (instance: Instance) =>
+  create: (instance: IInstance) =>
     import(/* webpackChunkName: 'HlsMedia' */ '@src/media/HlsMedia/HlsMedia').then(
       ({ HlsMedia }) => new HlsMedia(instance),
     ),
 
-  isSupported: (instance: Instance, format: Format): boolean => {
+  isSupported: (instance: IInstance, format: Format): boolean => {
     if (format.type !== FormatTypes.HLS) {
       return false;
     }
@@ -31,4 +31,4 @@ export const HlsMediaLoader = {
 
     return true;
   },
-} as IModuleLoader<Media>;
+} as IModuleLoader<HlsMedia>;

@@ -1,10 +1,10 @@
-import { Instance } from '@src/Instance';
 import {
   isBrowserSupported,
   isBrowserSupportedDRM,
 } from '@src/media/DashMedia/isBrowserSupported';
-import { Media } from '@src/media/Media';
+import { DashMedia } from '@src/media/DashMedia/DashMedia';
 import {
+  IInstance,
   Format,
   FormatTypes,
   IModuleLoader,
@@ -15,12 +15,12 @@ import { getDrmSupport } from '@src/utils/getDrmSupport';
 export const DashMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
-  create: (instance: Instance) =>
+  create: (instance: IInstance) =>
     import(/* webpackChunkName: 'DashMedia' */ '@src/media/DashMedia/DashMedia').then(
       ({ DashMedia }) => new DashMedia(instance),
     ),
 
-  isSupported: async (instance: Instance, format: Format): Promise<boolean> => {
+  isSupported: async (instance: IInstance, format: Format): Promise<boolean> => {
     if (format.type !== FormatTypes.DASH) {
       return false;
     }
@@ -42,4 +42,4 @@ export const DashMediaLoader = {
 
     return true;
   },
-} as IModuleLoader<Media>;
+} as IModuleLoader<DashMedia>;

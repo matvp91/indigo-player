@@ -1,4 +1,3 @@
-import { Instance } from '@src/Instance';
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { Events, Format } from '@src/types';

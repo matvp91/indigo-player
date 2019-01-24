@@ -1,12 +1,11 @@
-import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
-import { Events, FullscreenEventData } from '@src/types';
+import { IInstance, Events, FullscreenEventData } from '@src/types';
 import * as screenfull from 'screenfull';
 
 export class FullscreenExtension extends Module {
   public name: string = 'FullscreenExtension';
 
-  constructor(instance: Instance) {
+  constructor(instance: IInstance) {
     super(instance);
 
     if (screenfull.enabled) {
