@@ -276,6 +276,8 @@ export interface IModule {
 
   hooks?: IHooks;
 
+  instance: IInstance;
+
   on(name: string, callback: EventCallback);
   once(name: string, callback: EventCallback);
   emit(name: string, eventData?: EventData);

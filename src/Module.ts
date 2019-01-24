@@ -7,7 +7,7 @@ export class Module implements IModule {
 
   public hooks: any;
 
-  protected instance: IInstance;
+  public instance: IInstance;
 
   constructor(instance: IInstance) {
     this.instance = instance;
