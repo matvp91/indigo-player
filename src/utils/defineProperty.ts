@@ -6,4 +6,3 @@ export const createFunctionFn = target => (key, value) => {
     value,
   });
 };
-

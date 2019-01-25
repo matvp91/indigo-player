@@ -1,5 +1,10 @@
 import { PipExtension } from '@src/extensions/PipExtension/PipExtension';
-import { IInstance, Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const PipExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

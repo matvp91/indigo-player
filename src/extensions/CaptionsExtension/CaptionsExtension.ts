@@ -1,6 +1,10 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { IInstance, CaptionsChangeEventData, Events } from '@src/types';
+import { Events, IEventData, IInstance } from '@src/types';
+
+interface ICapChangeEventData extends IEventData {
+  srclang: string;
+}
 
 export class CaptionsExtension extends Module {
   public name: string = 'CaptionsExtension';
@@ -42,6 +46,6 @@ export class CaptionsExtension extends Module {
 
     this.emit(Events.PLAYER_STATE_CAPTIONSCHANGE, {
       srclang,
-    } as CaptionsChangeEventData);
+    } as ICapChangeEventData);
   }
 }

@@ -1,5 +1,10 @@
 import { FullscreenExtension } from '@src/extensions/FullscreenExtension/FullscreenExtension';
-import { IInstance, Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const FullscreenExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

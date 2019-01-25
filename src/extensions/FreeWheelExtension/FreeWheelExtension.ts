@@ -1,20 +1,22 @@
 import { Module } from '@src/Module';
 import {
-  NextHook,
-  Ad,
-  AdBreakEventData,
-  AdBreaksEventData,
   AdBreakType,
-  AdEventData,
   Events,
-  AdBreak,
-  TimeUpdateEventData,
+  IAd,
+  IAdBreak,
+  IAdBreakEventData,
+  IAdBreaksEventData,
+  IAdBreakTimeUpdateEventData,
+  IAdEventData,
+  IEventData,
   IInstance,
+  ITimeUpdateEventData,
+  NextHook,
 } from '@src/types';
 import find from 'lodash/find';
 import get from 'lodash/get';
 
-interface FreeWheelAdBreak extends AdBreak {
+interface IFWAdBreak extends IAdBreak {
   maxAds: number;
   freewheelSlot?: any;
 }
@@ -32,11 +34,11 @@ export class FreeWheelExtension extends Module {
 
   private adsRequested: boolean = false;
 
-  private adBreaks: FreeWheelAdBreak[] = [];
+  private adBreaks: IFWAdBreak[] = [];
 
-  private currentAdBreak: FreeWheelAdBreak;
+  private currentAdBreak: IFWAdBreak;
 
-  private currentAd: Ad;
+  private currentAd: IAd;
 
   private adSequenceIndex: number;
 
@@ -131,7 +133,7 @@ export class FreeWheelExtension extends Module {
       if (this.currentAdBreak) {
         this.emit(Events.ADBREAK_STATE_TIMEUPDATE, {
           currentTime: this.currentAdBreak.freewheelSlot.getPlayheadTime(),
-        } as TimeUpdateEventData);
+        } as IAdBreakTimeUpdateEventData);
       }
     });
 
@@ -230,15 +232,15 @@ export class FreeWheelExtension extends Module {
             hasBeenWatched: false,
             maxAds: slot.getAdCount(),
             freewheelSlot: slot,
-          } as FreeWheelAdBreak),
+          } as IFWAdBreak),
       );
     }
 
     this.emit(Events.ADBREAKS, {
       adBreaks: this.adBreaks,
-    } as AdBreaksEventData);
+    } as IAdBreaksEventData);
 
-    const preroll: FreeWheelAdBreak = find(this.adBreaks, {
+    const preroll: IFWAdBreak = find(this.adBreaks, {
       type: AdBreakType.PREROLL,
     });
     if (preroll) {
@@ -266,7 +268,7 @@ export class FreeWheelExtension extends Module {
 
     this.emit(Events.ADBREAK_STARTED, {
       adBreak,
-    } as AdBreakEventData);
+    } as IAdBreakEventData);
 
     this.instance.media.pause();
   }
@@ -281,7 +283,7 @@ export class FreeWheelExtension extends Module {
 
     this.emit(Events.ADBREAK_ENDED, {
       adBreak,
-    } as AdBreakEventData);
+    } as IAdBreakEventData);
 
     if (adBreak.type !== AdBreakType.POSTROLL) {
       this.instance.media.play();
@@ -301,7 +303,7 @@ export class FreeWheelExtension extends Module {
     this.emit(Events.AD_STARTED, {
       adBreak: this.currentAdBreak,
       ad: this.currentAd,
-    } as AdEventData);
+    } as IAdEventData);
   }
 
   private onAdImpressionEnd(event) {
@@ -312,13 +314,13 @@ export class FreeWheelExtension extends Module {
     this.emit(Events.AD_ENDED, {
       adBreak: this.currentAdBreak,
       ad,
-    } as AdEventData);
+    } as IAdEventData);
 
     this.adSequenceIndex += 1;
   }
 
-  private onPlayerTimeUpdate({ currentTime }: TimeUpdateEventData) {
-    const midroll: FreeWheelAdBreak = find(
+  private onPlayerTimeUpdate({ currentTime }: ITimeUpdateEventData) {
+    const midroll: IFWAdBreak = find(
       this.adBreaks,
       adBreak =>
         adBreak.type === AdBreakType.MIDROLL &&
@@ -332,7 +334,7 @@ export class FreeWheelExtension extends Module {
   }
 
   private onPlayerEnded() {
-    const postroll: FreeWheelAdBreak = find(
+    const postroll: IFWAdBreak = find(
       this.adBreaks,
       adBreak =>
         adBreak.type === AdBreakType.POSTROLL && !adBreak.hasBeenWatched,
@@ -343,13 +345,13 @@ export class FreeWheelExtension extends Module {
     }
   }
 
-  private slotToAdBreak(slot: any): FreeWheelAdBreak {
+  private slotToAdBreak(slot: any): IFWAdBreak {
     return find(this.adBreaks, {
       id: slot.getCustomId(),
     });
   }
 
-  private playAdBreak(adBreak: FreeWheelAdBreak) {
+  private playAdBreak(adBreak: IFWAdBreak) {
     try {
       adBreak.freewheelSlot.play();
     } catch (error) {

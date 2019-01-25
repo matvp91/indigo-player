@@ -1,10 +1,10 @@
 import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
-import { IInstance, Events, StateChangeEventData, AdBreakType } from '@src/types';
+import { AdBreakType, Events, IEventData, IInstance } from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';
 
-interface State {
+interface IState {
   ready: boolean;
   videoSessionStarted: boolean;
   waitingForUser: boolean;
@@ -35,10 +35,15 @@ interface State {
   started: boolean;
 }
 
+interface IStateChangeEventData extends IEventData {
+  state: IState;
+  prevState: IState;
+}
+
 export class StateExtension extends Module {
   public name: string = 'StateExtension';
 
-  private state: State = {
+  private state: IState = {
     ready: false,
     videoSessionStarted: false,
     waitingForUser: false,
@@ -211,7 +216,7 @@ export class StateExtension extends Module {
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
       prevState: null,
-    } as StateChangeEventData);
+    } as IStateChangeEventData);
   }
 
   public dispatch = (fn, emitEvent: Events) => {
@@ -228,26 +233,15 @@ export class StateExtension extends Module {
       const prevState = this.state;
       this.state = newState;
 
-      // TODO: Remove this, but for now, it's great for debugging!
-      // const diff = {};
-      // Object.keys(this.state).forEach(key => {
-      //   if (this.state[key] !== prevState[key]) {
-      //     diff[key] = { from: prevState[key], to: this.state[key] };
-      //   }
-      // });
-      // if (emitEvent !== 'state:currenttime-change') {
-      //   console.log(emitEvent, diff);
-      // }
-
       this.emit(emitEvent, {
         state: this.state,
         prevState,
-      } as StateChangeEventData);
+      } as IStateChangeEventData);
 
       this.emit(Events.STATE_CHANGE, {
         state: this.state,
         prevState,
-      } as StateChangeEventData);
+      } as IStateChangeEventData);
     };
   };
 }

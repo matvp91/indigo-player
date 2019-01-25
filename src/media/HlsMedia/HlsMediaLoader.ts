@@ -1,8 +1,8 @@
 import { HlsMedia } from '@src/media/HlsMedia/HlsMedia';
 import {
-  IInstance,
   Format,
   FormatTypes,
+  IInstance,
   IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';

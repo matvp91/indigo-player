@@ -2,18 +2,20 @@ import { Instance } from '@src/Instance';
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import {
-  NextHook,
-  AdBreakEventData,
-  AdBreaksEventData,
   AdBreakType,
   Events,
-  AdBreak,
-  TimeUpdateEventData,
+  IAdBreak,
+  IAdBreakEventData,
+  IAdBreaksEventData,
+  IAdBreakTimeUpdateEventData,
+  IAdEventData,
+  IEventData,
   IInstance,
+  NextHook,
 } from '@src/types';
 import get from 'lodash/get';
 
-interface GoogleIMAAdBreak extends AdBreak {
+interface IIMAAdBreak extends IAdBreak {
   googleIMAAd?: any;
 }
 
@@ -32,9 +34,9 @@ export class GoogleIMAExtension extends Module {
 
   private adsManager: any;
 
-  private adBreaks: GoogleIMAAdBreak[];
+  private adBreaks: IIMAAdBreak[];
 
-  private currentAdBreak: GoogleIMAAdBreak;
+  private currentAdBreak: IIMAAdBreak;
 
   constructor(instance: IInstance) {
     super(instance);
@@ -179,7 +181,7 @@ export class GoogleIMAExtension extends Module {
 
     this.emit(Events.ADBREAKS, {
       adBreaks: this.adBreaks,
-    } as AdBreaksEventData);
+    } as IAdBreaksEventData);
 
     this.adsManager.addEventListener(
       this.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
@@ -233,7 +235,7 @@ export class GoogleIMAExtension extends Module {
 
     this.emit(Events.ADBREAK_STATE_TIMEUPDATE, {
       currentTime: duration - remainingTime,
-    } as TimeUpdateEventData);
+    } as IAdBreakTimeUpdateEventData);
   }
 
   private onResumed() {
@@ -254,7 +256,7 @@ export class GoogleIMAExtension extends Module {
 
     this.emit(Events.ADBREAK_STARTED, {
       adBreak,
-    } as AdBreakEventData);
+    } as IAdBreakEventData);
 
     this.emit(Events.ADBREAK_STATE_PLAYING);
   }
@@ -267,7 +269,7 @@ export class GoogleIMAExtension extends Module {
 
     this.emit(Events.ADBREAK_ENDED, {
       adBreak,
-    } as AdBreakEventData);
+    } as IAdBreakEventData);
   }
 
   private updateAdBreakData(imaEvent) {
@@ -281,7 +283,7 @@ export class GoogleIMAExtension extends Module {
 
       this.emit(Events.ADBREAKS, {
         adBreaks: this.adBreaks,
-      } as AdBreaksEventData);
+      } as IAdBreaksEventData);
     }
   }
 }

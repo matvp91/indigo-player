@@ -1,5 +1,5 @@
 import { Module } from '@src/Module';
-import { IInstance, Events } from '@src/types';
+import { Events, IInstance } from '@src/types';
 import { render } from '@src/ui/render';
 
 import '@src/ui/theme/index.scss';

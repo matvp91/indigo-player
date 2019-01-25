@@ -1,5 +1,5 @@
 import { createFirstSupported } from '@src/ModuleLoader';
-import { IInstance, IMedia, Format, ModuleLoaderTypes } from '@src/types';
+import { Format, IInstance, IMedia, ModuleLoaderTypes } from '@src/types';
 
 export async function selectMedia(
   instance: IInstance,

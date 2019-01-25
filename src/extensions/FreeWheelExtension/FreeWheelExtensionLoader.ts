@@ -1,5 +1,10 @@
 import { FreeWheelExtension } from '@src/extensions/FreeWheelExtension/FreeWheelExtension';
-import { IInstance, Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const FreeWheelExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

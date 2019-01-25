@@ -1,6 +1,10 @@
 import { Module } from '@src/Module';
-import { IInstance, Events, PipChangeEventData } from '@src/types';
+import { Events, IEventData, IInstance } from '@src/types';
 import './pip.scss';
+
+interface IPipChangeEventData extends IEventData {
+  pip: boolean;
+}
 
 export class PipExtension extends Module {
   public name: string = 'PipExtension';
@@ -57,7 +61,7 @@ export class PipExtension extends Module {
 
     this.emit(Events.PIP_CHANGE, {
       pip: this.pipEnabled,
-    } as PipChangeEventData);
+    } as IPipChangeEventData);
   }
 
   public disablePip() {
@@ -69,7 +73,7 @@ export class PipExtension extends Module {
 
     this.emit(Events.PIP_CHANGE, {
       pip: this.pipEnabled,
-    } as PipChangeEventData);
+    } as IPipChangeEventData);
   }
 
   public togglePip() {

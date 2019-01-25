@@ -11,12 +11,10 @@ import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
 import { HTML5PlayerLoader } from '@src/player/HTML5Player/HTML5PlayerLoader';
 import {
-  EventCallback,
-  EventData,
+  IInstance,
   IModule,
   IModuleLoader,
   ModuleLoaderTypes,
-  IInstance,
 } from '@src/types';
 import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
 import find from 'lodash/find';

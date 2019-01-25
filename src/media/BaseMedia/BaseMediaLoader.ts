@@ -1,8 +1,8 @@
 import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
 import {
-  IInstance,
   Format,
   FormatTypes,
+  IInstance,
   IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';

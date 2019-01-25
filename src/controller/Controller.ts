@@ -6,7 +6,10 @@ export class Controller extends Module implements IController {
 
   public async load() {
     this.instance.player.load();
+    this.instance.log('controller.load')('Player loaded');
+
     await this.instance.media.load();
+    this.instance.log('controller.load')('Media loaded');
   }
 
   public unload() {

@@ -1,11 +1,11 @@
+import { Controller } from '@src/controller/Controller';
 import { createAPI } from '@src/createAPI';
 import { Instance } from '@src/Instance';
-import { addModuleLoader } from '@src/ModuleLoader';
-import { ErrorCodes, Events, ModuleLoaderTypes, Config } from '@src/types';
-import { Module } from '@src/Module';
-import { Controller } from '@src/controller/Controller';
 import { Media } from '@src/media/Media';
+import { Module } from '@src/Module';
+import { addModuleLoader } from '@src/ModuleLoader';
 import { Player } from '@src/player/Player';
+import { Config, ErrorCodes, Events, ModuleLoaderTypes } from '@src/types';
 
 declare var __webpack_public_path__: string;
 declare var VERSION: string;

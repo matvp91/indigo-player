@@ -1,5 +1,10 @@
 import { GoogleIMAExtension } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtension';
-import { IInstance, Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const GoogleIMAExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

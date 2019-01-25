@@ -1,10 +1,10 @@
 import { Player } from '@src/player/Player';
 import {
-  BufferedChangeEventData,
-  DurationChangeEventData,
   Events,
-  TimeUpdateEventData,
-  VolumeChangeEventData,
+  IBufferedChangeEventData,
+  IDurationChangeEventData,
+  ITimeUpdateEventData,
+  IVolumeChangeEventData,
 } from '@src/types';
 
 export class HTML5Player extends Player {
@@ -42,13 +42,13 @@ export class HTML5Player extends Player {
     this.mediaElement.addEventListener('durationchange', () => {
       this.emit(Events.PLAYER_STATE_DURATIONCHANGE, {
         duration: this.mediaElement.duration,
-      } as DurationChangeEventData);
+      } as IDurationChangeEventData);
     });
 
     this.mediaElement.addEventListener('timeupdate', () => {
       this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
         currentTime: this.mediaElement.currentTime,
-      } as TimeUpdateEventData);
+      } as ITimeUpdateEventData);
     });
 
     this.mediaElement.addEventListener('waiting', () => {
@@ -58,7 +58,7 @@ export class HTML5Player extends Player {
     this.mediaElement.addEventListener('volumechange', () => {
       this.emit(Events.PLAYER_STATE_VOLUMECHANGE, {
         volume: this.mediaElement.volume,
-      } as VolumeChangeEventData);
+      } as IVolumeChangeEventData);
     });
 
     this.mediaElement.addEventListener('loadeddata', () =>
@@ -96,7 +96,7 @@ export class HTML5Player extends Player {
   public seekTo(time: number) {
     this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
       currentTime: time,
-    } as TimeUpdateEventData);
+    } as ITimeUpdateEventData);
 
     this.mediaElement.currentTime = time;
   }
@@ -121,7 +121,7 @@ export class HTML5Player extends Player {
     if (percentage !== undefined) {
       this.emit(Events.PLAYER_STATE_BUFFEREDCHANGE, {
         percentage,
-      } as BufferedChangeEventData);
+      } as IBufferedChangeEventData);
     }
   }
 }

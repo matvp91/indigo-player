@@ -3,5 +3,6 @@
   * [Configuration](Configuration.md)
   * [API](API.md)
 * Development
-  * [Module structure](ModuleStructure.md)
+  * [Create a module](CreateAModule.md)
   * [Theming](Theming.md)
+  * [Module structure](ModuleStructure.md)

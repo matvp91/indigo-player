@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { IInstance, EventCallback, EventData } from '@src/types';
+import { EventCallback, IEventData, IInstance } from '@src/types';
 import { createFunctionFn } from '@src/utils/defineProperty';
 
 /**
@@ -35,7 +35,7 @@ export function createAPI(instance: IInstance) {
     // Emit an event on the listeners
     [
       'emit',
-      (name: string, eventData?: EventData) => instance.emit(name, eventData),
+      (name: string, eventData?: IEventData) => instance.emit(name, eventData),
     ],
 
     // Play

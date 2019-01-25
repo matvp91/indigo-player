@@ -1,4 +1,4 @@
-import { NextHook, IHooks, IModule } from '@src/types';
+import { IHooks, IModule, NextHook } from '@src/types';
 import filter from 'lodash/filter';
 
 interface IHook {

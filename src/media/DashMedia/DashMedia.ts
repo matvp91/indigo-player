@@ -1,8 +1,13 @@
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { PlayerError } from '@src/PlayerError';
-import { IInstance, ErrorCodes, Events, Format, ShakaInstanceEventData } from '@src/types';
+import { ErrorCodes, Events, Format, IEventData, IInstance } from '@src/types';
 import * as shaka from 'shaka-player';
+
+interface IShakaInstEventData extends IEventData {
+  shaka: any;
+  player: any;
+}
 
 export class DashMedia extends Media {
   public name: string = 'DashMedia';
@@ -40,7 +45,7 @@ export class DashMedia extends Media {
     this.emit(Events.SHAKA_INSTANCE, {
       shaka,
       player: this.player,
-    } as ShakaInstanceEventData);
+    } as IShakaInstEventData);
 
     const configuration: { drm?: any } = {};
 

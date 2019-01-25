@@ -1,65 +1,18 @@
 import {
-  IInstance,
   IController,
+  IInstance,
   IMedia,
-  IPlayer,
-  IModuleLoader,
   IModule,
+  IModuleLoader,
+  IPlayer,
 } from './types';
 
 /**
- * Export types.
- * External module developers can use these types to write their own modules,
- * external modules are not bundled within the core package.
+ * Export all the internal types to module developers.
  */
-export {
-  /**
-   * The main interface for the instance, this is always the first
-   * parameter in any module's constructor.
-   * @type {IInstance} interface
-   */
-  IInstance,
+export * from './types';
 
-  /**
-   * The interface you need to comply to when writing your own module loader.
-   * @type {IModuleLoader} interface
-   */
-  IModuleLoader,
-
-  /**
-   * The main config interface. It's best to extend from this if you want
-   * to add your own variables to the config.
-   * @type {Config} interface
-   */
-  Config,
-
-  // Enums
-
-  /**
-   * The different types of module loaders (eg: extension, controller, ...).
-   * @prop ModuleLoaderTypes
-   * @type {ModuleLoaderTypes}
-   */
-  ModuleLoaderTypes,
-
-  /**
-   * A list of events.
-   * @prop Events
-   * @type {Events}
-   */
-  Events,
-
-  /**
-   * A list of error codes.
-   * @prop ErrorCodes
-   * @type {ErrorCodes}
-   */
-  ErrorCodes,
-} from './types';
-
-interface ModuleConstructor<T> {
-  new (instance: IInstance): T;
-}
+type ModuleConstructor<T> = new (instance: IInstance) => T;
 
 /**
  * The current version of indigo-player

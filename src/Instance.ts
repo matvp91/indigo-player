@@ -4,22 +4,23 @@ import { selectMedia } from '@src/selectMedia';
 import '@src/styles.scss';
 import {
   Config,
-  IEnv,
   ErrorCodes,
-  ErrorEventData,
   EventCallback,
-  EventData,
   Events,
   Format,
-  IInstance,
-  ModuleLoaderTypes,
   IController,
+  IEnv,
+  IErrorEventData,
+  IEventData,
+  IInstance,
   IMedia,
   IModule,
   IPlayer,
   IPlayerError,
+  ModuleLoaderTypes,
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';
+import { log } from '@src/utils/log';
 import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
 
@@ -56,7 +57,9 @@ export class Instance implements IInstance {
 
   public format: Format;
 
-  public extensions: Array<IModule>;
+  public extensions: IModule[];
+
+  public log = log;
 
   /**
    * Allow the instance to emit and listen to events.
@@ -83,7 +86,7 @@ export class Instance implements IInstance {
   public removeListener = (name: string, callback: EventCallback) =>
     this.emitter.removeListener(name, callback);
 
-  public emit = (name: string, eventData?: EventData) =>
+  public emit = (name: string, eventData?: IEventData) =>
     this.emitter.emit(name, eventData);
 
   public play() {
@@ -106,7 +109,7 @@ export class Instance implements IInstance {
     this.controller.unload();
     this.emit(Events.ERROR, {
       error,
-    } as ErrorEventData);
+    } as IErrorEventData);
   }
 
   public canAutoplay(): boolean {
@@ -173,6 +176,8 @@ export class Instance implements IInstance {
   }
 
   private async init(config: Config) {
+    const log = this.log('instance.init');
+
     this.env = await getEnv();
 
     this.controller = await createFirstSupported<IController>(
@@ -180,7 +185,12 @@ export class Instance implements IInstance {
       this,
       this.config,
     );
+
+    log('Controller selected', { controller: this.controller });
+
     await this.controller.boot();
+
+    log('Controller booted');
 
     this.extensions = await createAllSupported<IModule>(
       ModuleLoaderTypes.EXTENSION,
@@ -188,14 +198,21 @@ export class Instance implements IInstance {
       this.config,
     );
 
+    log('Extensions loaded', { extensions: this.extensions });
+
     this.player = await createFirstSupported<IPlayer>(
       ModuleLoaderTypes.PLAYER,
       this,
     );
 
+    log('Player selected', { player: this.player });
+
     const [format, media] = await selectMedia(this, config.sources);
 
+    log('Format and media selected', { format, media });
+
     if (!media) {
+      log('Aborting, no suitable media found');
       this.setError(new PlayerError(ErrorCodes.NO_SUPPORTED_FORMAT_FOUND));
       return;
     }
@@ -205,6 +222,8 @@ export class Instance implements IInstance {
 
     try {
       await this.controller.load();
+
+      log('Controller loaded');
     } catch (error) {
       this.setError(new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error));
       return;
@@ -215,6 +234,7 @@ export class Instance implements IInstance {
     // Now that we know we can autoplay, actually do it.
     if (this.canAutoplay()) {
       this.play();
+      log('play() called because of autoplay');
     }
   }
 }

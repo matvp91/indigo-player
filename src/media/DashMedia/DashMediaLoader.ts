@@ -1,12 +1,12 @@
+import { DashMedia } from '@src/media/DashMedia/DashMedia';
 import {
   isBrowserSupported,
   isBrowserSupportedDRM,
 } from '@src/media/DashMedia/isBrowserSupported';
-import { DashMedia } from '@src/media/DashMedia/DashMedia';
 import {
-  IInstance,
   Format,
   FormatTypes,
+  IInstance,
   IModuleLoader,
   ModuleLoaderTypes,
 } from '@src/types';
@@ -20,7 +20,10 @@ export const DashMediaLoader = {
       ({ DashMedia }) => new DashMedia(instance),
     ),
 
-  isSupported: async (instance: IInstance, format: Format): Promise<boolean> => {
+  isSupported: async (
+    instance: IInstance,
+    format: Format,
+  ): Promise<boolean> => {
     if (format.type !== FormatTypes.DASH) {
       return false;
     }

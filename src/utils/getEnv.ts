@@ -26,7 +26,7 @@ export async function getEnv(): Promise<IEnv> {
   const isFacebook: boolean =
     /FBAN/i.test(userAgent) && /FBAV/i.test(userAgent);
 
-   return {
+  return {
     isSafari,
     isEdge,
     isIE,

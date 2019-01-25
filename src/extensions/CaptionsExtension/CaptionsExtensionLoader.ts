@@ -1,5 +1,10 @@
 import { CaptionsExtension } from '@src/extensions/CaptionsExtension/CaptionsExtension';
-import { IInstance, Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const CaptionsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

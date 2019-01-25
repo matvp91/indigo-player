@@ -1,6 +1,10 @@
 import { Module } from '@src/Module';
-import { IInstance, Events, FullscreenEventData } from '@src/types';
+import { Events, IEventData, IInstance } from '@src/types';
 import * as screenfull from 'screenfull';
+
+interface IFullscreenEventData extends IEventData {
+  fullscreen: boolean;
+}
 
 export class FullscreenExtension extends Module {
   public name: string = 'FullscreenExtension';
@@ -14,7 +18,7 @@ export class FullscreenExtension extends Module {
       screenfull.on('change', () => {
         this.emit(Events.FULLSCREEN_CHANGE, {
           fullscreen: screenfull.isFullscreen,
-        } as FullscreenEventData);
+        } as IFullscreenEventData);
       });
     }
   }

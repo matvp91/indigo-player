@@ -1,5 +1,10 @@
 import { BaseController } from '@src/controller/BaseController/BaseController';
-import { Config, IInstance, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import {
+  Config,
+  IInstance,
+  IModuleLoader,
+  ModuleLoaderTypes,
+} from '@src/types';
 
 export const BaseControllerLoader = {
   type: ModuleLoaderTypes.CONTROLLER,

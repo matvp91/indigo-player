@@ -137,7 +137,7 @@ export interface Config {
 
 // Ads
 
-export interface AdBreak {
+export interface IAdBreak {
   sequenceIndex: number;
   id: string;
   type: AdBreakType;
@@ -146,7 +146,7 @@ export interface AdBreak {
   hasBeenWatched: boolean;
 }
 
-export interface Ad {
+export interface IAd {
   sequenceIndex: number;
   freewheelAdInstance?: any;
 }
@@ -171,74 +171,43 @@ export interface IEnv {
 
 export type EventCallback = any;
 
-export type TimeUpdateEventData = {
-  currentTime: number;
-};
-
-export type VolumeChangeEventData = {
-  volume: number;
-};
-
-export type ShakaInstanceEventData = {
-  shaka: any;
-  player: any;
-};
-
-export type ErrorEventData = {
+export interface IErrorEventData extends IEventData {
   error: IPlayerError;
-};
+}
 
-export type AdBreaksEventData = {
-  adBreaks: AdBreak[];
-};
-
-export type AdBreakEventData = {
-  adBreak: AdBreak;
-};
-
-export type AdEventData = {
-  ad: Ad;
-};
-
-export type FullscreenEventData = {
-  fullscreen: boolean;
-};
-
-export type DurationChangeEventData = {
+export interface IDurationChangeEventData extends IEventData {
   duration: number;
-};
+}
 
-export type StateChangeEventData = {
-  state: any;
-  prevState: any;
-};
-
-export type CaptionsChangeEventData = {
-  srclang: string;
-};
-
-export type BufferedChangeEventData = {
+export interface IBufferedChangeEventData extends IEventData {
   percentage: number;
-};
+}
 
-export type PipChangeEventData = {
-  pip: boolean;
-};
+export interface IVolumeChangeEventData extends IEventData {
+  volume: number;
+}
 
-export type EventData =
-  | TimeUpdateEventData
-  | VolumeChangeEventData
-  | ShakaInstanceEventData
-  | ErrorEventData
-  | AdBreaksEventData
-  | AdBreakEventData
-  | FullscreenEventData
-  | DurationChangeEventData
-  | StateChangeEventData
-  | AdEventData
-  | CaptionsChangeEventData
-  | BufferedChangeEventData
-  | PipChangeEventData;
+export interface ITimeUpdateEventData extends IEventData {
+  currentTime: number;
+}
+
+export interface IAdBreakTimeUpdateEventData extends IEventData {
+  currentTime: number;
+}
+
+export interface IAdBreaksEventData extends IEventData {
+  adBreaks: IAdBreak[];
+}
+
+export interface IAdBreakEventData extends IEventData {
+  adBreak: IAdBreak;
+}
+
+export interface IAdEventData extends IEventData {
+  ad: IAd;
+}
+
+export interface IEventData {}
 
 // Errors
 
@@ -280,7 +249,7 @@ export interface IModule {
 
   on(name: string, callback: EventCallback);
   once(name: string, callback: EventCallback);
-  emit(name: string, eventData?: EventData);
+  emit(name: string, eventData?: IEventData);
 }
 
 export interface IController extends IModule {
@@ -316,6 +285,8 @@ export interface IMedia extends IModule {
   setVolume(volume: number);
 }
 
+export type LogFunction = (...args: any) => void;
+
 export interface IInstance {
   config: Config;
   container: HTMLElement;
@@ -328,7 +299,9 @@ export interface IInstance {
   player: IPlayer;
   media: IMedia;
   format: Format;
-  extensions: Array<IModule>;
+  extensions: IModule[];
+
+  log(namespace: string): LogFunction;
 
   // Methods
   play();
@@ -340,7 +313,7 @@ export interface IInstance {
   on(name: string, callback: EventCallback);
   once(name: string, callback: EventCallback);
   removeListener(name: string, callback: EventCallback);
-  emit(name: string, eventData?: EventData);
+  emit(name: string, eventData?: IEventData);
 
   setError(error: IPlayerError);
   canAutoplay(): boolean;

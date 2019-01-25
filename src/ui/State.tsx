@@ -1,4 +1,4 @@
-import { IInstance, AdBreakType } from '@src/types';
+import { AdBreakType, IInstance } from '@src/types';
 import { IActions, IData, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';

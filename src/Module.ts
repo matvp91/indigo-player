@@ -1,5 +1,5 @@
 import { Hookable } from '@src/Hooks';
-import { EventCallback, EventData, IInstance, IModule } from '@src/types';
+import { EventCallback, IEventData, IInstance, IModule } from '@src/types';
 
 @Hookable
 export class Module implements IModule {
@@ -21,7 +21,7 @@ export class Module implements IModule {
     this.instance.on(name, callback);
   }
 
-  public emit(name: string, eventData?: EventData) {
+  public emit(name: string, eventData?: IEventData) {
     this.instance.emit(name, eventData);
   }
 }
