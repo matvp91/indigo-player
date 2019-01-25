@@ -2,6 +2,8 @@
 
 !> **This is a beta feature**. Small changes can happen in the future before marked as stable.
 
+?> You can start with the example project: https://github.com/matvp91/indigo-player-extension-example
+
 Registering your own module within the player is one of the core principles of indigo-player. We aim to make it as easy as possible for developers to extend functionality as plugins, or as we call them, modules. A detailed explanation of a module structure can be found [here](./ModuleStructure.md).
 
 A custom module is hosted on your own GitHub account, published on npm and is versioned. Once published on npm, the awesome jsdeliver CDN makes it automatically available for others to integrate.
