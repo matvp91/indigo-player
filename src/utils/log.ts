@@ -1,3 +1,7 @@
+let lastTime: number;
+
+let isEnabled: boolean = false;
+
 function stringToColor(str: string) {
   let hash = 0;
   if (str.length === 0) { return hash; }
@@ -13,12 +17,18 @@ function stringToColor(str: string) {
   return color;
 }
 
-let lastTime: number;
+export function setConsoleLogs(consoleLogsEnabled: boolean) {
+  isEnabled = consoleLogsEnabled;
+}
 
 export function log(namespace: string) {
   const color = stringToColor(namespace);
 
   return (first: any, ...args) => {
+    if (!isEnabled) {
+      return;
+    }
+
     if (lastTime === undefined) {
       lastTime = performance.now();
     }

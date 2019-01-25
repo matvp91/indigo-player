@@ -8,6 +8,8 @@ import * as ReactDOM from 'react-dom';
 
 const IndigoPlayer = (window as any).IndigoPlayer;
 
+IndigoPlayer.setConsoleLogs(true);
+
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
   ui: true,

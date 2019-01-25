@@ -114,6 +114,7 @@ export type Cuepoint = 'preroll' | 'postroll' | number;
 export interface Config {
   autoplay: boolean;
   ui: boolean;
+  enableLogs: boolean;
   uiOptions?: {
     enablePip?: boolean;
   };

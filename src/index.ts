@@ -6,6 +6,7 @@ import { Module } from '@src/Module';
 import { addModuleLoader } from '@src/ModuleLoader';
 import { Player } from '@src/player/Player';
 import { Config, ErrorCodes, Events, ModuleLoaderTypes } from '@src/types';
+import { setConsoleLogs } from '@src/utils/log';
 
 declare var __webpack_public_path__: string;
 declare var VERSION: string;
@@ -15,6 +16,7 @@ export default {
   setChunksPath(chunksPath: string) {
     __webpack_public_path__ = chunksPath;
   },
+  setConsoleLogs,
   init(element: HTMLElement, config: Config) {
     const instance = new Instance(element, config);
     return createAPI(instance);

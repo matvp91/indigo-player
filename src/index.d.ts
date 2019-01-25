@@ -34,6 +34,12 @@ export function setChunksPath(chunksPath: string);
 export function addModuleLoader(moduleLoader: IModuleLoader<IModule>);
 
 /**
+ * Enable console logs.
+ * @param {boolean} enableConsoleLogs true/false
+ */
+export function setConsoleLogs(enableConsoleLogs: boolean);
+
+/**
  * Class constructor for a Module
  * @prop Module
  * @type {ModuleConstructor<IModule>}
