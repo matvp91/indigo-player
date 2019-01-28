@@ -13,8 +13,6 @@ Highly extensible, modern, JavaScript player. 👊
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 
-**Important:** This package is under construction and although it offers a fair amount of features already, this is a work in progress. At the moment, it lacks the proper documentation but with time comes improvement.
-
 <img width="350px" align="center" src="https://raw.githubusercontent.com/matvp91/indigo-player/master/docs/example.gif">
 
 ## Features
@@ -26,13 +24,11 @@ Highly extensible, modern, JavaScript player. 👊
 * A modular structure that allows any developer to hook into the player logic and write custom business rules and extensions. Basically the entire player structure is built as a set of modules.
 * Bundle splitting, only loads JS files (eg: HLS.js) when actually needed.
 
-**Note:** Native HLS (+ FairPlay) is a work in progress
-
 ## Documentation
 
 Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
-If you'd like to develop your own module for indigo-player, take a look at the sample project: https://github.com/matvp91/indigo-player-extension-example
+If you'd like to develop your own module for indigo-player (apply own business rules, integrate an ad provider, write new media support, ...), take a look at the sample project: https://github.com/matvp91/indigo-player-extension-example
 
 ## Getting started
 
