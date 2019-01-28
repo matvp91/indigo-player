@@ -1,6 +1,6 @@
 import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
-import { AdBreakType, Events, IEventData, IInstance } from '@src/types';
+import { AdBreakType, Events, IEventData, IInstance, ITrack, Caption } from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';
 
@@ -30,9 +30,14 @@ interface IState {
 
   fullscreenSupported: boolean;
   fullscreen: boolean;
-  pip: boolean;
 
   started: boolean;
+
+  tracks: Array<ITrack>;
+  track: ITrack;
+  trackAutoSwitch: boolean;
+
+  caption: Caption;
 }
 
 interface IStateChangeEventData extends IEventData {
@@ -69,9 +74,14 @@ export class StateExtension extends Module {
 
     fullscreenSupported: false,
     fullscreen: false,
-    pip: false,
 
     started: false,
+
+    tracks: [],
+    track: null,
+    trackAutoSwitch: false,
+
+    caption: null,
   };
 
   constructor(instance: IInstance) {
@@ -208,10 +218,21 @@ export class StateExtension extends Module {
     }, Events.STATE_FULLSCREEN_CHANGE);
     this.on(Events.FULLSCREEN_CHANGE, setFullscreenChanged);
 
-    const setPipChanged = this.dispatch((draft, data) => {
-      draft.pip = data.pip;
-    }, Events.STATE_PIP_CHANGE);
-    this.on(Events.PIP_CHANGE, setPipChanged);
+    const setTracks = this.dispatch((draft, data) => {
+      draft.tracks = data.tracks;
+    }, Events.STATE_TRACKS);
+    this.on(Events.MEDIA_STATE_TRACKS, setTracks);
+
+    const setTrack = this.dispatch((draft, data) => {
+      draft.track = data.track;
+      draft.trackAutoSwitch = data.auto;
+    }, Events.STATE_TRACK_CHANGE);
+    this.on(Events.MEDIA_STATE_TRACKCHANGE, setTrack);
+
+    const setCaption = this.dispatch((draft, data) => {
+      draft.caption = data.caption;
+    }, Events.STATE_CAPTION_CHANGE);
+    this.on(Events.PLAYER_STATE_CAPTIONSCHANGE, setCaption);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

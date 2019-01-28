@@ -18,6 +18,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-back:before {
+  content: "\e90c";
+}
+.icon-settings:before {
+  content: "\e90b";
+}
 .icon-pip:before {
   content: "\e900";
 }

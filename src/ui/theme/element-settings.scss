@@ -1,0 +1,48 @@
+.igui_settings {
+  position: absolute;
+  right: 9px;
+  bottom: 58px;
+  background-color: #222222;
+  border-radius: 2px;
+  color: #fff;
+  z-index: 1;
+}
+
+.igui_settings_select {
+  margin: 3px 0;
+
+  .igui_button_name-select-option {
+    display: block;
+    padding: 8px 16px;
+    min-width: 150px;
+    text-align: left;
+
+    &.igui_button_state-active {
+      text-decoration: underline;
+    }
+
+    &:hover {
+      background-color: #333333;
+    }
+
+    .igui_settings_select_option_info {
+      float: right;
+    }
+  }
+}
+
+.igui_settings_header {
+  padding: 8px 16px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid #555555;
+
+  .igui_button_name-settings-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    font-size: 16px;
+  }
+}

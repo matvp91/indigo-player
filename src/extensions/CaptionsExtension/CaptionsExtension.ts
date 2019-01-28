@@ -1,20 +1,21 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, IEventData, IInstance } from '@src/types';
+import { Events, IEventData, IInstance, Caption } from '@src/types';
 
 interface ICapChangeEventData extends IEventData {
-  srclang: string;
+  caption: {
+    srclang: string;
+    label: string;
+  },
 }
 
 export class CaptionsExtension extends Module {
   public name: string = 'CaptionsExtension';
 
-  private tracks: HTMLTrackElement[];
-
   constructor(instance: IInstance) {
     super(instance);
 
-    this.tracks = instance.config.captions.map(caption => {
+    const tracks = instance.config.captions.map(caption => {
       const track = document.createElement('track');
 
       track.kind = 'captions';
@@ -29,7 +30,7 @@ export class CaptionsExtension extends Module {
       const mediaElement: HTMLMediaElement = (this.instance
         .player as HTML5Player).mediaElement;
 
-      this.tracks.forEach(track => {
+      tracks.forEach(track => {
         mediaElement.appendChild(track);
       });
     });
@@ -44,8 +45,10 @@ export class CaptionsExtension extends Module {
       track.mode = track.language === srclang ? 'showing' : 'hidden';
     }
 
+    const caption = this.instance.config.captions.find(caption => caption.srclang === srclang) || null;
+
     this.emit(Events.PLAYER_STATE_CAPTIONSCHANGE, {
-      srclang,
+      caption,
     } as ICapChangeEventData);
   }
 }

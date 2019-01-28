@@ -1,5 +1,5 @@
 import { Module } from '@src/Module';
-import { IController } from '@src/types';
+import { IController, ITrack } from '@src/types';
 
 export class Controller extends Module implements IController {
   public async boot() {}
@@ -35,5 +35,9 @@ export class Controller extends Module implements IController {
 
   public setVolume(volume: number) {
     this.instance.media.setVolume(volume);
+  }
+
+  public selectTrack(track: ITrack) {
+    this.instance.media.selectTrack(track);
   }
 }

@@ -1,7 +1,7 @@
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { PlayerError } from '@src/PlayerError';
-import { ErrorCodes, Events, Format, IEventData, IInstance } from '@src/types';
+import { ErrorCodes, Events, Format, IEventData, IInstance, ITrack, ITracksEventData, ITrackChangeEventData } from '@src/types';
 import * as shaka from 'shaka-player';
 
 interface IShakaInstEventData extends IEventData {
@@ -14,40 +14,45 @@ export class DashMedia extends Media {
 
   public player: any;
 
+  private track: ITrack;
+
   constructor(instance: IInstance) {
     super(instance);
 
     shaka.polyfill.installAll();
   }
 
+  formatTrack = (track: any): ITrack => ({
+    id: track.id,
+    width: track.width,
+    height: track.height,
+    bandwidth: track.bandwidth,
+  });
+
   public async load() {
     await super.load();
 
-    await this.loadShaka();
-  }
-
-  public unload() {
-    this.player.destroy();
-    this.player = null;
-  }
-
-  private async loadShaka({
-    defaultBandwidthEstimate,
-    abr = true,
-  }: { defaultBandwidthEstimate?: number; abr?: boolean } = {}) {
     const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)
       .mediaElement;
 
     this.player = new shaka.Player(mediaElement);
 
     this.player.addEventListener('error', this.onErrorEvent.bind(this));
+    this.player.addEventListener('adaptation', this.onAdaptationEvent.bind(this));
 
     this.emit(Events.SHAKA_INSTANCE, {
       shaka,
       player: this.player,
     } as IShakaInstEventData);
 
-    const configuration: { drm?: any } = {};
+    const configuration: any = {
+      abr: {
+        enabled: true,
+        defaultBandwidthEstimate:
+          Number(this.instance.storage.get('estimatedBandwidth', 0)) ||
+          1024 * 1000,
+      },
+    };
 
     if (this.instance.format.drm) {
       configuration.drm = {
@@ -65,13 +70,56 @@ export class DashMedia extends Media {
       };
     }
 
+    this.instance.log('dash.load')('Starting Shaka', { configuration });
+
     this.player.configure(configuration);
 
     try {
       await this.player.load(this.instance.format.src);
+
+      const tracks = this.player.getVariantTracks()
+        .filter(track => track.type === 'variant')
+        .map(this.formatTrack);
+
+      this.emit(Events.MEDIA_STATE_TRACKS, {
+        tracks,
+      } as ITracksEventData);
     } catch (error) {
       this.onError(error);
     }
+  }
+
+  public unload() {
+    if (this.player) {
+      this.player.destroy();
+      this.player = null;
+    }
+  }
+
+  public selectTrack(track: ITrack | string) {
+    if (track === 'auto') {
+      this.player.configure({ abr: { enabled: true } });
+      this.emitTrackChange();
+    } else {
+      this.player.configure({ abr: { enabled: false } });
+
+      this.track = track as ITrack;
+      this.emitTrackChange();
+
+      const variantTrack = this.player.getVariantTracks()
+        .find(variantTrack => variantTrack.id === (track as ITrack).id);
+
+      if (variantTrack) {
+        this.player.selectVariantTrack(variantTrack, true);
+      }
+    }
+  }
+
+  private emitTrackChange() {
+    this.emit(Events.MEDIA_STATE_TRACKCHANGE, {
+      track: this.track,
+      auto: this.player.getConfiguration().abr.enabled,
+    } as ITrackChangeEventData);
   }
 
   private onErrorEvent(event) {
@@ -84,5 +132,18 @@ export class DashMedia extends Media {
         new PlayerError(ErrorCodes.SHAKA_CRITICAL_ERROR, error),
       );
     }
+  }
+
+  private onAdaptationEvent() {
+    const track = this.formatTrack(
+      this.player.getVariantTracks()
+        .find(track => track.active),
+    );
+
+    this.track = track;
+    this.emitTrackChange();
+
+    const estimatedBandwidth = this.player.getStats().estimatedBandwidth;
+    this.instance.storage.set('estimatedBandwidth', estimatedBandwidth);
   }
 }

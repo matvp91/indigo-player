@@ -6,6 +6,8 @@ interface IPipChangeEventData extends IEventData {
   pip: boolean;
 }
 
+const PIP_CHANGE = 'pip:change';
+
 export class PipExtension extends Module {
   public name: string = 'PipExtension';
 
@@ -23,7 +25,7 @@ export class PipExtension extends Module {
   private internalMoveDragging: any;
   private internalStopDragging: any;
 
-  private pipEnabled: boolean = false;
+  public pip: boolean = false;
 
   constructor(instance: IInstance) {
     super(instance);
@@ -57,10 +59,10 @@ export class PipExtension extends Module {
     container.appendChild(this.playerContainer);
     document.body.appendChild(container);
 
-    this.pipEnabled = true;
+    this.pip = true;
 
-    this.emit(Events.PIP_CHANGE, {
-      pip: this.pipEnabled,
+    this.emit(PIP_CHANGE, {
+      pip: this.pip,
     } as IPipChangeEventData);
   }
 
@@ -69,15 +71,15 @@ export class PipExtension extends Module {
     this.pipPlaceholder.parentElement.removeChild(this.pipPlaceholder);
     this.pipContainer.parentElement.removeChild(this.pipContainer);
 
-    this.pipEnabled = false;
+    this.pip = false;
 
-    this.emit(Events.PIP_CHANGE, {
-      pip: this.pipEnabled,
+    this.emit(PIP_CHANGE, {
+      pip: this.pip,
     } as IPipChangeEventData);
   }
 
   public togglePip() {
-    if (this.pipEnabled) {
+    if (this.pip) {
       this.disablePip();
     } else {
       this.enablePip();

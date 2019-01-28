@@ -40,6 +40,10 @@ export enum Events {
   PLAYER_STATE_CAPTIONSCHANGE = 'player-state:captionschange',
   PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
 
+  // Media state events
+  MEDIA_STATE_TRACKS = 'media-state:bitrates',
+  MEDIA_STATE_TRACKCHANGE = 'media-state:bitratechange',
+
   // Shaka
   SHAKA_INSTANCE = 'shaka:instance',
 
@@ -58,7 +62,6 @@ export enum Events {
   // Misc
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
-  PIP_CHANGE = 'pip:change',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -80,7 +83,9 @@ export enum Events {
   STATE_DURATION_CHANGE = 'state:duration-change',
   STATE_FULLSCREEN_SUPPORTED = 'state:fullscreen-supported',
   STATE_FULLSCREEN_CHANGE = 'state:fullscreen-change',
-  STATE_PIP_CHANGE = 'state:pip-change',
+  STATE_TRACKS = 'state:tracks',
+  STATE_TRACK_CHANGE = 'state:track-change',
+  STATE_CAPTION_CHANGE = 'state:caption-change',
 }
 
 export enum ErrorCodes {
@@ -115,9 +120,7 @@ export interface Config {
   autoplay: boolean;
   ui: boolean;
   enableLogs: boolean;
-  uiOptions?: {
-    enablePip?: boolean;
-  };
+  uiOptions?: {};
   sources: Format[];
   showNativeControls: boolean;
   freewheel?: {
@@ -134,6 +137,15 @@ export interface Config {
     src: string;
   };
   captions?: Caption[];
+}
+
+// Adaptive tracks
+
+export interface ITrack {
+  id: number;
+  width: number;
+  height: number;
+  bandwidth: number;
 }
 
 // Ads
@@ -172,6 +184,15 @@ export interface IEnv {
 
 export type EventCallback = any;
 
+export interface ITrackChangeEventData extends IEventData {
+  track: ITrack;
+  auto: boolean;
+}
+
+export interface ITracksEventData extends IEventData {
+  tracks: Array<ITrack>;
+}
+
 export interface IErrorEventData extends IEventData {
   error: IPlayerError;
 }
@@ -197,7 +218,7 @@ export interface IAdBreakTimeUpdateEventData extends IEventData {
 }
 
 export interface IAdBreaksEventData extends IEventData {
-  adBreaks: IAdBreak[];
+  adBreaks: Array<IAdBreak>;
 }
 
 export interface IAdBreakEventData extends IEventData {
@@ -262,6 +283,7 @@ export interface IController extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  selectTrack(track: ITrack);
 }
 
 export interface IPlayer extends IModule {
@@ -284,6 +306,7 @@ export interface IMedia extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  selectTrack(track: ITrack);
 }
 
 export type LogFunction = (...args: any) => void;
@@ -302,6 +325,7 @@ export interface IInstance {
   format: Format;
   extensions: IModule[];
 
+  storage: any; // TODO: Proper type
   log(namespace: string): LogFunction;
 
   // Methods
@@ -309,6 +333,7 @@ export interface IInstance {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  selectTrack(track: ITrack);
   destroy();
 
   on(name: string, callback: EventCallback);

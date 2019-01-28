@@ -1,5 +1,5 @@
 import { Module } from '@src/Module';
-import { IMedia } from '@src/types';
+import { IMedia, ITrack } from '@src/types';
 
 export class Media extends Module implements IMedia {
   public async load() {}
@@ -21,4 +21,6 @@ export class Media extends Module implements IMedia {
   public setVolume(volume: number) {
     this.instance.player.setVolume(volume);
   }
+
+  public selectTrack(track: ITrack) {}
 }

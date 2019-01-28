@@ -1,8 +1,9 @@
-import { AdBreakType, IInstance } from '@src/types';
-import { IActions, IData, ViewTypes } from '@src/ui/types';
+import { AdBreakType, IInstance, ITrack } from '@src/types';
+import { IActions, IData, ViewTypes, SettingsTabs } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import React, { RefObject } from 'react';
+import uniqBy from 'lodash/uniqBy';
 
 export const StateContext = React.createContext({});
 
@@ -22,6 +23,9 @@ interface StateStoreState {
   // Volume
   isVolumeControlsOpen: boolean;
   isVolumebarSeeking: boolean;
+
+  // Settings
+  settingsTab: SettingsTabs,
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -50,6 +54,9 @@ export class StateStore extends React.Component<
       // Volume
       isVolumeControlsOpen: false,
       isVolumebarSeeking: false,
+
+      // Settings
+      settingsTab: null,
     };
 
     this.unsubscribe = attachEvents([
@@ -62,6 +69,11 @@ export class StateStore extends React.Component<
         element: this.props.instance.container,
         events: ['mouseleave'],
         callback: this.hideControls,
+      },
+      {
+        element: window as any,
+        events: ['mousedown'],
+        callback: this.closeSettings,
       },
     ]);
   }
@@ -86,7 +98,7 @@ export class StateStore extends React.Component<
 
     this.setState({ visibleControls: true });
 
-    this.activeTimer = setTimeout(() => {
+    this.activeTimer = (window as any).setTimeout(() => {
       this.setState({ visibleControls: false });
     }, 2000);
   };
@@ -152,8 +164,41 @@ export class StateStore extends React.Component<
     ) as any).toggleFullscreen();
   };
 
-  private togglePip = () => {
-    (this.props.instance.getModule('PipExtension') as any).togglePip();
+  private selectTrack = (track: ITrack) => {
+    this.props.instance.selectTrack(track);
+  };
+
+  private closeSettings = (event: MouseEvent) => {
+    const isOver = (className: string) => {
+      const target: EventTarget = event.target;
+      const container = this.props.instance.container.querySelector(className);
+      return container && (container === target || container.contains(target as Node));
+    };
+
+    if (
+      isOver('.igui_settings') ||
+      isOver('.igui_button_name-settings')
+    ) {
+      return;
+    }
+
+    this.setState({ settingsTab: SettingsTabs.NONE });
+  };
+
+  private toggleSettings = () => {
+    this.setState(prevState => ({
+      settingsTab: prevState.settingsTab
+        ? SettingsTabs.NONE
+        : SettingsTabs.OPTIONS,
+    }));
+  };
+
+  private setSettingsTab = (settingsTab: SettingsTabs) => {
+    this.setState({ settingsTab });
+  };
+
+  private selectCaption = ({ srclang }: { srclang: string }) => {
+    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(srclang);
   };
 
   /**
@@ -178,7 +223,7 @@ export class StateStore extends React.Component<
 
     // Do we need to show the controls?
     let visibleControls = this.state.visibleControls;
-    if (this.state.isSeekbarSeeking || this.state.isVolumebarSeeking) {
+    if (this.state.isSeekbarSeeking || this.state.isVolumebarSeeking || !!this.state.settingsTab) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
     }
@@ -274,25 +319,37 @@ export class StateStore extends React.Component<
       }
     }
 
-    // Figure out if PIP is supported.
-    let pipSupported = false;
-    if (
-      this.props.instance.config.uiOptions &&
-      this.props.instance.config.uiOptions.enablePip
-    ) {
-      pipSupported = true;
+    const tracks = uniqBy(
+      this.props.player.tracks
+        .sort((a, b) => b.bandwidth - a.bandwidth),
+      'width',
+    );
+
+    const activeTrack = this.props.player.track;
+
+    let selectedTrack = this.props.player.track;
+    if (this.props.player.trackAutoSwitch) {
+      selectedTrack = 'auto';
     }
+
+    const captions = this.props.instance.config.captions || [];
+
+    const activeCaption = this.props.player.caption;
 
     return {
       // UI specific state
       view,
       visibleControls,
       isCenterClickAllowed,
+      settingsTab: this.state.settingsTab,
 
       // Player
       playRequested: this.props.player.playRequested,
       paused: this.props.player.paused,
       rebuffering: this.props.player.buffering,
+      tracks,
+      activeTrack,
+      selectedTrack,
       error,
       cuePoints,
       timeStat,
@@ -310,16 +367,16 @@ export class StateStore extends React.Component<
       fullscreenSupported: this.props.player.fullscreenSupported,
       isFullscreen: this.props.player.fullscreen,
 
-      // PIP
-      isPip: this.props.player.pip,
-      pipSupported,
-
       // Ads
       adBreakData,
 
       // Volume button & volume bar
       isVolumeControlsOpen,
       volumeBarPercentage: this.props.player.volume,
+
+      // Captions
+      captions,
+      activeCaption,
     } as IData;
   }
 
@@ -333,9 +390,12 @@ export class StateStore extends React.Component<
       toggleFullscreen: this.toggleFullscreen,
       setVolumeControlsOpen: this.setVolumeControlsOpen,
       toggleMute: this.toggleMute,
-      togglePip: this.togglePip,
       setSeekbarState: this.setSeekbarState,
       setVolumebarState: this.setVolumebarState,
+      selectTrack: this.selectTrack,
+      setSettingsTab: this.setSettingsTab,
+      toggleSettings: this.toggleSettings,
+      selectCaption: this.selectCaption,
     } as IActions;
   }
 }

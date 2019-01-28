@@ -7,6 +7,7 @@ interface ButtonProps {
   icon?: string;
   name?: string;
   disabled?: boolean;
+  active?: boolean;
   onClick();
 }
 
@@ -18,6 +19,7 @@ export const Button = (props: ButtonProps) => (
     className={cx('igui_button', {
       [`igui_button_name-${props.name}`]: !!props.name,
       'igui_button_state-disabled': props.disabled,
+      'igui_button_state-active': props.active,
     })}
   >
     {!!props.children && props.children}

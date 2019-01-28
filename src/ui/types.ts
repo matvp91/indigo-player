@@ -1,4 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
+import { ITrack, Caption } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -9,8 +10,6 @@ export interface IData {
   volumeBarPercentage: number;
   isVolumeControlsOpen: boolean;
   isFullscreen: boolean;
-  isPip: boolean;
-  pipSupported: boolean;
   fullscreenSupported: boolean;
   playRequested: boolean;
   adBreakData?: {
@@ -21,12 +20,17 @@ export interface IData {
   timeStat: string;
   error?: PlayerError;
   isCenterClickAllowed: boolean;
-
   isSeekbarHover: boolean;
   isSeekbarSeeking: boolean;
   seekbarPercentage: number;
   seekbarTooltipText: string;
   seekbarTooltipPercentage: number;
+  tracks: ITrack[],
+  activeTrack: ITrack,
+  selectedTrack: ITrack | string,
+  settingsTab: SettingsTabs,
+  captions: Caption[],
+  activeCaption: Caption,
 }
 
 export interface IActions {
@@ -39,9 +43,12 @@ export interface IActions {
   stopVolumebarSeeking();
   toggleMute();
   toggleFullscreen();
-  togglePip();
   setSeekbarState(state: any);
   setVolumebarState(state: any);
+  selectTrack(track: ITrack);
+  setSettingsTab(tab: SettingsTabs);
+  toggleSettings();
+  selectCaption(caption: Caption);
 }
 
 export enum ViewTypes {
@@ -49,4 +56,11 @@ export enum ViewTypes {
   LOADING,
   START,
   CONTROLS,
+}
+
+export enum SettingsTabs {
+  NONE,
+  OPTIONS,
+  TRACKS,
+  CAPTIONS,
 }

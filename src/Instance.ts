@@ -15,12 +15,14 @@ import {
   IInstance,
   IMedia,
   IModule,
+  ITrack,
   IPlayer,
   IPlayerError,
   ModuleLoaderTypes,
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';
 import { log } from '@src/utils/log';
+import { storage } from '@src/utils/storage';
 import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
 
@@ -60,6 +62,8 @@ export class Instance implements IInstance {
   public extensions: IModule[];
 
   public log = log;
+
+  public storage = storage;
 
   /**
    * Allow the instance to emit and listen to events.
@@ -103,6 +107,10 @@ export class Instance implements IInstance {
 
   public setVolume(volume: number) {
     this.controller.setVolume(volume);
+  }
+
+  public selectTrack(track: ITrack) {
+    this.controller.selectTrack(track);
   }
 
   public setError(error: IPlayerError) {

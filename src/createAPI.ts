@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { EventCallback, IEventData, IInstance } from '@src/types';
+import { EventCallback, IEventData, IInstance, ITrack } from '@src/types';
 import { createFunctionFn } from '@src/utils/defineProperty';
 
 /**
@@ -49,6 +49,9 @@ export function createAPI(instance: IInstance) {
 
     // Set the volume
     ['setVolume', (volume: number) => instance.setVolume(volume)],
+
+    // Select a track
+    ['selectTrack', (track: ITrack) => instance.selectTrack(track)],
 
     // Set a fatal error
     ['setError', (error: PlayerError) => instance.setError(error)],
