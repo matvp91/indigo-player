@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { ITrack, Caption } from '@src/types';
+import { Caption, ITrack } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -25,13 +25,13 @@ export interface IData {
   seekbarPercentage: number;
   seekbarTooltipText: string;
   seekbarTooltipPercentage: number;
-  tracks: ITrack[],
-  activeTrack: ITrack,
-  selectedTrack: ITrack | string,
-  settingsTab: SettingsTabs,
-  visibleSettingsTabs: SettingsTabs[],
-  captions: Caption[],
-  activeCaption: Caption,
+  tracks: ITrack[];
+  activeTrack: ITrack;
+  selectedTrack: ITrack | string;
+  settingsTab: SettingsTabs;
+  visibleSettingsTabs: SettingsTabs[];
+  captions: Caption[];
+  activeCaption: Caption;
   playbackRate: number;
   pip: boolean;
   pipSupported: boolean;

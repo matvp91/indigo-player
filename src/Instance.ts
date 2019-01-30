@@ -15,9 +15,9 @@ import {
   IInstance,
   IMedia,
   IModule,
-  ITrack,
   IPlayer,
   IPlayerError,
+  ITrack,
   ModuleLoaderTypes,
 } from '@src/types';
 import { getEnv } from '@src/utils/getEnv';

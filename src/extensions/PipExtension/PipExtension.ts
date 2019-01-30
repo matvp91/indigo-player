@@ -9,6 +9,8 @@ interface IPipChangeEventData extends IEventData {
 export class PipExtension extends Module {
   public name: string = 'PipExtension';
 
+  public pip: boolean = false;
+
   private playerContainer: HTMLElement;
 
   private playerContainerParent: HTMLElement;
@@ -22,8 +24,6 @@ export class PipExtension extends Module {
 
   private internalMoveDragging: any;
   private internalStopDragging: any;
-
-  public pip: boolean = false;
 
   constructor(instance: IInstance) {
     super(instance);

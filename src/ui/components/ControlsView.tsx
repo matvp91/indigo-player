@@ -2,9 +2,9 @@ import { Button } from '@src/ui/components/Button';
 import { Center } from '@src/ui/components/Center';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
+import { Settings } from '@src/ui/components/Settings';
 import { TimeStat } from '@src/ui/components/TimeStat';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
-import { Settings } from '@src/ui/components/Settings';
 import { IActions, IData } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
@@ -25,7 +25,9 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           name='play'
           icon={props.data.playRequested ? 'pause' : 'play'}
           onClick={props.actions.playOrPause}
-          tooltip={props.data.getTranslation(props.data.playRequested ? 'Pause': 'Play')}
+          tooltip={props.data.getTranslation(
+            props.data.playRequested ? 'Pause' : 'Play',
+          )}
         />
         <VolumeButton />
         <TimeStat />
@@ -51,7 +53,9 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit'}
           onClick={props.actions.toggleFullscreen}
           disabled={!props.data.fullscreenSupported}
-          tooltip={props.data.getTranslation(props.data.isFullscreen ? 'Exit full screen' : 'Full screen')}
+          tooltip={props.data.getTranslation(
+            props.data.isFullscreen ? 'Exit full screen' : 'Full screen',
+          )}
         />
       </div>
     </>

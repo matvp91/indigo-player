@@ -3,9 +3,9 @@ import {
   Events,
   IBufferedChangeEventData,
   IDurationChangeEventData,
+  IPlaybackRateChangeEventData,
   ITimeUpdateEventData,
   IVolumeChangeEventData,
-  IPlaybackRateChangeEventData,
 } from '@src/types';
 
 export class HTML5Player extends Player {

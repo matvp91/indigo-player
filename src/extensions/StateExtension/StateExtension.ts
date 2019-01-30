@@ -1,6 +1,13 @@
 import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
-import { AdBreakType, Events, IEventData, IInstance, ITrack, Caption } from '@src/types';
+import {
+  AdBreakType,
+  Caption,
+  Events,
+  IEventData,
+  IInstance,
+  ITrack,
+} from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';
 
@@ -35,7 +42,7 @@ interface IState {
 
   started: boolean;
 
-  tracks: Array<ITrack>;
+  tracks: ITrack[];
   track: ITrack;
   trackAutoSwitch: boolean;
 

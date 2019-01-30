@@ -1,5 +1,5 @@
-import { IData, IActions, SettingsTabs } from '@src/ui/types';
 import { Button } from '@src/ui/components/Button';
+import { IActions, IData, SettingsTabs } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
 
@@ -14,21 +14,29 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
           props.data.visibleSettingsTabs.includes(SettingsTabs.TRACKS) && {
             item: SettingsTabs.TRACKS,
             label: props.data.getTranslation('Quality'),
-            info: `${props.data.activeTrack ? props.data.activeTrack.width : ''}`,
+            info: `${
+              props.data.activeTrack ? props.data.activeTrack.width : ''
+            }`,
           },
           props.data.visibleSettingsTabs.includes(SettingsTabs.CAPTIONS) && {
             item: SettingsTabs.CAPTIONS,
             label: props.data.getTranslation('Subtitles'),
-            info: `${props.data.activeCaption ? props.data.activeCaption.label : ''}`,
+            info: `${
+              props.data.activeCaption ? props.data.activeCaption.label : ''
+            }`,
           },
-          props.data.visibleSettingsTabs.includes(SettingsTabs.PLAYBACKRATES) && {
+          props.data.visibleSettingsTabs.includes(
+            SettingsTabs.PLAYBACKRATES,
+          ) && {
             item: SettingsTabs.PLAYBACKRATES,
             label: props.data.getTranslation('Speed'),
             info: `${props.data.playbackRate ? props.data.playbackRate : ''}`,
           },
         ].filter(item => !!item)}
       />
-    ) : <div className="igui_settings_nooptions">No settings available</div>}
+    ) : (
+      <div className='igui_settings_nooptions'>No settings available</div>
+    )}
   </>
 );
 
@@ -123,34 +131,45 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
 );
 
 interface SettingsHeaderProps {
-  onBackClick?();
   title: string;
+  onBackClick?();
 }
 
 const SettingsHeader = (props: SettingsHeaderProps) => (
   <div className='igui_settings_header'>
-    {!!props.onBackClick && <Button onClick={props.onBackClick} name="settings-back" icon="back" />}
+    {!!props.onBackClick && (
+      <Button onClick={props.onBackClick} name='settings-back' icon='back' />
+    )}
     {props.title}
   </div>
 );
 
 interface SettingsSelectProps {
-  onClick(item: any);
   selected?: any;
   items: Array<{
-    item: any,
-    label: string,
-    info?: string,
-  }>
+    item: any;
+    label: string;
+    info?: string;
+  }>;
+  onClick(item: any);
 }
 
 const SettingsSelect = (props: SettingsSelectProps) => (
   <div className='igui_settings_select'>
     {props.items.map(item => (
-      <Button key={item.label} name='select-option' onClick={() => props.onClick(item.item)} active={item.item === props.selected}>
+      <Button
+        key={item.label}
+        name='select-option'
+        onClick={() => props.onClick(item.item)}
+        active={item.item === props.selected}
+      >
         <>
           {item.label}
-          {item.info && <span className='igui_settings_select_option_info'>{item.info}</span>}
+          {item.info && (
+            <span className='igui_settings_select_option_info'>
+              {item.info}
+            </span>
+          )}
         </>
       </Button>
     ))}
@@ -165,8 +184,6 @@ interface SettingsProps {
 export const Settings = withState((props: SettingsProps) => {
   const renderTab = tabs[props.data.settingsTab];
   return renderTab ? (
-    <div className='igui_settings'>
-      {renderTab(props)}
-    </div>
+    <div className='igui_settings'>{renderTab(props)}</div>
   ) : null;
 });

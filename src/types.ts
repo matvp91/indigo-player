@@ -198,7 +198,7 @@ export interface ITrackChangeEventData extends IEventData {
 }
 
 export interface ITracksEventData extends IEventData {
-  tracks: Array<ITrack>;
+  tracks: ITrack[];
 }
 
 export interface IErrorEventData extends IEventData {
@@ -226,7 +226,7 @@ export interface IAdBreakTimeUpdateEventData extends IEventData {
 }
 
 export interface IAdBreaksEventData extends IEventData {
-  adBreaks: Array<IAdBreak>;
+  adBreaks: IAdBreak[];
 }
 
 export interface IAdBreakEventData extends IEventData {

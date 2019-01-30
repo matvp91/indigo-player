@@ -1,7 +1,16 @@
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
 import { PlayerError } from '@src/PlayerError';
-import { ErrorCodes, Events, Format, IEventData, IInstance, ITrack, ITracksEventData, ITrackChangeEventData } from '@src/types';
+import {
+  ErrorCodes,
+  Events,
+  Format,
+  IEventData,
+  IInstance,
+  ITrack,
+  ITrackChangeEventData,
+  ITracksEventData,
+} from '@src/types';
 import * as shaka from 'shaka-player';
 
 interface IShakaInstEventData extends IEventData {
@@ -22,7 +31,7 @@ export class DashMedia extends Media {
     shaka.polyfill.installAll();
   }
 
-  formatTrack = (track: any): ITrack => ({
+  public formatTrack = (track: any): ITrack => ({
     id: track.id,
     width: track.width,
     height: track.height,
@@ -38,7 +47,10 @@ export class DashMedia extends Media {
     this.player = new shaka.Player(mediaElement);
 
     this.player.addEventListener('error', this.onErrorEvent.bind(this));
-    this.player.addEventListener('adaptation', this.onAdaptationEvent.bind(this));
+    this.player.addEventListener(
+      'adaptation',
+      this.onAdaptationEvent.bind(this),
+    );
 
     this.emit(Events.SHAKA_INSTANCE, {
       shaka,
@@ -77,7 +89,8 @@ export class DashMedia extends Media {
     try {
       await this.player.load(this.instance.format.src);
 
-      const tracks = this.player.getVariantTracks()
+      const tracks = this.player
+        .getVariantTracks()
         .filter(track => track.type === 'variant')
         .sort((a, b) => b.bandwidth - a.bandwidth)
         .map(this.formatTrack);
@@ -107,7 +120,8 @@ export class DashMedia extends Media {
       this.track = track as ITrack;
       this.emitTrackChange();
 
-      const variantTrack = this.player.getVariantTracks()
+      const variantTrack = this.player
+        .getVariantTracks()
         .find(variantTrack => variantTrack.id === (track as ITrack).id);
 
       if (variantTrack) {
@@ -137,8 +151,7 @@ export class DashMedia extends Media {
 
   private onAdaptationEvent() {
     const track = this.formatTrack(
-      this.player.getVariantTracks()
-        .find(track => track.active),
+      this.player.getVariantTracks().find(track => track.active),
     );
 
     this.track = track;

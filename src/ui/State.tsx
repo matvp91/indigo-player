@@ -1,10 +1,10 @@
-import { AdBreakType, IInstance, ITrack, Caption } from '@src/types';
-import { IActions, IData, ViewTypes, SettingsTabs } from '@src/ui/types';
+import { AdBreakType, Caption, IInstance, ITrack } from '@src/types';
+import { getTranslation } from '@src/ui/i18n';
+import { IActions, IData, SettingsTabs, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
-import { getTranslation } from '@src/ui/i18n';
-import React, { RefObject } from 'react';
 import uniqBy from 'lodash/uniqBy';
+import React, { RefObject } from 'react';
 
 export const StateContext = React.createContext({});
 
@@ -26,7 +26,7 @@ interface StateStoreState {
   isVolumebarSeeking: boolean;
 
   // Settings
-  settingsTab: SettingsTabs,
+  settingsTab: SettingsTabs;
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -177,13 +177,13 @@ export class StateStore extends React.Component<
     const isOver = (className: string) => {
       const target: EventTarget = event.target;
       const container = this.props.instance.container.querySelector(className);
-      return container && (container === target || container.contains(target as Node));
+      return (
+        container &&
+        (container === target || container.contains(target as Node))
+      );
     };
 
-    if (
-      isOver('.igui_settings') ||
-      isOver('.igui_button_name-settings')
-    ) {
+    if (isOver('.igui_settings') || isOver('.igui_button_name-settings')) {
       return;
     }
 
@@ -203,7 +203,9 @@ export class StateStore extends React.Component<
   };
 
   private selectCaption = (caption: Caption) => {
-    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(caption ? caption.srclang : null);
+    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(
+      caption ? caption.srclang : null,
+    );
   };
 
   private togglePip = () => {
@@ -236,7 +238,11 @@ export class StateStore extends React.Component<
 
     // Do we need to show the controls?
     let visibleControls = this.state.visibleControls;
-    if (this.state.isSeekbarSeeking || this.state.isVolumebarSeeking || !!this.state.settingsTab) {
+    if (
+      this.state.isSeekbarSeeking ||
+      this.state.isVolumebarSeeking ||
+      !!this.state.settingsTab
+    ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
     }
@@ -333,8 +339,7 @@ export class StateStore extends React.Component<
     }
 
     const tracks = uniqBy(
-      this.props.player.tracks
-        .sort((a, b) => b.bandwidth - a.bandwidth),
+      this.props.player.tracks.sort((a, b) => b.bandwidth - a.bandwidth),
       'width',
     );
 
@@ -358,7 +363,10 @@ export class StateStore extends React.Component<
     }
 
     let pipSupported = false;
-    if (this.props.instance.config.uiOptions && (this.props.instance.config.uiOptions as any).enablePip) {
+    if (
+      this.props.instance.config.uiOptions &&
+      (this.props.instance.config.uiOptions as any).enablePip
+    ) {
       pipSupported = true;
     }
 

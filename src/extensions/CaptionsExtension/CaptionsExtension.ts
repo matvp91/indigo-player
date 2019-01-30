@@ -1,12 +1,12 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, IEventData, IInstance, Caption } from '@src/types';
+import { Caption, Events, IEventData, IInstance } from '@src/types';
 
 interface ICapChangeEventData extends IEventData {
   caption: {
     srclang: string;
     label: string;
-  },
+  };
 }
 
 export class CaptionsExtension extends Module {
@@ -45,7 +45,10 @@ export class CaptionsExtension extends Module {
       track.mode = track.language === srclang ? 'showing' : 'hidden';
     }
 
-    const caption = this.instance.config.captions.find(caption => caption.srclang === srclang) || null;
+    const caption =
+      this.instance.config.captions.find(
+        caption => caption.srclang === srclang,
+      ) || null;
 
     this.emit(Events.PLAYER_STATE_CAPTIONSCHANGE, {
       caption,

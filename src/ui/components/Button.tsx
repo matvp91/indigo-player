@@ -33,7 +33,9 @@ export const Button = (props: ButtonProps) => {
     >
       {!!props.children && props.children}
       {props.icon && <Icon icon={props.icon} />}
-      {hover && props.tooltip && <span className="igui_button_tooltip">{props.tooltip}</span>}
+      {hover && props.tooltip && (
+        <span className='igui_button_tooltip'>{props.tooltip}</span>
+      )}
     </button>
   );
 };
