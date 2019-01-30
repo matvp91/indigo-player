@@ -241,6 +241,33 @@ indigo-player includes a basic UI written in React. All examples here have the U
 
 The basic UI has several options, use the `uiOptions` object group to pass them.
 
+##### Enable Picture in Picture
+
+Picture in picture mode will put the player container at the right bottom of the screen. You can move the PIP container by dragging it by the handle at the top of the player (your cursor should change to a drag icon).
+
+```javascript
+{
+  uiOptions: {
+    enablePip: true, // by default, pip is not enabled in the UI.
+  },
+}
+```
+
+<div class="sample-player" data-optin="1">
+{
+  ui: true,
+  uiOptions: {
+    enablePip: true,
+  },
+  sources: [
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
+  ],
+}
+</div>
+
 ### Captions
 
 Provide the WebVTT files with their configuration in order to provide subtitles.

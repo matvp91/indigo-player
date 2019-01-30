@@ -241,7 +241,8 @@ export class StateStore extends React.Component<
     if (
       this.state.isSeekbarSeeking ||
       this.state.isVolumebarSeeking ||
-      !!this.state.settingsTab
+      !!this.state.settingsTab ||
+      (this.props.instance.config.uiOptions && (this.props.instance.config.uiOptions as any).lockControlsVisibility)
     ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;

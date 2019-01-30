@@ -15,6 +15,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   ui: true,
   uiOptions: {
     enablePip: true,
+    lockControlsVisibility: false,
   },
   // freewheel: {
   //   clientSide: true,
