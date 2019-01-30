@@ -79,6 +79,7 @@ export class DashMedia extends Media {
 
       const tracks = this.player.getVariantTracks()
         .filter(track => track.type === 'variant')
+        .sort((a, b) => b.bandwidth - a.bandwidth)
         .map(this.formatTrack);
 
       this.emit(Events.MEDIA_STATE_TRACKS, {
