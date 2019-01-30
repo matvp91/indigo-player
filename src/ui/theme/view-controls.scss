@@ -8,7 +8,7 @@
 
   opacity: 0;
   transition: opacity 100ms linear;
-
+opacity:1;
   &:before {
     content: '';
     position: absolute;
@@ -31,12 +31,28 @@
     .igui_icon {
       font-size: 26px;
     }
+
+    .igui_button_tooltip {
+      position: absolute;
+      bottom: 58px;
+      left: 50%;
+      pointer-events: none;
+      transform: translateX(-50%);
+      background-color: #222222;
+      border-radius: 2px;
+      padding: 4px 6px;
+    }
   }
 
   .igui_button_name-play {
     left: 9px;
     bottom: 0;
     position: absolute;
+
+    .igui_button_tooltip {
+      left: 2px;
+      transform: translateX(0);
+    }
   }
 
   .igui_volume {
@@ -73,6 +89,12 @@
     right: 9px;
     bottom: 0;
     position: absolute;
+
+    .igui_button_tooltip {
+      right: 2px;
+      left: auto;
+      transform: translateX(0);
+    }
   }
 
   .igui_state-active & {

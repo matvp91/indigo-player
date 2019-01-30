@@ -5,9 +5,13 @@ $volumebar-scrubber-radius: 14px;
   display: flex;
   align-items: center;
 
-  .igui_button .igui_icon_volume-1 {
+  .igui_button {
     position: relative;
-    left: -2px;
+
+    .igui_icon_volume-1 {
+      position: relative;
+      left: -2px;
+    }
   }
 }
 

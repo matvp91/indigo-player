@@ -25,6 +25,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           name='play'
           icon={props.data.playRequested ? 'pause' : 'play'}
           onClick={props.actions.playOrPause}
+          tooltip={props.data.playRequested ? 'pause': 'play'}
         />
         <VolumeButton />
         <TimeStat />
@@ -36,18 +37,21 @@ export const ControlsView = withState((props: ControlsViewProps) => {
             name='pip'
             icon='pip'
             onClick={props.actions.togglePip}
+            tooltip="pip"
           />
         )}
         <Button
           name='settings'
           icon='settings'
           onClick={() => props.actions.toggleSettings()}
+          tooltip="settings"
         />
         <Button
           name='fullscreen'
           icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit'}
           onClick={props.actions.toggleFullscreen}
           disabled={!props.data.fullscreenSupported}
+          tooltip="fullscreen"
         />
       </div>
     </>
