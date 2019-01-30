@@ -63,6 +63,7 @@ export enum Events {
   // Misc
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
+  PIP_CHANGE = 'pip:change',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -88,6 +89,7 @@ export enum Events {
   STATE_TRACK_CHANGE = 'state:track-change',
   STATE_CAPTION_CHANGE = 'state:caption-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
+  STATE_PIP_CHANGE = 'state:pip-change',
 }
 
 export enum ErrorCodes {

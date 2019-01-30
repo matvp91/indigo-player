@@ -31,6 +31,8 @@ interface IState {
   fullscreenSupported: boolean;
   fullscreen: boolean;
 
+  pip: boolean;
+
   started: boolean;
 
   tracks: Array<ITrack>;
@@ -76,6 +78,8 @@ export class StateExtension extends Module {
 
     fullscreenSupported: false,
     fullscreen: false,
+
+    pip: false,
 
     started: false,
 
@@ -242,6 +246,11 @@ export class StateExtension extends Module {
       draft.playbackRate = data.playbackRate;
     }, Events.STATE_PLAYBACKRATE_CHANGE);
     this.on(Events.PLAYER_STATE_RATECHANGE, setPlaybackRate);
+
+    const setPip = this.dispatch((draft, data) => {
+      draft.pip = data.pip;
+    }, Events.STATE_PIP_CHANGE);
+    this.on(Events.PIP_CHANGE, setPip);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

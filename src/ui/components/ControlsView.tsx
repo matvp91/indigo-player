@@ -31,6 +31,13 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         <div className='igui_container_controls_seekbar'>
           <Seekbar />
         </div>
+        {props.data.pipSupported && (
+          <Button
+            name='pip'
+            icon='pip'
+            onClick={props.actions.togglePip}
+          />
+        )}
         <Button
           name='settings'
           icon='settings'

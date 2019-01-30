@@ -205,6 +205,10 @@ export class StateStore extends React.Component<
     (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(caption ? caption.srclang : null);
   };
 
+  private togglePip = () => {
+    (this.props.instance.getModule('PipExtension') as any).togglePip();
+  };
+
   /**
    * Create a state snapshot for the player.
    * @return {IData} The snapshot data
@@ -348,6 +352,11 @@ export class StateStore extends React.Component<
       visibleSettingsTabs.push(SettingsTabs.TRACKS);
     }
 
+    let pipSupported = false;
+    if (this.props.instance.config.uiOptions && (this.props.instance.config.uiOptions as any).enablePip) {
+      pipSupported = true;
+    }
+
     return {
       // UI specific state
       view,
@@ -367,6 +376,8 @@ export class StateStore extends React.Component<
       cuePoints,
       timeStat,
       playbackRate: this.props.player.playbackRate,
+      pip: this.props.player.pip,
+      pipSupported,
 
       // Progress bar
       progressPercentage,
@@ -411,6 +422,7 @@ export class StateStore extends React.Component<
       toggleSettings: this.toggleSettings,
       selectCaption: this.selectCaption,
       setPlaybackRate: this.setPlaybackRate,
+      togglePip: this.togglePip,
     } as IActions;
   }
 }

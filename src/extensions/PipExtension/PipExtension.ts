@@ -6,8 +6,6 @@ interface IPipChangeEventData extends IEventData {
   pip: boolean;
 }
 
-const PIP_CHANGE = 'pip:change';
-
 export class PipExtension extends Module {
   public name: string = 'PipExtension';
 
@@ -61,7 +59,7 @@ export class PipExtension extends Module {
 
     this.pip = true;
 
-    this.emit(PIP_CHANGE, {
+    this.emit(Events.PIP_CHANGE, {
       pip: this.pip,
     } as IPipChangeEventData);
   }
@@ -73,7 +71,7 @@ export class PipExtension extends Module {
 
     this.pip = false;
 
-    this.emit(PIP_CHANGE, {
+    this.emit(Events.PIP_CHANGE, {
       pip: this.pip,
     } as IPipChangeEventData);
   }

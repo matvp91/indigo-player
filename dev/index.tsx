@@ -14,7 +14,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: true,
   ui: true,
   uiOptions: {
-    enablePip: false,
+    enablePip: true,
   },
   // freewheel: {
   //   clientSide: true,
@@ -58,15 +58,15 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //     },
     //   },
     // },
-    // {
-    //   type: 'dash',
-    //   src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
-    // },
     {
-      type: 'hls',
-      src:
-        'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+      type: 'dash',
+      src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
     },
+    // {
+    //   type: 'hls',
+    //   src:
+    //     'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+    // },
     // {
     //   type: 'webm',
     //   src: 'http://ptgmedia.pearsoncmg.com/imprint_downloads/peachpit/peachpit/downloads/0321793935/media//elephants-dream-medium.webm',

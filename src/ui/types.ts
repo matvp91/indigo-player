@@ -33,6 +33,8 @@ export interface IData {
   captions: Caption[],
   activeCaption: Caption,
   playbackRate: number;
+  pip: boolean;
+  pipSupported: boolean;
 }
 
 export interface IActions {
@@ -52,6 +54,7 @@ export interface IActions {
   toggleSettings();
   selectCaption(caption: Caption);
   setPlaybackRate(playbackRate: number);
+  togglePip();
 }
 
 export enum ViewTypes {
