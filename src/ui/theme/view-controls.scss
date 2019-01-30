@@ -68,9 +68,21 @@
     position: absolute;
     transition: left 150ms ease-in-out;
     user-select: none;
+    display: flex;
 
     .igui_state-volumecontrols-open & {
       left: 155px;
+    }
+
+    .igui_timestat_duration {
+      position: relative;
+      margin-left: 8px;
+
+      &:before {
+        position: absolute;
+        content: '/';
+        left: -6px;
+      }
     }
   }
 

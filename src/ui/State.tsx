@@ -292,12 +292,11 @@ export class StateStore extends React.Component<
     }
 
     // Create a proper time stat ((HH)/MM/SS).
-    let timeStat = '';
+    let timeStatDuration = '';
     if (this.props.player.duration) {
-      timeStat = `${secondsToHMS(
-        this.props.player.currentTime,
-      )} / ${secondsToHMS(this.props.player.duration)}`;
+      timeStatDuration = secondsToHMS(this.props.player.duration);
     }
+    const timeStatPosition = secondsToHMS(this.props.player.currentTime);
 
     // Pass an error if we have one.
     let error;
@@ -387,7 +386,8 @@ export class StateStore extends React.Component<
       selectedTrack,
       error,
       cuePoints,
-      timeStat,
+      timeStatPosition,
+      timeStatDuration,
       playbackRate: this.props.player.playbackRate,
       pip: this.props.player.pip,
       pipSupported,

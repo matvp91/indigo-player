@@ -17,7 +17,8 @@ export interface IData {
   };
   cuePoints: number[];
   rebuffering: boolean;
-  timeStat: string;
+  timeStatPosition: string;
+  timeStatDuration: string;
   error?: PlayerError;
   isCenterClickAllowed: boolean;
   isSeekbarHover: boolean;
