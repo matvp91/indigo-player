@@ -2,6 +2,7 @@ import { AdBreakType, IInstance, ITrack, Caption } from '@src/types';
 import { IActions, IData, ViewTypes, SettingsTabs } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
+import { getTranslation } from '@src/ui/i18n';
 import React, { RefObject } from 'react';
 import uniqBy from 'lodash/uniqBy';
 
@@ -209,6 +210,10 @@ export class StateStore extends React.Component<
     (this.props.instance.getModule('PipExtension') as any).togglePip();
   };
 
+  private getTranslation(text: string): string {
+    return getTranslation('nl-BE')(text);
+  }
+
   /**
    * Create a state snapshot for the player.
    * @return {IData} The snapshot data
@@ -402,6 +407,9 @@ export class StateStore extends React.Component<
       // Captions
       captions,
       activeCaption,
+
+      // i18n
+      getTranslation: this.getTranslation,
     } as IData;
   }
 

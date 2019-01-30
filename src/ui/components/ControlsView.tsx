@@ -25,33 +25,33 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           name='play'
           icon={props.data.playRequested ? 'pause' : 'play'}
           onClick={props.actions.playOrPause}
-          tooltip={props.data.playRequested ? 'pause': 'play'}
+          tooltip={props.data.getTranslation(props.data.playRequested ? 'Pause': 'Play')}
         />
         <VolumeButton />
         <TimeStat />
         <div className='igui_container_controls_seekbar'>
           <Seekbar />
         </div>
-        {props.data.pipSupported && (
+        {props.data.pipSupported && !props.data.pip && (
           <Button
             name='pip'
             icon='pip'
             onClick={props.actions.togglePip}
-            tooltip="pip"
+            tooltip={props.data.getTranslation('Miniplayer')}
           />
         )}
         <Button
           name='settings'
           icon='settings'
           onClick={() => props.actions.toggleSettings()}
-          tooltip="settings"
+          tooltip={props.data.getTranslation('Settings')}
         />
         <Button
           name='fullscreen'
           icon={!props.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit'}
           onClick={props.actions.toggleFullscreen}
           disabled={!props.data.fullscreenSupported}
-          tooltip="fullscreen"
+          tooltip={props.data.getTranslation(props.data.isFullscreen ? 'Exit full screen' : 'Full screen')}
         />
       </div>
     </>

@@ -35,6 +35,7 @@ export interface IData {
   playbackRate: number;
   pip: boolean;
   pipSupported: boolean;
+  getTranslation(text: string): string;
 }
 
 export interface IActions {

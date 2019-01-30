@@ -25,6 +25,11 @@ export const VolumeButton = withState((props: VolumeButtonProps) => {
     icon = 'volume-1';
   }
 
+  let tooltip = props.data.getTranslation('Mute');
+  if (props.data.volumeBarPercentage === 0) {
+    tooltip = props.data.getTranslation('Unmute');
+  }
+
   useSlider(ref.current as HTMLElement, props.actions.setVolumebarState);
 
   return (
@@ -35,7 +40,7 @@ export const VolumeButton = withState((props: VolumeButtonProps) => {
       onMouseEnter={() => props.actions.setVolumeControlsOpen(true)}
       onMouseLeave={() => props.actions.setVolumeControlsOpen(false)}
     >
-      <Button icon={icon} onClick={props.actions.toggleMute} tooltip="(un)mute" />
+      <Button icon={icon} onClick={props.actions.toggleMute} tooltip={tooltip} />
       <div className='igui_volume_collapse'>
         <div className='igui_volume_container'>
           <div className='igui_volumebar' ref={ref as any}>

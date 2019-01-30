@@ -13,17 +13,17 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
         items={[
           props.data.visibleSettingsTabs.includes(SettingsTabs.TRACKS) && {
             item: SettingsTabs.TRACKS,
-            label: 'Quality',
+            label: props.data.getTranslation('Quality'),
             info: `${props.data.activeTrack ? props.data.activeTrack.width : ''}`,
           },
           props.data.visibleSettingsTabs.includes(SettingsTabs.CAPTIONS) && {
             item: SettingsTabs.CAPTIONS,
-            label: 'Subtitles',
+            label: props.data.getTranslation('Subtitles'),
             info: `${props.data.activeCaption ? props.data.activeCaption.label : ''}`,
           },
           props.data.visibleSettingsTabs.includes(SettingsTabs.PLAYBACKRATES) && {
             item: SettingsTabs.PLAYBACKRATES,
-            label: 'Speed',
+            label: props.data.getTranslation('Speed'),
             info: `${props.data.playbackRate ? props.data.playbackRate : ''}`,
           },
         ].filter(item => !!item)}
@@ -35,7 +35,7 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
 tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
   <>
     <SettingsHeader
-      title="Quality"
+      title={props.data.getTranslation('Subtitles')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
@@ -51,7 +51,7 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
         })),
         {
           item: 'auto',
-          label: 'Auto',
+          label: props.data.getTranslation('Automatic quality'),
         },
       ]}
     />
@@ -61,7 +61,7 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
 tabs[SettingsTabs.CAPTIONS] = (props: SettingsProps) => (
   <>
     <SettingsHeader
-      title="Captions"
+      title={props.data.getTranslation('Quality')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
@@ -77,7 +77,7 @@ tabs[SettingsTabs.CAPTIONS] = (props: SettingsProps) => (
         })),
         {
           item: null,
-          label: 'None',
+          label: props.data.getTranslation('No subtitles'),
         },
       ]}
     />
@@ -87,7 +87,7 @@ tabs[SettingsTabs.CAPTIONS] = (props: SettingsProps) => (
 tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
   <>
     <SettingsHeader
-      title="Speed"
+      title={props.data.getTranslation('Speed')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
@@ -107,7 +107,7 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
         },
         {
           item: 1,
-          label: 'Normal',
+          label: props.data.getTranslation('Normal speed'),
         },
         {
           item: 1.5,
