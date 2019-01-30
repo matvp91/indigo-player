@@ -33,6 +33,7 @@
   </style>
   <script src="https://mssl.fwmrm.net/libs/adm/6.23.0/AdManager.js"></script>
   <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
 </head>
 <body>
   <div id="app"></div>
@@ -78,6 +79,7 @@
       coverpage: true,
       plugins: [
         samplePlayer,
+        EditOnGithubPlugin.create('https://github.com/matvp91/indigo-player/tree/master/docs/', undefined, '✏️ Edit on GitHub'),
       ],
       ga: 'UA-102364408-2',
     };
