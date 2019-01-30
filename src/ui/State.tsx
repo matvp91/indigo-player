@@ -213,7 +213,7 @@ export class StateStore extends React.Component<
   };
 
   private getTranslation(text: string): string {
-    return getTranslation('nl-BE')(text);
+    return getTranslation('en-US')(text);
   }
 
   /**
