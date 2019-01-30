@@ -23,4 +23,8 @@ export class Media extends Module implements IMedia {
   }
 
   public selectTrack(track: ITrack) {}
+
+  public setPlaybackRate(playbackRate: number) {
+    this.instance.player.setPlaybackRate(playbackRate);
+  }
 }

@@ -1,4 +1,4 @@
-import { AdBreakType, IInstance, ITrack } from '@src/types';
+import { AdBreakType, IInstance, ITrack, Caption } from '@src/types';
 import { IActions, IData, ViewTypes, SettingsTabs } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
@@ -168,6 +168,10 @@ export class StateStore extends React.Component<
     this.props.instance.selectTrack(track);
   };
 
+  private setPlaybackRate = (playbackRate: number) => {
+    this.props.instance.setPlaybackRate(playbackRate);
+  };
+
   private closeSettings = (event: MouseEvent) => {
     const isOver = (className: string) => {
       const target: EventTarget = event.target;
@@ -197,8 +201,8 @@ export class StateStore extends React.Component<
     this.setState({ settingsTab });
   };
 
-  private selectCaption = ({ srclang }: { srclang: string }) => {
-    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(srclang);
+  private selectCaption = (caption: Caption) => {
+    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(caption ? caption.srclang : null);
   };
 
   /**
@@ -336,12 +340,21 @@ export class StateStore extends React.Component<
 
     const activeCaption = this.props.player.caption;
 
+    const visibleSettingsTabs = [SettingsTabs.PLAYBACKRATES];
+    if (captions.length) {
+      visibleSettingsTabs.push(SettingsTabs.CAPTIONS);
+    }
+    if (tracks.length) {
+      visibleSettingsTabs.push(SettingsTabs.TRACKS);
+    }
+
     return {
       // UI specific state
       view,
       visibleControls,
       isCenterClickAllowed,
       settingsTab: this.state.settingsTab,
+      visibleSettingsTabs,
 
       // Player
       playRequested: this.props.player.playRequested,
@@ -353,6 +366,7 @@ export class StateStore extends React.Component<
       error,
       cuePoints,
       timeStat,
+      playbackRate: this.props.player.playbackRate,
 
       // Progress bar
       progressPercentage,
@@ -396,6 +410,7 @@ export class StateStore extends React.Component<
       setSettingsTab: this.setSettingsTab,
       toggleSettings: this.toggleSettings,
       selectCaption: this.selectCaption,
+      setPlaybackRate: this.setPlaybackRate,
     } as IActions;
   }
 }

@@ -113,6 +113,10 @@ export class Instance implements IInstance {
     this.controller.selectTrack(track);
   }
 
+  public setPlaybackRate(playbackRate: number) {
+    this.controller.setPlaybackRate(playbackRate);
+  }
+
   public setError(error: IPlayerError) {
     this.controller.unload();
     this.emit(Events.ERROR, {

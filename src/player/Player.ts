@@ -15,4 +15,6 @@ export class Player extends Module implements IPlayer {
   public setVolume(volume: number) {}
 
   public setSource(src: string) {}
+
+  public setPlaybackRate(playbackRate: number) {}
 }

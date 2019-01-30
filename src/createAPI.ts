@@ -53,6 +53,9 @@ export function createAPI(instance: IInstance) {
     // Select a track
     ['selectTrack', (track: ITrack) => instance.selectTrack(track)],
 
+    // Select playback rate
+    ['setPlaybackRate', (playbackRate: number) => instance.setPlaybackRate(playbackRate)],
+
     // Set a fatal error
     ['setError', (error: PlayerError) => instance.setError(error)],
 

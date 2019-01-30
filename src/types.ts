@@ -39,6 +39,7 @@ export enum Events {
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
   PLAYER_STATE_CAPTIONSCHANGE = 'player-state:captionschange',
   PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
+  PLAYER_STATE_RATECHANGE = 'player-state:ratechange',
 
   // Media state events
   MEDIA_STATE_TRACKS = 'media-state:bitrates',
@@ -86,6 +87,7 @@ export enum Events {
   STATE_TRACKS = 'state:tracks',
   STATE_TRACK_CHANGE = 'state:track-change',
   STATE_CAPTION_CHANGE = 'state:caption-change',
+  STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
 }
 
 export enum ErrorCodes {
@@ -183,6 +185,10 @@ export interface IEnv {
 // Events
 
 export type EventCallback = any;
+
+export interface IPlaybackRateChangeEventData extends IEventData {
+  playbackRate: number;
+}
 
 export interface ITrackChangeEventData extends IEventData {
   track: ITrack;
@@ -284,6 +290,7 @@ export interface IController extends IModule {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  setPlaybackRate(playbackRate: number);
 }
 
 export interface IPlayer extends IModule {
@@ -296,6 +303,7 @@ export interface IPlayer extends IModule {
   pause();
   seekTo(time: number);
   setVolume(volume: number);
+  setPlaybackRate(playbackRate: number);
 }
 
 export interface IMedia extends IModule {
@@ -307,6 +315,7 @@ export interface IMedia extends IModule {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  setPlaybackRate(playbackRate: number);
 }
 
 export type LogFunction = (...args: any) => void;
@@ -334,6 +343,7 @@ export interface IInstance {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  setPlaybackRate(playbackRate: number);
   destroy();
 
   on(name: string, callback: EventCallback);

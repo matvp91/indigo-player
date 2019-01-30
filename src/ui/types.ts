@@ -29,8 +29,10 @@ export interface IData {
   activeTrack: ITrack,
   selectedTrack: ITrack | string,
   settingsTab: SettingsTabs,
+  visibleSettingsTabs: SettingsTabs[],
   captions: Caption[],
   activeCaption: Caption,
+  playbackRate: number;
 }
 
 export interface IActions {
@@ -49,6 +51,7 @@ export interface IActions {
   setSettingsTab(tab: SettingsTabs);
   toggleSettings();
   selectCaption(caption: Caption);
+  setPlaybackRate(playbackRate: number);
 }
 
 export enum ViewTypes {
@@ -63,4 +66,5 @@ export enum SettingsTabs {
   OPTIONS,
   TRACKS,
   CAPTIONS,
+  PLAYBACKRATES,
 }

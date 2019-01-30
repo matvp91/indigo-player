@@ -38,6 +38,8 @@ interface IState {
   trackAutoSwitch: boolean;
 
   caption: Caption;
+
+  playbackRate: number;
 }
 
 interface IStateChangeEventData extends IEventData {
@@ -82,6 +84,8 @@ export class StateExtension extends Module {
     trackAutoSwitch: false,
 
     caption: null,
+
+    playbackRate: 1,
   };
 
   constructor(instance: IInstance) {
@@ -233,6 +237,11 @@ export class StateExtension extends Module {
       draft.caption = data.caption;
     }, Events.STATE_CAPTION_CHANGE);
     this.on(Events.PLAYER_STATE_CAPTIONSCHANGE, setCaption);
+
+    const setPlaybackRate = this.dispatch((draft, data) => {
+      draft.playbackRate = data.playbackRate;
+    }, Events.STATE_PLAYBACKRATE_CHANGE);
+    this.on(Events.PLAYER_STATE_RATECHANGE, setPlaybackRate);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,

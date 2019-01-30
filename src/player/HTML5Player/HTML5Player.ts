@@ -5,6 +5,7 @@ import {
   IDurationChangeEventData,
   ITimeUpdateEventData,
   IVolumeChangeEventData,
+  IPlaybackRateChangeEventData,
 } from '@src/types';
 
 export class HTML5Player extends Player {
@@ -67,6 +68,12 @@ export class HTML5Player extends Player {
     this.mediaElement.addEventListener('progress', () =>
       this.monitorProgress(),
     );
+
+    this.mediaElement.addEventListener('ratechange', () => {
+      this.emit(Events.PLAYER_STATE_RATECHANGE, {
+        playbackRate: this.mediaElement.playbackRate,
+      } as IPlaybackRateChangeEventData);
+    });
   }
 
   public unload() {
@@ -104,6 +111,10 @@ export class HTML5Player extends Player {
   public setVolume(volume: number) {
     this.mediaElement.volume = volume;
     this.mediaElement.muted = volume === 0;
+  }
+
+  public setPlaybackRate(playbackRate: number) {
+    this.mediaElement.playbackRate = playbackRate;
   }
 
   private monitorProgress() {

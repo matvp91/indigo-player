@@ -40,4 +40,8 @@ export class Controller extends Module implements IController {
   public selectTrack(track: ITrack) {
     this.instance.media.selectTrack(track);
   }
+
+  public setPlaybackRate(playbackRate: number) {
+    this.instance.media.setPlaybackRate(playbackRate);
+  }
 }
