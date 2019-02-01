@@ -1,49 +1,37 @@
 import { Button } from '@src/ui/components/Button';
-import { IActions, IData } from '@src/ui/types';
+import { IInfo } from '@src/ui/types';
 import { useSlider } from '@src/ui/utils/useSlider';
 import { withState } from '@src/ui/withState';
 import cx from 'classnames';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface VolumeButtonProps {
-  data: IData;
-  actions: IActions;
-}
-
-interface VolumeIcon {
-  name: string;
-  leftOffset: number;
+  volumeIcon: string;
+  tooltipText: string;
+  toggleMute();
+  setVolumeControlsOpen(open: boolean);
+  setVolumebarState(state: any);
+  isVolumeControlsOpen: boolean;
+  volumeBarPercentage: number;
 }
 
 const ref = React.createRef();
 
 export const VolumeButton = withState((props: VolumeButtonProps) => {
-  let icon: string = 'volume-off';
-  if (props.data.volumeBarPercentage > 0.5) {
-    icon = 'volume-2';
-  } else if (props.data.volumeBarPercentage > 0) {
-    icon = 'volume-1';
-  }
-
-  let tooltip = props.data.getTranslation('Mute');
-  if (props.data.volumeBarPercentage === 0) {
-    tooltip = props.data.getTranslation('Unmute');
-  }
-
-  useSlider(ref.current as HTMLElement, props.actions.setVolumebarState);
+  useSlider(ref.current as HTMLElement, props.setVolumebarState);
 
   return (
     <div
       className={cx('igui_volume', {
-        'igui_volume_state-open': props.data.isVolumeControlsOpen,
+        'igui_volume_state-open': props.isVolumeControlsOpen,
       })}
-      onMouseEnter={() => props.actions.setVolumeControlsOpen(true)}
-      onMouseLeave={() => props.actions.setVolumeControlsOpen(false)}
+      onMouseEnter={() => props.setVolumeControlsOpen(true)}
+      onMouseLeave={() => props.setVolumeControlsOpen(false)}
     >
       <Button
-        icon={icon}
-        onClick={props.actions.toggleMute}
-        tooltip={tooltip}
+        icon={props.volumeIcon}
+        onClick={props.toggleMute}
+        tooltip={props.tooltipText}
       />
       <div className='igui_volume_collapse'>
         <div className='igui_volume_container'>
@@ -52,12 +40,12 @@ export const VolumeButton = withState((props: VolumeButtonProps) => {
               <div
                 className='igui_volumebar_progress'
                 style={{
-                  transform: `scaleX(${props.data.volumeBarPercentage})`,
+                  transform: `scaleX(${props.volumeBarPercentage})`,
                 }}
               />
               <div
                 className='igui_volumebar_scrubber'
-                style={{ left: `${props.data.volumeBarPercentage * 100}%` }}
+                style={{ left: `${props.volumeBarPercentage * 100}%` }}
               />
             </div>
           </div>
@@ -65,4 +53,23 @@ export const VolumeButton = withState((props: VolumeButtonProps) => {
       </div>
     </div>
   );
-});
+}, mapProps);
+
+function mapProps(info: IInfo): VolumeButtonProps {
+  let volumeIcon: string = 'volume-off';
+  if (info.data.volumeBarPercentage > 0.5) {
+    volumeIcon = 'volume-2';
+  } else if (info.data.volumeBarPercentage > 0) {
+    volumeIcon = 'volume-1';
+  }
+
+  return {
+    volumeIcon,
+    tooltipText: info.data.getTranslation(info.data.volumeBarPercentage === 0 ? 'Unmute' : 'Mute'),
+    toggleMute: info.actions.toggleMute,
+    setVolumeControlsOpen: info.actions.setVolumeControlsOpen,
+    setVolumebarState: info.actions.setVolumebarState,
+    isVolumeControlsOpen: info.data.isVolumeControlsOpen,
+    volumeBarPercentage: info.data.volumeBarPercentage,
+  };
+}

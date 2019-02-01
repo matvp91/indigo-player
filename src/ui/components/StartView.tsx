@@ -19,7 +19,7 @@ export const StartView = withState((props: StartViewProps) => {
   );
 }, mapProps);
 
-function mapProps(info: IInfo) {
+function mapProps(info: IInfo): StartViewProps {
   return {
     playOrPause: info.actions.playOrPause,
   };

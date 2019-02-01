@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { Caption, ITrack, IThumbnail } from '@src/types';
+import { Caption, IThumbnail, ITrack } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -37,8 +37,8 @@ export interface IData {
   playbackRate: number;
   pip: boolean;
   pipSupported: boolean;
-  getTranslation(text: string): string;
   activeThumbnail: IThumbnail;
+  getTranslation(text: string): string;
 }
 
 export interface IActions {

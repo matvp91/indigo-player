@@ -11,17 +11,13 @@ interface TimeStatProps {
 export const TimeStat = withState((props: TimeStatProps) => {
   return (
     <div className='igui_timestat'>
-      <div className='igui_timestat_position'>
-        {props.timeStatPosition}
-      </div>
-      <div className='igui_timestat_duration'>
-        {props.timeStatDuration}
-      </div>
+      <div className='igui_timestat_position'>{props.timeStatPosition}</div>
+      <div className='igui_timestat_duration'>{props.timeStatDuration}</div>
     </div>
   );
 }, mapProps);
 
-function mapProps(info: IInfo) {
+function mapProps(info: IInfo): TimeStatProps {
   return {
     timeStatPosition: info.data.timeStatPosition,
     timeStatDuration: info.data.timeStatDuration,

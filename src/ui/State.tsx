@@ -1,6 +1,18 @@
-import { AdBreakType, Caption, IInstance, ITrack, IThumbnail } from '@src/types';
+import {
+  AdBreakType,
+  Caption,
+  IInstance,
+  IThumbnail,
+  ITrack,
+} from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
-import { IActions, IData, SettingsTabs, ViewTypes, IUIOptions } from '@src/ui/types';
+import {
+  IActions,
+  IData,
+  IUIOptions,
+  SettingsTabs,
+  ViewTypes,
+} from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import uniqBy from 'lodash/uniqBy';
@@ -28,8 +40,8 @@ interface StateStoreState {
   // Settings
   settingsTab: SettingsTabs;
 
-  lastActiveCaption: Caption,
-  activeThumbnail: IThumbnail,
+  lastActiveCaption: Caption;
+  activeThumbnail: IThumbnail;
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -134,9 +146,13 @@ export class StateStore extends React.Component<
 
   private setSeekbarState = (state, prevState) => {
     let activeThumbnail = null;
-    const thumbnailsExtension: any = this.props.instance.getModule('ThumbnailsExtension');
+    const thumbnailsExtension: any = this.props.instance.getModule(
+      'ThumbnailsExtension',
+    );
     if ((state.hover || state.seeking) && thumbnailsExtension) {
-      activeThumbnail = thumbnailsExtension.getThumbnail(state.percentage * this.props.player.duration);
+      activeThumbnail = thumbnailsExtension.getThumbnail(
+        state.percentage * this.props.player.duration,
+      );
     }
 
     this.setState({

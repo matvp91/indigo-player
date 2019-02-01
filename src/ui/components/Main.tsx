@@ -14,20 +14,23 @@ interface MainProps {
   visibleControls: boolean;
 }
 
-export const Main = withState((props: MainProps) => (
-  <div
-    className={cx({
-      'igui_state-active': props.visibleControls,
-    })}
-  >
-    {props.view === ViewTypes.ERROR && <ErrorView />}
-    {props.view === ViewTypes.LOADING && <LoadingView />}
-    {props.view === ViewTypes.START && <StartView />}
-    {props.view === ViewTypes.CONTROLS && <ControlsView />}
-  </div>
-), mapProps);
+export const Main = withState(
+  (props: MainProps) => (
+    <div
+      className={cx({
+        'igui_state-active': props.visibleControls,
+      })}
+    >
+      {props.view === ViewTypes.ERROR && <ErrorView />}
+      {props.view === ViewTypes.LOADING && <LoadingView />}
+      {props.view === ViewTypes.START && <StartView />}
+      {props.view === ViewTypes.CONTROLS && <ControlsView />}
+    </div>
+  ),
+  mapProps,
+);
 
-function mapProps(info: IInfo) {
+function mapProps(info: IInfo): MainProps {
   return {
     view: info.data.view,
     visibleControls: info.data.visibleControls,

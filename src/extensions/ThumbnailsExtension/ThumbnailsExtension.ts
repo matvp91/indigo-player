@@ -14,7 +14,7 @@ export class ThumbnailsExtension extends Module {
     this.load();
   }
 
-  async load() {
+  public async load() {
     const file = this.instance.config.thumbnails;
 
     const response = await fetch(file);

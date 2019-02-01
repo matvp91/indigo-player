@@ -1,10 +1,10 @@
-import { IInfo } from '@src/ui/types';
 import { IPlayerError } from '@src/types';
+import { IInfo } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
 
 interface ErrorViewProps {
-  error: IPlayerError,
+  error: IPlayerError;
 }
 
 export const ErrorView = withState((props: ErrorViewProps) => {
@@ -15,7 +15,7 @@ export const ErrorView = withState((props: ErrorViewProps) => {
   );
 }, mapProps);
 
-function mapProps(info: IInfo) {
+function mapProps(info: IInfo): ErrorViewProps {
   return {
     error: info.data.error,
   };
