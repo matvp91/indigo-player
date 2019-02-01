@@ -9,40 +9,35 @@
   * 1) Let's say you host it at *https://mysite.com/js/indigo-player.js*,
   * 2) Make sure you set *IndigoPlayer.setChunksPath('https://mysite.com/js/')** before calling `init(...)` as the chunks path.
 
-## Basic example
+## Example
 
-The example below will load a simple MP4 file, and attempt to autoplay it. In order to interact with the player, you can use the `player` object returned when initializing indigo-player.
-
-```javascript
-<html>
-  <body>
-    <div id="playerContainer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1/lib/indigo-player.js"></script>
-    <script>
-      const config = {
-        ui: true,
-        sources: [
-          {
-            type: 'mp4',
-            src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          }
-        ],
-      };
-
-      const element = document.getElementById('playerContainer');
-      const player = IndigoPlayer.init(element, config);
-    </script>
-  </body>
-</html>
-```
+The example below will load a dash file, has demo subtitles, thumbnails, and attempt to autoplay it. In order to interact with the player, you can use the `player` object returned when initializing indigo-player.
 
 <div class="sample-player" data-expose-player="player">
 {
   ui: true,
   sources: [
     {
-      type: 'mp4',
-      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      type: 'dash',
+      src: 'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
+    },
+  ],
+  thumbnails: './player-assets/bbb-thumbnails.vtt',
+  captions: [
+    {
+      label: 'English',
+      srclang: 'en',
+      src: './player-assets/bbb-en-subs.vtt',
+    },
+    {
+      label: 'French',
+      srclang: 'fr',
+      src: './player-assets/bbb-fr-subs.vtt',
+    },
+    {
+      label: 'German',
+      srclang: 'de',
+      src: './player-assets/bbb-de-subs.vtt',
     },
   ],
 }

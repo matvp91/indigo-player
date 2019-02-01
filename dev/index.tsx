@@ -88,12 +88,17 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     {
       label: 'English',
       srclang: 'en',
-      src: './en-subs.vtt',
+      src: './bbb-en-subs.vtt',
     },
     {
       label: 'French',
       srclang: 'fr',
-      src: './en-subs.vtt',
+      src: './bbb-fr-subs.vtt',
+    },
+    {
+      label: 'German',
+      srclang: 'de',
+      src: './bbb-de-subs.vtt',
     },
   ],
 });
