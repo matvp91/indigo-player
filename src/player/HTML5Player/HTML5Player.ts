@@ -11,7 +11,7 @@ import {
 export class HTML5Player extends Player {
   public name: string = 'HTML5Player';
 
-  public mediaElement: HTMLMediaElement;
+  public mediaElement: HTMLVideoElement;
 
   public load() {
     super.load();
@@ -22,6 +22,8 @@ export class HTML5Player extends Player {
     this.mediaElement.preload = 'metadata';
     this.mediaElement.crossOrigin = 'anonymous';
     this.mediaElement.volume = 1;
+    this.mediaElement.setAttribute('playsinline', '');
+    this.mediaElement.setAttribute('preload', 'auto');
     this.instance.playerContainer.appendChild(this.mediaElement);
 
     if (this.instance.config.showNativeControls) {

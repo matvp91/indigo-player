@@ -21,6 +21,10 @@ The example below will load a dash file, has demo subtitles, thumbnails, and att
       type: 'dash',
       src: 'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
     },
+    {
+      type: 'hls',
+      src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+    },
   ],
   thumbnails: './player-assets/bbb-thumbnails.vtt',
   captions: [
