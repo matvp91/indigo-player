@@ -62,6 +62,11 @@ export interface IActions {
   toggleActiveCaption();
 }
 
+export interface IInfo {
+  data: IData;
+  actions: IActions;
+}
+
 export enum ViewTypes {
   ERROR,
   LOADING,

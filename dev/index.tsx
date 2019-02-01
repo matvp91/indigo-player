@@ -11,11 +11,11 @@ const IndigoPlayer = (window as any).IndigoPlayer;
 IndigoPlayer.setConsoleLogs(true);
 
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
-  autoplay: true,
+  autoplay: false,
   ui: true,
   uiOptions: {
     enablePip: true,
-    lockControlsVisibility: true,
+    lockControlsVisibility: false,
     locale: 'en-US',
   },
   thumbnails: './thumbnails.vtt',

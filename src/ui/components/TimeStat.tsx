@@ -1,21 +1,29 @@
 import { Icon } from '@src/ui/components/Icon';
-import { IData } from '@src/ui/types';
+import { IInfo } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
-import * as React from 'react';
+import React from 'react';
 
 interface TimeStatProps {
-  data: IData;
+  timeStatPosition: string;
+  timeStatDuration: string;
 }
 
 export const TimeStat = withState((props: TimeStatProps) => {
   return (
     <div className='igui_timestat'>
       <div className='igui_timestat_position'>
-        {props.data.timeStatPosition}
+        {props.timeStatPosition}
       </div>
       <div className='igui_timestat_duration'>
-        {props.data.timeStatDuration}
+        {props.timeStatDuration}
       </div>
     </div>
   );
-});
+}, mapProps);
+
+function mapProps(info: IInfo) {
+  return {
+    timeStatPosition: info.data.timeStatPosition,
+    timeStatDuration: info.data.timeStatDuration,
+  };
+}

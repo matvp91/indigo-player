@@ -1,14 +1,17 @@
-import * as React from 'react';
-
+import React, { memo } from 'react';
 import { StateContext } from '@src/ui/State';
+import { IInfo } from '@src/ui/types';
 
-export function withState(WrappedComponent) {
-  return class extends React.Component {
+export function withState(WrappedComponent, mapProps = null) {
+  const MemoizedWrappedComponent = memo(WrappedComponent);
+
+  return class extends React.PureComponent {
     public render() {
       return (
         <StateContext.Consumer>
-          {value => {
-            return <WrappedComponent {...this.props} {...value} />;
+          {(info: IInfo) => {
+            if (mapProps) info = mapProps(info); // This is temporary, once all components are integrated with mapProps, remove.
+            return <MemoizedWrappedComponent {...this.props} {...info} />;
           }}
         </StateContext.Consumer>
       );
