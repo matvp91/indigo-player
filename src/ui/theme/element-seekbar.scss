@@ -90,3 +90,22 @@ $seekbar-scrubber-radius: 13px;
     opacity: 1;
   }
 }
+
+.igui_seekbar_thumbnail {
+  position: absolute;
+  bottom: 24px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  overflow: hidden;
+
+  .igui_seekbar_thumbnail_sprite {
+    width: 100px;
+    height: 100px * (9 / 16);
+  }
+
+  .igui_seekbar_state-active & {
+    opacity: 1;
+  }
+}

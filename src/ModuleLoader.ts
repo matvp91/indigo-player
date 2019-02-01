@@ -6,6 +6,7 @@ import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/F
 import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
+import { ThumbnailsExtensionLoader } from '@src/extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
@@ -36,6 +37,7 @@ const modules: Array<IModuleLoader<IModule>> = [
   FullscreenExtensionLoader,
   CaptionsExtensionLoader,
   GoogleIMAExtensionLoader,
+  ThumbnailsExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(

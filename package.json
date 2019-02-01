@@ -64,6 +64,8 @@
     "react-dom": "^16.8.0-alpha.1",
     "screenfull": "^4.0.0",
     "shaka-player": "^2.5.0-beta2",
-    "ts-polyfill": "^3.0.1"
+    "ts-polyfill": "^3.0.1",
+    "url-parse": "^1.4.4",
+    "vtt-to-json": "^0.1.1"
   }
 }

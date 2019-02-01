@@ -1,4 +1,16 @@
 .igui_center {
   @include stretch();
-  bottom: 56px;
+
+  .igui_center_preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      @include stretch();
+      background-color: rgba(0, 0, 0, .5);
+    }
+  }
 }

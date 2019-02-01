@@ -141,6 +141,16 @@ export interface Config {
     src: string;
   };
   captions?: Caption[];
+  thumbnails: string;
+}
+
+export interface IThumbnail {
+  start: number;
+  src: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 // Adaptive tracks

@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { Caption, ITrack } from '@src/types';
+import { Caption, ITrack, IThumbnail } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -26,6 +26,7 @@ export interface IData {
   seekbarPercentage: number;
   seekbarTooltipText: string;
   seekbarTooltipPercentage: number;
+  seekbarThumbnailPercentage: number;
   tracks: ITrack[];
   activeTrack: ITrack;
   selectedTrack: ITrack | string;
@@ -37,6 +38,7 @@ export interface IData {
   pip: boolean;
   pipSupported: boolean;
   getTranslation(text: string): string;
+  activeThumbnail: IThumbnail;
 }
 
 export interface IActions {

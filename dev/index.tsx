@@ -18,6 +18,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     lockControlsVisibility: true,
     locale: 'en-US',
   },
+  thumbnails: './thumbnails.vtt',
   // freewheel: {
   //   clientSide: true,
   //   network: 96749,
@@ -41,10 +42,14 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   type: 'hls',
     //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     // },
+    // {
+    //   type: 'mp4',
+    //   src:
+    //     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    // },
     {
-      type: 'mp4',
-      src:
-        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      type: 'dash',
+      src: 'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
     },
     // {
     //   type: 'dash',

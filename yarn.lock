@@ -6550,7 +6550,7 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
 
-url-parse@^1.4.3:
+url-parse@^1.4.3, url-parse@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.4.tgz#cac1556e95faa0303691fec5cf9d5a1bc34648f8"
   dependencies:
@@ -6635,6 +6635,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vtt-to-json@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/vtt-to-json/-/vtt-to-json-0.1.1.tgz#a67bb276a0f245bd4d71267014028b65b1f465a8"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"

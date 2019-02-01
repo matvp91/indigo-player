@@ -1,4 +1,4 @@
-import { AdBreakType, Caption, IInstance, ITrack } from '@src/types';
+import { AdBreakType, Caption, IInstance, ITrack, IThumbnail } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
 import { IActions, IData, SettingsTabs, ViewTypes, IUIOptions } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
@@ -29,11 +29,14 @@ interface StateStoreState {
   settingsTab: SettingsTabs;
 
   lastActiveCaption: Caption,
+  activeThumbnail: IThumbnail,
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
 
 export const seekbarTooltipRef: RefObject<HTMLDivElement> = React.createRef();
+
+export const seekbarThumbnailRef: RefObject<HTMLDivElement> = React.createRef();
 
 export class StateStore extends React.Component<
   StateStoreProps,
@@ -63,8 +66,8 @@ export class StateStore extends React.Component<
       // Settings
       settingsTab: null,
 
-      // Captions
       lastActiveCaption: null,
+      activeThumbnail: null,
     };
 
     this.unsubscribe = attachEvents([
@@ -130,10 +133,17 @@ export class StateStore extends React.Component<
   };
 
   private setSeekbarState = (state, prevState) => {
+    let activeThumbnail = null;
+    const thumbnailsExtension: any = this.props.instance.getModule('ThumbnailsExtension');
+    if ((state.hover || state.seeking) && thumbnailsExtension) {
+      activeThumbnail = thumbnailsExtension.getThumbnail(state.percentage * this.props.player.duration);
+    }
+
     this.setState({
       isSeekbarHover: state.hover,
       isSeekbarSeeking: state.seeking,
       seekbarPercentage: state.percentage,
+      activeThumbnail,
     });
 
     if (!state.seeking && prevState.seeking) {
@@ -365,6 +375,23 @@ export class StateStore extends React.Component<
       }
     }
 
+    // Calculate the seekbar thumbnail percentage for placement.
+    let seekbarThumbnailPercentage = this.state.seekbarPercentage;
+    if (seekbarRef.current && seekbarThumbnailRef.current) {
+      // The tooltip is placed in the center, we don't want it to go out of bounds.
+      // Calculate and adjust the correct placement so it'll stick on the sides (eg, moving mouse to 00:00).
+      const seekbarWidth = (seekbarRef.current as HTMLElement).getBoundingClientRect()
+        .width;
+      const thumbnailWidth = (seekbarThumbnailRef.current as HTMLElement).getBoundingClientRect()
+        .width;
+      const offset = thumbnailWidth / 2 / seekbarWidth;
+      if (seekbarThumbnailPercentage < offset) {
+        seekbarThumbnailPercentage = offset;
+      } else if (seekbarThumbnailPercentage > 1 - offset) {
+        seekbarThumbnailPercentage = 1 - offset;
+      }
+    }
+
     const tracks = uniqBy(
       this.props.player.tracks.sort((a, b) => b.bandwidth - a.bandwidth),
       'width',
@@ -425,6 +452,7 @@ export class StateStore extends React.Component<
       seekbarPercentage: this.state.seekbarPercentage,
       seekbarTooltipText,
       seekbarTooltipPercentage,
+      seekbarThumbnailPercentage,
 
       // Fullscreen
       fullscreenSupported: this.props.player.fullscreenSupported,
@@ -440,6 +468,7 @@ export class StateStore extends React.Component<
       // Captions
       captions,
       activeCaption,
+      activeThumbnail: this.state.activeThumbnail,
 
       // i18n
       getTranslation: this.getTranslation,

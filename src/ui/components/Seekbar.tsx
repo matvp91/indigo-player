@@ -1,6 +1,7 @@
-import { seekbarRef, seekbarTooltipRef } from '@src/ui/State';
+import { seekbarRef, seekbarTooltipRef, seekbarThumbnailRef } from '@src/ui/State';
 import { IActions, IData } from '@src/ui/types';
 import { useSlider } from '@src/ui/utils/useSlider';
+import { Sprite } from '@src/ui/components/Sprite';
 import { withState } from '@src/ui/withState';
 import cx from 'classnames';
 import React, { useEffect } from 'react';
@@ -22,6 +23,18 @@ export const Seekbar = withState((props: SeekbarProps) => {
       })}
       ref={seekbarRef}
     >
+      <div
+        ref={seekbarThumbnailRef}
+        className='igui_seekbar_thumbnail'
+        style={{ left: `${props.data.seekbarThumbnailPercentage * 100}%` }}
+      >
+        {!!props.data.activeThumbnail && (
+          <Sprite
+            className='igui_seekbar_thumbnail_sprite'
+            {...props.data.activeThumbnail}
+          />
+        )}
+      </div>
       <div
         ref={seekbarTooltipRef}
         className='igui_seekbar_tooltip'
