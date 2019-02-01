@@ -73,3 +73,9 @@ export enum SettingsTabs {
   CAPTIONS,
   PLAYBACKRATES,
 }
+
+export interface IUIOptions {
+  locale: string;
+  lockControlsVisibility: boolean;
+  enablePip: boolean;
+}

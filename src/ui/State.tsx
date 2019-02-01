@@ -1,6 +1,6 @@
 import { AdBreakType, Caption, IInstance, ITrack } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
-import { IActions, IData, SettingsTabs, ViewTypes } from '@src/ui/types';
+import { IActions, IData, SettingsTabs, ViewTypes, IUIOptions } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import uniqBy from 'lodash/uniqBy';
@@ -41,6 +41,8 @@ export class StateStore extends React.Component<
 
   private unsubscribe: EventUnsubscribeFn;
 
+  private uiOptions: IUIOptions;
+
   constructor(props) {
     super(props);
 
@@ -77,6 +79,13 @@ export class StateStore extends React.Component<
         callback: this.closeSettings,
       },
     ]);
+
+    this.uiOptions = {
+      locale: 'en-US',
+      lockControlsVisibility: false,
+      enablePip: false,
+      ...props.instance.config.uiOptions,
+    };
   }
 
   public componentWillUnmount() {
@@ -212,9 +221,9 @@ export class StateStore extends React.Component<
     (this.props.instance.getModule('PipExtension') as any).togglePip();
   };
 
-  private getTranslation(text: string): string {
-    return getTranslation('en-US')(text);
-  }
+  private getTranslation = (text: string): string => {
+    return getTranslation(this.uiOptions.locale)(text);
+  };
 
   /**
    * Create a state snapshot for the player.
@@ -242,7 +251,7 @@ export class StateStore extends React.Component<
       this.state.isSeekbarSeeking ||
       this.state.isVolumebarSeeking ||
       !!this.state.settingsTab ||
-      (this.props.instance.config.uiOptions && (this.props.instance.config.uiOptions as any).lockControlsVisibility)
+      this.uiOptions.lockControlsVisibility
     ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
@@ -363,10 +372,7 @@ export class StateStore extends React.Component<
     }
 
     let pipSupported = false;
-    if (
-      this.props.instance.config.uiOptions &&
-      (this.props.instance.config.uiOptions as any).enablePip
-    ) {
+    if (this.uiOptions.enablePip) {
       pipSupported = true;
     }
 
