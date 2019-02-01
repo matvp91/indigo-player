@@ -57,6 +57,7 @@ export interface IActions {
   selectCaption(caption: Caption);
   setPlaybackRate(playbackRate: number);
   togglePip();
+  toggleActiveCaption();
 }
 
 export enum ViewTypes {

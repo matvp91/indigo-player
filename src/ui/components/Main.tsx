@@ -18,7 +18,6 @@ export const Main = withState((props: MainProps) => (
   <div
     className={cx({
       'igui_state-active': props.data.visibleControls,
-      'igui_state-volumecontrols-open': props.data.isVolumeControlsOpen,
     })}
   >
     {props.data.view === ViewTypes.ERROR && <ErrorView />}

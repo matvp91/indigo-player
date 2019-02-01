@@ -34,6 +34,15 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         <div className='igui_container_controls_seekbar'>
           <Seekbar />
         </div>
+        {!!props.data.captions.length && (
+          <Button
+            name='caption'
+            icon='cc'
+            onClick={props.actions.toggleActiveCaption}
+            active={!!props.data.activeCaption}
+            tooltip={props.data.getTranslation(!!props.data.activeCaption ? 'Disable subtitles' : 'Enable subtitles')}
+          />
+        )}
         {props.data.pipSupported && !props.data.pip && (
           <Button
             name='pip'

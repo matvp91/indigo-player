@@ -25,7 +25,7 @@ $volumebar-scrubber-radius: 14px;
   transition: width 150ms ease-in-out;
 
   .igui_volume_state-open & {
-    width: 64px;
+    width: 64px + (5px + 7px);
   }
 }
 

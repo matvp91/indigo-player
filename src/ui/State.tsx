@@ -27,6 +27,8 @@ interface StateStoreState {
 
   // Settings
   settingsTab: SettingsTabs;
+
+  lastActiveCaption: Caption,
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -60,6 +62,9 @@ export class StateStore extends React.Component<
 
       // Settings
       settingsTab: null,
+
+      // Captions
+      lastActiveCaption: null,
     };
 
     this.unsubscribe = attachEvents([
@@ -212,9 +217,22 @@ export class StateStore extends React.Component<
   };
 
   private selectCaption = (caption: Caption) => {
+    if (caption) {
+      this.setState({ lastActiveCaption: caption });
+    }
+
     (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(
       caption ? caption.srclang : null,
     );
+  };
+
+  private toggleActiveCaption = () => {
+    let caption: Caption = this.state.lastActiveCaption;
+    if (!caption) {
+      caption = this.props.instance.config.captions[0];
+    }
+
+    this.selectCaption(this.props.player.caption ? null : caption);
   };
 
   private togglePip = () => {
@@ -444,6 +462,7 @@ export class StateStore extends React.Component<
       setSettingsTab: this.setSettingsTab,
       toggleSettings: this.toggleSettings,
       selectCaption: this.selectCaption,
+      toggleActiveCaption: this.toggleActiveCaption,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,
     } as IActions;

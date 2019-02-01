@@ -16,6 +16,8 @@ const translations = {
     'No subtitles': 'None',
     Quality: 'Quality',
     'Automatic quality': 'Auto',
+    'Enable subtitles': 'Enable subtitles',
+    'Disable subtitles': 'Disable subtitles',
   },
   'nl-BE': {
     Play: 'Afspelen',
@@ -32,6 +34,8 @@ const translations = {
     'No subtitles': 'Geen',
     Quality: 'Kwaliteit',
     'Automatic quality': 'Automatisch',
+    'Enable subtitles': 'Ondertitels aan',
+    'Disable subtitles': 'Ondertitels uit',
   },
 };
 

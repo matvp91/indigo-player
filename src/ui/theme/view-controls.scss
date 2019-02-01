@@ -27,6 +27,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 
     .igui_icon {
       font-size: 26px;
@@ -46,9 +47,7 @@
   }
 
   .igui_button_name-play {
-    left: 9px;
-    bottom: 0;
-    position: absolute;
+    margin-left: 9px;
 
     .igui_button_tooltip {
       left: 2px;
@@ -56,23 +55,11 @@
     }
   }
 
-  .igui_volume {
-    left: 45px;
-    bottom: 0;
-    position: absolute;
-  }
-
   .igui_timestat {
-    left: 91px;
-    bottom: 12px;
-    position: absolute;
-    transition: left 150ms ease-in-out;
     user-select: none;
     display: flex;
-
-    .igui_state-volumecontrols-open & {
-      left: 155px;
-    }
+    align-items: center;
+    margin-right: auto;
 
     .igui_timestat_duration {
       position: relative;
@@ -86,27 +73,30 @@
     }
   }
 
-  .igui_button_name-pip {
-    right: 81px;
-    bottom: 0;
-    position: absolute;
-  }
-
-  .igui_button_name-settings {
-    right: 45px;
-    bottom: 0;
-    position: absolute;
-  }
-
   .igui_button_name-fullscreen {
-    right: 9px;
-    bottom: 0;
-    position: absolute;
+    margin-right: 9px;
 
     .igui_button_tooltip {
       right: 2px;
       left: auto;
       transform: translateX(0);
+    }
+  }
+
+  .igui_button_name-caption {
+    &.igui_button_state-active {
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        height: 2px;
+        background-color: #ffffff;
+        bottom: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 21px;
+      }
     }
   }
 
