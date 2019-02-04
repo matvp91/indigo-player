@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { Caption, IThumbnail, ITrack } from '@src/types';
+import { Subtitle, IThumbnail, ITrack } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -32,12 +32,14 @@ export interface IData {
   selectedTrack: ITrack | string;
   settingsTab: SettingsTabs;
   visibleSettingsTabs: SettingsTabs[];
-  captions: Caption[];
-  activeCaption: Caption;
+  subtitles: Subtitle[];
+  activeSubtitle: Subtitle;
   playbackRate: number;
   pip: boolean;
   pipSupported: boolean;
   activeThumbnail: IThumbnail;
+  isMobile: boolean;
+  image: string;
   getTranslation(text: string): string;
 }
 
@@ -56,10 +58,10 @@ export interface IActions {
   selectTrack(track: ITrack);
   setSettingsTab(tab: SettingsTabs);
   toggleSettings();
-  selectCaption(caption: Caption);
+  selectSubtitle(subtitle: Subtitle);
   setPlaybackRate(playbackRate: number);
   togglePip();
-  toggleActiveCaption();
+  toggleActiveSubtitle();
 }
 
 export interface IInfo {
@@ -78,12 +80,6 @@ export enum SettingsTabs {
   NONE,
   OPTIONS,
   TRACKS,
-  CAPTIONS,
+  SUBTITLES,
   PLAYBACKRATES,
-}
-
-export interface IUIOptions {
-  locale: string;
-  lockControlsVisibility: boolean;
-  enablePip: boolean;
 }

@@ -1,6 +1,6 @@
 import {
   AdBreakType,
-  Caption,
+  Subtitle,
   IInstance,
   IThumbnail,
   ITrack,
@@ -9,7 +9,6 @@ import { getTranslation } from '@src/ui/i18n';
 import {
   IActions,
   IData,
-  IUIOptions,
   SettingsTabs,
   ViewTypes,
 } from '@src/ui/types';
@@ -40,7 +39,7 @@ interface StateStoreState {
   // Settings
   settingsTab: SettingsTabs;
 
-  lastActiveCaption: Caption;
+  lastActiveSubtitle: Subtitle;
   activeThumbnail: IThumbnail;
 }
 
@@ -57,8 +56,6 @@ export class StateStore extends React.Component<
   private activeTimer: number;
 
   private unsubscribe: EventUnsubscribeFn;
-
-  private uiOptions: IUIOptions;
 
   constructor(props) {
     super(props);
@@ -78,7 +75,7 @@ export class StateStore extends React.Component<
       // Settings
       settingsTab: null,
 
-      lastActiveCaption: null,
+      lastActiveSubtitle: null,
       activeThumbnail: null,
     };
 
@@ -99,13 +96,6 @@ export class StateStore extends React.Component<
         callback: this.closeSettings,
       },
     ]);
-
-    this.uiOptions = {
-      locale: 'en-US',
-      lockControlsVisibility: false,
-      enablePip: false,
-      ...props.instance.config.uiOptions,
-    };
   }
 
   public componentWillUnmount() {
@@ -242,23 +232,23 @@ export class StateStore extends React.Component<
     this.setState({ settingsTab });
   };
 
-  private selectCaption = (caption: Caption) => {
-    if (caption) {
-      this.setState({ lastActiveCaption: caption });
+  private selectSubtitle = (subtitle: Subtitle) => {
+    if (subtitle) {
+      this.setState({ lastActiveSubtitle: subtitle });
     }
 
-    (this.props.instance.getModule('CaptionsExtension') as any).setSubtitle(
-      caption ? caption.srclang : null,
+    (this.props.instance.getModule('SubtitlesExtension') as any).setSubtitle(
+      subtitle ? subtitle.srclang : null,
     );
   };
 
-  private toggleActiveCaption = () => {
-    let caption: Caption = this.state.lastActiveCaption;
-    if (!caption) {
-      caption = this.props.instance.config.captions[0];
+  private toggleActiveSubtitle = () => {
+    let subtitle: Subtitle = this.state.lastActiveSubtitle;
+    if (!subtitle) {
+      subtitle = this.props.instance.config.subtitles[0];
     }
 
-    this.selectCaption(this.props.player.caption ? null : caption);
+    this.selectSubtitle(this.props.player.subtitle ? null : subtitle);
   };
 
   private togglePip = () => {
@@ -266,7 +256,7 @@ export class StateStore extends React.Component<
   };
 
   private getTranslation = (text: string): string => {
-    return getTranslation(this.uiOptions.locale)(text);
+    return getTranslation(this.props.instance.config.ui.locale)(text);
   };
 
   /**
@@ -295,7 +285,7 @@ export class StateStore extends React.Component<
       this.state.isSeekbarSeeking ||
       this.state.isVolumebarSeeking ||
       !!this.state.settingsTab ||
-      this.uiOptions.lockControlsVisibility
+      this.props.instance.config.ui.lockControlsVisibility
     ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
@@ -420,20 +410,20 @@ export class StateStore extends React.Component<
       selectedTrack = 'auto';
     }
 
-    const captions = this.props.instance.config.captions || [];
+    const subtitles = this.props.instance.config.subtitles || [];
 
-    const activeCaption = this.props.player.caption;
+    const activeSubtitle = this.props.player.subtitle;
 
     const visibleSettingsTabs = [SettingsTabs.PLAYBACKRATES];
-    if (captions.length) {
-      visibleSettingsTabs.push(SettingsTabs.CAPTIONS);
+    if (subtitles.length) {
+      visibleSettingsTabs.push(SettingsTabs.SUBTITLES);
     }
     if (tracks.length) {
       visibleSettingsTabs.push(SettingsTabs.TRACKS);
     }
 
     let pipSupported = false;
-    if (this.uiOptions.enablePip) {
+    if (this.props.instance.config.ui.pip) {
       pipSupported = true;
     }
 
@@ -444,6 +434,8 @@ export class StateStore extends React.Component<
       isCenterClickAllowed,
       settingsTab: this.state.settingsTab,
       visibleSettingsTabs,
+      isMobile: this.props.instance.env.isMobile,
+      image: this.props.instance.config.ui.image,
 
       // Player
       playRequested: this.props.player.playRequested,
@@ -481,9 +473,9 @@ export class StateStore extends React.Component<
       isVolumeControlsOpen,
       volumeBarPercentage: this.props.player.volume,
 
-      // Captions
-      captions,
-      activeCaption,
+      // Subtitles
+      subtitles,
+      activeSubtitle,
       activeThumbnail: this.state.activeThumbnail,
 
       // i18n
@@ -506,8 +498,8 @@ export class StateStore extends React.Component<
       selectTrack: this.selectTrack,
       setSettingsTab: this.setSettingsTab,
       toggleSettings: this.toggleSettings,
-      selectCaption: this.selectCaption,
-      toggleActiveCaption: this.toggleActiveCaption,
+      selectSubtitle: this.selectSubtitle,
+      toggleActiveSubtitle: this.toggleActiveSubtitle,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,
     } as IActions;

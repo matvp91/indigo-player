@@ -9,6 +9,34 @@
   * 1) Let's say you host it at *https://mysite.com/js/indigo-player.js*,
   * 2) Make sure you set *IndigoPlayer.setChunksPath('https://mysite.com/js/')** before calling `init(...)` as the chunks path.
 
+## Getting started
+
+The example below will load a simple mp4 file and attempt to autoplay the video.
+
+```html
+<html>
+  <body>
+    <div id="playerContainer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1/lib/indigo-player.js"></script>
+    <script>
+      const config = {
+        sources: [
+          {
+            type: 'mp4',
+            src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          }
+        ],
+      };
+
+      const element = document.getElementById('playerContainer');
+      const player = IndigoPlayer.init(element, config);
+
+      // You can use the player object now to access the player and it's methods (play, pause, ...)
+    </script>
+  </body>
+</html>
+```
+
 ## Example
 
 The example below will load a dash file, has demo subtitles, thumbnails, and attempt to autoplay it. In order to interact with the player, you can use the `player` object returned when initializing indigo-player.
@@ -26,7 +54,9 @@ The example below will load a dash file, has demo subtitles, thumbnails, and att
       src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
     },
   ],
-  thumbnails: './player-assets/bbb-thumbnails.vtt',
+  thumbnails: {
+    src: './player-assets/bbb-thumbnails.vtt',
+  },
   captions: [
     {
       label: 'English',

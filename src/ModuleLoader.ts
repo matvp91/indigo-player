@@ -1,6 +1,6 @@
 import { BaseControllerLoader } from '@src/controller/BaseController/BaseControllerLoader';
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
-import { CaptionsExtensionLoader } from '@src/extensions/CaptionsExtension/CaptionsExtensionLoader';
+import { SubtitlesExtensionLoader } from '@src/extensions/SubtitlesExtension/SubtitlesExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
@@ -35,7 +35,7 @@ const modules: Array<IModuleLoader<IModule>> = [
   BenchmarkExtensionLoader,
   FreeWheelExtensionLoader,
   FullscreenExtensionLoader,
-  CaptionsExtensionLoader,
+  SubtitlesExtensionLoader,
   GoogleIMAExtensionLoader,
   ThumbnailsExtensionLoader,
 ];

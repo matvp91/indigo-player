@@ -21,7 +21,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 ```javascript
 {
-  ...
   sources: [
     // Play a Dash manifest
     {
@@ -34,7 +33,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   sources: [
     {
       type: 'dash',
@@ -48,7 +46,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 ```javascript
 {
-  ...
   sources: [
     // Play a Dash manifest
     {
@@ -61,7 +58,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   sources: [
     {
       type: 'hls',
@@ -75,7 +71,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 ```javascript
 {
-  ...
   sources: [
     // Play a Dash manifest
     {
@@ -88,7 +83,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   sources: [
     {
       type: 'mp4',
@@ -102,7 +96,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 ```javascript
 {
-  ...
   sources: [
     // Play a Dash manifest
     {
@@ -123,7 +116,6 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   sources: [
     {
       type: 'dash',
@@ -155,7 +147,6 @@ Before you start, you must load the `AdManager.js` (https://mssl.fwmrm.net/libs/
 
 ```javascript
 {
-  ...
   freewheel: {
     clientSide: true,
     network: 96749,
@@ -176,7 +167,6 @@ Before you start, you must load the `AdManager.js` (https://mssl.fwmrm.net/libs/
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   freewheel: {
     clientSide: true,
     network: 96749,
@@ -202,7 +192,6 @@ Before you start, you must load the `ima3.js` (https://imasdk.googleapis.com/js/
 
 ```javascript
 {
-  ...
   googleIMA: {
     src: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator=',
   },
@@ -213,7 +202,6 @@ Before you start, you must load the `ima3.js` (https://imasdk.googleapis.com/js/
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   googleIMA: {
     src: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator=',
   },
@@ -226,7 +214,7 @@ Before you start, you must load the `ima3.js` (https://imasdk.googleapis.com/js/
 }
 </div>
 
-### Captions
+### Subtitles
 
 Provide the WebVTT files with their configuration in order to provide subtitles.
 
@@ -238,7 +226,7 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
       src: 'http://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
     },
   ],
-  captions: [
+  subtitles: [
     {
       label: 'English',
       srclang: 'en',
@@ -254,21 +242,19 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
       srclang: 'es',
       src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-es.vtt',
     },
-    ...
   ],
 }
 ```
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
   sources: [
     {
       type: 'mp4',
       src: 'http://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
     },
   ],
-  captions: [
+  subtitles: [
     {
       label: 'English',
       srclang: 'en',
@@ -288,25 +274,72 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
 }
 </div>
 
+### Preview image
+
+Instead of a black background or the first frame of the video element (if applicable), you can set your own preview image instead. This image will be shown as the background on the `StartView` and `LoadingView`.
+
+```javascript
+{
+  ui: {
+    image: 'https://example.com/my-image.png',
+  },
+}
+```
+
 ### Picture in Picture
 
 Picture in picture mode will put the player container at the right bottom of the screen. You can move the PIP container by dragging it by the handle at the top of the player (your cursor should change to a drag icon).
 
 ```javascript
 {
-  ui: true,
-  uiOptions: {
-    enablePip: true, // by default, pip is not enabled in the UI.
+  ui: {
+    pip: true, // by default, pip is not enabled in the UI.
   },
-  ...
 }
 ```
 
 <div class="sample-player" data-optin="1">
 {
-  ui: true,
-  uiOptions: {
-    enablePip: true,
+  ui: {
+    pip: true,
+  },
+  sources: [
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
+  ],
+}
+</div>
+
+### Thumbnails
+
+Thumbnails are displayed in the tooltip when seeking or hovering over the seekbar. When you are seeking, the tooltip is also shown in the background (giving the user a better user experience when seeking). In order to display thumbnails, you must have a WebVTT file including a reference to a sprite with thumbnails, for example:
+
+```
+WEBVTT
+
+00:00.000 --> 00:05.000
+thumbnails-sprite.jpg#xywh=0,0,128,72
+
+00:05.000 --> 00:10.000
+thumbnails-sprite.jpg#xywh=128,0,128,72
+```
+
+Afterwards, configure the player to load the thumbnails vtt file:
+
+```javascript
+{
+   thumbnails: {
+    src: './thumbnails.vtt',
+  },
+}
+```
+
+<div class="sample-player" data-optin="1">
+{
+  thumbnails: {
+    src: './player-assets/bbb-thumbnails.vtt',
   },
   sources: [
     {

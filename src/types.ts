@@ -37,7 +37,7 @@ export enum Events {
   PLAYER_STATE_READY = 'player-state:ready',
   PLAYER_STATE_WAITING = 'player-state:waiting',
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
-  PLAYER_STATE_CAPTIONSCHANGE = 'player-state:captionschange',
+  PLAYER_STATE_SUBTITLECHANGE = 'player-state:subtitlechange',
   PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
   PLAYER_STATE_RATECHANGE = 'player-state:ratechange',
 
@@ -87,7 +87,7 @@ export enum Events {
   STATE_FULLSCREEN_CHANGE = 'state:fullscreen-change',
   STATE_TRACKS = 'state:tracks',
   STATE_TRACK_CHANGE = 'state:track-change',
-  STATE_CAPTION_CHANGE = 'state:caption-change',
+  STATE_SUBTITLE_CHANGE = 'state:subtitle-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
   STATE_PIP_CHANGE = 'state:pip-change',
 }
@@ -112,7 +112,7 @@ export interface Format {
   };
 }
 
-export interface Caption {
+export interface Subtitle {
   label: string;
   srclang: string;
   src: string;
@@ -121,12 +121,20 @@ export interface Caption {
 export type Cuepoint = 'preroll' | 'postroll' | number;
 
 export interface Config {
-  autoplay: boolean;
-  ui: boolean;
   enableLogs: boolean;
-  uiOptions?: {};
+
+  autoplay: boolean;
+
+  ui: {
+    enabled: boolean;
+    lockControlsVisibility: boolean;
+    locale: string;
+    pip: boolean;
+    image?: string;
+  };
+
   sources: Format[];
-  showNativeControls: boolean;
+
   freewheel?: {
     clientSide: boolean;
     server: string;
@@ -137,11 +145,16 @@ export interface Config {
     profile: string;
     cuepoints: Cuepoint[];
   };
+
   googleIMA?: {
     src: string;
   };
-  captions?: Caption[];
-  thumbnails: string;
+
+  subtitles: Subtitle[];
+
+  thumbnails?: {
+    src: string;
+  };
 }
 
 export interface IThumbnail {

@@ -17,10 +17,10 @@ The following format is suggested: `indigo-player-<type>-<name>`. For example: i
 
 ## Setup
 
-Add the beta version to your project, which includes the `addModuleLoader(moduleLoader: IModuleLoader)` API. 
+Add the latest version to your project, which includes the `addModuleLoader(moduleLoader: IModuleLoader)` API. 
 
 ```
-npm install indigo-player@next
+npm install indigo-player
 ```
 
 You don't want to bundle indigo-player player in your custom module, but merely reference it. Add the following external to your `webpack.config.js` file:
@@ -40,7 +40,7 @@ Make sure you load your module **after** loading indigo-player.js. If the global
 <html>
   <body>
     <div id="playerContainer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1.2.0-beta.0/lib/indigo-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1/lib/indigo-player.js"></script>
     <script src="./indigo-player-custom-extension.js"></script>
     <script>
       const config = {

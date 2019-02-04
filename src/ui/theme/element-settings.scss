@@ -6,6 +6,21 @@
   border-radius: 2px;
   color: #fff;
   z-index: 1;
+  min-width: 150px;
+  overflow-y: auto;
+
+  .igui_state-mobile & {
+    @include stretch();
+  }
+}
+
+.igui_button_name-mobile-close {
+  float: right;
+  width: 31px;
+  height: 31px;
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .igui_settings_nooptions {
@@ -18,7 +33,7 @@
   .igui_button_name-select-option {
     display: block;
     padding: 8px 16px;
-    min-width: 150px;
+    width: 100%;
     text-align: left;
 
     &.igui_button_state-active {

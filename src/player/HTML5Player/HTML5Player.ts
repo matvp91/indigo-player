@@ -26,10 +26,6 @@ export class HTML5Player extends Player {
     this.mediaElement.setAttribute('preload', 'auto');
     this.instance.playerContainer.appendChild(this.mediaElement);
 
-    if (this.instance.config.showNativeControls) {
-      this.mediaElement.controls = true;
-    }
-
     this.mediaElement.addEventListener('playing', () => {
       this.emit(Events.PLAYER_STATE_PLAYING);
     });

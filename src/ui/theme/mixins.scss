@@ -25,3 +25,13 @@
     padding: 0;
   }
 }
+
+@mixin shaded() {
+  position: relative;
+
+  &:after {
+    content: '';
+    @include stretch();
+    background-color: rgba(0, 0, 0, .5);
+  }
+}

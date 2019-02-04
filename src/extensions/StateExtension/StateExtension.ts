@@ -2,7 +2,7 @@ import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
 import {
   AdBreakType,
-  Caption,
+  Subtitle,
   Events,
   IEventData,
   IInstance,
@@ -46,7 +46,7 @@ interface IState {
   track: ITrack;
   trackAutoSwitch: boolean;
 
-  caption: Caption;
+  subtitle: Subtitle;
 
   playbackRate: number;
 }
@@ -94,7 +94,7 @@ export class StateExtension extends Module {
     track: null,
     trackAutoSwitch: false,
 
-    caption: null,
+    subtitle: null,
 
     playbackRate: 1,
   };
@@ -244,10 +244,10 @@ export class StateExtension extends Module {
     }, Events.STATE_TRACK_CHANGE);
     this.on(Events.MEDIA_STATE_TRACKCHANGE, setTrack);
 
-    const setCaption = this.dispatch((draft, data) => {
-      draft.caption = data.caption;
-    }, Events.STATE_CAPTION_CHANGE);
-    this.on(Events.PLAYER_STATE_CAPTIONSCHANGE, setCaption);
+    const setSubtitle = this.dispatch((draft, data) => {
+      draft.subtitle = data.subtitle;
+    }, Events.STATE_SUBTITLE_CHANGE);
+    this.on(Events.PLAYER_STATE_SUBTITLECHANGE, setSubtitle);
 
     const setPlaybackRate = this.dispatch((draft, data) => {
       draft.playbackRate = data.playbackRate;

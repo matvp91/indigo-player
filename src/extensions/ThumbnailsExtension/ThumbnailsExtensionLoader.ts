@@ -12,6 +12,6 @@ export const ThumbnailsExtensionLoader = {
   create: async (instance: IInstance) => new ThumbnailsExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
-    return !!config.thumbnails;
+    return !!config.thumbnails && !!config.thumbnails.src;
   },
 } as IModuleLoader<ThumbnailsExtension>;

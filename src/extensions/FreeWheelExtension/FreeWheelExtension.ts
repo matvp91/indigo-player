@@ -121,10 +121,6 @@ export class FreeWheelExtension extends Module {
     this.mediaElement.style.width = '100%';
     this.mediaElement.style.height = '100%';
 
-    if (this.instance.config.showNativeControls) {
-      this.mediaElement.controls = true;
-    }
-
     this.mediaElement.addEventListener('playing', () => {
       this.emit(Events.ADBREAK_STATE_PLAYING);
     });

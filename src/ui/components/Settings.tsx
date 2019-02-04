@@ -18,11 +18,11 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
               props.data.activeTrack ? props.data.activeTrack.width : ''
             }`,
           },
-          props.data.visibleSettingsTabs.includes(SettingsTabs.CAPTIONS) && {
-            item: SettingsTabs.CAPTIONS,
+          props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLES) && {
+            item: SettingsTabs.SUBTITLES,
             label: props.data.getTranslation('Subtitles'),
             info: `${
-              props.data.activeCaption ? props.data.activeCaption.label : ''
+              props.data.activeSubtitle ? props.data.activeSubtitle.label : ''
             }`,
           },
           props.data.visibleSettingsTabs.includes(
@@ -66,22 +66,22 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
   </>
 );
 
-tabs[SettingsTabs.CAPTIONS] = (props: SettingsProps) => (
+tabs[SettingsTabs.SUBTITLES] = (props: SettingsProps) => (
   <>
     <SettingsHeader
       title={props.data.getTranslation('Quality')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
-      selected={props.data.activeCaption}
-      onClick={caption => {
-        props.actions.selectCaption(caption);
+      selected={props.data.activeSubtitle}
+      onClick={subtitle => {
+        props.actions.selectSubtitle(subtitle);
         props.actions.toggleSettings();
       }}
       items={[
-        ...props.data.captions.map(caption => ({
-          item: caption,
-          label: caption.label,
+        ...props.data.subtitles.map(subtitle => ({
+          item: subtitle,
+          label: subtitle.label,
         })),
         {
           item: null,
@@ -184,6 +184,9 @@ interface SettingsProps {
 export const Settings = withState((props: SettingsProps) => {
   const renderTab = tabs[props.data.settingsTab];
   return renderTab ? (
-    <div className='igui_settings'>{renderTab(props)}</div>
+    <div className='igui_settings'>
+      {props.data.isMobile && <Button name="mobile-close" onClick={props.actions.toggleSettings}>&times;</Button>}
+      {renderTab(props)}
+    </div>
   ) : null;
 });

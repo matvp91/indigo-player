@@ -1,27 +1,24 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Caption, Events, IEventData, IInstance } from '@src/types';
+import { Subtitle, Events, IEventData, IInstance } from '@src/types';
 
-interface ICapChangeEventData extends IEventData {
-  caption: {
-    srclang: string;
-    label: string;
-  };
+interface ISubtitleChangeEventData extends IEventData {
+  subtitle: Subtitle;
 }
 
-export class CaptionsExtension extends Module {
-  public name: string = 'CaptionsExtension';
+export class SubtitlesExtension extends Module {
+  public name: string = 'SubtitlesExtension';
 
   constructor(instance: IInstance) {
     super(instance);
 
-    const tracks = instance.config.captions.map(caption => {
+    const tracks = instance.config.subtitles.map(subtitle => {
       const track = document.createElement('track');
 
       track.kind = 'captions';
-      track.label = caption.label;
-      track.srclang = caption.srclang;
-      track.src = caption.src;
+      track.label = subtitle.label;
+      track.srclang = subtitle.srclang;
+      track.src = subtitle.src;
 
       return track;
     });
@@ -45,13 +42,13 @@ export class CaptionsExtension extends Module {
       track.mode = track.language === srclang ? 'showing' : 'hidden';
     }
 
-    const caption =
-      this.instance.config.captions.find(
-        caption => caption.srclang === srclang,
+    const subtitle =
+      this.instance.config.subtitles.find(
+        subtitle => subtitle.srclang === srclang,
       ) || null;
 
-    this.emit(Events.PLAYER_STATE_CAPTIONSCHANGE, {
-      caption,
-    } as ICapChangeEventData);
+    this.emit(Events.PLAYER_STATE_SUBTITLECHANGE, {
+      subtitle,
+    } as ISubtitleChangeEventData);
   }
 }

@@ -1,4 +1,3 @@
-import { Caption } from '@src/types';
 import { Button } from '@src/ui/components/Button';
 import { Center } from '@src/ui/components/Center';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
@@ -15,9 +14,9 @@ interface ControlsViewProps {
   showRebuffer: boolean;
   playIcon: string;
   playTooltipText: string;
-  showCaptionsToggle: boolean;
-  isCaptionActive: boolean;
-  captionToggleTooltipText: string;
+  showSubtitlesToggle: boolean;
+  isSubtitleActive: boolean;
+  subtitleToggleTooltipText: string;
   showPip: boolean;
   pipTooltipText: string;
   settingsTooltipText: string;
@@ -25,7 +24,7 @@ interface ControlsViewProps {
   isFullscreenDisabled: boolean;
   fullscreenTooltipText: string;
   playOrPause();
-  toggleActiveCaption();
+  toggleActiveSubtitle();
   togglePip();
   toggleSettings();
   toggleFullscreen();
@@ -49,13 +48,13 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         <div className='igui_container_controls_seekbar'>
           <Seekbar />
         </div>
-        {props.showCaptionsToggle && (
+        {props.showSubtitlesToggle && (
           <Button
-            name='caption'
+            name='subtitle'
             icon='cc'
-            onClick={props.toggleActiveCaption}
-            active={props.isCaptionActive}
-            tooltip={props.captionToggleTooltipText}
+            onClick={props.toggleActiveSubtitle}
+            active={props.isSubtitleActive}
+            tooltip={props.subtitleToggleTooltipText}
           />
         )}
         {props.showPip && (
@@ -93,11 +92,11 @@ function mapProps(info: IInfo): ControlsViewProps {
     playTooltipText: info.data.getTranslation(
       info.data.playRequested ? 'Pause' : 'Play',
     ),
-    showCaptionsToggle: !!info.data.captions.length,
-    isCaptionActive: !!info.data.activeCaption,
-    toggleActiveCaption: info.actions.toggleActiveCaption,
-    captionToggleTooltipText: info.data.getTranslation(
-      !!info.data.activeCaption ? 'Disable subtitles' : 'Enable subtitles',
+    showSubtitlesToggle: !!info.data.subtitles.length,
+    isSubtitleActive: !!info.data.activeSubtitle,
+    toggleActiveSubtitle: info.actions.toggleActiveSubtitle,
+    subtitleToggleTooltipText: info.data.getTranslation(
+      !!info.data.activeSubtitle ? 'Disable subtitles' : 'Enable subtitles',
     ),
     showPip: info.data.pipSupported && !info.data.pip,
     togglePip: info.actions.togglePip,

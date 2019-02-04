@@ -11,6 +11,7 @@ import * as React from 'react';
 
 interface MainProps {
   view: ViewTypes;
+  isMobile: boolean;
   visibleControls: boolean;
 }
 
@@ -19,6 +20,7 @@ export const Main = withState(
     <div
       className={cx({
         'igui_state-active': props.visibleControls,
+        'igui_state-mobile': props.isMobile,
       })}
     >
       {props.view === ViewTypes.ERROR && <ErrorView />}
@@ -33,6 +35,7 @@ export const Main = withState(
 function mapProps(info: IInfo): MainProps {
   return {
     view: info.data.view,
+    isMobile: info.data.isMobile,
     visibleControls: info.data.visibleControls,
   };
 }

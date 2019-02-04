@@ -12,13 +12,18 @@ IndigoPlayer.setConsoleLogs(true);
 
 const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   autoplay: false,
-  ui: true,
-  uiOptions: {
-    enablePip: true,
+  ui: {
+    pip: true,
     lockControlsVisibility: false,
     locale: 'en-US',
+    image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
   },
-  thumbnails: './thumbnails.vtt',
+  thumbnails: {
+    src: './thumbnails.vtt',
+  },
+  // thumbnails: {
+  //   src: './thumbnails.vtt',
+  // },
   // freewheel: {
   //   clientSide: true,
   //   network: 96749,
@@ -28,7 +33,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   //   duration: 594,
   //   siteSection: 'DemoSiteGroup.01',
   //   profile: 'global-js',
-  //   cuepoints: ['preroll', 12, 'postroll'],
+  //   cuepoints: [/*'preroll', */12, 'postroll'],
   // },
   // googleIMA: {
   //   // src: 'https://pubads.g.doubleclick.net/gampad/ads?' +
@@ -42,16 +47,16 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   type: 'hls',
     //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     // },
-    // {
-    //   type: 'mp4',
-    //   src:
-    //     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    // },
     {
-      type: 'dash',
+      type: 'mp4',
       src:
-        'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
+        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     },
+    // {
+    //   type: 'dash',
+    //   src:
+    //     'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
+    // },
     // {
     //   type: 'dash',
     //   src:
@@ -66,10 +71,10 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //     },
     //   },
     // },
-    // {
-    //   type: 'dash',
-    //   src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
-    // },
+    {
+      type: 'dash',
+      src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
+    },
     // {
     //   type: 'hls',
     //   src:
@@ -84,7 +89,7 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   src: 'http://techslides.com/demos/sample-videos/small.mp4',
     // },
   ],
-  captions: [
+  subtitles: [
     {
       label: 'English',
       srclang: 'en',

@@ -20,6 +20,7 @@ import {
   ITrack,
   ModuleLoaderTypes,
 } from '@src/types';
+import { createConfig } from '@src/createConfig';
 import { getEnv } from '@src/utils/getEnv';
 import { log } from '@src/utils/log';
 import { storage } from '@src/utils/storage';
@@ -72,7 +73,7 @@ export class Instance implements IInstance {
   private emitter: EventEmitter;
 
   constructor(element: HTMLElement, config: Config) {
-    this.config = config;
+    this.config = createConfig(config);
 
     this.createContainers(element);
 
@@ -150,6 +151,7 @@ export class Instance implements IInstance {
 
   public getStats() {
     return {
+      config: this.config,
       controller: [this.controller.name, this.controller],
       media: [this.media.name, this.media],
       player: [this.player.name, this.player],
