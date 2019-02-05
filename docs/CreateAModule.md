@@ -44,7 +44,6 @@ Make sure you load your module **after** loading indigo-player.js. If the global
     <script src="./indigo-player-custom-extension.js"></script>
     <script>
       const config = {
-        ui: true,
         sources: [
           {
             type: 'mp4',

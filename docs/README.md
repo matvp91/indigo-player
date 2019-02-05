@@ -43,7 +43,6 @@ The example below will load a dash file, has demo subtitles, thumbnails, and att
 
 <div class="sample-player" data-expose-player="player">
 {
-  ui: true,
   sources: [
     {
       type: 'dash',

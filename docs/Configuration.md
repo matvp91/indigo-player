@@ -349,3 +349,15 @@ Afterwards, configure the player to load the thumbnails vtt file:
   ],
 }
 </div>
+
+### Locale
+
+Changes the language of the player UI. You can find a list of locale's here: https://github.com/matvp91/indigo-player/blob/master/src/ui/i18n.ts
+
+```javascript
+{
+  ui: {
+    locale: 'nl-BE',
+  },
+}
+```
