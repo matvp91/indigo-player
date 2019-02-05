@@ -223,24 +223,24 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
   sources: [
     {
       type: 'mp4',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
     },
   ],
   subtitles: [
     {
       label: 'English',
       srclang: 'en',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-en.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-en.vtt',
     },
     {
       label: 'German',
       srclang: 'de',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-de.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-de.vtt',
     },
     {
       label: 'Spanish',
       srclang: 'es',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-es.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-es.vtt',
     },
   ],
 }
@@ -251,24 +251,24 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
   sources: [
     {
       type: 'mp4',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4',
     },
   ],
   subtitles: [
     {
       label: 'English',
       srclang: 'en',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-en.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-en.vtt',
     },
     {
       label: 'German',
       srclang: 'de',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-de.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-de.vtt',
     },
     {
       label: 'Spanish',
       srclang: 'es',
-      src: 'http://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-es.vtt',
+      src: 'https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-es.vtt',
     },
   ],
 }
