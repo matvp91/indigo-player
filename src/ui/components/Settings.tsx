@@ -43,7 +43,7 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
 tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
   <>
     <SettingsHeader
-      title={props.data.getTranslation('Subtitles')}
+      title={props.data.getTranslation('Quality')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
@@ -69,7 +69,7 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
 tabs[SettingsTabs.SUBTITLES] = (props: SettingsProps) => (
   <>
     <SettingsHeader
-      title={props.data.getTranslation('Quality')}
+      title={props.data.getTranslation('Subtitles')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
     />
     <SettingsSelect
