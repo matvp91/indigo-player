@@ -150,6 +150,10 @@ export interface Config {
     src: string;
   };
 
+  vimeo?: {
+    id: string;
+  };
+
   subtitles: Subtitle[];
 
   thumbnails?: {
@@ -306,7 +310,6 @@ export interface IModule {
 }
 
 export interface IController extends IModule {
-  boot(): Promise<any>;
   load();
   unload();
 

@@ -17,6 +17,10 @@ export const HlsMediaLoader = {
     ),
 
   isSupported: (instance: IInstance, format: Format): boolean => {
+    if (instance.player.name !== 'HTML5Player') {
+      return false;
+    }
+
     if (format.type !== FormatTypes.HLS) {
       return false;
     }

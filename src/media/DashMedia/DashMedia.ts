@@ -41,8 +41,7 @@ export class DashMedia extends Media {
   public async load() {
     await super.load();
 
-    const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)
-      .mediaElement;
+    const mediaElement: HTMLMediaElement = (this.instance.getModule('HTML5Player') as any).mediaElement;
 
     this.player = new shaka.Player(mediaElement);
 

@@ -11,6 +11,7 @@ import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
 import { HTML5PlayerLoader } from '@src/player/HTML5Player/HTML5PlayerLoader';
+import { VimeoControllerLoader } from '@src/controller/VimeoController/VimeoControllerLoader';
 import {
   IInstance,
   IModule,
@@ -21,11 +22,12 @@ import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
 import find from 'lodash/find';
 
 const modules: Array<IModuleLoader<IModule>> = [
+  VimeoControllerLoader,
   BaseControllerLoader,
 
-  BaseMediaLoader,
   DashMediaLoader,
   HlsMediaLoader,
+  BaseMediaLoader,
 
   HTML5PlayerLoader,
 
