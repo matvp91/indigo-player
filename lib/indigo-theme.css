@@ -1,0 +1,612 @@
+/*! indigo-player v1.2.5 - main - 1549470965945 */
+
+.ig-ui {
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+}
+
+.ig-ui * {
+  box-sizing: border-box;
+}
+
+.igui_button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.igui_button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.igui_button_state-disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
+.igui_container_controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.igui_container_controls:before {
+  content: '';
+  position: absolute;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -80px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.igui_container_controls .igui_button {
+  width: 36px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.igui_container_controls .igui_button .igui_icon {
+  font-size: 26px;
+}
+
+.igui_container_controls .igui_button .igui_button_tooltip {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background-color: #222;
+  border-radius: 2px;
+  padding: 4px 6px;
+  white-space: nowrap;
+}
+
+.igui_container_controls .igui_button_name-play {
+  margin-left: 9px;
+}
+
+.igui_container_controls .igui_button_name-play .igui_button_tooltip {
+  left: 2px;
+  transform: translateX(0);
+}
+
+.igui_container_controls .igui_timestat {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.igui_container_controls .igui_timestat .igui_timestat_duration {
+  position: relative;
+  margin-left: 8px;
+}
+
+.igui_container_controls .igui_timestat .igui_timestat_duration:before {
+  position: absolute;
+  content: '/';
+  left: -6px;
+}
+
+.igui_container_controls .igui_button_name-fullscreen {
+  margin-right: 9px;
+}
+
+.igui_container_controls .igui_button_name-fullscreen .igui_button_tooltip {
+  right: 2px;
+  left: auto;
+  transform: translateX(0);
+}
+
+.igui_container_controls .igui_button_name-subtitle.igui_button_state-active {
+  position: relative;
+}
+
+.igui_container_controls .igui_button_name-subtitle.igui_button_state-active:before {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background-color: #fff;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 21px;
+}
+
+.igui_state-active .igui_container_controls {
+  opacity: 1;
+}
+
+.igui_container_controls_seekbar {
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 34px;
+}
+
+.igui_view_loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.igui_view_start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.igui_view_start::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.igui_view_start .igui_icon_play {
+  font-size: 48px;
+  z-index: 1;
+}
+
+.igui_seekbar {
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 6px;
+  padding-top: 16px;
+}
+
+.igui_seekbar_bars {
+  height: 5px;
+  background-color: rgba(255, 255, 255, .3);
+  position: relative;
+  width: 100%;
+  transform: scaleY(.6);
+  transition: transform 75ms linear;
+}
+
+.igui_seekbar_state-active .igui_seekbar_bars {
+  transform: scaleY(1);
+}
+
+.igui_seekbar_progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: #fff;
+}
+
+.igui_seekbar_ahead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: rgba(255, 255, 255, .3);
+  z-index: -1;
+}
+
+.igui_seekbar_buffered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: rgba(255, 255, 255, .3);
+}
+
+.igui_seekbar_scrubber {
+  width: 13px;
+  height: 13px;
+  background-color: #fff;
+  border-radius: 100%;
+  position: absolute;
+  transition: transform 75ms linear;
+  transform-origin: center;
+  transform: scale(0);
+  margin-left: -6.5px;
+  z-index: 1;
+}
+
+.igui_seekbar_state-active .igui_seekbar_scrubber {
+  transform: scale(1);
+}
+
+.igui_seekbar_state-playingad {
+  pointer-events: none;
+}
+
+.igui_seekbar_state-playingad .igui_seekbar_progress {
+  background-color: #ffe600;
+}
+
+.igui_seekbar_cuepoint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: #ffe600;
+}
+
+.igui_seekbar_tooltip {
+  position: absolute;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 4px 6px;
+  background-color: #222;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.igui_seekbar_state-active .igui_seekbar_tooltip {
+  opacity: 1;
+}
+
+.igui_seekbar_thumbnail {
+  position: absolute;
+  bottom: 24px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.igui_seekbar_thumbnail .igui_seekbar_thumbnail_sprite {
+  width: 100px;
+  height: 56.25px;
+}
+
+.igui_seekbar_state-active .igui_seekbar_thumbnail {
+  opacity: 1;
+}
+
+.igui_volume {
+  display: flex;
+  align-items: center;
+}
+
+.igui_volume .igui_button {
+  position: relative;
+}
+
+.igui_volume .igui_button .igui_icon_volume-1 {
+  position: relative;
+  left: -2px;
+}
+
+.igui_volume_container {
+  padding: 0 7px;
+}
+
+.igui_volume_collapse {
+  overflow: hidden;
+  width: 0;
+  transition: width 150ms ease-in-out;
+}
+
+.igui_volume_state-open .igui_volume_collapse {
+  width: 76px;
+}
+
+.igui_volumebar {
+  cursor: pointer;
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.igui_volumebar_container {
+  height: 3px;
+  background-color: rgba(255, 255, 255, .5);
+  position: relative;
+  width: 50px;
+}
+
+.igui_volumebar_progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-origin: left;
+  background-color: #fff;
+  height: 100%;
+}
+
+.igui_volumebar_scrubber {
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  border-radius: 100%;
+  position: relative;
+  top: -5.5px;
+  margin-left: -7px;
+}
+
+.igui_spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  border: 4px solid rgba(255, 255, 255, .2);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.igui_rebuffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.igui_center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.igui_center .igui_center_preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.igui_center .igui_center_preview:before {
+  content: '';
+  position: absolute;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+@font-face {
+  font-family: 'igui-icon-font';
+  src: url(e8ab1669c31e698989c318911f4893b0.ttf) format("truetype"),
+         url(c836126221e1fcba656bb5bc645f4d96.woff2) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.igui-icon-font {
+  font-family: 'igui-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-back:before {
+  content: "\e90c";
+}
+
+.icon-settings:before {
+  content: "\e90b";
+}
+
+.icon-pip:before {
+  content: "\e900";
+}
+
+.icon-hd:before {
+  content: "\e901";
+}
+
+.icon-cc:before {
+  content: "\e902";
+}
+
+.icon-fullscreen-exit:before {
+  content: "\e903";
+}
+
+.icon-fullscreen:before {
+  content: "\e904";
+}
+
+.icon-pause:before {
+  content: "\e905";
+}
+
+.icon-volume-2:before {
+  content: "\e906";
+}
+
+.icon-volume-off:before {
+  content: "\e907";
+}
+
+.icon-volume-1:before {
+  content: "\e908";
+}
+
+.icon-play-rounded:before {
+  content: "\e909";
+}
+
+.icon-play:before {
+  content: "\e90a";
+}
+
+.igui_view_error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.igui_settings {
+  position: absolute;
+  right: 9px;
+  bottom: 58px;
+  background-color: #222;
+  border-radius: 2px;
+  color: #fff;
+  z-index: 1;
+  min-width: 150px;
+  overflow-y: auto;
+}
+
+.igui_state-mobile .igui_settings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.igui_button_name-mobile-close {
+  float: right;
+  width: 31px;
+  height: 31px;
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.igui_settings_nooptions {
+  padding: 8px 16px;
+}
+
+.igui_settings_select {
+  margin: 3px 0;
+}
+
+.igui_settings_select .igui_button_name-select-option {
+  display: block;
+  padding: 8px 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.igui_settings_select .igui_button_name-select-option.igui_button_state-active {
+  text-decoration: underline;
+}
+
+.igui_settings_select .igui_button_name-select-option:hover {
+  background-color: #333;
+}
+
+.igui_settings_select .igui_button_name-select-option .igui_settings_select_option_info {
+  float: right;
+}
+
+.igui_settings_header {
+  padding: 8px 16px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid #555;
+}
+
+.igui_settings_header .igui_button_name-settings-back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  font-size: 16px;
+}
+
+.igui_image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.igui_image:after {
+  content: '';
+  background-color: rgba(0, 0, 0, .5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

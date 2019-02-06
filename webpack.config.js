@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const pkg = require('./package.json');
@@ -81,6 +82,21 @@ function createWebpackConfig(build, argv) {
         const publicPath = `https://cdn.jsdelivr.net/npm/indigo-player@${process.env.VERSION}/lib/`;
         config.output.publicPath = publicPath;
       }
+      break;
+
+    case 'player-theme':
+      config.entry = 'src/ui/theme/index.scss';
+      config.output = {
+        path: path.resolve(__dirname, 'lib'),
+      };
+      config.module.rules.forEach(rule => {
+        if (rule.test.test('.scss')) {
+          rule.use = [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'];
+        }
+      });
+      config.plugins.push(new MiniCssExtractPlugin({
+        filename: 'indigo-theme.css',
+      }));
       break;
 
     case 'dev':

@@ -30,7 +30,9 @@
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "jest": "^23.6.0",
+    "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
+    "perfectionist": "^2.4.0",
     "prettier": "^1.15.3",
     "prettier-tslint": "^0.4.2",
     "sass-loader": "^7.1.0",
@@ -47,7 +49,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
-    "build": "rm -rf lib && webpack --mode production",
+    "build": "rm -rf lib && webpack --mode production && yarn build:theme",
+    "build:theme": "webpack --builds player-theme && perfectionist ./lib/indigo-theme.css ./lib/indigo-theme.css --indentSize=2",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
