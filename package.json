@@ -54,6 +54,7 @@
   "main": "lib/indigo-player.js",
   "types": "src/index.d.ts",
   "dependencies": {
+    "@vimeo/player": "^2.7.0",
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",
     "deepmerge": "^3.1.0",
