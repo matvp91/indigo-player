@@ -150,10 +150,6 @@ export interface Config {
     src: string;
   };
 
-  vimeo?: {
-    id: string;
-  };
-
   subtitles: Subtitle[];
 
   thumbnails?: {
