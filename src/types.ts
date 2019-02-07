@@ -131,6 +131,7 @@ export interface Config {
     locale: string;
     pip: boolean;
     image?: string;
+    ignoreStylesheet?: boolean;
   };
 
   sources: Format[];

@@ -45,12 +45,12 @@
     "typescript": "^3.2.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webpack-shell-plugin": "^0.5.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player",
-    "build": "rm -rf lib && webpack --mode production && yarn build:theme",
-    "build:theme": "webpack --builds player-theme && perfectionist ./lib/indigo-theme.css ./lib/indigo-theme.css --indentSize=2",
+    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
+    "build": "rm -rf lib && webpack --mode production",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
