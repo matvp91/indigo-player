@@ -1,47 +1,21 @@
 import { Module } from '@src/Module';
-import { IController, ITrack } from '@src/types';
+import { IController, ITrack, ErrorCodes } from '@src/types';
+import { PlayerError } from '@src/PlayerError';
 
 export class Controller extends Module implements IController {
-  public async boot() {}
+  public async load() {}
 
-  public async load() {
-    this.instance.player.load();
-    this.instance.log('controller.load')('Player loaded');
+  public unload() {}
 
-    await this.instance.media.load();
-    this.instance.log('controller.load')('Media loaded');
-  }
+  public play() {}
 
-  public unload() {
-    if (this.instance.media) {
-      this.instance.media.unload();
-    }
-    if (this.instance.player) {
-      this.instance.player.unload();
-    }
-  }
+  public pause() {}
 
-  public play() {
-    this.instance.media.play();
-  }
+  public seekTo(time: number) {}
 
-  public pause() {
-    this.instance.media.pause();
-  }
+  public setVolume(volume: number) {}
 
-  public seekTo(time: number) {
-    this.instance.media.seekTo(time);
-  }
+  public selectTrack(track: ITrack) {}
 
-  public setVolume(volume: number) {
-    this.instance.media.setVolume(volume);
-  }
-
-  public selectTrack(track: ITrack) {
-    this.instance.media.selectTrack(track);
-  }
-
-  public setPlaybackRate(playbackRate: number) {
-    this.instance.media.setPlaybackRate(playbackRate);
-  }
+  public setPlaybackRate(playbackRate: number) {}
 }

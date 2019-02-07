@@ -15,8 +15,7 @@ export class HlsMedia extends Media {
       autoStartLoad: false,
     });
 
-    const mediaElement: HTMLMediaElement = (this.instance.player as HTML5Player)
-      .mediaElement;
+    const mediaElement: HTMLMediaElement = (this.instance.getModule('HTML5Player') as any).mediaElement;
 
     this.player.attachMedia(mediaElement);
 

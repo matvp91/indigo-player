@@ -143,6 +143,8 @@ export class StateExtension extends Module {
 
     const setCurrentTime = this.dispatch((draft, data) => {
       draft.currentTime = data.currentTime;
+      draft.buffering = false;
+      draft.playing = true;
     }, Events.STATE_CURRENTTIME_CHANGE);
     this.on(Events.PLAYER_STATE_TIMEUPDATE, setCurrentTime);
 

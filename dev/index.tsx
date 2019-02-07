@@ -18,9 +18,9 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     locale: 'en-US',
     image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
   },
-  thumbnails: {
-    src: './thumbnails.vtt',
-  },
+  // thumbnails: {
+  //   src: './thumbnails.vtt',
+  // },
   // thumbnails: {
   //   src: './thumbnails.vtt',
   // },
@@ -47,11 +47,11 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //   type: 'hls',
     //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     // },
-    {
-      type: 'mp4',
-      src:
-        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    },
+    // {
+    //   type: 'mp4',
+    //   src:
+    //     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    // },
     // {
     //   type: 'dash',
     //   src:
