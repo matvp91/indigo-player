@@ -197,6 +197,17 @@
   z-index: 1;
 }
 
+.igui_view_error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .igui_seekbar {
   cursor: pointer;
   width: 100%;
@@ -434,89 +445,6 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-@font-face {
-  font-family: 'igui-icon-font';
-  src: url(e8ab1669c31e698989c318911f4893b0.ttf) format("truetype"),
-         url(c836126221e1fcba656bb5bc645f4d96.woff2) format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.igui-icon-font {
-  font-family: 'igui-icon-font';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-back:before {
-  content: "\e90c";
-}
-
-.icon-settings:before {
-  content: "\e90b";
-}
-
-.icon-pip:before {
-  content: "\e900";
-}
-
-.icon-hd:before {
-  content: "\e901";
-}
-
-.icon-cc:before {
-  content: "\e902";
-}
-
-.icon-fullscreen-exit:before {
-  content: "\e903";
-}
-
-.icon-fullscreen:before {
-  content: "\e904";
-}
-
-.icon-pause:before {
-  content: "\e905";
-}
-
-.icon-volume-2:before {
-  content: "\e906";
-}
-
-.icon-volume-off:before {
-  content: "\e907";
-}
-
-.icon-volume-1:before {
-  content: "\e908";
-}
-
-.icon-play-rounded:before {
-  content: "\e909";
-}
-
-.icon-play:before {
-  content: "\e90a";
-}
-
-.igui_view_error {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .igui_settings {
   position: absolute;
   right: 9px;
@@ -607,4 +535,76 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+@font-face {
+  font-family: 'igui-icon-font';
+  src: url(e8ab1669c31e698989c318911f4893b0.ttf) format("truetype"),
+         url(c836126221e1fcba656bb5bc645f4d96.woff2) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.igui-icon-font {
+  font-family: 'igui-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.igui_icon_back:before {
+  content: "\e90c";
+}
+
+.igui_icon_settings:before {
+  content: "\e90b";
+}
+
+.igui_icon_pip:before {
+  content: "\e900";
+}
+
+.igui_icon_hd:before {
+  content: "\e901";
+}
+
+.igui_icon_cc:before {
+  content: "\e902";
+}
+
+.igui_icon_fullscreen-exit:before {
+  content: "\e903";
+}
+
+.igui_icon_fullscreen:before {
+  content: "\e904";
+}
+
+.igui_icon_pause:before {
+  content: "\e905";
+}
+
+.igui_icon_volume-2:before {
+  content: "\e906";
+}
+
+.igui_icon_volume-off:before {
+  content: "\e907";
+}
+
+.igui_icon_volume-1:before {
+  content: "\e908";
+}
+
+.igui_icon_play-rounded:before {
+  content: "\e909";
+}
+
+.igui_icon_play:before {
+  content: "\e90a";
 }

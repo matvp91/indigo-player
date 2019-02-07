@@ -1,15 +1,19 @@
 @import "./mixins.scss";
 @import "./root.scss";
+
 @import "./button.scss";
+
 @import "./view-controls.scss";
 @import "./view-loading.scss";
 @import "./view-start.scss";
+@import "./view-error.scss";
+
 @import "./element-seekbar.scss";
 @import "./element-volume.scss";
 @import "./element-spinner.scss";
 @import "./element-rebuffer.scss";
 @import "./element-center.scss";
-@import "./fonts/icons.scss";
-@import "./view-error.scss";
 @import "./element-settings.scss";
 @import "./element-image.scss";
+
+@import "./fonts/icons.scss";

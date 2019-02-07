@@ -13,7 +13,7 @@ export const Icon = (props: IconProps) => (
         [`igui_icon_${props.icon}`]: !!props.icon,
       },
       'igui-icon-font',
-      `icon-${props.icon}`,
+      `igui_icon_${props.icon}`,
     )}
   />
 );
