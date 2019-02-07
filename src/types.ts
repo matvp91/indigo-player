@@ -307,7 +307,6 @@ export interface IModule {
 }
 
 export interface IController extends IModule {
-  boot(): Promise<any>;
   load();
   unload();
 

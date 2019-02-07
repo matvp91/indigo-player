@@ -23,9 +23,9 @@ import find from 'lodash/find';
 const modules: Array<IModuleLoader<IModule>> = [
   BaseControllerLoader,
 
-  BaseMediaLoader,
   DashMediaLoader,
   HlsMediaLoader,
+  BaseMediaLoader,
 
   HTML5PlayerLoader,
 

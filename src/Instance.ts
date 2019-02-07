@@ -1,6 +1,6 @@
 import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
 import { PlayerError } from '@src/PlayerError';
-import { selectMedia } from '@src/selectMedia';
+import { selectExtensions, selectController } from '@src/selectModule';
 import '@src/styles.scss';
 import {
   Config,
@@ -194,52 +194,22 @@ export class Instance implements IInstance {
 
     this.env = await getEnv();
 
-    this.controller = await createFirstSupported<IController>(
-      ModuleLoaderTypes.CONTROLLER,
-      this,
-      this.config,
-    );
-
+    this.controller = await selectController(this);
     log('Controller selected', { controller: this.controller });
 
-    await this.controller.boot();
-
-    log('Controller booted');
-
-    this.extensions = await createAllSupported<IModule>(
-      ModuleLoaderTypes.EXTENSION,
-      this,
-      this.config,
-    );
-
+    this.extensions = await selectExtensions(this);
     log('Extensions loaded', { extensions: this.extensions });
-
-    this.player = await createFirstSupported<IPlayer>(
-      ModuleLoaderTypes.PLAYER,
-      this,
-    );
-
-    log('Player selected', { player: this.player });
-
-    const [format, media] = await selectMedia(this, config.sources);
-
-    log('Format and media selected', { format, media });
-
-    if (!media) {
-      log('Aborting, no suitable media found');
-      this.setError(new PlayerError(ErrorCodes.NO_SUPPORTED_FORMAT_FOUND));
-      return;
-    }
-
-    this.format = format;
-    this.media = media;
 
     try {
       await this.controller.load();
 
       log('Controller loaded');
     } catch (error) {
-      this.setError(new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error));
+      if (error instanceof PlayerError) {
+        this.setError(error);
+      } else {
+        this.setError(new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error));
+      }
       return;
     }
 

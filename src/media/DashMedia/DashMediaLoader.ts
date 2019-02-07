@@ -24,6 +24,10 @@ export const DashMediaLoader = {
     instance: IInstance,
     format: Format,
   ): Promise<boolean> => {
+    if (instance.player.name !== 'HTML5Player') {
+      return false;
+    }
+
     if (format.type !== FormatTypes.DASH) {
       return false;
     }
