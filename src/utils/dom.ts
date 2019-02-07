@@ -1,4 +1,8 @@
-export function createElement<T>(tag: string, style?: any, attributes?: any): T {
+export function createElement<T>(
+  tag: string,
+  style?: any,
+  attributes?: any,
+): T {
   const element: HTMLElement = document.createElement(tag);
 
   if (style) {

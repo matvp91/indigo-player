@@ -2,11 +2,11 @@ import { Module } from '@src/Module';
 import { PlayerError } from '@src/PlayerError';
 import {
   AdBreakType,
-  Subtitle,
   Events,
   IEventData,
   IInstance,
   ITrack,
+  Subtitle,
 } from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';

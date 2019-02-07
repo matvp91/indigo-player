@@ -185,7 +185,11 @@ export const Settings = withState((props: SettingsProps) => {
   const renderTab = tabs[props.data.settingsTab];
   return renderTab ? (
     <div className='igui_settings'>
-      {props.data.isMobile && <Button name="mobile-close" onClick={props.actions.toggleSettings}>&times;</Button>}
+      {props.data.isMobile && (
+        <Button name='mobile-close' onClick={props.actions.toggleSettings}>
+          &times;
+        </Button>
+      )}
       {renderTab(props)}
     </div>
   ) : null;

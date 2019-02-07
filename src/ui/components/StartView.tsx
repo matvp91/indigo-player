@@ -4,8 +4,8 @@ import { withState } from '@src/ui/withState';
 import * as React from 'react';
 
 interface StartViewProps {
-  playOrPause();
   image: string;
+  playOrPause();
 }
 
 export const StartView = withState((props: StartViewProps) => {
@@ -15,7 +15,12 @@ export const StartView = withState((props: StartViewProps) => {
       className='igui_view_start'
       onClick={props.playOrPause}
     >
-      {!!props.image && <div className='igui_image' style={{ backgroundImage: `url(${props.image})` }} />}
+      {!!props.image && (
+        <div
+          className='igui_image'
+          style={{ backgroundImage: `url(${props.image})` }}
+        />
+      )}
       <Icon icon='play' />
     </button>
   );

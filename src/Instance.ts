@@ -1,6 +1,7 @@
+import { createConfig } from '@src/createConfig';
 import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
 import { PlayerError } from '@src/PlayerError';
-import { selectExtensions, selectController } from '@src/selectModule';
+import { selectController, selectExtensions } from '@src/selectModule';
 import '@src/styles.scss';
 import {
   Config,
@@ -20,7 +21,6 @@ import {
   ITrack,
   ModuleLoaderTypes,
 } from '@src/types';
-import { createConfig } from '@src/createConfig';
 import { getEnv } from '@src/utils/getEnv';
 import { log } from '@src/utils/log';
 import { storage } from '@src/utils/storage';
@@ -208,7 +208,9 @@ export class Instance implements IInstance {
       if (error instanceof PlayerError) {
         this.setError(error);
       } else {
-        this.setError(new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error));
+        this.setError(
+          new PlayerError(ErrorCodes.CONTROLLER_LOAD_FAILED, error),
+        );
       }
       return;
     }

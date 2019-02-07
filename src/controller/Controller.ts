@@ -1,6 +1,6 @@
 import { Module } from '@src/Module';
-import { IController, ITrack, ErrorCodes } from '@src/types';
 import { PlayerError } from '@src/PlayerError';
+import { ErrorCodes, IController, ITrack } from '@src/types';
 
 export class Controller extends Module implements IController {
   public async load() {}

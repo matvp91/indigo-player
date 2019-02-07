@@ -1,6 +1,6 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Subtitle, Events, IEventData, IInstance } from '@src/types';
+import { Events, IEventData, IInstance, Subtitle } from '@src/types';
 
 interface ISubtitleChangeEventData extends IEventData {
   subtitle: Subtitle;
@@ -28,7 +28,9 @@ export class SubtitlesExtension extends Module {
         return;
       }
 
-      const mediaElement: HTMLMediaElement = (this.instance.getModule('HTML5Player') as any).mediaElement;
+      const mediaElement: HTMLMediaElement = (this.instance.getModule(
+        'HTML5Player',
+      ) as any).mediaElement;
 
       tracks.forEach(track => {
         mediaElement.appendChild(track);
@@ -37,7 +39,9 @@ export class SubtitlesExtension extends Module {
   }
 
   public setSubtitle(srclang: string) {
-    const mediaElement: HTMLMediaElement = (this.instance.getModule('HTML5Player') as any).mediaElement;
+    const mediaElement: HTMLMediaElement = (this.instance.getModule(
+      'HTML5Player',
+    ) as any).mediaElement;
 
     for (let i = 0; i < mediaElement.textTracks.length; i++) {
       const track = mediaElement.textTracks[i];

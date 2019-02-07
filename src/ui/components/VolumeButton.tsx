@@ -8,11 +8,11 @@ import React from 'react';
 interface VolumeButtonProps {
   volumeIcon: string;
   tooltipText: string;
+  isVolumeControlsOpen: boolean;
+  volumeBarPercentage: number;
   toggleMute();
   setVolumeControlsOpen(open: boolean);
   setVolumebarState(state: any);
-  isVolumeControlsOpen: boolean;
-  volumeBarPercentage: number;
 }
 
 const ref = React.createRef();
@@ -65,7 +65,9 @@ function mapProps(info: IInfo): VolumeButtonProps {
 
   return {
     volumeIcon,
-    tooltipText: info.data.getTranslation(info.data.volumeBarPercentage === 0 ? 'Unmute' : 'Mute'),
+    tooltipText: info.data.getTranslation(
+      info.data.volumeBarPercentage === 0 ? 'Unmute' : 'Mute',
+    ),
     toggleMute: info.actions.toggleMute,
     setVolumeControlsOpen: info.actions.setVolumeControlsOpen,
     setVolumebarState: info.actions.setVolumebarState,

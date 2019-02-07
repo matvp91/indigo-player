@@ -10,5 +10,6 @@ export const UiExtensionLoader = {
       ({ UiExtension }) => new UiExtension(instance),
     ),
 
-  isSupported: ({ config }: { config: Config }): boolean => config.ui && config.ui.enabled,
+  isSupported: ({ config }: { config: Config }): boolean =>
+    config.ui && config.ui.enabled,
 } as IModuleLoader<UiExtension>;

@@ -11,7 +11,12 @@ interface LoadingViewProps {
 export const LoadingView = withState((props: LoadingViewProps) => {
   return (
     <div className='igui_view_loading'>
-      {!!props.image && <div className='igui_image' style={{ backgroundImage: `url(${props.image})` }} />}
+      {!!props.image && (
+        <div
+          className='igui_image'
+          style={{ backgroundImage: `url(${props.image})` }}
+        />
+      )}
       <Spinner />
     </div>
   );

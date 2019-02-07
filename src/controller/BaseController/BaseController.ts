@@ -1,6 +1,6 @@
 import { Controller } from '@src/controller/Controller';
-import { selectPlayer, selectMedia } from '@src/selectModule';
 import { PlayerError } from '@src/PlayerError';
+import { selectMedia, selectPlayer } from '@src/selectModule';
 import { ErrorCodes, ITrack } from '@src/types';
 
 export class BaseController extends Controller {

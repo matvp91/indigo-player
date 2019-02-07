@@ -23,12 +23,14 @@ export class UiExtension extends Module {
     );
   }
 
-  setTheme() {
+  public setTheme() {
     if (this.instance.config.ui.ignoreStylesheet || loadedThemeStylesheet) {
       return;
     }
 
-    const hasThemeStylesheet = !!document.body.querySelector('link[data-indigo]');
+    const hasThemeStylesheet = !!document.body.querySelector(
+      'link[data-indigo]',
+    );
     if (hasThemeStylesheet) {
       return;
     }

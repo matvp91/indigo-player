@@ -1,11 +1,11 @@
 import { BaseControllerLoader } from '@src/controller/BaseController/BaseControllerLoader';
 import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
-import { SubtitlesExtensionLoader } from '@src/extensions/SubtitlesExtension/SubtitlesExtensionLoader';
 import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
 import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
 import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
 import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoader';
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
+import { SubtitlesExtensionLoader } from '@src/extensions/SubtitlesExtension/SubtitlesExtensionLoader';
 import { ThumbnailsExtensionLoader } from '@src/extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';

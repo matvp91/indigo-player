@@ -1,17 +1,12 @@
 import {
   AdBreakType,
-  Subtitle,
   IInstance,
   IThumbnail,
   ITrack,
+  Subtitle,
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
-import {
-  IActions,
-  IData,
-  SettingsTabs,
-  ViewTypes,
-} from '@src/ui/types';
+import { IActions, IData, SettingsTabs, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import uniqBy from 'lodash/uniqBy';
