@@ -19,6 +19,8 @@ Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
 If you'd like to develop your own module for indigo-player (apply own business rules, integrate an ad provider, write new media support, ...), take a look at the sample project: https://github.com/matvp91/indigo-player-extension-example
 
+I've created a repository with themes here: https://github.com/matvp91/indigo-player-themes
+
 ## Getting started
 
 The example below will load a simple MP4 file, and attempt to autoplay it.
