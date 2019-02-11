@@ -5,6 +5,7 @@ import { Seekbar } from '@src/ui/components/Seekbar';
 import { Settings } from '@src/ui/components/Settings';
 import { TimeStat } from '@src/ui/components/TimeStat';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
+import { Nod } from '@src/ui/components/Nod';
 import { IInfo } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
@@ -33,6 +34,7 @@ interface ControlsViewProps {
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <>
+      <Nod />
       <Settings />
       {props.isCenterClickAllowed && <Center />}
       {props.showRebuffer && <Rebuffer />}

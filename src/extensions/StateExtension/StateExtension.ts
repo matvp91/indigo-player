@@ -11,7 +11,7 @@ import {
 import produce from 'immer';
 import find from 'lodash/find';
 
-interface IState {
+export interface IState {
   ready: boolean;
   videoSessionStarted: boolean;
   waitingForUser: boolean;
@@ -265,6 +265,10 @@ export class StateExtension extends Module {
       state: this.state,
       prevState: null,
     } as IStateChangeEventData);
+  }
+
+  public getState(): IState {
+    return this.state;
   }
 
   public dispatch = (fn, emitEvent: Events) => {

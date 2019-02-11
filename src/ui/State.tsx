@@ -4,6 +4,8 @@ import {
   IThumbnail,
   ITrack,
   Subtitle,
+  Events,
+  KeyboardNavigationPurpose,
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
 import { triggerEvent } from '@src/ui/triggerEvent';
@@ -37,6 +39,8 @@ interface StateStoreState {
 
   lastActiveSubtitle: Subtitle;
   activeThumbnail: IThumbnail;
+
+  nodPurpose: KeyboardNavigationPurpose,
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -50,6 +54,8 @@ export class StateStore extends React.Component<
   StateStoreState
 > {
   private activeTimer: number;
+
+  private nodTimer: number;
 
   private unsubscribe: EventUnsubscribeFn;
 
@@ -75,6 +81,8 @@ export class StateStore extends React.Component<
 
       lastActiveSubtitle: null,
       activeThumbnail: null,
+
+      nodPurpose: null,
     };
 
     this.unsubscribe = attachEvents([
@@ -94,6 +102,21 @@ export class StateStore extends React.Component<
         callback: this.closeSettings,
       },
     ]);
+
+    this.props.instance.on(Events.KEYBOARDNAVIGATION_KEYDOWN, data => {
+      if (this.nodTimer) {
+        clearTimeout(this.nodTimer);
+        this.nodTimer = null;
+      }
+
+      this.showControls();
+      this.setState({ nodPurpose: data.purpose });
+
+      this.nodTimer = (window as any).setTimeout(() => {
+        this.setState({ nodPurpose: null });
+        this.nodTimer = null;
+      }, 1000);
+    });
   }
 
   public componentWillUnmount() {
@@ -438,6 +461,7 @@ export class StateStore extends React.Component<
       visibleSettingsTabs,
       isMobile: this.props.instance.env.isMobile,
       image: this.props.instance.config.ui.image,
+      nodPurpose: this.state.nodPurpose,
 
       // Player
       playRequested: this.props.player.playRequested,

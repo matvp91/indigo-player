@@ -64,6 +64,7 @@ export enum Events {
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
   PIP_CHANGE = 'pip:change',
+  KEYBOARDNAVIGATION_KEYDOWN = 'keyboardnavigation:keydown',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -127,6 +128,7 @@ export interface Config {
   enableLogs: boolean;
 
   autoplay: boolean;
+  keyboardNavigation: boolean | 'focus';
 
   ui: {
     enabled: boolean;
@@ -214,6 +216,21 @@ export interface IEnv {
 // Events
 
 export type EventCallback = any;
+
+export enum KeyboardNavigationPurpose {
+  PAUSE = 'pause',
+  PLAY = 'play',
+  PREV_SEEK = 'prev-seek',
+  NEXT_SEEK = 'next-seek',
+  VOLUME_UP = 'volume-up',
+  VOLUME_DOWN = 'volume-down',
+  TOGGLE_MUTE = 'toggle-mute',
+  TOGGLE_FULLSCREEN = 'toggle-fullscreen',
+}
+
+export interface IKeyboardNavigationKeyDownEventData extends IEventData {
+  purpose: KeyboardNavigationPurpose;
+}
 
 export interface IPlaybackRateChangeEventData extends IEventData {
   playbackRate: number;
