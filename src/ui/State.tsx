@@ -6,6 +6,7 @@ import {
   Subtitle,
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
+import { triggerEvent } from '@src/ui/triggerEvent';
 import { IActions, IData, SettingsTabs, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
@@ -51,6 +52,8 @@ export class StateStore extends React.Component<
   private activeTimer: number;
 
   private unsubscribe: EventUnsubscribeFn;
+
+  private prevData: IData;
 
   constructor(props) {
     super(props);
@@ -100,6 +103,10 @@ export class StateStore extends React.Component<
   public render() {
     const data = this.createData();
     const actions = this.createActions();
+
+    triggerEvent(this.props.instance, data, this.prevData);
+
+    this.prevData = data;
 
     return (
       <StateContext.Provider value={{ data, actions }}>

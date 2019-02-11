@@ -14,7 +14,6 @@ import {
   NextHook,
 } from '@src/types';
 import find from 'lodash/find';
-import get from 'lodash/get';
 
 interface IFWAdBreak extends IAdBreak {
   maxAds: number;
@@ -47,7 +46,7 @@ export class FreeWheelExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    if (!get(window, 'tv.freewheel.SDK')) {
+    if (!(window as any).tv || !(window as any).tv.freewheel || !(window as any).tv.freewheel.SDK) {
       return;
     }
 

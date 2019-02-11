@@ -28,11 +28,11 @@ export class UiExtension extends Module {
       return;
     }
 
-    const hasThemeStylesheet = !!document.body.querySelector(
-      'link[data-indigo]',
-    );
-    if (hasThemeStylesheet) {
-      return;
+    const regex: RegExp = /indigo-theme-[a-zA-Z]+\.css/;
+    for (const link of Array.from(document.querySelectorAll('link'))) {
+      if (regex.test(link.href)) {
+        return;
+      }
     }
 
     loadedThemeStylesheet = true;

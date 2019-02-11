@@ -13,7 +13,6 @@ import {
   IInstance,
   NextHook,
 } from '@src/types';
-import get from 'lodash/get';
 
 interface IIMAAdBreak extends IAdBreak {
   googleIMAAd?: any;
@@ -41,7 +40,7 @@ export class GoogleIMAExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    if (!get(window, 'google.ima')) {
+    if (!(window as any).google || !(window as any).google.ima) {
       return;
     }
 

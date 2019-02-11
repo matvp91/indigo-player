@@ -90,6 +90,9 @@ export enum Events {
   STATE_SUBTITLE_CHANGE = 'state:subtitle-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
   STATE_PIP_CHANGE = 'state:pip-change',
+
+  // UI
+  UI_VISIBLECONTROLS_CHANGE = 'ui:visiblecontrols-change',
 }
 
 export enum ErrorCodes {

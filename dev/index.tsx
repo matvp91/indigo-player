@@ -43,6 +43,11 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   //   src: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator=',
   // },
   sources: [
+    {
+      type: 'hls',
+      src:
+        'https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo/vier/dedag/volledigeafleveringen/133fc7a62dea3da106ba0b9f54f6e83d4f6777ec/DE_DAG_1_8_F0261554/DE_DAG_1_8_F0261554.m3u8',
+    },
     // {
     //   type: 'hls',
     //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
@@ -71,10 +76,10 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
     //     },
     //   },
     // },
-    {
-      type: 'dash',
-      src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
-    },
+    // {
+    //   type: 'dash',
+    //   src: 'http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd',
+    // },
     // {
     //   type: 'hls',
     //   src:
@@ -111,6 +116,14 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
 
 player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
   render(state);
+});
+
+Object.values(IndigoPlayer.Events).forEach((name: string) => {
+  if (name.startsWith('ui:')) {
+    player.on(name, data => {
+      console.log('UI event', name, data);
+    });
+  }
 });
 
 export interface StateProps {
