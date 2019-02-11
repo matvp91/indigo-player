@@ -276,5 +276,62 @@ All events are available in `IndigoPlayer.Events.<Event>`.
       </td>
       <td>The fullscreen state has changed.</td>
     </tr>
+    <tr>
+      <td><code>STATE_TRACKS</code></td>
+      <td>
+        <ul>
+          <li>tracks: <i>Array<Track></i></li>
+        </ul>
+      </td>
+      <td>Media has provided several quality tracks.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_TRACK_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>track: <i>Track</i></li>
+        </ul>
+      </td>
+      <td>A current quality track has been changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_SUBTITLE_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>subtitle: <i>Subtitle</i></li>
+        </ul>
+      </td>
+      <td>An active subtitle has been changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_PLAYBACKRATE_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>playbackRate: <i>number</i></li>
+        </ul>
+      </td>
+      <td>The current playback rate has been changed.</td>
+    </tr>
+    <tr>
+      <td><code>STATE_PIP_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>pip: <i>boolean</i></li>
+        </ul>
+      </td>
+      <td>Picture-in-Picture mode has either been enabled or disabled.</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="title">UI</td>
+    </tr>
+    <tr>
+      <td><code>UI_VISIBLECONTROLS_CHANGE</code></td>
+      <td>
+        <ul>
+          <li>visibleControls: <i>boolean</i></li>
+        </ul>
+      </td>
+      <td>The controls are made visible or not.</td>
+    </tr>
   </tbody>
 </table>
