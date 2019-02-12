@@ -224,7 +224,8 @@ export enum KeyboardNavigationPurpose {
   NEXT_SEEK = 'next-seek',
   VOLUME_UP = 'volume-up',
   VOLUME_DOWN = 'volume-down',
-  TOGGLE_MUTE = 'toggle-mute',
+  VOLUME_MUTED = 'volume-muted',
+  VOLUME_UNMUTED = 'volume-unmuted',
   TOGGLE_FULLSCREEN = 'toggle-fullscreen',
 }
 

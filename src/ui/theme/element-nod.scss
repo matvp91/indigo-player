@@ -1,6 +1,36 @@
 .igui_nod {
+  pointer-events: none;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  margin-left: -(48 / 2);
+  margin-top: -(48 / 2);
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  animation-duration: 500ms;
+  opacity: 0;
+
+  &.igui_nod-active {
+    animation-name: nod-zoomin;
+  }
+}
+
+@keyframes nod-zoomin {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  70% { opacity: 1; }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
 }

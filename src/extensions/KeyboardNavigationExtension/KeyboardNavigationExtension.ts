@@ -1,7 +1,12 @@
-import { Module } from '@src/Module';
-import { Events, IInstance, IKeyboardNavigationKeyDownEventData, KeyboardNavigationPurpose } from '@src/types';
-import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
 import { FullscreenExtension } from '@src/extensions/FullscreenExtension/FullscreenExtension';
+import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
+import { Module } from '@src/Module';
+import {
+  Events,
+  IInstance,
+  IKeyboardNavigationKeyDownEventData,
+  KeyboardNavigationPurpose,
+} from '@src/types';
 
 enum KeyCodes {
   SPACEBAR = 32,
@@ -21,24 +26,26 @@ const SKIP_VOLUME_OFFSET: number = 0.1;
 export class KeyboardNavigationExtension extends Module {
   public name: string = 'KeyboardNavigationExtension';
 
+  private hasFocus: boolean;
+
   constructor(instance: IInstance) {
     super(instance);
 
     (window as any).addEventListener('keydown', this.onKeyDown);
+    (window as any).addEventListener('mousedown', this.onMouseDown);
   }
 
-  private getState() {
-    return (this.instance.getModule('StateExtension') as StateExtension).getState();
+  public triggerFocus() {
+    this.hasFocus = true;
   }
 
-  private emitPurpose(purpose: KeyboardNavigationPurpose) {
-    this.instance.emit(Events.KEYBOARDNAVIGATION_KEYDOWN, {
-      purpose,
-    } as IKeyboardNavigationKeyDownEventData);
-  }
+  private onKeyDown = (event: KeyboardEvent) => {
+    if (this.instance.config.keyboardNavigation === 'focus' && !this.hasFocus) {
+      return;
+    }
 
-  private onKeyDown = event => {
     switch (event.which || event.keyCode) {
+      // Toggles play and pause.
       case KeyCodes.SPACEBAR:
       case KeyCodes.K:
         if (this.getState().playRequested) {
@@ -51,6 +58,7 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
+      // Seeks back x seconds.
       case KeyCodes.LEFT_ARROW:
         let prevTime = this.getState().currentTime - SKIP_CURRENTTIME_OFFSET;
         if (prevTime < 0) {
@@ -61,6 +69,7 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
+      // Seeks forward x seconds.
       case KeyCodes.RIGHT_ARROW:
         let nextTime = this.getState().currentTime + SKIP_CURRENTTIME_OFFSET;
         if (nextTime > this.getState().duration) {
@@ -71,6 +80,7 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
+      // Increases the volume.
       case KeyCodes.UP_ARROW:
         let nextVolume = this.getState().volume + SKIP_VOLUME_OFFSET;
         if (nextVolume > 1) {
@@ -81,6 +91,7 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
+      // Decreases the volume.
       case KeyCodes.DOWN_ARROW:
         let prevVolume = this.getState().volume - SKIP_VOLUME_OFFSET;
         if (prevVolume < 0) {
@@ -91,18 +102,23 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
+      // Toggles mute.
       case KeyCodes.M:
         if (this.getState().volume > 0) {
           this.instance.setVolume(0);
+          this.emitPurpose(KeyboardNavigationPurpose.VOLUME_MUTED);
         } else {
           this.instance.setVolume(1);
+          this.emitPurpose(KeyboardNavigationPurpose.VOLUME_UNMUTED);
         }
-        this.emitPurpose(KeyboardNavigationPurpose.TOGGLE_MUTE);
         event.preventDefault();
         break;
 
+      // Toggles fullscreen.
       case KeyCodes.F:
-        const fullscreenExtension: FullscreenExtension = this.instance.getModule('FullscreenExtension') as FullscreenExtension;
+        const fullscreenExtension: FullscreenExtension = this.instance.getModule(
+          'FullscreenExtension',
+        ) as FullscreenExtension;
         if (fullscreenExtension) {
           fullscreenExtension.toggleFullscreen();
           this.emitPurpose(KeyboardNavigationPurpose.TOGGLE_FULLSCREEN);
@@ -111,4 +127,20 @@ export class KeyboardNavigationExtension extends Module {
         break;
     }
   };
+
+  private onMouseDown = (event: MouseEvent) => {
+    this.hasFocus = this.instance.container.contains(event.target as Node);
+  };
+
+  private getState() {
+    return (this.instance.getModule(
+      'StateExtension',
+    ) as StateExtension).getState();
+  }
+
+  private emitPurpose(purpose: KeyboardNavigationPurpose) {
+    this.instance.emit(Events.KEYBOARDNAVIGATION_KEYDOWN, {
+      purpose,
+    } as IKeyboardNavigationKeyDownEventData);
+  }
 }

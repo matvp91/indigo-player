@@ -1,11 +1,11 @@
 import { Button } from '@src/ui/components/Button';
 import { Center } from '@src/ui/components/Center';
+import { Nod } from '@src/ui/components/Nod';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
 import { Settings } from '@src/ui/components/Settings';
 import { TimeStat } from '@src/ui/components/TimeStat';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
-import { Nod } from '@src/ui/components/Nod';
 import { IInfo } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';

@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { IThumbnail, ITrack, Subtitle, KeyboardNavigationPurpose } from '@src/types';
+import { IThumbnail, ITrack, Subtitle } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -40,12 +40,12 @@ export interface IData {
   activeThumbnail: IThumbnail;
   isMobile: boolean;
   image: string;
-  nodPurpose: KeyboardNavigationPurpose;
+  nodIcon: string;
   getTranslation(text: string): string;
 }
 
 export interface IActions {
-  playOrPause();
+  playOrPause(origin?: string);
   startSeeking();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
