@@ -50,6 +50,10 @@ export class BaseController extends Controller {
     this.instance.media.selectTrack(track);
   }
 
+  public selectAudioLanguage(language: string) {
+    this.instance.media.selectAudioLanguage(language);
+  }
+
   public setPlaybackRate(playbackRate: number) {
     this.instance.media.setPlaybackRate(playbackRate);
   }

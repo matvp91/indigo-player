@@ -114,6 +114,10 @@ export class Instance implements IInstance {
     this.controller.selectTrack(track);
   }
 
+  public selectAudioLanguage(language: string) {
+    this.controller.selectAudioLanguage(language);
+  }
+
   public setPlaybackRate(playbackRate: number) {
     this.controller.setPlaybackRate(playbackRate);
   }

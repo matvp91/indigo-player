@@ -434,14 +434,17 @@ export class StateStore extends React.Component<
       }
     }
 
-    const tracks = uniqBy(
+    const tracks = uniqBy<ITrack>(
       this.props.player.tracks.sort((a, b) => b.bandwidth - a.bandwidth),
       'width',
     );
 
-    const activeTrack = this.props.player.track;
+    let activeTrack = null;
+    if (this.props.player.track) {
+      activeTrack = tracks.find(track => track.id === this.props.player.track.id);
+    }
 
-    let selectedTrack = this.props.player.track;
+    let selectedTrack = activeTrack;
     if (this.props.player.trackAutoSwitch) {
       selectedTrack = 'auto';
     }

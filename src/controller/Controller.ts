@@ -17,5 +17,7 @@ export class Controller extends Module implements IController {
 
   public selectTrack(track: ITrack) {}
 
+  public selectAudioLanguage(language: string) {}
+
   public setPlaybackRate(playbackRate: number) {}
 }

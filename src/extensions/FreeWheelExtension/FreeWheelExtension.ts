@@ -345,7 +345,7 @@ export class FreeWheelExtension extends Module {
   }
 
   private slotToAdBreak(slot: any): IFWAdBreak {
-    return find(this.adBreaks, {
+    return find<IFWAdBreak>(this.adBreaks, {
       id: slot.getCustomId(),
     });
   }

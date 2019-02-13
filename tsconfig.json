@@ -14,7 +14,8 @@
       "@src/*": ["src/*"]
     },
     "lib": ["dom", "es2018"],
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true
   },
   "include": [
     "./src/**/*"
