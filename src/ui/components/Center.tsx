@@ -7,11 +7,16 @@ import * as React from 'react';
 interface CenterProps {
   seekingThumbnail?: IThumbnail;
   playOrPause();
+  toggleFullscreen();
 }
 
 export const Center = withState((props: CenterProps) => {
   return (
-    <div className='igui_center' onClick={props.playOrPause}>
+    <div
+      className='igui_center'
+      onClick={props.playOrPause}
+      onDoubleClick={props.toggleFullscreen}
+    >
       {!!props.seekingThumbnail && (
         <Sprite className='igui_center_preview' {...props.seekingThumbnail} />
       )}
@@ -25,5 +30,6 @@ function mapProps(info: IInfo): CenterProps {
     seekingThumbnail: info.data.isSeekbarSeeking
       ? info.data.activeThumbnail
       : null,
+    toggleFullscreen: info.actions.toggleFullscreen,
   };
 }

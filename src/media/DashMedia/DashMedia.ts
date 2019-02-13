@@ -5,12 +5,12 @@ import {
   ErrorCodes,
   Events,
   Format,
+  IAudioLanguagesEventData,
   IEventData,
   IInstance,
   ITrack,
   ITrackChangeEventData,
   ITracksEventData,
-  IAudioLanguagesEventData,
 } from '@src/types';
 import * as shaka from 'shaka-player';
 
@@ -101,8 +101,7 @@ export class DashMedia extends Media {
         tracks,
       } as ITracksEventData);
 
-      const audioLanguages = this.player
-        .getAudioLanguages();
+      const audioLanguages = this.player.getAudioLanguages();
 
       this.emit(Events.MEDIA_STATE_AUDIOLANGUAGES, {
         audioLanguages,

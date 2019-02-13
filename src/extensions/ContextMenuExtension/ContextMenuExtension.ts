@@ -20,9 +20,17 @@ export class ContextMenuExtension extends Module {
     this.contextMenu.style.opacity = '0';
     instance.container.appendChild(this.contextMenu);
 
-    this.addItem(`<img src='${logo}' /> Powered by <b>indigo-player v${pkgInfo.version}</b>`, () => {
-      (window as any).open('https://matvp91.github.io/indigo-player', '_blank');
-    });
+    this.addItem(
+      `<img src='${logo}' /> Powered by <b>indigo-player v${
+        pkgInfo.version
+      }</b>`,
+      () => {
+        (window as any).open(
+          'https://matvp91.github.io/indigo-player',
+          '_blank',
+        );
+      },
+    );
   }
 
   public addItem(html: string, onClick: any) {

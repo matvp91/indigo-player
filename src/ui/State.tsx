@@ -441,7 +441,9 @@ export class StateStore extends React.Component<
 
     let activeTrack = null;
     if (this.props.player.track) {
-      activeTrack = tracks.find(track => track.id === this.props.player.track.id);
+      activeTrack = tracks.find(
+        track => track.id === this.props.player.track.id,
+      );
     }
 
     let selectedTrack = activeTrack;

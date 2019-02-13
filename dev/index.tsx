@@ -45,7 +45,8 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   sources: [
     {
       type: 'dash',
-      src: 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd',
+      src:
+        'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd',
     },
     // {
     //   type: 'hls',

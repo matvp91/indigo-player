@@ -1,19 +1,18 @@
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, Format, ITrack, ITracksEventData, ITrackChangeEventData } from '@src/types';
+import {
+  Events,
+  Format,
+  ITrack,
+  ITrackChangeEventData,
+  ITracksEventData,
+} from '@src/types';
 import HlsJs from 'hls.js';
 
 export class HlsMedia extends Media {
   public name: string = 'HlsMedia';
 
   public player: any;
-
-  private formatTrack = (track: any, id: number): ITrack => ({
-    id,
-    width: track.width,
-    height: track.height,
-    bandwidth: track.bitrate,
-  });
 
   public async load() {
     await super.load();
@@ -31,7 +30,7 @@ export class HlsMedia extends Media {
     this.player.on(HlsJs.Events.MANIFEST_PARSED, (event, data) => {
       const tracks = data.levels
         .map(this.formatTrack)
-        .sort((a, b) => b.bandwidth - a.bandwidth)
+        .sort((a, b) => b.bandwidth - a.bandwidth);
 
       this.emit(Events.MEDIA_STATE_TRACKS, {
         tracks,
@@ -46,7 +45,6 @@ export class HlsMedia extends Media {
         auto: this.player.autoLevelEnabled,
       } as ITrackChangeEventData);
     });
-
 
     this.player.loadSource(this.instance.format.src);
 
@@ -73,4 +71,11 @@ export class HlsMedia extends Media {
       this.player.currentLevel = (track as ITrack).id;
     }
   }
+
+  private formatTrack = (track: any, id: number): ITrack => ({
+    id,
+    width: track.width,
+    height: track.height,
+    bandwidth: track.bitrate,
+  });
 }

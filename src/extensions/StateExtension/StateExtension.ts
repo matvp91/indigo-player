@@ -50,7 +50,7 @@ export interface IState {
 
   playbackRate: number;
 
-  audioLanguages: string[],
+  audioLanguages: string[];
 }
 
 interface IStateChangeEventData extends IEventData {
