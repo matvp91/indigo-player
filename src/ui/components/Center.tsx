@@ -21,7 +21,7 @@ export const Center = withState((props: CenterProps) => {
 
 function mapProps(info: IInfo): CenterProps {
   return {
-    playOrPause: info.actions.playOrPause,
+    playOrPause: () => info.actions.playOrPause('center'),
     seekingThumbnail: info.data.isSeekbarSeeking
       ? info.data.activeThumbnail
       : null,

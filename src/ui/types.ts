@@ -40,11 +40,12 @@ export interface IData {
   activeThumbnail: IThumbnail;
   isMobile: boolean;
   image: string;
+  nodIcon: string;
   getTranslation(text: string): string;
 }
 
 export interface IActions {
-  playOrPause();
+  playOrPause(origin?: string);
   startSeeking();
   seekToPercentage(percentage: number);
   setVolume(volume: number);

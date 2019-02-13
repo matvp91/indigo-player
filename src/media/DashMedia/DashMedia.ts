@@ -10,6 +10,7 @@ import {
   ITrack,
   ITrackChangeEventData,
   ITracksEventData,
+  IAudioLanguagesEventData,
 } from '@src/types';
 import * as shaka from 'shaka-player';
 
@@ -99,6 +100,13 @@ export class DashMedia extends Media {
       this.emit(Events.MEDIA_STATE_TRACKS, {
         tracks,
       } as ITracksEventData);
+
+      const audioLanguages = this.player
+        .getAudioLanguages();
+
+      this.emit(Events.MEDIA_STATE_AUDIOLANGUAGES, {
+        audioLanguages,
+      } as IAudioLanguagesEventData);
     } catch (error) {
       this.onError(error);
     }
@@ -129,6 +137,10 @@ export class DashMedia extends Media {
         this.player.selectVariantTrack(variantTrack, true);
       }
     }
+  }
+
+  public selectAudioLanguage(language: string) {
+    this.player.selectAudioLanguage(language);
   }
 
   private emitTrackChange() {

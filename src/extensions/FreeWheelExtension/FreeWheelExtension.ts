@@ -46,7 +46,11 @@ export class FreeWheelExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    if (!(window as any).tv || !(window as any).tv.freewheel || !(window as any).tv.freewheel.SDK) {
+    if (
+      !(window as any).tv ||
+      !(window as any).tv.freewheel ||
+      !(window as any).tv.freewheel.SDK
+    ) {
       return;
     }
 
@@ -341,7 +345,7 @@ export class FreeWheelExtension extends Module {
   }
 
   private slotToAdBreak(slot: any): IFWAdBreak {
-    return find(this.adBreaks, {
+    return find<IFWAdBreak>(this.adBreaks, {
       id: slot.getCustomId(),
     });
   }

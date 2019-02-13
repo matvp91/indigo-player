@@ -37,6 +37,7 @@ export function createConfig(input: Config): Config {
     {
       enableLogs: false,
       autoplay: false,
+      keyboardNavigation: 'focus',
       ui: {
         enabled: true,
         lockControlsVisibility: false,

@@ -11,7 +11,7 @@ import {
 import produce from 'immer';
 import find from 'lodash/find';
 
-interface IState {
+export interface IState {
   ready: boolean;
   videoSessionStarted: boolean;
   waitingForUser: boolean;
@@ -49,6 +49,8 @@ interface IState {
   subtitle: Subtitle;
 
   playbackRate: number;
+
+  audioLanguages: string[],
 }
 
 interface IStateChangeEventData extends IEventData {
@@ -97,6 +99,8 @@ export class StateExtension extends Module {
     subtitle: null,
 
     playbackRate: 1,
+
+    audioLanguages: [],
   };
 
   constructor(instance: IInstance) {
@@ -261,10 +265,19 @@ export class StateExtension extends Module {
     }, Events.STATE_PIP_CHANGE);
     this.on(Events.PIP_CHANGE, setPip);
 
+    const setAudioLanguages = this.dispatch((draft, data) => {
+      draft.audioLanguages = data.audioLanguages;
+    }, Events.STATE_AUDIOLANGUAGES);
+    this.on(Events.MEDIA_STATE_AUDIOLANGUAGES, setAudioLanguages);
+
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
       prevState: null,
     } as IStateChangeEventData);
+  }
+
+  public getState(): IState {
+    return this.state;
   }
 
   public dispatch = (fn, emitEvent: Events) => {

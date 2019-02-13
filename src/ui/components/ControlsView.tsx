@@ -1,5 +1,6 @@
 import { Button } from '@src/ui/components/Button';
 import { Center } from '@src/ui/components/Center';
+import { Nod } from '@src/ui/components/Nod';
 import { Rebuffer } from '@src/ui/components/Rebuffer';
 import { Seekbar } from '@src/ui/components/Seekbar';
 import { Settings } from '@src/ui/components/Settings';
@@ -33,6 +34,7 @@ interface ControlsViewProps {
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <>
+      <Nod />
       <Settings />
       {props.isCenterClickAllowed && <Center />}
       {props.showRebuffer && <Rebuffer />}

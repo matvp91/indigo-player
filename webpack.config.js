@@ -41,6 +41,15 @@ function createWebpackConfig(build, argv) {
               test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
               use: ['file-loader'],
             },
+            {
+              test: /\.(png|jp(e*)g)$/,
+              use: {
+                loader: 'url-loader',
+                options: {
+                  limit: 8000,
+                },
+              },
+            },
           ],
         },
         resolve: {

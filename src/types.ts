@@ -44,6 +44,8 @@ export enum Events {
   // Media state events
   MEDIA_STATE_TRACKS = 'media-state:bitrates',
   MEDIA_STATE_TRACKCHANGE = 'media-state:bitratechange',
+  MEDIA_STATE_AUDIOLANGUAGES = 'media-state:audiolanguages',
+  MEDIA_STATE_AUDIOLANGUAGECHANGE = 'media-state:audiolanguagechange',
 
   // Shaka
   SHAKA_INSTANCE = 'shaka:instance',
@@ -64,6 +66,7 @@ export enum Events {
   FULLSCREEN_SUPPORTED = 'fullscreen:supported',
   FULLSCREEN_CHANGE = 'fullscreen:change',
   PIP_CHANGE = 'pip:change',
+  KEYBOARDNAVIGATION_KEYDOWN = 'keyboardnavigation:keydown',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -90,6 +93,8 @@ export enum Events {
   STATE_SUBTITLE_CHANGE = 'state:subtitle-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
   STATE_PIP_CHANGE = 'state:pip-change',
+  STATE_AUDIOLANGUAGES = 'state:audiolanguages',
+  STATE_AUDIOLANGUAGE_CHANGE = 'state:audiolanguage-change',
 
   // UI
   UI_VISIBLECONTROLS_CHANGE = 'ui:visiblecontrols-change',
@@ -127,6 +132,7 @@ export interface Config {
   enableLogs: boolean;
 
   autoplay: boolean;
+  keyboardNavigation: boolean | 'focus';
 
   ui: {
     enabled: boolean;
@@ -215,8 +221,28 @@ export interface IEnv {
 
 export type EventCallback = any;
 
+export enum KeyboardNavigationPurpose {
+  PAUSE = 'pause',
+  PLAY = 'play',
+  PREV_SEEK = 'prev-seek',
+  NEXT_SEEK = 'next-seek',
+  VOLUME_UP = 'volume-up',
+  VOLUME_DOWN = 'volume-down',
+  VOLUME_MUTED = 'volume-muted',
+  VOLUME_UNMUTED = 'volume-unmuted',
+  TOGGLE_FULLSCREEN = 'toggle-fullscreen',
+}
+
+export interface IKeyboardNavigationKeyDownEventData extends IEventData {
+  purpose: KeyboardNavigationPurpose;
+}
+
 export interface IPlaybackRateChangeEventData extends IEventData {
   playbackRate: number;
+}
+
+export interface IAudioLanguagesEventData extends IEventData {
+  audioLanguages: string[];
 }
 
 export interface ITrackChangeEventData extends IEventData {
@@ -318,6 +344,7 @@ export interface IController extends IModule {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  selectAudioLanguage(language: string);
   setPlaybackRate(playbackRate: number);
 }
 
@@ -343,6 +370,7 @@ export interface IMedia extends IModule {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  selectAudioLanguage(language: string);
   setPlaybackRate(playbackRate: number);
 }
 
@@ -371,6 +399,7 @@ export interface IInstance {
   seekTo(time: number);
   setVolume(volume: number);
   selectTrack(track: ITrack);
+  selectAudioLanguage(language: string);
   setPlaybackRate(playbackRate: number);
   destroy();
 

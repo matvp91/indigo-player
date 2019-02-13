@@ -53,6 +53,9 @@ export function createAPI(instance: IInstance) {
     // Select a track
     ['selectTrack', (track: ITrack) => instance.selectTrack(track)],
 
+    // Select an audio language
+    ['selectAudioLanguage', (language: string) => instance.selectAudioLanguage(language)],
+
     // Select playback rate
     [
       'setPlaybackRate',

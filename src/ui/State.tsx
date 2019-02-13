@@ -1,8 +1,10 @@
 import {
   AdBreakType,
+  Events,
   IInstance,
   IThumbnail,
   ITrack,
+  KeyboardNavigationPurpose,
   Subtitle,
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
@@ -37,6 +39,8 @@ interface StateStoreState {
 
   lastActiveSubtitle: Subtitle;
   activeThumbnail: IThumbnail;
+
+  nodPurpose: KeyboardNavigationPurpose;
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -50,6 +54,8 @@ export class StateStore extends React.Component<
   StateStoreState
 > {
   private activeTimer: number;
+
+  private nodTimer: number;
 
   private unsubscribe: EventUnsubscribeFn;
 
@@ -75,6 +81,8 @@ export class StateStore extends React.Component<
 
       lastActiveSubtitle: null,
       activeThumbnail: null,
+
+      nodPurpose: null,
     };
 
     this.unsubscribe = attachEvents([
@@ -94,6 +102,11 @@ export class StateStore extends React.Component<
         callback: this.closeSettings,
       },
     ]);
+
+    this.props.instance.on(Events.KEYBOARDNAVIGATION_KEYDOWN, data => {
+      this.showControls();
+      this.triggerNod(data.purpose);
+    });
   }
 
   public componentWillUnmount() {
@@ -128,6 +141,21 @@ export class StateStore extends React.Component<
   private hideControls = () => {
     clearTimeout(this.activeTimer);
     this.setState({ visibleControls: false });
+  };
+
+  private triggerNod = (purpose: KeyboardNavigationPurpose) => {
+    this.setState({ nodPurpose: null }, () => {
+      if (this.nodTimer) {
+        clearTimeout(this.nodTimer);
+        this.nodTimer = null;
+      }
+      this.setState({ nodPurpose: purpose }, () => {
+        this.nodTimer = (window as any).setTimeout(() => {
+          this.setState({ nodPurpose: null });
+          this.nodTimer = null;
+        }, 500);
+      });
+    });
   };
 
   private setVolumeControlsOpen = (isVolumeControlsOpen: boolean) => {
@@ -183,11 +211,17 @@ export class StateStore extends React.Component<
     }
   };
 
-  private playOrPause = () => {
+  private playOrPause = (origin?: string) => {
     if (!this.props.player.playRequested) {
       this.props.instance.play();
+      if (origin === 'center') {
+        this.triggerNod(KeyboardNavigationPurpose.PLAY);
+      }
     } else {
       this.props.instance.pause();
+      if (origin === 'center') {
+        this.triggerNod(KeyboardNavigationPurpose.PAUSE);
+      }
     }
   };
 
@@ -400,14 +434,17 @@ export class StateStore extends React.Component<
       }
     }
 
-    const tracks = uniqBy(
+    const tracks = uniqBy<ITrack>(
       this.props.player.tracks.sort((a, b) => b.bandwidth - a.bandwidth),
       'width',
     );
 
-    const activeTrack = this.props.player.track;
+    let activeTrack = null;
+    if (this.props.player.track) {
+      activeTrack = tracks.find(track => track.id === this.props.player.track.id);
+    }
 
-    let selectedTrack = this.props.player.track;
+    let selectedTrack = activeTrack;
     if (this.props.player.trackAutoSwitch) {
       selectedTrack = 'auto';
     }
@@ -429,6 +466,15 @@ export class StateStore extends React.Component<
       pipSupported = true;
     }
 
+    const nodIcon = {
+      [KeyboardNavigationPurpose.PLAY]: 'play',
+      [KeyboardNavigationPurpose.PAUSE]: 'pause',
+      [KeyboardNavigationPurpose.VOLUME_UP]: 'volume-2',
+      [KeyboardNavigationPurpose.VOLUME_DOWN]: 'volume-1',
+      [KeyboardNavigationPurpose.VOLUME_MUTED]: 'volume-off',
+      [KeyboardNavigationPurpose.VOLUME_UNMUTED]: 'volume-2',
+    }[this.state.nodPurpose];
+
     return {
       // UI specific state
       view,
@@ -438,6 +484,7 @@ export class StateStore extends React.Component<
       visibleSettingsTabs,
       isMobile: this.props.instance.env.isMobile,
       image: this.props.instance.config.ui.image,
+      nodIcon,
 
       // Player
       playRequested: this.props.player.playRequested,
