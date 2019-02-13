@@ -6,15 +6,15 @@
   font-size: 24px;
   width: 48px;
   height: 48px;
-  margin-left: -(48 / 2);
-  margin-top: -(48 / 2);
+  margin-left: -(48px / 2);
+  margin-top: -(48px / 2);
   background-color: rgba(0, 0, 0, .5);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
   animation-duration: 500ms;
-  opacity: 0;
+  opacity: 1;
 
   &.igui_nod-active {
     animation-name: nod-zoomin;
