@@ -6268,6 +6268,12 @@ style-loader@^0.23.1:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
+subtitle@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/subtitle/-/subtitle-2.0.2.tgz#ca8a58b2ca196c02c0e0eb82e93e104a0521d8ef"
+  dependencies:
+    zero-fill "^2.2.3"
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -7123,3 +7129,7 @@ yargs@^7.0.0:
     which-module "^1.0.0"
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
+
+zero-fill@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/zero-fill/-/zero-fill-2.2.3.tgz#a3def06ba5e39ae644850bb4ca2ad4112b4855e9"

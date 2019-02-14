@@ -6,6 +6,7 @@ import { Seekbar } from '@src/ui/components/Seekbar';
 import { Settings } from '@src/ui/components/Settings';
 import { TimeStat } from '@src/ui/components/TimeStat';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
+import { Subtitles } from '@src/ui/components/Subtitles';
 import { IInfo } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
@@ -36,6 +37,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
     <>
       <Nod />
       <Settings />
+      <Subtitles />
       {props.isCenterClickAllowed && <Center />}
       {props.showRebuffer && <Rebuffer />}
       <div className='igui_container_controls'>

@@ -38,6 +38,7 @@ export enum Events {
   PLAYER_STATE_WAITING = 'player-state:waiting',
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
   PLAYER_STATE_SUBTITLECHANGE = 'player-state:subtitlechange',
+  PLAYER_STATE_SUBTITLETEXTCHANGE = 'player-state:subtitletextchange',
   PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
   PLAYER_STATE_RATECHANGE = 'player-state:ratechange',
 
@@ -91,6 +92,7 @@ export enum Events {
   STATE_TRACKS = 'state:tracks',
   STATE_TRACK_CHANGE = 'state:track-change',
   STATE_SUBTITLE_CHANGE = 'state:subtitle-change',
+  STATE_SUBTITLETEXT_CHANGE = 'state:subtitletext-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
   STATE_PIP_CHANGE = 'state:pip-change',
   STATE_AUDIOLANGUAGES = 'state:audiolanguages',

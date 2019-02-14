@@ -41,6 +41,7 @@ export interface IData {
   isMobile: boolean;
   image: string;
   nodIcon: string;
+  subtitleText: string;
   getTranslation(text: string): string;
 }
 

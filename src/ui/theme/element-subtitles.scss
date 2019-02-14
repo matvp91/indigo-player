@@ -1,0 +1,22 @@
+.igui_subtitles {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  z-index: 1;
+  text-align: center;
+  transition: bottom 200ms ease-in-out;
+
+  .igui_state-active & {
+    bottom: 54px;
+  }
+}
+
+.igui_subtitles_text {
+  background-color: red;
+  max-width: 250px;
+  font-size: 16px;
+  padding: 4px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, .6);
+}

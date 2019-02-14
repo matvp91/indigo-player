@@ -47,6 +47,7 @@ export interface IState {
   trackAutoSwitch: boolean;
 
   subtitle: Subtitle;
+  subtitleText: string;
 
   playbackRate: number;
 
@@ -97,6 +98,7 @@ export class StateExtension extends Module {
     trackAutoSwitch: false,
 
     subtitle: null,
+    subtitleText: null,
 
     playbackRate: 1,
 
@@ -254,6 +256,11 @@ export class StateExtension extends Module {
       draft.subtitle = data.subtitle;
     }, Events.STATE_SUBTITLE_CHANGE);
     this.on(Events.PLAYER_STATE_SUBTITLECHANGE, setSubtitle);
+
+    const setSubtitleText = this.dispatch((draft, data) => {
+      draft.subtitleText = data.text;
+    }, Events.STATE_SUBTITLETEXT_CHANGE);
+    this.on(Events.PLAYER_STATE_SUBTITLETEXTCHANGE, setSubtitleText);
 
     const setPlaybackRate = this.dispatch((draft, data) => {
       draft.playbackRate = data.playbackRate;

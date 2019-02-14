@@ -502,6 +502,7 @@ export class StateStore extends React.Component<
       playbackRate: this.props.player.playbackRate,
       pip: this.props.player.pip,
       pipSupported,
+      subtitleText: this.props.player.subtitleText,
 
       // Progress bar
       progressPercentage,

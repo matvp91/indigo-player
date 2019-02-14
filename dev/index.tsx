@@ -101,6 +101,11 @@ const player = IndigoPlayer.init(document.getElementById('playerContainer'), {
   ],
   subtitles: [
     {
+      label: 'Demo',
+      srclang: 'demo',
+      src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
+    },
+    {
       label: 'English',
       srclang: 'en',
       src: './bbb-en-subs.vtt',
