@@ -39,6 +39,7 @@ export enum Events {
   PLAYER_STATE_VOLUMECHANGE = 'player-state:volumechange',
   PLAYER_STATE_SUBTITLECHANGE = 'player-state:subtitlechange',
   PLAYER_STATE_SUBTITLETEXTCHANGE = 'player-state:subtitletextchange',
+  PLAYER_STATE_SUBTITLESETTINGSCHANGE = 'player-state:subtitlesettingschange',
   PLAYER_STATE_BUFFEREDCHANGE = 'player-state:bufferedchange',
   PLAYER_STATE_RATECHANGE = 'player-state:ratechange',
 
@@ -93,6 +94,7 @@ export enum Events {
   STATE_TRACK_CHANGE = 'state:track-change',
   STATE_SUBTITLE_CHANGE = 'state:subtitle-change',
   STATE_SUBTITLETEXT_CHANGE = 'state:subtitletext-change',
+  STATE_SUBTITLESETTINGS_CHANGE = 'state:subtitlesettings-change',
   STATE_PLAYBACKRATE_CHANGE = 'state:playbackrate-change',
   STATE_PIP_CHANGE = 'state:pip-change',
   STATE_AUDIOLANGUAGES = 'state:audiolanguages',
@@ -176,6 +178,13 @@ export interface IThumbnail {
   y: number;
   width: number;
   height: number;
+}
+
+export interface ISubtitleSettings {
+  offset?: number;
+  color?: string;
+  opacity?: number;
+  background?: string;
 }
 
 // Adaptive tracks

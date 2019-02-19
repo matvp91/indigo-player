@@ -7,6 +7,7 @@ import {
   IInstance,
   ITrack,
   Subtitle,
+  ISubtitleSettings,
 } from '@src/types';
 import produce from 'immer';
 import find from 'lodash/find';
@@ -48,6 +49,7 @@ export interface IState {
 
   subtitle: Subtitle;
   subtitleText: string;
+  subtitleSettings: ISubtitleSettings;
 
   playbackRate: number;
 
@@ -99,6 +101,7 @@ export class StateExtension extends Module {
 
     subtitle: null,
     subtitleText: null,
+    subtitleSettings: null,
 
     playbackRate: 1,
 
@@ -261,6 +264,11 @@ export class StateExtension extends Module {
       draft.subtitleText = data.text;
     }, Events.STATE_SUBTITLETEXT_CHANGE);
     this.on(Events.PLAYER_STATE_SUBTITLETEXTCHANGE, setSubtitleText);
+
+    const setSubtitleSettings = this.dispatch((draft, data) => {
+      draft.subtitleSettings = data.settings;
+    }, Events.STATE_SUBTITLESETTINGS_CHANGE);
+    this.on(Events.PLAYER_STATE_SUBTITLESETTINGSCHANGE, setSubtitleSettings);
 
     const setPlaybackRate = this.dispatch((draft, data) => {
       draft.playbackRate = data.playbackRate;

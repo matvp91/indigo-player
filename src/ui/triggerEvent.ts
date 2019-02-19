@@ -20,4 +20,14 @@ export function triggerEvent(
       visibleControls: false,
     });
   }
+
+  // Trigger subtitles to move up.
+  const subtitlesExtension = instance.getModule('SubtitlesExtension');
+  if (subtitlesExtension) {
+    if (data.visibleControls && !prevData.visibleControls) {
+      (subtitlesExtension as any).setSettings({ offset: 52 });
+    } else if (!data.visibleControls && prevData.visibleControls) {
+      (subtitlesExtension as any).setSettings({ offset: 0 });
+    }
+  }
 }

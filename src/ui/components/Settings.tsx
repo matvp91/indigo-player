@@ -71,6 +71,7 @@ tabs[SettingsTabs.SUBTITLES] = (props: SettingsProps) => (
     <SettingsHeader
       title={props.data.getTranslation('Subtitles')}
       onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
+      onOptionsClick={() => props.actions.setSettingsTab(SettingsTabs.SUBTITLES_SETTINGS)}
     />
     <SettingsSelect
       selected={props.data.activeSubtitle}
@@ -86,6 +87,101 @@ tabs[SettingsTabs.SUBTITLES] = (props: SettingsProps) => (
         {
           item: null,
           label: props.data.getTranslation('No subtitles'),
+        },
+      ]}
+    />
+  </>
+);
+
+tabs[SettingsTabs.SUBTITLES_SETTINGS] = (props: SettingsProps) => (
+  <>
+    <SettingsHeader
+      title={props.data.getTranslation('Customize')}
+      onBackClick={() => props.actions.setSettingsTab(SettingsTabs.SUBTITLES)}
+    />
+    <SettingsSelect
+      onClick={props.actions.setSettingsTab}
+      items={[
+        {
+          item: SettingsTabs.SUBTITLES_SETTINGS_COLOR,
+          label: 'Color',
+        },
+        {
+          item: SettingsTabs.SUBTITLES_SETTINGS_BACKGROUND,
+          label: 'Background',
+        },
+        {
+          item: SettingsTabs.SUBTITLES_SETTINGS_OPACITY,
+          label: 'Opacity',
+        },
+      ]}
+    />
+  </>
+);
+
+const COLORS: { rgb: string, name: string }[] = [
+  { rgb: '255,255,255', name: 'White' },
+  { rgb: '0,0,0', name: 'Black' },
+  { rgb: '231,76,60', name: 'Red' },
+  { rgb: '142,68,173', name: 'Purple' },
+  { rgb: '52,152,219', name: 'Blue' },
+  { rgb: '39,174,96', name: 'Green' },
+  { rgb: '241,196,15', name: 'Yellow' },
+  { rgb: '230,126,34', name: 'Orange' },
+];
+
+tabs[SettingsTabs.SUBTITLES_SETTINGS_COLOR] = (props: SettingsProps) => (
+  <>
+    <SettingsHeader
+      title={props.data.getTranslation('Color')}
+      onBackClick={() => props.actions.setSettingsTab(SettingsTabs.SUBTITLES_SETTINGS)}
+    />
+    <SettingsSelect
+      onClick={item => props.actions.setSubtitleSettings({ color: item })}
+      items={COLORS.map(color => ({
+        item: color.rgb,
+        label: color.name,
+      }))}
+    />
+  </>
+);
+
+tabs[SettingsTabs.SUBTITLES_SETTINGS_BACKGROUND] = (props: SettingsProps) => (
+  <>
+    <SettingsHeader
+      title={props.data.getTranslation('Background')}
+      onBackClick={() => props.actions.setSettingsTab(SettingsTabs.SUBTITLES_SETTINGS)}
+    />
+    <SettingsSelect
+      onClick={item => props.actions.setSubtitleSettings({ background: item })}
+      items={COLORS.map(color => ({
+        item: color.rgb,
+        label: color.name,
+      }))}
+    />
+  </>
+);
+
+tabs[SettingsTabs.SUBTITLES_SETTINGS_OPACITY] = (props: SettingsProps) => (
+  <>
+    <SettingsHeader
+      title={props.data.getTranslation('Opacity')}
+      onBackClick={() => props.actions.setSettingsTab(SettingsTabs.SUBTITLES_SETTINGS)}
+    />
+    <SettingsSelect
+      onClick={item => props.actions.setSubtitleSettings({ opacity: item })}
+      items={[
+        {
+          item: 0,
+          label: '0',
+        },
+        {
+          item: 0.5,
+          label: '0.5',
+        },
+        {
+          item: 1,
+          label: '1',
         },
       ]}
     />
@@ -133,6 +229,7 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
 interface SettingsHeaderProps {
   title: string;
   onBackClick?();
+  onOptionsClick?();
 }
 
 const SettingsHeader = (props: SettingsHeaderProps) => (
@@ -141,6 +238,9 @@ const SettingsHeader = (props: SettingsHeaderProps) => (
       <Button onClick={props.onBackClick} name='settings-back' icon='back' />
     )}
     {props.title}
+    {!!props.onOptionsClick && (
+      <Button onClick={props.onOptionsClick} name='settings-options'>Options</Button>
+    )}
   </div>
 );
 

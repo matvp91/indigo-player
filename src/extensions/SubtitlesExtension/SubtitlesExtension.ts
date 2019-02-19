@@ -1,15 +1,9 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, IEventData, IInstance, Subtitle } from '@src/types';
+import { Events, IEventData, IInstance, Subtitle, ISubtitleSettings } from '@src/types';
 import * as SubtitleParser from 'subtitle';
-
-interface ISubtitleChangeEventData extends IEventData {
-  subtitle: Subtitle;
-}
-
-interface ISubtitleTextChangeEventData extends IEventData {
-  text: string;
-}
+import { insertAfter, applyStyle } from '@src/utils/dom';
+import './subtitles.scss';
 
 interface ITrackTiming {
   start: number;
@@ -32,8 +26,28 @@ export class SubtitlesExtension extends Module {
 
   private currentTimeMs: number = 0;
 
+  private text: HTMLSpanElement;
+
+  private settings: ISubtitleSettings;
+
   constructor(instance: IInstance) {
     super(instance);
+
+    this.settings = {
+      offset: 0,
+      color: '255,255,255',
+      opacity: .5,
+      background: '0,0,0',
+    };
+
+    const container = document.createElement('div');
+    container.classList.add('ig_subtitles');
+    insertAfter(container, this.instance.playerContainer);
+
+    this.text = document.createElement('span');
+    container.appendChild(this.text);
+
+    this.setSettings();
 
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
   }
@@ -45,6 +59,20 @@ export class SubtitlesExtension extends Module {
       this.selectActiveTiming();
     }
   };
+
+  public setSettings(settings: ISubtitleSettings = {}) {
+    this.settings = { ...this.settings, ...settings };
+
+    applyStyle(this.text, {
+      transform: `translateY(-${this.settings.offset}px)`,
+      color: `rgb(${this.settings.color})`,
+      background: `rgba(${this.settings.background}, ${this.settings.opacity})`,
+    });
+
+    this.emit(Events.PLAYER_STATE_SUBTITLESETTINGSCHANGE, {
+      settings: this.settings,
+    });
+  }
 
   private selectActiveTiming() {
     let activeTiming: ITrackTiming = null;
@@ -62,9 +90,14 @@ export class SubtitlesExtension extends Module {
     if (activeTiming !== this.activeTiming) {
       this.activeTiming = activeTiming;
 
+      const text = this.activeTiming ? this.activeTiming.text : null;
+
+      this.text.innerHTML = text ? text : '';
+      this.text.style.display = text ? 'inline-block' : 'none';
+
       this.emit(Events.PLAYER_STATE_SUBTITLETEXTCHANGE, {
-        text: activeTiming ? activeTiming.text : null,
-      } as ISubtitleTextChangeEventData);
+        text,
+      });
     }
   }
 
@@ -98,7 +131,7 @@ export class SubtitlesExtension extends Module {
 
     this.emit(Events.PLAYER_STATE_SUBTITLECHANGE, {
       subtitle,
-    } as ISubtitleChangeEventData);
+    });
 
     if (!srclang) {
       this.setActiveTimings(null);

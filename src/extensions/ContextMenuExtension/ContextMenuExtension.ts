@@ -48,6 +48,7 @@ export class ContextMenuExtension extends Module {
     this.contextMenu.style.top = 'initial';
     this.contextMenu.style.bottom = 'initial';
     this.contextMenu.style.opacity = '1';
+    this.contextMenu.style.pointerEvents = 'auto';
 
     const rect = this.instance.container.getBoundingClientRect();
 
@@ -71,6 +72,7 @@ export class ContextMenuExtension extends Module {
 
   private onClick = () => {
     this.contextMenu.style.opacity = '0';
+    this.contextMenu.style.pointerEvents = 'none';
     window.removeEventListener('click', this.onClick);
   };
 }
