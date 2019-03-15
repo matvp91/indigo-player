@@ -8,6 +8,7 @@
 
 Highly extensible, modern, JavaScript player. 👊
 
+![Travis CI](https://img.shields.io/travis/matvp91/indigo-player/master.svg)
 [![](https://img.shields.io/npm/v/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 [![](https://img.shields.io/github/license/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
