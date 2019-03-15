@@ -1,8 +1,8 @@
 import { Module } from '@src/Module';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, IEventData, IInstance, Subtitle, ISubtitleSettings } from '@src/types';
+import { Events, IEventData, IInstance, Subtitle } from '@src/types';
+import { applyStyle, insertAfter } from '@src/utils/dom';
 import * as SubtitleParser from 'subtitle';
-import { insertAfter, applyStyle } from '@src/utils/dom';
 import './subtitles.scss';
 
 interface ITrackTiming {
@@ -28,17 +28,8 @@ export class SubtitlesExtension extends Module {
 
   private text: HTMLSpanElement;
 
-  private settings: ISubtitleSettings;
-
   constructor(instance: IInstance) {
     super(instance);
-
-    this.settings = {
-      offset: 0,
-      color: '255,255,255',
-      opacity: .5,
-      background: '0,0,0',
-    };
 
     const container = document.createElement('div');
     container.classList.add('ig_subtitles');
@@ -47,12 +38,10 @@ export class SubtitlesExtension extends Module {
     this.text = document.createElement('span');
     container.appendChild(this.text);
 
-    this.setSettings();
-
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
   }
 
-  onTimeUpdate = data => {
+  public onTimeUpdate = data => {
     this.currentTimeMs = data.currentTime * 1000;
 
     if (this.timings) {
@@ -60,17 +49,36 @@ export class SubtitlesExtension extends Module {
     }
   };
 
-  public setSettings(settings: ISubtitleSettings = {}) {
-    this.settings = { ...this.settings, ...settings };
+  public async setSubtitle(srclang: string) {
+    const subtitle =
+      this.instance.config.subtitles.find(
+        subtitle => subtitle.srclang === srclang,
+      ) || null;
 
-    applyStyle(this.text, {
-      transform: `translateY(-${this.settings.offset}px)`,
-      color: `rgb(${this.settings.color})`,
-      background: `rgba(${this.settings.background}, ${this.settings.opacity})`,
+    this.emit(Events.PLAYER_STATE_SUBTITLECHANGE, {
+      subtitle,
     });
 
-    this.emit(Events.PLAYER_STATE_SUBTITLESETTINGSCHANGE, {
-      settings: this.settings,
+    if (!srclang) {
+      this.setActiveTimings(null);
+    } else {
+      const subtitle = this.instance.config.subtitles.find(
+        subtitle => subtitle.srclang === srclang,
+      );
+
+      if (!subtitle) {
+        this.setActiveTimings(null);
+        return;
+      }
+
+      const timings = await this.parseSubtitleFile(subtitle.src);
+      this.setActiveTimings(timings);
+    }
+  }
+
+  public setOffset(offset: number) {
+    applyStyle(this.text, {
+      transform: `translateY(-${offset}px)`,
     });
   }
 
@@ -78,8 +86,9 @@ export class SubtitlesExtension extends Module {
     let activeTiming: ITrackTiming = null;
 
     if (this.timings) {
-      const timing = this.timings.find(track =>
-        this.currentTimeMs >= track.start && this.currentTimeMs < track.end,
+      const timing = this.timings.find(
+        track =>
+          this.currentTimeMs >= track.start && this.currentTimeMs < track.end,
       );
 
       if (timing) {
@@ -121,31 +130,5 @@ export class SubtitlesExtension extends Module {
     }
 
     return this.timingsCache[url];
-  }
-
-  public async setSubtitle(srclang: string) {
-    const subtitle =
-      this.instance.config.subtitles.find(
-        subtitle => subtitle.srclang === srclang,
-      ) || null;
-
-    this.emit(Events.PLAYER_STATE_SUBTITLECHANGE, {
-      subtitle,
-    });
-
-    if (!srclang) {
-      this.setActiveTimings(null);
-    } else {
-      const subtitle = this.instance.config.subtitles
-        .find(subtitle => subtitle.srclang === srclang);
-
-      if (!subtitle) {
-        this.setActiveTimings(null);
-        return;
-      }
-
-      const timings = await this.parseSubtitleFile(subtitle.src);
-      this.setActiveTimings(timings);
-    }
   }
 }

@@ -6,7 +6,6 @@ import {
   ITrack,
   KeyboardNavigationPurpose,
   Subtitle,
-  ISubtitleSettings,
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
 import { triggerEvent } from '@src/ui/triggerEvent';
@@ -294,10 +293,6 @@ export class StateStore extends React.Component<
     (this.props.instance.getModule('PipExtension') as any).togglePip();
   };
 
-  private setSubtitleSettings = (settings: ISubtitleSettings) => {
-    (this.props.instance.getModule('SubtitlesExtension') as any).setSettings(settings);
-  };
-
   private getTranslation = (text: string): string => {
     return getTranslation(this.props.instance.config.ui.locale)(text);
   };
@@ -462,8 +457,6 @@ export class StateStore extends React.Component<
 
     const activeSubtitle = this.props.player.subtitle;
 
-    const subtitleSettings = this.props.player.subtitleSettings;
-
     const visibleSettingsTabs = [SettingsTabs.PLAYBACKRATES];
     if (subtitles.length) {
       visibleSettingsTabs.push(SettingsTabs.SUBTITLES);
@@ -536,7 +529,6 @@ export class StateStore extends React.Component<
       // Subtitles
       subtitles,
       activeSubtitle,
-      subtitleSettings,
       activeThumbnail: this.state.activeThumbnail,
 
       // i18n
@@ -563,7 +555,6 @@ export class StateStore extends React.Component<
       toggleActiveSubtitle: this.toggleActiveSubtitle,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,
-      setSubtitleSettings: this.setSubtitleSettings,
     } as IActions;
   }
 }

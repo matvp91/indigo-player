@@ -1,5 +1,5 @@
 import { PlayerError } from '@src/PlayerError';
-import { IThumbnail, ITrack, Subtitle, ISubtitleSettings } from '@src/types';
+import { IThumbnail, ITrack, Subtitle } from '@src/types';
 
 export interface IData {
   paused: boolean;
@@ -41,7 +41,6 @@ export interface IData {
   isMobile: boolean;
   image: string;
   nodIcon: string;
-  subtitleSettings: ISubtitleSettings;
   getTranslation(text: string): string;
 }
 
@@ -64,7 +63,6 @@ export interface IActions {
   setPlaybackRate(playbackRate: number);
   togglePip();
   toggleActiveSubtitle();
-  setSubtitleSettings(settings: ISubtitleSettings);
 }
 
 export interface IInfo {
@@ -84,9 +82,5 @@ export enum SettingsTabs {
   OPTIONS,
   TRACKS,
   SUBTITLES,
-  SUBTITLES_SETTINGS,
-  SUBTITLES_SETTINGS_COLOR,
-  SUBTITLES_SETTINGS_BACKGROUND,
-  SUBTITLES_SETTINGS_OPACITY,
   PLAYBACKRATES,
 }
