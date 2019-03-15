@@ -41,7 +41,7 @@ export class SubtitlesExtension extends Module {
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
   }
 
-  public onTimeUpdate = data => {
+  private onTimeUpdate = data => {
     this.currentTimeMs = data.currentTime * 1000;
 
     if (this.timings) {
