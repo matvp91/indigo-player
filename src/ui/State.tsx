@@ -113,13 +113,15 @@ export class StateStore extends React.Component<
     this.unsubscribe();
   }
 
+  public componentDidUpdate() {
+    const data = this.createData();
+    triggerEvent(this.props.instance, data, this.prevData);
+    this.prevData = data;
+  }
+
   public render() {
     const data = this.createData();
     const actions = this.createActions();
-
-    triggerEvent(this.props.instance, data, this.prevData);
-
-    this.prevData = data;
 
     return (
       <StateContext.Provider value={{ data, actions }}>

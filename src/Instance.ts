@@ -60,7 +60,7 @@ export class Instance implements IInstance {
 
   public format: Format;
 
-  public extensions: IModule[];
+  public extensions: IModule[] = [];
 
   public log = log;
 

@@ -133,6 +133,7 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
 interface SettingsHeaderProps {
   title: string;
   onBackClick?();
+  onOptionsClick?();
 }
 
 const SettingsHeader = (props: SettingsHeaderProps) => (
@@ -141,6 +142,11 @@ const SettingsHeader = (props: SettingsHeaderProps) => (
       <Button onClick={props.onBackClick} name='settings-back' icon='back' />
     )}
     {props.title}
+    {!!props.onOptionsClick && (
+      <Button onClick={props.onOptionsClick} name='settings-options'>
+        Options
+      </Button>
+    )}
   </div>
 );
 

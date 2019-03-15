@@ -1,0 +1,18 @@
+.ig_subtitles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px;
+  text-align: center;
+
+  span {
+    transition: transform 200ms ease-in-out;
+    transform: translateY(0px);
+    color: #ffffff;
+    text-shadow: #000000 0px 0px 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 580px;
+    font-size: 17px;
+  }
+}
