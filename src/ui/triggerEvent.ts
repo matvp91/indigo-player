@@ -25,7 +25,7 @@ export function triggerEvent(
   const subtitlesExtension = instance.getModule('SubtitlesExtension');
   if (subtitlesExtension) {
     if (data.visibleControls && !prevData.visibleControls) {
-      (subtitlesExtension as any).setOffset(52);
+      (subtitlesExtension as any).setOffset(42);
     } else if (!data.visibleControls && prevData.visibleControls) {
       (subtitlesExtension as any).setOffset(0);
     }
