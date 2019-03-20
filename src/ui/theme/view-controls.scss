@@ -28,6 +28,11 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
+    }
 
     .igui_icon {
       font-size: 26px;
@@ -76,10 +81,34 @@
   .igui_button_name-fullscreen {
     margin-right: 9px;
 
+    @keyframes fullscreen-hover {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    &:hover {
+      .igui_icon {
+        animation-name: fullscreen-hover;
+        animation-duration: 350ms;
+      }
+    }
+
     .igui_button_tooltip {
       right: 2px;
       left: auto;
       transform: translateX(0);
+    }
+  }
+
+  .igui_button_name-settings {
+    .igui_icon {
+      transform: rotate(0deg);
+      transition: transform 150ms ease-in-out;
+    }
+
+    &.igui_button_state-active .igui_icon {
+      transform: rotate(35deg);
     }
   }
 

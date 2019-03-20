@@ -6,7 +6,7 @@ import { Seekbar } from '@src/ui/components/Seekbar';
 import { Settings } from '@src/ui/components/Settings';
 import { TimeStat } from '@src/ui/components/TimeStat';
 import { VolumeButton } from '@src/ui/components/VolumeButton';
-import { IInfo } from '@src/ui/types';
+import { IInfo, SettingsTabs } from '@src/ui/types';
 import { withState } from '@src/ui/withState';
 import * as React from 'react';
 
@@ -24,6 +24,7 @@ interface ControlsViewProps {
   fullscreenIcon: string;
   isFullscreenDisabled: boolean;
   fullscreenTooltipText: string;
+  isSettingsTabActive: boolean;
   playOrPause();
   toggleActiveSubtitle();
   togglePip();
@@ -72,6 +73,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           icon='settings'
           onClick={() => props.toggleSettings()}
           tooltip={props.settingsTooltipText}
+          active={props.isSettingsTabActive}
         />
         <Button
           name='fullscreen'
@@ -88,6 +90,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
 function mapProps(info: IInfo): ControlsViewProps {
   return {
     isCenterClickAllowed: info.data.isCenterClickAllowed,
+    isSettingsTabActive: info.data.settingsTab !== SettingsTabs.NONE,
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
     playOrPause: info.actions.playOrPause,
