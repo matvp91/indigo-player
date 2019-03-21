@@ -68,6 +68,7 @@ export enum Events {
   FULLSCREEN_CHANGE = 'fullscreen:change',
   PIP_CHANGE = 'pip:change',
   KEYBOARDNAVIGATION_KEYDOWN = 'keyboardnavigation:keydown',
+  DIMENSIONS_CHANGE = 'dimensions:change',
 
   // State
   STATE_CHANGE = 'state:change',
@@ -98,6 +99,7 @@ export enum Events {
   STATE_PIP_CHANGE = 'state:pip-change',
   STATE_AUDIOLANGUAGES = 'state:audiolanguages',
   STATE_AUDIOLANGUAGE_CHANGE = 'state:audiolanguage-change',
+  STATE_DIMENSIONS_CHANGE = 'state:dimensions-change',
 
   // UI
   UI_VISIBLECONTROLS_CHANGE = 'ui:visiblecontrols-change',
@@ -234,6 +236,11 @@ export enum KeyboardNavigationPurpose {
   VOLUME_MUTED = 'volume-muted',
   VOLUME_UNMUTED = 'volume-unmuted',
   TOGGLE_FULLSCREEN = 'toggle-fullscreen',
+}
+
+export interface IDimensionsChangeEventData extends IEventData {
+  width: number;
+  height: number;
 }
 
 export interface IKeyboardNavigationKeyDownEventData extends IEventData {

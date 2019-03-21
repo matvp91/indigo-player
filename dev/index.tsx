@@ -55,10 +55,10 @@ const player = IndigoPlayer.init(
       //   src:
       //     'https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo/vier/dedag/volledigeafleveringen/133fc7a62dea3da106ba0b9f54f6e83d4f6777ec/DE_DAG_1_8_F0261554/DE_DAG_1_8_F0261554.m3u8',
       // },
-      // {
-      //   type: 'hls',
-      //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
-      // },
+      {
+        type: 'hls',
+        src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
+      },
       // {
       //   type: 'mp4',
       //   src:

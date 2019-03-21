@@ -39,6 +39,8 @@ export class SubtitlesExtension extends Module {
     container.appendChild(this.text);
 
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
+
+    this.instance.on(Events.DIMENSIONS_CHANGE, this.onDimensionsChange);
   }
 
   public async setSubtitle(srclang: string) {
@@ -80,6 +82,21 @@ export class SubtitlesExtension extends Module {
     if (this.timings) {
       this.selectActiveTiming();
     }
+  };
+
+  private onDimensionsChange = data => {
+    const FONT_SIZE_PERCENT: number = 0.05;
+    let fontSize = Math.round(data.height * FONT_SIZE_PERCENT * 100) / 100;
+
+    if (fontSize > 45) {
+      fontSize = 45;
+    } else if (fontSize < 15) {
+      fontSize = 15;
+    }
+
+    applyStyle(this.text, {
+      fontSize: `${fontSize}px`,
+    });
   };
 
   private selectActiveTiming() {

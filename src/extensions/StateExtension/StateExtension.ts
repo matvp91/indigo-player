@@ -52,6 +52,9 @@ export interface IState {
   playbackRate: number;
 
   audioLanguages: string[];
+
+  width: number;
+  height: number;
 }
 
 interface IStateChangeEventData extends IEventData {
@@ -103,6 +106,9 @@ export class StateExtension extends Module {
     playbackRate: 1,
 
     audioLanguages: [],
+
+    width: null,
+    height: null,
   };
 
   constructor(instance: IInstance) {
@@ -281,6 +287,12 @@ export class StateExtension extends Module {
       state: this.state,
       prevState: null,
     } as IStateChangeEventData);
+
+    const setDimensions = this.dispatch((draft, data) => {
+      draft.width = data.width;
+      draft.height = data.height;
+    }, Events.STATE_DIMENSIONS_CHANGE);
+    this.on(Events.DIMENSIONS_CHANGE, setDimensions);
   }
 
   public getState(): IState {

@@ -9,6 +9,7 @@ import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoa
 import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
 import { SubtitlesExtensionLoader } from '@src/extensions/SubtitlesExtension/SubtitlesExtensionLoader';
 import { ThumbnailsExtensionLoader } from '@src/extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
+import { DimensionsExtensionLoader } from '@src/extensions/DimensionsExtension/DimensionsExtensionLoader';
 import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
@@ -42,6 +43,7 @@ const modules: Array<IModuleLoader<IModule>> = [
   ThumbnailsExtensionLoader,
   KeyboardNavigationExtensionLoader,
   ContextMenuExtensionLoader,
+  DimensionsExtensionLoader,
 ];
 
 export async function createFirstSupported<T>(
