@@ -27,6 +27,8 @@ import { storage } from '@src/utils/storage';
 import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
 
+declare var __webpack_public_path__: string;
+
 export class Instance implements IInstance {
   /**
    * The initial player config.
@@ -195,6 +197,8 @@ export class Instance implements IInstance {
 
   private async init(config: Config) {
     const log = this.log('instance.init');
+
+    log(`Will fetch chunks from ${__webpack_public_path__}`);
 
     this.env = await getEnv();
 

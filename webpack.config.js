@@ -23,9 +23,6 @@ function createWebpackConfig(build, argv) {
           libraryExport: 'default',
           library: 'IndigoPlayer',
           libraryTarget: 'umd',
-          publicPath: isProduction
-            ? `https://cdn.jsdelivr.net/npm/indigo-player@${process.env.VERSION}/lib/`
-            : undefined,
         },
         module: {
           rules: [

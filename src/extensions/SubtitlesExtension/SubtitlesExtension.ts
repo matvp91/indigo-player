@@ -41,14 +41,6 @@ export class SubtitlesExtension extends Module {
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
   }
 
-  private onTimeUpdate = data => {
-    this.currentTimeMs = data.currentTime * 1000;
-
-    if (this.timings) {
-      this.selectActiveTiming();
-    }
-  };
-
   public async setSubtitle(srclang: string) {
     const subtitle =
       this.instance.config.subtitles.find(
@@ -81,6 +73,14 @@ export class SubtitlesExtension extends Module {
       transform: `translateY(-${offset}px)`,
     });
   }
+
+  private onTimeUpdate = data => {
+    this.currentTimeMs = data.currentTime * 1000;
+
+    if (this.timings) {
+      this.selectActiveTiming();
+    }
+  };
 
   private selectActiveTiming() {
     let activeTiming: ITrackTiming = null;

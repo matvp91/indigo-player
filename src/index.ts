@@ -7,9 +7,12 @@ import { addModuleLoader } from '@src/ModuleLoader';
 import { Player } from '@src/player/Player';
 import { Config, ErrorCodes, Events, ModuleLoaderTypes } from '@src/types';
 import { setConsoleLogs } from '@src/utils/log';
+import { resolveScriptPath } from '@src/utils/webpack';
 
 declare var __webpack_public_path__: string;
 declare var VERSION: string;
+
+__webpack_public_path__ = resolveScriptPath('indigo-player.js');
 
 export default {
   VERSION,
