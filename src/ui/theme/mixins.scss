@@ -35,3 +35,59 @@
     background-color: rgba(0, 0, 0, .5);
   }
 }
+
+/* Credits to: https://css-tricks.com/glitch-effect-text-images-svg/ */
+@mixin text-glitch(
+  $name,
+  $intensity,
+  $textColor,
+  $background,
+  $highlightColor1,
+  $highlightColor2,
+  $width,
+  $height
+) {
+  color: $textColor;
+  position: relative;
+  $steps: $intensity;
+
+  @at-root {
+    @for $i from 1 through 2 {
+      @keyframes #{$name}-anim-#{$i} {
+        @for $i from 0 through $steps {
+          #{percentage($i*(1/$steps))} {
+            clip: rect(
+              random($height)+px,
+              $width+px,
+              random($height)+px,
+              0
+            );
+          }
+        }
+      }
+    }
+  }
+
+  &:before,
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $background;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &:after {
+    left: 2px;
+    text-shadow: -1px 0 $highlightColor1;
+    animation: #{$name}-anim-1 2s 3 1.5s linear alternate-reverse;
+  }
+
+  &:before {
+    left: -2px;
+    text-shadow: 2px 0 $highlightColor2;
+    animation: #{$name}-anim-2 3s 3 1.5s linear alternate-reverse;
+  }
+}

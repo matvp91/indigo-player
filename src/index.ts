@@ -20,7 +20,7 @@ export default {
     __webpack_public_path__ = chunksPath;
   },
   setConsoleLogs,
-  init(element: HTMLElement, config: Config) {
+  init(element: HTMLElement | string, config: Config) {
     const instance = new Instance(element, config);
     return createAPI(instance);
   },

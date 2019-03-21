@@ -4,3 +4,20 @@
   align-items: center;
   justify-content: center;
 }
+
+.igui_view_error-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
+  @include text-glitch(
+    'error-glitch',
+    17,
+    #ffffff,
+    #000000,
+    #ff0000,
+    #0000ff,
+    170,
+    25
+  );
+}

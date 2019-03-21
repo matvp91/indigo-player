@@ -26,6 +26,8 @@ import { log } from '@src/utils/log';
 import { storage } from '@src/utils/storage';
 import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
+import isElement from 'lodash/isElement';
+import isString from 'lodash/isString';
 
 declare var __webpack_public_path__: string;
 
@@ -74,7 +76,7 @@ export class Instance implements IInstance {
    */
   private emitter: EventEmitter;
 
-  constructor(element: HTMLElement, config: Config) {
+  constructor(element: HTMLElement | string, config: Config) {
     this.config = createConfig(config);
 
     this.createContainers(element);
@@ -125,7 +127,9 @@ export class Instance implements IInstance {
   }
 
   public setError(error: IPlayerError) {
-    this.controller.unload();
+    if (this.controller) {
+      this.controller.unload();
+    }
     this.emit(Events.ERROR, {
       error,
     } as IErrorEventData);
@@ -176,7 +180,17 @@ export class Instance implements IInstance {
     return find(modules, { name });
   }
 
-  private createContainers(element: HTMLElement) {
+  private createContainers(element: HTMLElement | string) {
+    if (isString(element)) {
+      element = document.getElementById(element);
+    }
+
+    if (!isElement(element)) {
+      throw new PlayerError(
+        'The provided element is not a valid selector or DOM element.',
+      );
+    }
+
     this.container = document.createElement('div');
     this.container.classList.add('ig-container');
 
