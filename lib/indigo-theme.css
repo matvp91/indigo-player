@@ -1,11 +1,13 @@
-.ig-ui {
+/* Credits to: https://css-tricks.com/glitch-effect-text-images-svg/ */
+
+.ig-container {
   color: #fff;
   -webkit-tap-highlight-color: transparent;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 13px;
 }
 
-.ig-ui * {
+.ig-container * {
   box-sizing: border-box;
 }
 
@@ -67,6 +69,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  opacity: .9;
+}
+
+.igui_container_controls .igui_button:hover {
+  opacity: 1;
 }
 
 .igui_container_controls .igui_button .igui_icon {
@@ -116,10 +123,38 @@
   margin-right: 9px;
 }
 
+@keyframes fullscreen-hover {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.igui_container_controls .igui_button_name-fullscreen:hover .igui_icon {
+  animation-name: fullscreen-hover;
+  animation-duration: 350ms;
+}
+
 .igui_container_controls .igui_button_name-fullscreen .igui_button_tooltip {
   right: 2px;
   left: auto;
   transform: translateX(0);
+}
+
+.igui_container_controls .igui_button_name-settings .igui_icon {
+  transform: rotate(0deg);
+  transition: transform 150ms ease-in-out;
+}
+
+.igui_container_controls .igui_button_name-settings.igui_button_state-active .igui_icon {
+  transform: rotate(35deg);
 }
 
 .igui_container_controls .igui_button_name-subtitle.igui_button_state-active {
@@ -206,6 +241,185 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.igui_view_error-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
+  color: #fff;
+  position: relative;
+}
+
+@keyframes error-glitch-anim-1 {
+  0% {
+    clip: rect(2px, 170px, 17px, 0);
+  }
+
+  5.88235% {
+    clip: rect(25px, 170px, 21px, 0);
+  }
+
+  11.76471% {
+    clip: rect(20px, 170px, 20px, 0);
+  }
+
+  17.64706% {
+    clip: rect(12px, 170px, 24px, 0);
+  }
+
+  23.52941% {
+    clip: rect(6px, 170px, 8px, 0);
+  }
+
+  29.41176% {
+    clip: rect(21px, 170px, 15px, 0);
+  }
+
+  35.29412% {
+    clip: rect(11px, 170px, 16px, 0);
+  }
+
+  41.17647% {
+    clip: rect(19px, 170px, 22px, 0);
+  }
+
+  47.05882% {
+    clip: rect(22px, 170px, 17px, 0);
+  }
+
+  52.94118% {
+    clip: rect(12px, 170px, 23px, 0);
+  }
+
+  58.82353% {
+    clip: rect(11px, 170px, 2px, 0);
+  }
+
+  64.70588% {
+    clip: rect(12px, 170px, 25px, 0);
+  }
+
+  70.58824% {
+    clip: rect(4px, 170px, 15px, 0);
+  }
+
+  76.47059% {
+    clip: rect(2px, 170px, 16px, 0);
+  }
+
+  82.35294% {
+    clip: rect(3px, 170px, 3px, 0);
+  }
+
+  88.23529% {
+    clip: rect(22px, 170px, 11px, 0);
+  }
+
+  94.11765% {
+    clip: rect(7px, 170px, 23px, 0);
+  }
+
+  100% {
+    clip: rect(3px, 170px, 18px, 0);
+  }
+}
+
+@keyframes error-glitch-anim-2 {
+  0% {
+    clip: rect(2px, 170px, 16px, 0);
+  }
+
+  5.88235% {
+    clip: rect(19px, 170px, 18px, 0);
+  }
+
+  11.76471% {
+    clip: rect(17px, 170px, 20px, 0);
+  }
+
+  17.64706% {
+    clip: rect(18px, 170px, 10px, 0);
+  }
+
+  23.52941% {
+    clip: rect(15px, 170px, 6px, 0);
+  }
+
+  29.41176% {
+    clip: rect(21px, 170px, 14px, 0);
+  }
+
+  35.29412% {
+    clip: rect(2px, 170px, 20px, 0);
+  }
+
+  41.17647% {
+    clip: rect(24px, 170px, 16px, 0);
+  }
+
+  47.05882% {
+    clip: rect(14px, 170px, 12px, 0);
+  }
+
+  52.94118% {
+    clip: rect(6px, 170px, 5px, 0);
+  }
+
+  58.82353% {
+    clip: rect(8px, 170px, 15px, 0);
+  }
+
+  64.70588% {
+    clip: rect(15px, 170px, 19px, 0);
+  }
+
+  70.58824% {
+    clip: rect(8px, 170px, 2px, 0);
+  }
+
+  76.47059% {
+    clip: rect(23px, 170px, 10px, 0);
+  }
+
+  82.35294% {
+    clip: rect(21px, 170px, 9px, 0);
+  }
+
+  88.23529% {
+    clip: rect(3px, 170px, 13px, 0);
+  }
+
+  94.11765% {
+    clip: rect(7px, 170px, 22px, 0);
+  }
+
+  100% {
+    clip: rect(21px, 170px, 17px, 0);
+  }
+}
+
+.igui_view_error-title:before, .igui_view_error-title:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  clip: rect(0, 0, 0, 0);
+}
+
+.igui_view_error-title:after {
+  left: 2px;
+  text-shadow: -1px 0 #f00;
+  animation: error-glitch-anim-1 2s 3 1.5s linear alternate-reverse;
+}
+
+.igui_view_error-title:before {
+  left: -2px;
+  text-shadow: 2px 0 #00f;
+  animation: error-glitch-anim-2 3s 3 1.5s linear alternate-reverse;
 }
 
 .igui_seekbar {
@@ -453,7 +667,7 @@
   border-radius: 2px;
   color: #fff;
   z-index: 1;
-  min-width: 150px;
+  min-width: 180px;
   overflow-y: auto;
 }
 
@@ -502,19 +716,21 @@
 }
 
 .igui_settings_header {
-  padding: 8px 16px;
+  padding: 8px;
   text-align: center;
-  position: relative;
   border-bottom: 1px solid #555;
+  display: flex;
+  align-items: center;
 }
 
 .igui_settings_header .igui_button_name-settings-back {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 32px;
+  margin-right: 8px;
   font-size: 16px;
+}
+
+.igui_settings_header .igui_button_name-settings-options {
+  margin-left: auto;
+  font-size: 11px;
 }
 
 .igui_image {
