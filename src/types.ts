@@ -109,7 +109,11 @@ export enum ErrorCodes {
   NO_SUPPORTED_FORMAT_FOUND = 1001,
   CONTROLLER_LOAD_FAILED = 1002,
 
+  // Shaka
   SHAKA_CRITICAL_ERROR = 2001,
+
+  // HLSjs
+  HLSJS_CRITICAL_ERROR = 3001,
 }
 
 export interface Format {

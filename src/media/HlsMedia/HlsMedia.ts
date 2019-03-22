@@ -1,6 +1,8 @@
 import { Media } from '@src/media/Media';
 import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
+import { PlayerError } from '@src/PlayerError';
 import {
+  ErrorCodes,
   Events,
   Format,
   ITrack,
@@ -44,6 +46,22 @@ export class HlsMedia extends Media {
         track: this.formatTrack(this.player.levels[data.level], data.level),
         auto: this.player.autoLevelEnabled,
       } as ITrackChangeEventData);
+    });
+
+    this.player.on(HlsJs.Events.ERROR, (event, data) => {
+      if (!data.fatal) {
+        return;
+      }
+
+      if (data.type === HlsJs.ErrorTypes.NETWORK_ERROR) {
+        this.player.startLoad();
+      } else if (data.type === HlsJs.ErrorTypes.MEDIA_ERROR) {
+        this.player.recoverMediaError();
+      } else {
+        this.instance.setError(
+          new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
+        );
+      }
     });
 
     this.player.loadSource(this.instance.format.src);

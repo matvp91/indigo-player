@@ -437,8 +437,8 @@ export class StateStore extends React.Component<
     }
 
     const tracks = uniqBy<ITrack>(
-      this.props.player.tracks.sort((a, b) => b.bandwidth - a.bandwidth),
-      'width',
+      this.props.player.tracks.sort((a, b) => Number(b.height) - Number(a.height)),
+      'height',
     );
 
     let activeTrack = null;
