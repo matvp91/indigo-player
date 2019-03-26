@@ -33,18 +33,18 @@ export const VolumeButton = withState((props: VolumeButtonProps) => {
         onClick={props.toggleMute}
         tooltip={props.tooltipText}
       />
-      <div className='igui_volume_collapse'>
-        <div className='igui_volume_container'>
-          <div className='igui_volumebar' ref={ref as any}>
-            <div className='igui_volumebar_container'>
+      <div className="igui_volume_collapse">
+        <div className="igui_volume_container">
+          <div className="igui_volumebar" ref={ref as any}>
+            <div className="igui_volumebar_container">
               <div
-                className='igui_volumebar_progress'
+                className="igui_volumebar_progress"
                 style={{
                   transform: `scaleX(${props.volumeBarPercentage})`,
                 }}
               />
               <div
-                className='igui_volumebar_scrubber'
+                className="igui_volumebar_scrubber"
                 style={{ left: `${props.volumeBarPercentage * 100}%` }}
               />
             </div>
@@ -65,9 +65,9 @@ function mapProps(info: IInfo): VolumeButtonProps {
 
   return {
     volumeIcon,
-    tooltipText: info.data.getTranslation(
+    tooltipText: `${info.data.getTranslation(
       info.data.volumeBarPercentage === 0 ? 'Unmute' : 'Mute',
-    ),
+    )} (m)`,
     toggleMute: info.actions.toggleMute,
     setVolumeControlsOpen: info.actions.setVolumeControlsOpen,
     setVolumebarState: info.actions.setVolumebarState,

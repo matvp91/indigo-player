@@ -11,7 +11,7 @@ export function withState(WrappedComponent, mapProps = null) {
         <StateContext.Consumer>
           {(info: IInfo) => {
             if (mapProps) {
-              info = mapProps(info);
+              info = mapProps(info, this.props);
             } // This is temporary, once all components are integrated with mapProps, remove.
             return <MemoizedWrappedComponent {...this.props} {...info} />;
           }}

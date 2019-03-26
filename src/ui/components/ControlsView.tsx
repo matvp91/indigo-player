@@ -88,31 +88,40 @@ export const ControlsView = withState((props: ControlsViewProps) => {
 }, mapProps);
 
 function mapProps(info: IInfo): ControlsViewProps {
+  const createTooltipText = (text: string, shortcut?: string) => {
+    return `${info.data.getTranslation(text)} ${
+      shortcut ? `(${shortcut})` : ''
+    }`.trim();
+  };
+
   return {
     isCenterClickAllowed: info.data.isCenterClickAllowed,
     isSettingsTabActive: info.data.settingsTab !== SettingsTabs.NONE,
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
     playOrPause: info.actions.playOrPause,
-    playTooltipText: info.data.getTranslation(
+    playTooltipText: createTooltipText(
       info.data.playRequested ? 'Pause' : 'Play',
+      'k',
     ),
     showSubtitlesToggle: !!info.data.subtitles.length,
     isSubtitleActive: !!info.data.activeSubtitle,
     toggleActiveSubtitle: info.actions.toggleActiveSubtitle,
-    subtitleToggleTooltipText: info.data.getTranslation(
+    subtitleToggleTooltipText: createTooltipText(
       !!info.data.activeSubtitle ? 'Disable subtitles' : 'Enable subtitles',
+      'c',
     ),
     showPip: info.data.pipSupported && !info.data.pip,
     togglePip: info.actions.togglePip,
-    pipTooltipText: info.data.getTranslation('Miniplayer'),
+    pipTooltipText: createTooltipText('Miniplayer', 'i'),
     toggleSettings: info.actions.toggleSettings,
-    settingsTooltipText: info.data.getTranslation('Settings'),
+    settingsTooltipText: createTooltipText('Settings'),
     fullscreenIcon: !info.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit',
     toggleFullscreen: info.actions.toggleFullscreen,
     isFullscreenDisabled: !info.data.fullscreenSupported,
-    fullscreenTooltipText: info.data.getTranslation(
+    fullscreenTooltipText: createTooltipText(
       info.data.isFullscreen ? 'Exit full screen' : 'Full screen',
+      'f',
     ),
   };
 }

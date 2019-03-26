@@ -242,6 +242,8 @@ export enum KeyboardNavigationPurpose {
   VOLUME_MUTED = 'volume-muted',
   VOLUME_UNMUTED = 'volume-unmuted',
   TOGGLE_FULLSCREEN = 'toggle-fullscreen',
+  REQUEST_TOGGLE_SUBTITLES = 'toggle-subtitles',
+  REQUEST_TOGGLE_MINIPLAYER = 'toggle-miniplayer',
 }
 
 export interface IDimensionsChangeEventData extends IEventData {

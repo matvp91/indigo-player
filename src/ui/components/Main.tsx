@@ -13,6 +13,7 @@ interface MainProps {
   view: ViewTypes;
   isMobile: boolean;
   visibleControls: boolean;
+  isPip: boolean;
 }
 
 export const Main = withState(
@@ -21,6 +22,7 @@ export const Main = withState(
       className={cx('igui', {
         'igui_state-active': props.visibleControls,
         'igui_state-mobile': props.isMobile,
+        'igui_state-pip': props.isPip,
       })}
     >
       {props.view === ViewTypes.ERROR && <ErrorView />}
@@ -37,5 +39,6 @@ function mapProps(info: IInfo): MainProps {
     view: info.data.view,
     isMobile: info.data.isMobile,
     visibleControls: info.data.visibleControls,
+    isPip: info.data.pip,
   };
 }

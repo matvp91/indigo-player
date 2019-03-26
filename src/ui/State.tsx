@@ -111,6 +111,15 @@ export class StateStore
     this.props.instance.on(Events.KEYBOARDNAVIGATION_KEYDOWN, data => {
       this.showControls();
       this.triggerNod(data.purpose);
+
+      if (data.purpose === KeyboardNavigationPurpose.REQUEST_TOGGLE_SUBTITLES) {
+        this.toggleActiveSubtitle();
+      }
+      if (
+        data.purpose === KeyboardNavigationPurpose.REQUEST_TOGGLE_MINIPLAYER
+      ) {
+        this.togglePip();
+      }
     });
   }
 
@@ -484,6 +493,7 @@ export class StateStore
       [KeyboardNavigationPurpose.VOLUME_DOWN]: 'volume-1',
       [KeyboardNavigationPurpose.VOLUME_MUTED]: 'volume-off',
       [KeyboardNavigationPurpose.VOLUME_UNMUTED]: 'volume-2',
+      [KeyboardNavigationPurpose.REQUEST_TOGGLE_SUBTITLES]: 'cc',
     }[this.state.nodPurpose];
 
     return {

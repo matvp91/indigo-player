@@ -12,11 +12,11 @@
   &:before {
     content: '';
     position: absolute;
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
     left: 0;
     right: 0;
     bottom: 0;
-    top: -80px;
+    height: 80px;
     z-index: -1;
     pointer-events: none;
   }

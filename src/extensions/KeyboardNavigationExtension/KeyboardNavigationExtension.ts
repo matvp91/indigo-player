@@ -17,6 +17,8 @@ enum KeyCodes {
   DOWN_ARROW = 40,
   M = 77,
   F = 70,
+  C = 67,
+  I = 73,
 }
 
 const SKIP_CURRENTTIME_OFFSET: number = 5;
@@ -124,6 +126,16 @@ export class KeyboardNavigationExtension extends Module {
           this.emitPurpose(KeyboardNavigationPurpose.TOGGLE_FULLSCREEN);
           event.preventDefault();
         }
+        break;
+
+      case KeyCodes.C:
+        this.emitPurpose(KeyboardNavigationPurpose.REQUEST_TOGGLE_SUBTITLES);
+        event.preventDefault();
+        break;
+
+      case KeyCodes.I:
+        this.emitPurpose(KeyboardNavigationPurpose.REQUEST_TOGGLE_MINIPLAYER);
+        event.preventDefault();
         break;
     }
   };
