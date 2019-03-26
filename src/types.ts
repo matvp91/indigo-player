@@ -103,6 +103,8 @@ export enum Events {
 
   // UI
   UI_VISIBLECONTROLS_CHANGE = 'ui:visiblecontrols-change',
+  UI_VIEW_CHANGE = 'ui:view-change',
+  UI_STATE_CHANGE = 'ui:state-change',
 }
 
 export enum ErrorCodes {

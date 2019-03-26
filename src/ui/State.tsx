@@ -9,7 +9,13 @@ import {
 } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
 import { triggerEvent } from '@src/ui/triggerEvent';
-import { IActions, IData, SettingsTabs, ViewTypes } from '@src/ui/types';
+import {
+  IActions,
+  IData,
+  SettingsTabs,
+  ViewTypes,
+  IStateStore,
+} from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import uniqBy from 'lodash/uniqBy';
@@ -49,10 +55,9 @@ export const seekbarTooltipRef: RefObject<HTMLDivElement> = React.createRef();
 
 export const seekbarThumbnailRef: RefObject<HTMLDivElement> = React.createRef();
 
-export class StateStore extends React.Component<
-  StateStoreProps,
-  StateStoreState
-> {
+export class StateStore
+  extends React.Component<StateStoreProps, StateStoreState>
+  implements IStateStore {
   private activeTimer: number;
 
   private nodTimer: number;
@@ -130,7 +135,7 @@ export class StateStore extends React.Component<
     );
   }
 
-  private showControls = () => {
+  public showControls = () => {
     clearTimeout(this.activeTimer);
 
     this.setState({ visibleControls: true });
@@ -437,7 +442,9 @@ export class StateStore extends React.Component<
     }
 
     const tracks = uniqBy<ITrack>(
-      this.props.player.tracks.sort((a, b) => Number(b.height) - Number(a.height)),
+      this.props.player.tracks.sort(
+        (a, b) => Number(b.height) - Number(a.height),
+      ),
       'height',
     );
 

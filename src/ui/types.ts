@@ -71,10 +71,10 @@ export interface IInfo {
 }
 
 export enum ViewTypes {
-  ERROR,
-  LOADING,
-  START,
-  CONTROLS,
+  ERROR = 'error',
+  LOADING = 'loading',
+  START = 'start',
+  CONTROLS = 'controls',
 }
 
 export enum SettingsTabs {
@@ -83,4 +83,8 @@ export enum SettingsTabs {
   TRACKS,
   SUBTITLES,
   PLAYBACKRATES,
+}
+
+export interface IStateStore {
+  showControls();
 }

@@ -3,6 +3,7 @@ import includes from 'lodash/includes';
 import omit from 'lodash/omit';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import './styles.scss';
 
 // Start the player
 
@@ -132,11 +133,30 @@ player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
   render(state);
 });
 
-Object.values(IndigoPlayer.Events).forEach((name: string) => {
-  if (name.startsWith('ui:')) {
-    player.on(name, data => {
-      console.log('UI event', name, data);
-    });
+// Object.values(IndigoPlayer.Events).forEach((name: string) => {
+//   if (name.startsWith('ui:')) {
+//     player.on(name, data => {
+//       console.log('UI event', name, data);
+//     });
+//   }
+// });
+
+player.on(IndigoPlayer.Events.UI_STATE_CHANGE, ({ state }) => {
+  const classes = [
+    `view-${state.view}`,
+  ];
+
+  if (state.visibleControls) {
+    classes.push('controls-visible');
+  }
+
+  document.getElementById('playerRoot').setAttribute('class', classes.map(className => `igo_${className}`).join(' '));
+});
+
+document.getElementsByClassName('player-overlay')[0].addEventListener('mousemove', () => {
+  const uiExtension = player.getModule('UiExtension');
+  if (uiExtension) {
+    uiExtension.triggerMouseMove();
   }
 });
 

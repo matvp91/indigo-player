@@ -1,0 +1,25 @@
+#playerRoot {
+  margin-left: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  top: 16px;
+  color: #fff;
+  display: block;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
+  transform: translateY(0);
+  opacity: 1;
+
+  .igo_view-controls:not(.igo_controls-visible) & {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+}

@@ -143,6 +143,10 @@ function createWebpackConfig(build, argv) {
               test: /\.tsx?$/,
               use: 'awesome-typescript-loader',
             },
+            {
+              test: /\.scss$/,
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
           ],
         },
         plugins: [
