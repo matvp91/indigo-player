@@ -353,7 +353,7 @@ export class StateStore
 
     // Calculate the current progress percentage.
     let progressPercentage = 0;
-    if (this.props.player.duration) {
+    if (this.props.player.duration && visibleControls) {
       progressPercentage =
         this.props.player.currentTime / this.props.player.duration;
     }

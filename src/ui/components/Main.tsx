@@ -18,7 +18,7 @@ interface MainProps {
 export const Main = withState(
   (props: MainProps) => (
     <div
-      className={cx({
+      className={cx('igui', {
         'igui_state-active': props.visibleControls,
         'igui_state-mobile': props.isMobile,
       })}

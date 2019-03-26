@@ -56,9 +56,14 @@ const player = IndigoPlayer.init(
       //   src:
       //     'https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo/vier/dedag/volledigeafleveringen/133fc7a62dea3da106ba0b9f54f6e83d4f6777ec/DE_DAG_1_8_F0261554/DE_DAG_1_8_F0261554.m3u8',
       // },
+      // {
+      //   type: 'hls',
+      //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
+      // },
       {
-        type: 'hls',
-        src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
+        type: 'mp4',
+        src:
+          'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
       },
       // {
       //   type: 'mp4',
@@ -141,24 +146,24 @@ player.on(IndigoPlayer.Events.STATE_CHANGE, ({ state }) => {
 //   }
 // });
 
-player.on(IndigoPlayer.Events.UI_STATE_CHANGE, ({ state }) => {
-  const classes = [
-    `view-${state.view}`,
-  ];
+// player.on(IndigoPlayer.Events.UI_STATE_CHANGE, ({ state }) => {
+//   const classes = [
+//     `view-${state.view}`,
+//   ];
 
-  if (state.visibleControls) {
-    classes.push('controls-visible');
-  }
+//   if (state.visibleControls) {
+//     classes.push('controls-visible');
+//   }
 
-  document.getElementById('playerRoot').setAttribute('class', classes.map(className => `igo_${className}`).join(' '));
-});
+//   document.getElementById('playerRoot').setAttribute('class', classes.map(className => `igo_${className}`).join(' '));
+// });
 
-document.getElementsByClassName('player-overlay')[0].addEventListener('mousemove', () => {
-  const uiExtension = player.getModule('UiExtension');
-  if (uiExtension) {
-    uiExtension.triggerMouseMove();
-  }
-});
+// document.getElementsByClassName('player-overlay')[0].addEventListener('mousemove', () => {
+//   const uiExtension = player.getModule('UiExtension');
+//   if (uiExtension) {
+//     uiExtension.triggerMouseMove();
+//   }
+// });
 
 export interface StateProps {
   state: any;

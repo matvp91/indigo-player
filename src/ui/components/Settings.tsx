@@ -35,7 +35,7 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
         ].filter(item => !!item)}
       />
     ) : (
-      <div className='igui_settings_nooptions'>No settings available</div>
+      <div className="igui_settings_nooptions">No settings available</div>
     )}
   </>
 );
@@ -137,13 +137,13 @@ interface SettingsHeaderProps {
 }
 
 const SettingsHeader = (props: SettingsHeaderProps) => (
-  <div className='igui_settings_header'>
+  <div className="igui_settings_header">
     {!!props.onBackClick && (
-      <Button onClick={props.onBackClick} name='settings-back' icon='back' />
+      <Button onClick={props.onBackClick} name="settings-back" icon="back" />
     )}
     {props.title}
     {!!props.onOptionsClick && (
-      <Button onClick={props.onOptionsClick} name='settings-options'>
+      <Button onClick={props.onOptionsClick} name="settings-options">
         Options
       </Button>
     )}
@@ -161,18 +161,18 @@ interface SettingsSelectProps {
 }
 
 const SettingsSelect = (props: SettingsSelectProps) => (
-  <div className='igui_settings_select'>
+  <div className="igui_settings_select">
     {props.items.map(item => (
       <Button
         key={item.label}
-        name='select-option'
+        name="select-option"
         onClick={() => props.onClick(item.item)}
         active={item.item === props.selected}
       >
         <>
           {item.label}
           {item.info && (
-            <span className='igui_settings_select_option_info'>
+            <span className="igui_settings_select_option_info">
               {item.info}
             </span>
           )}
@@ -190,9 +190,9 @@ interface SettingsProps {
 export const Settings = withState((props: SettingsProps) => {
   const renderTab = tabs[props.data.settingsTab];
   return renderTab ? (
-    <div className='igui_settings'>
+    <div className="igui_settings">
       {props.data.isMobile && (
-        <Button name='mobile-close' onClick={props.actions.toggleSettings}>
+        <Button name="mobile-close" onClick={props.actions.toggleSettings}>
           &times;
         </Button>
       )}

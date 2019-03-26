@@ -7,11 +7,14 @@ import {
   ITimeUpdateEventData,
   IVolumeChangeEventData,
 } from '@src/types';
+import requestFrame from 'request-frame';
 
 export class HTML5Player extends Player {
   public name: string = 'HTML5Player';
 
   public mediaElement: HTMLVideoElement;
+
+  private requestAnimationId: number;
 
   public load() {
     super.load();
@@ -44,12 +47,6 @@ export class HTML5Player extends Player {
       } as IDurationChangeEventData);
     });
 
-    this.mediaElement.addEventListener('timeupdate', () => {
-      this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
-        currentTime: this.mediaElement.currentTime,
-      } as ITimeUpdateEventData);
-    });
-
     this.mediaElement.addEventListener('waiting', () => {
       this.emit(Events.PLAYER_STATE_WAITING);
     });
@@ -72,6 +69,19 @@ export class HTML5Player extends Player {
         playbackRate: this.mediaElement.playbackRate,
       } as IPlaybackRateChangeEventData);
     });
+
+    // Create animation frame loop for smooth currentTime transition
+    const requestAnimationFrame = requestFrame('request');
+    const onAnimationFrame = () => {
+      if (!this.mediaElement.paused && !this.mediaElement.ended) {
+        this.emit(Events.PLAYER_STATE_TIMEUPDATE, {
+          currentTime: this.mediaElement.currentTime,
+        } as ITimeUpdateEventData);
+      }
+
+      this.requestAnimationId = requestAnimationFrame(onAnimationFrame);
+    };
+    this.requestAnimationId = requestAnimationFrame(onAnimationFrame);
   }
 
   public unload() {
@@ -80,6 +90,9 @@ export class HTML5Player extends Player {
       this.mediaElement.removeAttribute('src');
       this.mediaElement.load();
       this.mediaElement.remove();
+    }
+    if (this.requestAnimationId) {
+      requestFrame('cancel')(this.requestAnimationId);
     }
     super.unload();
   }

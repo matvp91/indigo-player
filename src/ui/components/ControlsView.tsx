@@ -39,22 +39,22 @@ export const ControlsView = withState((props: ControlsViewProps) => {
       <Settings />
       {props.isCenterClickAllowed && <Center />}
       {props.showRebuffer && <Rebuffer />}
-      <div className='igui_container_controls'>
+      <div className="igui_container_controls">
         <Button
-          name='play'
+          name="play"
           icon={props.playIcon}
           onClick={props.playOrPause}
           tooltip={props.playTooltipText}
         />
         <VolumeButton />
         <TimeStat />
-        <div className='igui_container_controls_seekbar'>
+        <div className="igui_container_controls_seekbar">
           <Seekbar />
         </div>
         {props.showSubtitlesToggle && (
           <Button
-            name='subtitle'
-            icon='cc'
+            name="subtitle"
+            icon="cc"
             onClick={props.toggleActiveSubtitle}
             active={props.isSubtitleActive}
             tooltip={props.subtitleToggleTooltipText}
@@ -62,21 +62,21 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         )}
         {props.showPip && (
           <Button
-            name='pip'
-            icon='pip'
+            name="pip"
+            icon="pip"
             onClick={props.togglePip}
             tooltip={props.pipTooltipText}
           />
         )}
         <Button
-          name='settings'
-          icon='settings'
+          name="settings"
+          icon="settings"
           onClick={() => props.toggleSettings()}
           tooltip={props.settingsTooltipText}
           active={props.isSettingsTabActive}
         />
         <Button
-          name='fullscreen'
+          name="fullscreen"
           icon={props.fullscreenIcon}
           onClick={props.toggleFullscreen}
           disabled={props.isFullscreenDisabled}

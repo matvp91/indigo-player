@@ -5605,6 +5605,10 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
+request-frame@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/request-frame/-/request-frame-1.5.3.tgz#813c3160d9b023583889aaa977389b68fcaa2e3d"
+
 request-promise-core@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.1.tgz#3eee00b2c5aa83239cfb04c5700da36f81cd08b6"

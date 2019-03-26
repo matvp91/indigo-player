@@ -12,7 +12,7 @@
   &:before {
     content: '';
     position: absolute;
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5));
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
     left: 0;
     right: 0;
     bottom: 0;
@@ -82,9 +82,15 @@
     margin-right: 9px;
 
     @keyframes fullscreen-hover {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
     &:hover {
@@ -113,17 +119,23 @@
   }
 
   .igui_button_name-subtitle {
+    &:before {
+      content: '';
+      position: absolute;
+      height: 2px;
+      height: 2px;
+      background-color: #ffffff;
+      bottom: 7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0px;
+      transition: width 120ms linear;
+    }
+
     &.igui_button_state-active {
       position: relative;
 
       &:before {
-        content: '';
-        position: absolute;
-        height: 2px;
-        background-color: #ffffff;
-        bottom: 7px;
-        left: 50%;
-        transform: translateX(-50%);
         width: 21px;
       }
     }
