@@ -8,7 +8,19 @@
   cursor: pointer;
 
   .igui_icon_play {
+    animation: 250ms ease-out 0s 1 play-appear;
     font-size: 48px;
     z-index: 1;
+
+    @keyframes play-appear {
+      0% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   }
 }
