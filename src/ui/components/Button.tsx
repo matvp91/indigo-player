@@ -14,17 +14,31 @@ interface ButtonProps {
 
 export const Button = (props: ButtonProps) => {
   const [hover, setHover] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+
+  const events = {
+    onMouseEnter: () => {
+      if (isTouch) return;
+      setHover(true);
+    },
+    onMouseLeave: () => setHover(false),
+    onTouchStart: () => {
+      setIsTouch(true);
+      setHover(true);
+    },
+    onTouchEnd: () => setHover(false),
+    onTouchCancel: () => setHover(false),
+    onClick: () => {
+      setIsTouch(false);
+      props.onClick();
+    },
+  };
 
   return (
     <button
-      type='button'
+      type="button"
       tabIndex={0}
-      onClick={props.onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onTouchStart={() => setHover(true)}
-      onTouchEnd={() => setHover(false)}
-      onTouchCancel={() => setHover(false)}
+      {...events}
       className={cx('igui_button', {
         [`igui_button_name-${props.name}`]: !!props.name,
         'igui_button_state-disabled': props.disabled,
@@ -34,7 +48,7 @@ export const Button = (props: ButtonProps) => {
       {!!props.children && props.children}
       {props.icon && <Icon icon={props.icon} />}
       {hover && props.tooltip && (
-        <span className='igui_button_tooltip'>{props.tooltip}</span>
+        <span className="igui_button_tooltip">{props.tooltip}</span>
       )}
     </button>
   );
