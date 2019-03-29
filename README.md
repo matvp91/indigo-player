@@ -14,6 +14,12 @@ Highly extensible, modern, JavaScript player. 👊
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 
+<p align="center">
+  <a href="https://github.com/matvp91/indigo-player">
+    <img align="center" src="https://raw.githubusercontent.com/matvp91/indigo-player/master/docs/indigo-player-screencap.png">
+  </a>
+</p>
+
 ## Documentation
 
 Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
