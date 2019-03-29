@@ -9,6 +9,10 @@
   min-width: 180px;
   overflow-y: auto;
 
+  .igui_state-fullscreen & {
+    bottom: big-mode(58px);
+  }
+
   .igui_state-mobile & {
     @include stretch();
   }

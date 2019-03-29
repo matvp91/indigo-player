@@ -14,6 +14,7 @@ interface MainProps {
   isMobile: boolean;
   visibleControls: boolean;
   isPip: boolean;
+  isFullscreen: boolean;
 }
 
 export const Main = withState(
@@ -23,6 +24,7 @@ export const Main = withState(
         'igui_state-active': props.visibleControls,
         'igui_state-mobile': props.isMobile,
         'igui_state-pip': props.isPip,
+        'igui_state-fullscreen': props.isFullscreen,
       })}
     >
       {props.view === ViewTypes.ERROR && <ErrorView />}
@@ -40,5 +42,6 @@ function mapProps(info: IInfo): MainProps {
     isMobile: info.data.isMobile,
     visibleControls: info.data.visibleControls,
     isPip: info.data.pip,
+    isFullscreen: info.data.isFullscreen,
   };
 }

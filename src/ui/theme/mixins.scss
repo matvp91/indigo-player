@@ -32,7 +32,7 @@
   &:after {
     content: '';
     @include stretch();
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -57,9 +57,9 @@
         @for $i from 0 through $steps {
           #{percentage($i*(1/$steps))} {
             clip: rect(
-              random($height)+px,
-              $width+px,
-              random($height)+px,
+              random($height) + px,
+              $width + px,
+              random($height) + px,
               0
             );
           }
@@ -90,4 +90,8 @@
     text-shadow: 2px 0 $highlightColor2;
     animation: #{$name}-anim-2 3s 3 1.5s linear alternate-reverse;
   }
+}
+
+@function big-mode($i) {
+  @return $i + 8px;
 }

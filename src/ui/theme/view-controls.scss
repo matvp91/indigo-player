@@ -30,12 +30,21 @@
     position: relative;
     opacity: 0.9;
 
+    .igui_state-fullscreen & {
+      width: big-mode(36px);
+      height: big-mode(40px);
+    }
+
     &:hover {
       opacity: 1;
     }
 
     .igui_icon {
       font-size: 26px;
+
+      .igui_state-fullscreen & {
+        font-size: big-mode(26px);
+      }
     }
 
     .igui_button_tooltip {
@@ -48,6 +57,10 @@
       border-radius: 2px;
       padding: 4px 6px;
       white-space: nowrap;
+
+      .igui_state-fullscreen & {
+        bottom: big-mode(58px);
+      }
     }
   }
 
@@ -154,4 +167,8 @@
   left: 0;
   right: 0;
   bottom: 34px;
+
+  .igui_state-fullscreen & {
+    bottom: big-mode(34px);
+  }
 }
