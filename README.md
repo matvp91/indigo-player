@@ -15,7 +15,7 @@ Highly extensible, modern, JavaScript player. 👊
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 
 * **Strict defined API**, which makes it easy to build analytics and various other plugins on top of indigo-player.
-* **Dynamic bundle loading**, automatically determes and loads which modules are needed for playback.
+* **Dynamic bundle loading**, automatically determines and loads which modules are needed for playback.
 * **Highly modular** plugin system to extend functionality without modifying it's core.
 * **Out-of-the-box** features such as subtitles, thumbnails, quality selection if applicable, ...
 * **React** based UI.
