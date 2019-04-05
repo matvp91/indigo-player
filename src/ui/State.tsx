@@ -361,8 +361,10 @@ export class StateStore
     }
 
     // Calculate the current progress percentage.
+    // TODO: Do not calculate progressPercentage if controls are not visible for x-ms (animation time)
+    //       and with smooth seeking on.
     let progressPercentage = 0;
-    if (this.props.player.duration && visibleControls) {
+    if (this.props.player.duration) {
       progressPercentage =
         this.props.player.currentTime / this.props.player.duration;
     }
