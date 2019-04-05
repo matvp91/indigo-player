@@ -15,6 +15,7 @@ const player = IndigoPlayer.init(
   /*document.getElementById('playerContainer')*/ 'playerContainer',
   {
     autoplay: false,
+    aspectRatio: 16 / 9,
     ui: {
       pip: true,
       lockControlsVisibility: false,

@@ -145,6 +145,8 @@ export interface Config {
   autoplay: boolean;
   keyboardNavigation: boolean | 'focus';
 
+  aspectRatio?: number;
+
   ui: {
     enabled: boolean;
     lockControlsVisibility: boolean;

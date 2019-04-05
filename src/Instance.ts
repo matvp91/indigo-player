@@ -79,7 +79,7 @@ export class Instance implements IInstance {
   constructor(element: HTMLElement | string, config: Config) {
     this.config = createConfig(config);
 
-    this.createContainers(element);
+    this.createContainers(element, this.config.aspectRatio);
 
     this.emitter = new EventEmitter();
 
@@ -180,7 +180,7 @@ export class Instance implements IInstance {
     return find(modules, { name });
   }
 
-  private createContainers(element: HTMLElement | string) {
+  private createContainers(element: HTMLElement | string, aspectRatio: number) {
     if (isString(element)) {
       element = document.getElementById(element);
     }
@@ -193,6 +193,7 @@ export class Instance implements IInstance {
 
     this.container = document.createElement('div');
     this.container.classList.add('ig-container');
+    this.container.style.paddingTop = `${100 / aspectRatio}%`;
 
     this.playerContainer = document.createElement('div');
     this.playerContainer.classList.add('ig-player');
