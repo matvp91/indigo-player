@@ -13,6 +13,17 @@ The player will attempt to autoplay the content. Most browsers have autoplay blo
 }
 ```
 
+### Aspect ratio
+
+Changes the aspect ratio of the player container. Must be entered as the `x/y` ratio.
+
+```javascript
+{
+  aspectRatio: 16/9, // 16/9, 4/3, 9/16, ...
+  sources: [...],
+}
+```
+
 ### Sources
 
 Set one or multiple sources of your video asset. indigo-player will take the first format in the list where browser support is positive. When formats are DRM protected, multiple sources are needed to cover Widevine & PlayReady (DASH) - Chrome/FF/Edge and FairPlay (HLS) - Safari.
@@ -274,44 +285,6 @@ Provide the WebVTT files with their configuration in order to provide subtitles.
 }
 </div>
 
-### Preview image
-
-Instead of a black background or the first frame of the video element (if applicable), you can set your own preview image instead. This image will be shown as the background on the `StartView` and `LoadingView`.
-
-```javascript
-{
-  ui: {
-    image: 'https://example.com/my-image.png',
-  },
-}
-```
-
-### Picture in Picture
-
-Picture in picture mode will put the player container at the right bottom of the screen. You can move the PIP container by dragging it by the handle at the top of the player (your cursor should change to a drag icon).
-
-```javascript
-{
-  ui: {
-    pip: true, // by default, pip is not enabled in the UI.
-  },
-}
-```
-
-<div class="sample-player" data-optin="1">
-{
-  ui: {
-    pip: true,
-  },
-  sources: [
-    {
-      type: 'mp4',
-      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    },
-  ],
-}
-</div>
-
 ### Thumbnails
 
 Thumbnails are displayed in the tooltip when seeking or hovering over the seekbar. When you are seeking, the tooltip is also shown in the background (giving the user a better user experience when seeking). In order to display thumbnails, you must have a WebVTT file including a reference to a sprite with thumbnails, for example:
@@ -350,7 +323,9 @@ Afterwards, configure the player to load the thumbnails vtt file:
 }
 </div>
 
-### Locale
+### UI
+
+#### Locale
 
 Changes the language of the player UI. You can find a list of locale's here: https://github.com/matvp91/indigo-player/blob/master/src/ui/i18n.ts
 
@@ -361,3 +336,41 @@ Changes the language of the player UI. You can find a list of locale's here: htt
   },
 }
 ```
+
+#### Preview image
+
+Instead of a black background or the first frame of the video element (if applicable), you can set your own preview image instead. This image will be shown as the background on the `StartView` and `LoadingView`.
+
+```javascript
+{
+  ui: {
+    image: 'https://example.com/my-image.png',
+  },
+}
+```
+
+#### Picture in Picture
+
+Picture in picture mode will put the player container at the right bottom of the screen. You can move the PIP container by dragging it by the handle at the top of the player (your cursor should change to a drag icon).
+
+```javascript
+{
+  ui: {
+    pip: true, // by default, pip is not enabled in the UI.
+  },
+}
+```
+
+<div class="sample-player" data-optin="1">
+{
+  ui: {
+    pip: true,
+  },
+  sources: [
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
+  ],
+}
+</div>
