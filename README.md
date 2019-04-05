@@ -18,7 +18,7 @@ Highly extensible, modern, JavaScript player. 👊
 * **Dynamic bundle loading**, automatically determes and loads which modules are needed for playback.
 * **Highly modular** plugin system to extend functionality without modifying it's core.
 * **Out-of-the-box** features such as subtitles, thumbnails, quality selection if applicable, ...
-* UI fully built with **React**.
+* **React** based UI.
 
 <p align="center">
   <a href="https://github.com/matvp91/indigo-player">
