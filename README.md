@@ -8,16 +8,16 @@
 
 Highly extensible, modern, JavaScript player. 👊
 
-* **Strict defined API**, which makes it easy to build analytics and various other plugins on top of indigo-player.
-* **Dynamic bundle loading**, automatically determes and loads which modules are needed for playback.
-* **Highly modular** plugin system to extend functionality without modifying it's core.
-* **Out-of-the-box** features such as subtitles, thumbnails, quality selection if applicable, ...
-
 ![Travis CI](https://img.shields.io/travis/matvp91/indigo-player/master.svg)
 [![](https://img.shields.io/npm/v/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 [![](https://img.shields.io/github/license/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
+
+* **Strict defined API**, which makes it easy to build analytics and various other plugins on top of indigo-player.
+* **Dynamic bundle loading**, automatically determes and loads which modules are needed for playback.
+* **Highly modular** plugin system to extend functionality without modifying it's core.
+* **Out-of-the-box** features such as subtitles, thumbnails, quality selection if applicable, ...
 
 <p align="center">
   <a href="https://github.com/matvp91/indigo-player">
