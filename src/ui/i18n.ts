@@ -1,6 +1,6 @@
 // List of language codes: http://www.lingoes.net/en/translator/langcode.htm
 
-const translations = {
+export const translations = {
   'en-US': {
     Play: 'Play',
     Pause: 'Pause',
@@ -36,6 +36,24 @@ const translations = {
     'Automatic quality': 'Automatisch',
     'Enable subtitles': 'Ondertitels aan',
     'Disable subtitles': 'Ondertitels uit',
+  },
+  'de-DE': {
+    Play: 'Wiedergabe',
+    Pause: 'Pause',
+    Mute: 'Stummschalten',
+    Unmute: 'Stummschaltung aufheben',
+    Miniplayer: 'Miniplayer',
+    Settings: 'Einstellungen',
+    'Full screen': 'Vollbild',
+    'Exit full screen': 'Vollbildmodus verlassen',
+    Speed: 'Geschwindigkeit',
+    'Normal speed': 'Normal',
+    Subtitles: 'Untertitel',
+    'No subtitles': 'Aus',
+    Quality: 'Qualität',
+    'Automatic quality': 'Automatisch',
+    'Enable subtitles': 'Untertitel an',
+    'Disable subtitles': 'Untertitel aus',
   },
 };
 

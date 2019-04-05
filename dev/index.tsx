@@ -61,10 +61,15 @@ const player = IndigoPlayer.init(
       //   type: 'hls',
       //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
       // },
+      // {
+      //   type: 'mp4',
+      //   src:
+      //     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+      // },
       {
         type: 'mp4',
         src:
-          'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       },
       // {
       //   type: 'mp4',
