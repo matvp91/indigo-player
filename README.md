@@ -24,13 +24,6 @@ Highly extensible, modern, JavaScript player. 👊
 
 Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
-## Community
-
-| Project | Description | Link |
-| --- | --- | --- |
-| Themes | A repository with themes for indigo-player. | https://github.com/matvp91/indigo-player-themes |
-| Example module | If you'd like to develop your own module for indigo-player (apply own business rules, integrate an ad provider, write new media support, ...), take a look at this sample project. | https://github.com/matvp91/indigo-player-extension-example |
-
 ## Getting started
 
 The example below will load a simple MP4 file, and attempt to autoplay it.
