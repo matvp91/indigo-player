@@ -58,6 +58,14 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 </html>
 ```
 
+## Mentions
+Much ❤️ on getting the word out!
+* [Hacker News](https://news.ycombinator.com/item?id=18939145)
+* [codrops Collective 503](https://tympanus.net/codrops/collective/collective-503/)
+* [Smashing Magazine](https://twitter.com/smashingmag/status/1095001768365252608)
+* [Web Design Weekly #345](https://web-design-weekly.com/2019/02/12/web-design-weekly-345/)
+* Let me know!
+
 ## Cheers 🍺
 * [@ambroos](https://github.com/ambroos) for being a video nerd!
 * [@google](https://github.com/google) for maintaining [shaka-player](https://github.com/google/shaka-player)
