@@ -325,6 +325,18 @@ Afterwards, configure the player to load the thumbnails vtt file:
 
 ### UI
 
+#### Chromeless
+
+Disable the default UI. As a developer, you can easily create your own UI with the `STATE` events.
+
+```javascript
+{
+  ui: {
+    enabled: false,
+  },
+}
+```
+
 #### Locale
 
 Changes the language of the player UI. You can find a list of locale's here: https://github.com/matvp91/indigo-player/blob/master/src/ui/i18n.ts
