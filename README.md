@@ -14,6 +14,12 @@ Highly extensible, modern, JavaScript player. 👊
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
 
+* **Strict defined API**, which makes it easy to build analytics and various other plugins on top of indigo-player.
+* **Dynamic bundle loading**, automatically determines and loads which modules are needed for playback.
+* **Highly modular** plugin system to extend functionality without modifying it's core.
+* **Out-of-the-box** features such as subtitles, thumbnails, quality selection if applicable, ...
+* **React** based UI.
+
 <p align="center">
   <a href="https://github.com/matvp91/indigo-player">
     <img align="center" src="https://raw.githubusercontent.com/matvp91/indigo-player/master/docs/indigo-player-screencap.png">
@@ -23,13 +29,6 @@ Highly extensible, modern, JavaScript player. 👊
 ## Documentation
 
 Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
-
-## Community
-
-| Project | Description | Link |
-| --- | --- | --- |
-| Themes | A repository with themes for indigo-player. | https://github.com/matvp91/indigo-player-themes |
-| Example module | If you'd like to develop your own module for indigo-player (apply own business rules, integrate an ad provider, write new media support, ...), take a look at this sample project. | https://github.com/matvp91/indigo-player-extension-example |
 
 ## Getting started
 
@@ -58,6 +57,14 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
   </body>
 </html>
 ```
+
+## Mentions
+Much ❤️ on getting the word out!
+* [Hacker News](https://news.ycombinator.com/item?id=18939145)
+* [codrops Collective 503](https://tympanus.net/codrops/collective/collective-503/)
+* [Smashing Magazine](https://twitter.com/smashingmag/status/1095001768365252608)
+* [Web Design Weekly #345](https://web-design-weekly.com/2019/02/12/web-design-weekly-345/)
+* Let me know!
 
 ## Cheers 🍺
 * [@ambroos](https://github.com/ambroos) for being a video nerd!
