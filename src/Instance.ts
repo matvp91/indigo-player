@@ -250,6 +250,8 @@ export class Instance implements IInstance {
       log('play() called because of autoplay');
     }
 
-    this.emit(Events.READY);
+    // Emit Events.READY at the end of the execution queue, means initial video callbacks
+    // are already executed.
+    setTimeout(() => this.emit(Events.READY));
   }
 }
