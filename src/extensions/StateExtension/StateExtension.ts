@@ -154,6 +154,10 @@ export class StateExtension extends Module {
     this.on(Events.ADBREAK_STATE_PAUSE, setPaused);
 
     const setCurrentTime = this.dispatch((draft, data) => {
+      if (this.state.paused) {
+        return;
+      }
+
       draft.currentTime = data.currentTime;
       draft.buffering = false;
       draft.playing = true;
@@ -312,6 +316,12 @@ export class StateExtension extends Module {
 
       const prevState = this.state;
       this.state = newState;
+
+      if (![Events.STATE_CURRENTTIME_CHANGE].includes(emitEvent)) {
+        this.instance.log('StateExtension.change')(emitEvent, {
+          state: this.state,
+        });
+      }
 
       this.emit(emitEvent, {
         state: this.state,

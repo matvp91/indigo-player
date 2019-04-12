@@ -215,7 +215,7 @@ export class Instance implements IInstance {
 
     log(`Will fetch chunks from ${__webpack_public_path__}`);
 
-    this.env = await getEnv();
+    this.env = await getEnv(config);
 
     this.controller = await selectController(this);
     log('Controller selected', { controller: this.controller });
@@ -238,12 +238,18 @@ export class Instance implements IInstance {
       return;
     }
 
-    this.emit(Events.READY);
+    // Set initial config values.
+    this.setVolume(config.volume);
+    if (config.startPosition) {
+      this.seekTo(config.startPosition);
+    }
 
     // Now that we know we can autoplay, actually do it.
     if (this.canAutoplay()) {
       this.play();
       log('play() called because of autoplay');
     }
+
+    this.emit(Events.READY);
   }
 }

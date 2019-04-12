@@ -39,6 +39,7 @@ export function createConfig(input: Config): Config {
       autoplay: false,
       keyboardNavigation: 'focus',
       aspectRatio: 16 / 9,
+      volume: 1,
       ui: {
         enabled: true,
         lockControlsVisibility: false,
