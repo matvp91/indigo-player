@@ -36,6 +36,21 @@ The following configuration sets the initial volume and position.
 }
 ```
 
+The following example starts the video muted and at a start position of 2 minutes.
+
+<div class="sample-player" data-optin="1">
+{
+  volume: 0,
+  startPosition: 120,
+  sources: [
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
+  ],
+}
+</div>
+
 ### Sources
 
 Set one or multiple sources of your video asset. indigo-player will take the first format in the list where browser support is positive. When formats are DRM protected, multiple sources are needed to cover Widevine & PlayReady (DASH) - Chrome/FF/Edge and FairPlay (HLS) - Safari.

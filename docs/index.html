@@ -1,107 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
-  <style>
-    section.cover .cover-main>p:last-child a:last-child:hover {
-      color: #fff !important;
-    }
-
-    .api-table ul {
-      margin: 0;
-    }
-
-    .api-table td,
-    .api-table th {
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-
-    .example-button {
-      border: 1px solid var(--theme-color, #42b983);
-      color: var(--theme-color, #42b983);
-      border-radius: 2rem;
-      padding: .75em 2rem;
-      display: inline-block;
-      cursor: pointer;
-    }
-  </style>
-  <script src="https://mssl.fwmrm.net/libs/adm/6.23.0/AdManager.js"></script>
-  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-  <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
-</head>
-
-<body>
-  <div id="app"></div>
-  <script>
-    function renderPlayer(element, config) {
-      var player = IndigoPlayer.init(element, config);
-
-      var expose = element.getAttribute('data-expose-player');
-      if (expose) {
-        window[expose] = player;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />
+    <style>
+      section.cover .cover-main > p:last-child a:last-child:hover {
+        color: #fff !important;
       }
-    }
 
-    function samplePlayer(hook) {
-      hook.doneEach(function () {
-        var elements = document.querySelectorAll('.sample-player');
-        elements.forEach(function (element) {
-          var config = eval('(' + element.innerText + ')');
-          var optin = element.getAttribute('data-optin');
+      .api-table ul {
+        margin: 0;
+      }
 
-          element.innerHTML = '';
+      .api-table td,
+      .api-table th {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
 
-          if (optin) {
-            var handle = document.createElement('div');
-            handle.innerHTML = 'Run example above';
-            handle.setAttribute('class', 'example-button');
-            handle.onclick = function () {
-              element.innerHTML = '';
+      .example-button {
+        border: 1px solid var(--theme-color, #42b983);
+        color: var(--theme-color, #42b983);
+        border-radius: 2rem;
+        padding: 0.75em 2rem;
+        display: inline-block;
+        cursor: pointer;
+      }
+    </style>
+    <script src="https://mssl.fwmrm.net/libs/adm/6.23.0/AdManager.js"></script>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script>
+      function renderPlayer(element, config) {
+        var player = IndigoPlayer.init(element, config);
+
+        var expose = element.getAttribute('data-expose-player');
+        if (expose) {
+          window[expose] = player;
+        }
+      }
+
+      function samplePlayer(hook) {
+        hook.doneEach(function() {
+          var elements = document.querySelectorAll('.sample-player');
+          elements.forEach(function(element) {
+            var config = eval('(' + element.innerText + ')');
+            var optin = element.getAttribute('data-optin');
+
+            element.innerHTML = '';
+
+            if (optin) {
+              var handle = document.createElement('div');
+              handle.innerHTML = 'Run example above';
+              handle.setAttribute('class', 'example-button');
+              handle.onclick = function() {
+                element.innerHTML = '';
+                renderPlayer(element, config);
+              };
+              element.appendChild(handle);
+            } else {
               renderPlayer(element, config);
-            };
-            element.appendChild(handle);
-          } else {
-            renderPlayer(element, config);
-          }
+            }
+          });
         });
-      });
-    }
+      }
 
-    window.$docsify = {
-      loadSidebar: true,
-      themeColor: '#4b0082',
-      subMaxLevel: 4,
-      coverpage: true,
-      plugins: [
-        samplePlayer,
-        EditOnGithubPlugin.create('https://github.com/matvp91/indigo-player/tree/master/docs/', undefined,
-          '✏️ Edit on GitHub'),
-      ],
-      ga: 'UA-102364408-2',
-    };
+      window.$docsify = {
+        loadSidebar: true,
+        themeColor: '#4b0082',
+        subMaxLevel: 4,
+        coverpage: true,
+        plugins: [
+          samplePlayer,
+          EditOnGithubPlugin.create(
+            'https://github.com/matvp91/indigo-player/tree/master/docs/',
+            undefined,
+            '✏️ Edit on GitHub',
+          ),
+        ],
+        ga: 'UA-102364408-2',
+      };
 
-    window.resizeSample = function (obj) {
-      obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/indigo-player@1.3.4/lib/indigo-player.js"></script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <script src="//unpkg.com/prismjs@1.15.0/components/prism-typescript.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
-  <style>
-    .igui_seekbar_progress,
-    .igui_seekbar_scrubber {
-      background-color: #4b0082;
-    }
-  </style>
-</body>
-
+      window.resizeSample = function(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/indigo-player@1.3.5/lib/indigo-player.js"></script>
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <script src="//unpkg.com/prismjs@1.15.0/components/prism-typescript.min.js"></script>
+    <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
+    <style>
+      .igui_seekbar_progress,
+      .igui_seekbar_scrubber {
+        background-color: #4b0082;
+      }
+    </style>
+  </body>
 </html>
