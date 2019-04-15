@@ -17,6 +17,7 @@ const player = IndigoPlayer.init(
     autoplay: true,
     aspectRatio: 16 / 9,
     volume: 0.5,
+    startPosition: 100,
     ui: {
       pip: true,
       lockControlsVisibility: false,
@@ -29,17 +30,17 @@ const player = IndigoPlayer.init(
     // thumbnails: {
     //   src: './thumbnails.vtt',
     // },
-    // freewheel: {
-    //   clientSide: true,
-    //   network: 96749,
-    //   server: 'https://demo.v.fwmrm.net/ad/g/1',
-    //   videoAsset: 'DemoVideoGroup.01',
-    //   // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
-    //   duration: 594,
-    //   siteSection: 'DemoSiteGroup.01',
-    //   profile: 'global-js',
-    //   cuepoints: [/*'preroll', */12, 'postroll'],
-    // },
+    freewheel: {
+      clientSide: true,
+      network: 96749,
+      server: 'https://demo.v.fwmrm.net/ad/g/1',
+      videoAsset: 'DemoVideoGroup.01',
+      // videoAsset: 'TEST_AD_BRAND_ANV_10003623',
+      duration: 594,
+      siteSection: 'DemoSiteGroup.01',
+      profile: 'global-js',
+      cuepoints: ['preroll', 12, 'postroll'],
+    },
     // googleIMA: {
     //   // src: 'https://pubads.g.doubleclick.net/gampad/ads?' +
     //   // 'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +

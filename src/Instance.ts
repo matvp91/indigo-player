@@ -83,7 +83,7 @@ export class Instance implements IInstance {
 
     this.emitter = new EventEmitter();
 
-    this.init(config);
+    this.init(this.config);
   }
 
   public on = (name: string, callback: EventCallback) =>
@@ -238,6 +238,8 @@ export class Instance implements IInstance {
       return;
     }
 
+    this.emit(Events.READY);
+
     // Set initial config values.
     this.setVolume(config.volume);
     if (config.startPosition) {
@@ -249,9 +251,5 @@ export class Instance implements IInstance {
       this.play();
       log('play() called because of autoplay');
     }
-
-    // Emit Events.READY at the end of the execution queue, means initial video callbacks
-    // are already executed.
-    setTimeout(() => this.emit(Events.READY));
   }
 }
