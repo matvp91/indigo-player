@@ -146,6 +146,8 @@ export interface Config {
   keyboardNavigation: boolean | 'focus';
 
   aspectRatio?: number;
+  volume?: number;
+  startPosition?: number;
 
   ui: {
     enabled: boolean;

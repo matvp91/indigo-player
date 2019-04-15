@@ -1,10 +1,12 @@
-import { IEnv } from '@src/types';
+import { IEnv, Config } from '@src/types';
 import canAutoplayLib from 'can-autoplay';
 
-export async function getEnv(): Promise<IEnv> {
+export async function getEnv(config: Config): Promise<IEnv> {
   const userAgent: string = navigator.userAgent;
 
-  const canAutoplay: boolean = (await canAutoplayLib.video()).result;
+  const canAutoplay: boolean = (await canAutoplayLib.video({
+    muted: config.volume === 0,
+  })).result;
 
   const isSafari: boolean =
     /safari/i.test(userAgent) && userAgent.indexOf('Chrome') === -1;
