@@ -24,7 +24,9 @@ export enum AdBreakType {
 export enum Events {
   ERROR = 'error', // An unrecoverable error occured
   DESTROY = 'destroy',
-  READY = 'ready',
+  INSTANCE_INITIALIZE = 'instance:initialize', // booting the instance
+  INSTANCE_INITIALIZED = 'instance:initialized', // controller, media & extensions are created
+  READY = 'ready', // initial properties set (volume, startPosition, ...) and ready for playback
 
   // Player state events
   PLAYER_STATE_PLAY = 'player-state:play',

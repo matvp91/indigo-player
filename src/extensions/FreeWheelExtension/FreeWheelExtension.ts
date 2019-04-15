@@ -57,7 +57,10 @@ export class FreeWheelExtension extends Module {
     this.sdk = (window as any).tv.freewheel.SDK;
     this.sdk.setLogLevel(this.sdk.LOG_LEVEL_QUIET);
 
-    this.once(Events.READY, this.onReady.bind(this));
+    this.once(
+      Events.INSTANCE_INITIALIZED,
+      this.onInstanceInitialized.bind(this),
+    );
     this.on(Events.PLAYER_STATE_TIMEUPDATE, this.onPlayerTimeUpdate.bind(this));
     this.on(Events.PLAYER_STATE_ENDED, this.onPlayerEnded.bind(this));
 
@@ -143,7 +146,7 @@ export class FreeWheelExtension extends Module {
     this.adContainer.appendChild(this.mediaElement);
   }
 
-  public onReady() {
+  private onInstanceInitialized() {
     this.adContainer = document.createElement('div');
     this.adContainer.style.position = 'absolute';
     this.adContainer.style.left = '0px';
@@ -242,7 +245,7 @@ export class FreeWheelExtension extends Module {
     const preroll: IFWAdBreak = find(this.adBreaks, {
       type: AdBreakType.PREROLL,
     });
-    if (preroll) {
+    if (preroll && !this.shouldSkipPreroll()) {
       this.playAdBreak(preroll);
     } else {
       this.instance.media.play();
@@ -357,5 +360,9 @@ export class FreeWheelExtension extends Module {
       this.instance.media.play();
     }
     this.adContainer.style.display = 'block';
+  }
+
+  private shouldSkipPreroll() {
+    return this.instance.config.startPosition > 0;
   }
 }

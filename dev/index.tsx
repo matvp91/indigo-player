@@ -14,7 +14,7 @@ IndigoPlayer.setConsoleLogs(true);
 const player = IndigoPlayer.init(
   /*document.getElementById('playerContainer')*/ 'playerContainer',
   {
-    autoplay: true,
+    autoplay: false,
     aspectRatio: 16 / 9,
     volume: 0.5,
     startPosition: 100,

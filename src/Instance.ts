@@ -211,6 +211,8 @@ export class Instance implements IInstance {
   }
 
   private async init(config: Config) {
+    this.emit(Events.INSTANCE_INITIALIZE);
+
     const log = this.log('instance.init');
 
     log(`Will fetch chunks from ${__webpack_public_path__}`);
@@ -238,7 +240,7 @@ export class Instance implements IInstance {
       return;
     }
 
-    this.emit(Events.READY);
+    this.emit(Events.INSTANCE_INITIALIZED);
 
     // Set initial config values.
     this.setVolume(config.volume);
@@ -251,5 +253,7 @@ export class Instance implements IInstance {
       this.play();
       log('play() called because of autoplay');
     }
+
+    setTimeout(() => this.emit(Events.READY));
   }
 }
