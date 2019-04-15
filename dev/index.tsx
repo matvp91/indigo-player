@@ -16,7 +16,7 @@ const player = IndigoPlayer.init(
   {
     autoplay: true,
     aspectRatio: 16 / 9,
-    volume: 0.5,
+    volume: 1,
     ui: {
       pip: true,
       lockControlsVisibility: false,
