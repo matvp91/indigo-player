@@ -24,6 +24,33 @@ Changes the aspect ratio of the player container. Must be entered as the `x/y` r
 }
 ```
 
+### Initial volume & position
+
+The following configuration sets the initial volume and position.
+
+```javascript
+{
+  volume: 0.5, // Start with 50% volume, if set to 0, the video will start muted.
+  startPosition: 20, // Start a 20 seconds in the content
+  sources: [...],
+}
+```
+
+The following example starts the video muted and at a start position of 2 minutes.
+
+<div class="sample-player" data-optin="1">
+{
+  volume: 0,
+  startPosition: 120,
+  sources: [
+    {
+      type: 'mp4',
+      src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    },
+  ],
+}
+</div>
+
 ### Sources
 
 Set one or multiple sources of your video asset. indigo-player will take the first format in the list where browser support is positive. When formats are DRM protected, multiple sources are needed to cover Widevine & PlayReady (DASH) - Chrome/FF/Edge and FairPlay (HLS) - Safari.

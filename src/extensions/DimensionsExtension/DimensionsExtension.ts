@@ -13,16 +13,19 @@ export class DimensionsExtension extends Module {
     super(instance);
 
     const debouncedOnResizeContainer = debounce(this.onResizeContainer, 250);
-    this.observer = observeResize(instance.container, debouncedOnResizeContainer.bind(this));
+    this.observer = observeResize(
+      instance.container,
+      debouncedOnResizeContainer.bind(this),
+    );
 
-    this.on(Events.READY, this.onReady.bind(this));
+    this.on(Events.INSTANCE_INITIALIZED, this.onInstanceInitialized.bind(this));
   }
 
   destroy() {
     this.observer.remove();
   }
 
-  onReady() {
+  onInstanceInitialized() {
     this.onResizeContainer();
   }
 

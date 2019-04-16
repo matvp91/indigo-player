@@ -46,7 +46,10 @@ export class GoogleIMAExtension extends Module {
 
     this.ima = (window as any).google.ima;
 
-    this.once(Events.READY, this.onReady.bind(this));
+    this.once(
+      Events.INSTANCE_INITIALIZED,
+      this.onInstanceInitialized.bind(this),
+    );
 
     this.instance.controller.hooks.create(
       'play',
@@ -66,7 +69,7 @@ export class GoogleIMAExtension extends Module {
     );
   }
 
-  private onReady() {
+  private onInstanceInitialized() {
     this.adContainer = document.createElement('div');
     this.adContainer.style.position = 'absolute';
     this.adContainer.style.left = '0px';
@@ -127,7 +130,9 @@ export class GoogleIMAExtension extends Module {
   }
 
   private onControllerSetVolume(next: NextHook, volume: number) {
-    this.adsManager.setVolume(volume);
+    if (this.adsManager) {
+      this.adsManager.setVolume(volume);
+    }
     next();
   }
 

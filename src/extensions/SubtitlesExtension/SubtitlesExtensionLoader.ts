@@ -12,6 +12,6 @@ export const SubtitlesExtensionLoader = {
   create: async (instance: IInstance) => new SubtitlesExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
-    return !!config.subtitles;
+    return config.subtitles && config.subtitles.length > 0;
   },
 } as IModuleLoader<SubtitlesExtension>;

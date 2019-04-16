@@ -19,7 +19,7 @@ export class BenchmarkExtension extends Module {
 
     this.startupTimeExtension = performance.now() - startTime;
 
-    this.once(Events.READY, () => {
+    this.once(Events.INSTANCE_INITIALIZED, () => {
       this.startupTimeInstance = performance.now() - startTime;
     });
 

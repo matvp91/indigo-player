@@ -83,7 +83,7 @@ export class Instance implements IInstance {
 
     this.emitter = new EventEmitter();
 
-    this.init(config);
+    this.init(this.config);
   }
 
   public on = (name: string, callback: EventCallback) =>
@@ -211,6 +211,8 @@ export class Instance implements IInstance {
   }
 
   private async init(config: Config) {
+    this.emit(Events.INSTANCE_INITIALIZE);
+
     const log = this.log('instance.init');
 
     log(`Will fetch chunks from ${__webpack_public_path__}`);
@@ -238,6 +240,8 @@ export class Instance implements IInstance {
       return;
     }
 
+    this.emit(Events.INSTANCE_INITIALIZED);
+
     // Set initial config values.
     this.setVolume(config.volume);
     if (config.startPosition) {
@@ -250,8 +254,6 @@ export class Instance implements IInstance {
       log('play() called because of autoplay');
     }
 
-    // Emit Events.READY at the end of the execution queue, means initial video callbacks
-    // are already executed.
     setTimeout(() => this.emit(Events.READY));
   }
 }
