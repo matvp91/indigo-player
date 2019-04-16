@@ -20,9 +20,10 @@ export interface IState {
   playing: boolean;
   paused: boolean;
   buffering: boolean;
-  ended: boolean;
+  started: boolean;
   contentStarted: boolean;
   contentEnded: boolean;
+  ended: boolean;
 
   currentTime: number;
   duration: number;
@@ -41,8 +42,6 @@ export interface IState {
   fullscreen: boolean;
 
   pip: boolean;
-
-  started: boolean;
 
   tracks: ITrack[];
   track: ITrack;
@@ -117,125 +116,216 @@ export class StateExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    const setReady = this.dispatch(draft => {
-      draft.ready = true;
-      draft.waitingForUser = !instance.canAutoplay();
-    });
-    this.on(Events.READY, setReady);
+    // CONTENT STATE
 
-    const setPlayRequested = this.dispatch(draft => {
-      draft.waitingForUser = false;
-      draft.playRequested = true;
-      draft.paused = false;
-      draft.videoSessionStarted = true;
-    });
-    this.on(Events.PLAYER_STATE_PLAY, setPlayRequested);
-    this.on(Events.ADBREAK_STATE_PLAY, setPlayRequested);
+    // ready
+    this.on(
+      Events.READY,
+      this.dispatch(draft => {
+        draft.ready = true;
+        draft.waitingForUser = !instance.canAutoplay(); // TODO: implement data.canAutoplay
+      }),
+    );
 
-    const setPlaying = this.dispatch(draft => {
-      draft.started = true;
-      draft.playing = true;
-      draft.playRequested = true;
-      draft.buffering = false;
-      draft.paused = false;
-      draft.ended = false;
-    });
-    this.on(Events.PLAYER_STATE_PLAYING, setPlaying);
-    this.on(Events.ADBREAK_STATE_PLAYING, setPlaying);
+    // playRequested
+    this.on(
+      Events.PLAYER_STATE_PLAY,
+      this.dispatch(draft => {
+        draft.waitingForUser = false;
+        draft.playRequested = true;
+        draft.paused = false;
+        draft.videoSessionStarted = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PLAY,
+      this.dispatch(draft => {
+        draft.waitingForUser = false;
+        draft.playRequested = true;
+        draft.paused = false;
+        draft.videoSessionStarted = true;
+      }),
+    );
 
-    const setPaused = this.dispatch(draft => {
-      draft.playRequested = false;
-      draft.playing = false;
-      draft.paused = true;
-    });
-    this.on(Events.PLAYER_STATE_PAUSE, setPaused);
-    this.on(Events.ADBREAK_STATE_PAUSE, setPaused);
+    // // playing
+    this.on(
+      Events.PLAYER_STATE_PLAYING,
+      this.dispatch(draft => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setCurrentTime = this.dispatch((draft, data) => {
-      if (this.state.paused) {
-        return;
-      }
+        draft.started = true;
+        draft.playing = true;
+        draft.playRequested = true;
+        draft.buffering = false;
+        draft.paused = false;
+        draft.ended = false;
+        draft.contentStarted = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PLAYING,
+      this.dispatch(draft => {
+        if (!this.state.adBreak) {
+          return;
+        }
 
-      draft.currentTime = data.currentTime;
-      draft.buffering = false;
-      draft.playing = true;
-    });
-    this.on(Events.PLAYER_STATE_TIMEUPDATE, setCurrentTime);
+        draft.started = true;
+        draft.playing = true;
+        draft.playRequested = true;
+        draft.buffering = false;
+        draft.paused = false;
+        draft.ended = false;
+      }),
+    );
 
-    const setDuraton = this.dispatch((draft, data) => {
-      draft.duration = data.duration;
-    });
-    this.on(Events.PLAYER_STATE_DURATIONCHANGE, setDuraton);
+    // paused
+    this.on(
+      Events.PLAYER_STATE_PAUSE,
+      this.dispatch(draft => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setAdBreakCurrentTime = this.dispatch((draft, data) => {
-      draft.adBreakCurrentTime = data.currentTime;
-    });
-    this.on(Events.ADBREAK_STATE_TIMEUPDATE, setAdBreakCurrentTime);
-
-    const setBuffering = this.dispatch(draft => {
-      draft.playing = false;
-      draft.buffering = true;
-    });
-    this.on(Events.PLAYER_STATE_WAITING, setBuffering);
-
-    const setAdBreaks = this.dispatch((draft, data) => {
-      draft.adBreaks = data.adBreaks;
-    });
-    this.on(Events.ADBREAKS, setAdBreaks);
-
-    const setAdBreak = this.dispatch((draft, data) => {
-      draft.adBreak = data.adBreak;
-    });
-    this.on(Events.ADBREAK_STARTED, setAdBreak);
-
-    const resetAdBreak = this.dispatch(draft => {
-      draft.adBreak = null;
-      draft.adBreakCurrentTime = null;
-    });
-    this.on(Events.ADBREAK_ENDED, resetAdBreak);
-
-    const setAd = this.dispatch((draft, data) => {
-      draft.ad = data.ad;
-    });
-    this.on(Events.AD_STARTED, setAd);
-
-    const resetAd = this.dispatch(draft => {
-      draft.ad = null;
-    });
-    this.on(Events.AD_ENDED, resetAd);
-
-    const setEndedContent = this.dispatch(draft => {
-      draft.contentEnded = true;
-
-      // If we can't find a postroll, everything is ended
-      if (!find(this.state.adBreaks, { type: AdBreakType.POSTROLL })) {
-        draft.started = false;
         draft.playRequested = false;
         draft.playing = false;
-        draft.ended = true;
-      }
-    });
-    this.on(Events.PLAYER_STATE_ENDED, setEndedContent);
+        draft.paused = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PAUSE,
+      this.dispatch(draft => {
+        if (!this.state.adBreak) {
+          return;
+        }
 
-    const setAdBreakEndedForPostroll = this.dispatch((draft, data) => {
-      if (data.adBreak.type === AdBreakType.POSTROLL) {
-        draft.started = false;
         draft.playRequested = false;
         draft.playing = false;
-        draft.ended = true;
-      }
-    });
-    this.on(Events.ADBREAK_ENDED, setAdBreakEndedForPostroll);
+        draft.paused = true;
+      }),
+    );
 
-    const setBufferedPercentage = this.dispatch((draft, data) => {
-      draft.bufferedPercentage = data.percentage;
-    });
-    this.on(Events.PLAYER_STATE_BUFFEREDCHANGE, setBufferedPercentage);
+    // currentTime
+    this.on(
+      Events.PLAYER_STATE_TIMEUPDATE,
+      this.dispatch((draft, data) => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setError = this.dispatch((draft, data) => {
-      draft.error = data.error;
-    });
-    this.on(Events.ERROR, setError);
+        draft.currentTime = data.currentTime;
+      }),
+    );
+
+    // duration
+    this.on(
+      Events.PLAYER_STATE_DURATIONCHANGE,
+      this.dispatch((draft, data) => {
+        draft.duration = data.duration;
+      }),
+    );
+
+    // buffering
+    this.on(
+      Events.PLAYER_STATE_WAITING,
+      this.dispatch(draft => {
+        draft.playing = false;
+        draft.buffering = true;
+      }),
+    );
+
+    // AD RELATED STATE
+
+    // adBreakCurrentTime
+    this.on(
+      Events.ADBREAK_STATE_TIMEUPDATE,
+      this.dispatch((draft, data) => {
+        if (!this.state.adBreak) {
+          return;
+        }
+
+        draft.adBreakCurrentTime = data.currentTime;
+      }),
+    );
+
+    this.on(
+      Events.ADBREAKS,
+      this.dispatch((draft, data) => {
+        draft.adBreaks = data.adBreaks;
+      }),
+    );
+
+    this.on(
+      Events.ADBREAK_STARTED,
+      this.dispatch((draft, data) => {
+        draft.adBreak = data.adBreak;
+      }),
+    );
+
+    this.on(
+      Events.ADBREAK_ENDED,
+      this.dispatch(draft => {
+        draft.adBreak = null;
+        draft.adBreakCurrentTime = null;
+      }),
+    );
+
+    this.on(
+      Events.AD_STARTED,
+      this.dispatch((draft, data) => {
+        draft.ad = data.ad;
+      }),
+    );
+
+    this.on(
+      Events.AD_ENDED,
+      this.dispatch(draft => {
+        draft.ad = null;
+      }),
+    );
+
+    this.on(
+      Events.PLAYER_STATE_ENDED,
+      this.dispatch(draft => {
+        draft.contentStarted = false;
+        draft.contentEnded = true;
+
+        // If we can't find a postroll, everything is ended
+        if (!find(this.state.adBreaks, { type: AdBreakType.POSTROLL })) {
+          draft.started = false;
+          draft.playRequested = false;
+          draft.playing = false;
+          draft.ended = true;
+        }
+      }),
+    );
+
+    this.on(
+      Events.ADBREAK_ENDED,
+      this.dispatch((draft, data) => {
+        if (data.adBreak.type === AdBreakType.POSTROLL) {
+          draft.started = false;
+          draft.playRequested = false;
+          draft.playing = false;
+          draft.ended = true;
+        }
+      }),
+    );
+
+    this.on(
+      Events.PLAYER_STATE_BUFFEREDCHANGE,
+      this.dispatch((draft, data) => {
+        draft.bufferedPercentage = data.percentage;
+      }),
+    );
+
+    this.on(
+      Events.ERROR,
+      this.dispatch((draft, data) => {
+        draft.error = data.error;
+      }),
+    );
 
     const setVolume = this.dispatch((draft, data) => {
       draft.volume = data.volume;
@@ -330,12 +420,24 @@ export class StateExtension extends Module {
         push(Events.STATE_PLAY_REQUESTED);
       }
 
+      if (!prevState.started && this.state.started) {
+        push(Events.STATE_STARTED);
+      }
+
+      if (!prevState.contentStarted && this.state.contentStarted) {
+        push(Events.STATE_CONTENT_STARTED);
+      }
+
       if (!prevState.playing && this.state.playing) {
         push(Events.STATE_PLAYING);
       }
 
       if (!prevState.paused && this.state.paused) {
         push(Events.STATE_PAUSED);
+      }
+
+      if (!prevState.contentEnded && this.state.contentEnded) {
+        push(Events.STATE_CONTENT_ENDED);
       }
 
       if (!prevState.ended && this.state.ended) {
@@ -361,20 +463,20 @@ export class StateExtension extends Module {
         push(Events.STATE_ADBREAKS);
       }
 
-      if (!prevState.adBreak && this.state.adBreak) {
-        push(Events.STATE_ADBREAK_STARTED);
-      }
-
       if (prevState.adBreak && !this.state.adBreak) {
         push(Events.STATE_ADBREAK_ENDED);
       }
 
-      if (!prevState.ad && this.state.ad) {
-        push(Events.STATE_AD_STARTED);
+      if (!prevState.adBreak && this.state.adBreak) {
+        push(Events.STATE_ADBREAK_STARTED);
       }
 
       if (prevState.ad && !this.state.ad) {
         push(Events.STATE_AD_ENDED);
+      }
+
+      if (!prevState.ad && this.state.ad) {
+        push(Events.STATE_AD_STARTED);
       }
 
       if (prevState.bufferedPercentage !== this.state.bufferedPercentage) {
@@ -436,7 +538,19 @@ export class StateExtension extends Module {
       }
 
       if (eventQueue.length) {
-        console.log(eventQueue);
+        const log = this.instance.log('StateExtension');
+
+        eventQueue.forEach(eventName => {
+          if (!['state:currenttime-change'].includes(eventName)) {
+            log(eventName);
+          }
+
+          this.emit(eventName, {
+            state: this.state,
+            prevState,
+          } as IStateChangeEventData);
+        });
+
         this.emit(Events.STATE_CHANGE, {
           state: this.state,
           prevState,
