@@ -130,7 +130,9 @@ export class GoogleIMAExtension extends Module {
   }
 
   private onControllerSetVolume(next: NextHook, volume: number) {
-    this.adsManager.setVolume(volume);
+    if (this.adsManager) {
+      this.adsManager.setVolume(volume);
+    }
     next();
   }
 

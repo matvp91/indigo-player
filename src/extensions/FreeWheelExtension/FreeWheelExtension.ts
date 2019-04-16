@@ -43,6 +43,10 @@ export class FreeWheelExtension extends Module {
 
   private adContainer: HTMLElement;
 
+  // Store the previous current time to omit playing a midroll
+  // if the start position !== 0.
+  private prevCurrentTime: number = 0;
+
   constructor(instance: IInstance) {
     super(instance);
 
@@ -327,12 +331,15 @@ export class FreeWheelExtension extends Module {
       adBreak =>
         adBreak.type === AdBreakType.MIDROLL &&
         adBreak.startsAt <= currentTime &&
+        adBreak.startsAt > this.prevCurrentTime &&
         !adBreak.hasBeenWatched,
     );
 
     if (midroll) {
       this.playAdBreak(midroll);
     }
+
+    this.prevCurrentTime = currentTime;
   }
 
   private onPlayerEnded() {
