@@ -154,7 +154,7 @@ function initSlider(
     },
   ]);
 
-  return () => removeEvents;
+  return () => removeEvents();
 }
 
 export function useSlider(element: HTMLElement, setSeekbarState) {
