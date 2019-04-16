@@ -20,6 +20,9 @@ export interface IState {
   playing: boolean;
   paused: boolean;
   buffering: boolean;
+  started: boolean;
+  contentStarted: boolean;
+  contentEnded: boolean;
   ended: boolean;
 
   currentTime: number;
@@ -39,8 +42,6 @@ export interface IState {
   fullscreen: boolean;
 
   pip: boolean;
-
-  started: boolean;
 
   tracks: ITrack[];
   track: ITrack;
@@ -74,7 +75,10 @@ export class StateExtension extends Module {
     playing: false,
     paused: false,
     buffering: false,
+    started: false,
     ended: false,
+    contentStarted: false,
+    contentEnded: false,
 
     currentTime: null,
     duration: null,
@@ -94,8 +98,6 @@ export class StateExtension extends Module {
 
     pip: false,
 
-    started: false,
-
     tracks: [],
     track: null,
     trackAutoSwitch: false,
@@ -114,196 +116,285 @@ export class StateExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    const setReady = this.dispatch((draft, data) => {
-      draft.ready = true;
-      draft.waitingForUser = !instance.canAutoplay();
-    }, Events.STATE_READY);
-    this.on(Events.READY, setReady);
+    // CONTENT STATE
 
-    const setPlayRequested = this.dispatch(draft => {
-      draft.waitingForUser = false;
-      draft.playRequested = true;
-      draft.paused = false;
-      draft.videoSessionStarted = true;
-    }, Events.STATE_PLAY_REQUESTED);
-    this.on(Events.PLAYER_STATE_PLAY, setPlayRequested);
-    this.on(Events.ADBREAK_STATE_PLAY, setPlayRequested);
+    // ready
+    this.on(
+      Events.READY,
+      this.dispatch(draft => {
+        draft.ready = true;
+        draft.waitingForUser = !instance.canAutoplay(); // TODO: implement data.canAutoplay
+      }),
+    );
 
-    const setPlaying = this.dispatch(draft => {
-      draft.started = true;
-      draft.playing = true;
-      draft.playRequested = true;
-      draft.buffering = false;
-      draft.paused = false;
-    }, Events.STATE_PLAYING);
-    this.on(Events.PLAYER_STATE_PLAYING, setPlaying);
-    this.on(Events.ADBREAK_STATE_PLAYING, setPlaying);
+    // playRequested
+    this.on(
+      Events.PLAYER_STATE_PLAY,
+      this.dispatch(draft => {
+        draft.waitingForUser = false;
+        draft.playRequested = true;
+        draft.paused = false;
+        draft.videoSessionStarted = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PLAY,
+      this.dispatch(draft => {
+        draft.waitingForUser = false;
+        draft.playRequested = true;
+        draft.paused = false;
+        draft.videoSessionStarted = true;
+      }),
+    );
 
-    const setPaused = this.dispatch(draft => {
-      draft.playRequested = false;
-      draft.playing = false;
-      draft.paused = true;
-    }, Events.STATE_PAUSED);
-    this.on(Events.PLAYER_STATE_PAUSE, () => {
-      // If an adbreak plays, we don't care if the media is paused or not.
-      if (this.state.adBreak) {
-        return;
-      }
-      setPaused();
-    });
-    this.on(Events.ADBREAK_STATE_PAUSE, setPaused);
+    // // playing
+    this.on(
+      Events.PLAYER_STATE_PLAYING,
+      this.dispatch(draft => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setCurrentTime = this.dispatch((draft, data) => {
-      if (this.state.paused) {
-        return;
-      }
+        draft.started = true;
+        draft.playing = true;
+        draft.playRequested = true;
+        draft.buffering = false;
+        draft.paused = false;
+        draft.ended = false;
+        draft.contentStarted = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PLAYING,
+      this.dispatch(draft => {
+        if (!this.state.adBreak) {
+          return;
+        }
 
-      draft.currentTime = data.currentTime;
-      draft.buffering = false;
-      draft.playing = true;
-    }, Events.STATE_CURRENTTIME_CHANGE);
-    this.on(Events.PLAYER_STATE_TIMEUPDATE, setCurrentTime);
+        draft.started = true;
+        draft.playing = true;
+        draft.playRequested = true;
+        draft.buffering = false;
+        draft.paused = false;
+        draft.ended = false;
+      }),
+    );
 
-    const setDuraton = this.dispatch((draft, data) => {
-      draft.duration = data.duration;
-    }, Events.STATE_DURATION_CHANGE);
-    this.on(Events.PLAYER_STATE_DURATIONCHANGE, setDuraton);
+    // paused
+    this.on(
+      Events.PLAYER_STATE_PAUSE,
+      this.dispatch(draft => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setAdBreakCurrentTime = this.dispatch((draft, data) => {
-      draft.adBreakCurrentTime = data.currentTime;
-    }, Events.STATE_CURRENTTIME_CHANGE);
-    this.on(Events.ADBREAK_STATE_TIMEUPDATE, setAdBreakCurrentTime);
+        draft.playRequested = false;
+        draft.playing = false;
+        draft.paused = true;
+      }),
+    );
+    this.on(
+      Events.ADBREAK_STATE_PAUSE,
+      this.dispatch(draft => {
+        if (!this.state.adBreak) {
+          return;
+        }
 
-    const setBuffering = this.dispatch(draft => {
-      draft.playing = false;
-      draft.buffering = true;
-    }, Events.STATE_BUFFERING);
-    this.on(Events.PLAYER_STATE_WAITING, setBuffering);
+        draft.playRequested = false;
+        draft.playing = false;
+        draft.paused = true;
+      }),
+    );
 
-    const setAdBreaks = this.dispatch((draft, data) => {
-      draft.adBreaks = data.adBreaks;
-    }, Events.STATE_ADBREAKS);
-    this.on(Events.ADBREAKS, setAdBreaks);
+    // currentTime
+    this.on(
+      Events.PLAYER_STATE_TIMEUPDATE,
+      this.dispatch((draft, data) => {
+        if (this.state.adBreak) {
+          return;
+        }
 
-    const setAdBreak = this.dispatch((draft, data) => {
-      draft.adBreak = data.adBreak;
-    }, Events.STATE_ADBREAK_STARTED);
-    this.on(Events.ADBREAK_STARTED, setAdBreak);
+        draft.currentTime = data.currentTime;
+      }),
+    );
 
-    const resetAdBreak = this.dispatch(draft => {
-      draft.adBreak = null;
-      draft.adBreakCurrentTime = null;
-    }, Events.STATE_ADBREAK_ENDED);
-    this.on(Events.ADBREAK_ENDED, resetAdBreak);
+    // duration
+    this.on(
+      Events.PLAYER_STATE_DURATIONCHANGE,
+      this.dispatch((draft, data) => {
+        draft.duration = data.duration;
+      }),
+    );
 
-    const setAd = this.dispatch((draft, data) => {
-      draft.ad = data.ad;
-    }, Events.STATE_AD_STARTED);
-    this.on(Events.AD_STARTED, setAd);
+    // buffering
+    this.on(
+      Events.PLAYER_STATE_WAITING,
+      this.dispatch(draft => {
+        draft.playing = false;
+        draft.buffering = true;
+      }),
+    );
 
-    const resetAd = this.dispatch(draft => {
-      draft.ad = null;
-    }, Events.STATE_AD_ENDED);
-    this.on(Events.AD_ENDED, resetAd);
+    // AD RELATED STATE
 
-    const setEnded = this.dispatch(draft => {
-      draft.started = false;
-      draft.playRequested = false;
-      draft.playing = false;
-      draft.ended = true;
-    }, Events.STATE_ENDED);
-    this.on(Events.PLAYER_STATE_ENDED, () => {
-      // If the player ended, but we still have a postroll to play, do not set it to ended.
-      if (find(this.state.adBreaks, { type: AdBreakType.POSTROLL })) {
-        return;
-      }
+    // adBreakCurrentTime
+    this.on(
+      Events.ADBREAK_STATE_TIMEUPDATE,
+      this.dispatch((draft, data) => {
+        if (!this.state.adBreak) {
+          return;
+        }
 
-      setEnded();
-    });
-    this.on(Events.ADBREAK_ENDED, (data: any) => {
-      if (data.adBreak.type === AdBreakType.POSTROLL) {
-        setEnded();
-      }
-    });
+        draft.adBreakCurrentTime = data.currentTime;
+      }),
+    );
 
-    const setBufferedPercentage = this.dispatch((draft, data) => {
-      draft.bufferedPercentage = data.percentage;
-    }, Events.STATE_BUFFERED_CHANGE);
-    this.on(Events.PLAYER_STATE_BUFFEREDCHANGE, setBufferedPercentage);
+    this.on(
+      Events.ADBREAKS,
+      this.dispatch((draft, data) => {
+        draft.adBreaks = data.adBreaks;
+      }),
+    );
 
-    const setError = this.dispatch((draft, data) => {
-      draft.error = data.error;
-    }, Events.STATE_ERROR);
-    this.on(Events.ERROR, setError);
+    this.on(
+      Events.ADBREAK_STARTED,
+      this.dispatch((draft, data) => {
+        draft.adBreak = data.adBreak;
+      }),
+    );
+
+    this.on(
+      Events.ADBREAK_ENDED,
+      this.dispatch(draft => {
+        draft.adBreak = null;
+        draft.adBreakCurrentTime = null;
+      }),
+    );
+
+    this.on(
+      Events.AD_STARTED,
+      this.dispatch((draft, data) => {
+        draft.ad = data.ad;
+      }),
+    );
+
+    this.on(
+      Events.AD_ENDED,
+      this.dispatch(draft => {
+        draft.ad = null;
+      }),
+    );
+
+    this.on(
+      Events.PLAYER_STATE_ENDED,
+      this.dispatch(draft => {
+        draft.contentStarted = false;
+        draft.contentEnded = true;
+
+        // If we can't find a postroll, everything is ended
+        if (!find(this.state.adBreaks, { type: AdBreakType.POSTROLL })) {
+          draft.started = false;
+          draft.playRequested = false;
+          draft.playing = false;
+          draft.ended = true;
+        }
+      }),
+    );
+
+    this.on(
+      Events.ADBREAK_ENDED,
+      this.dispatch((draft, data) => {
+        if (data.adBreak.type === AdBreakType.POSTROLL) {
+          draft.started = false;
+          draft.playRequested = false;
+          draft.playing = false;
+          draft.ended = true;
+        }
+      }),
+    );
+
+    this.on(
+      Events.PLAYER_STATE_BUFFEREDCHANGE,
+      this.dispatch((draft, data) => {
+        draft.bufferedPercentage = data.percentage;
+      }),
+    );
+
+    this.on(
+      Events.ERROR,
+      this.dispatch((draft, data) => {
+        draft.error = data.error;
+      }),
+    );
 
     const setVolume = this.dispatch((draft, data) => {
       draft.volume = data.volume;
-    }, Events.STATE_VOLUME_CHANGE);
+    });
     this.on(Events.PLAYER_STATE_VOLUMECHANGE, setVolume);
 
     const setFullscreenSupported = this.dispatch(draft => {
       draft.fullscreenSupported = true;
-    }, Events.STATE_FULLSCREEN_SUPPORTED);
+    });
     this.on(Events.FULLSCREEN_SUPPORTED, setFullscreenSupported);
 
     const setFullscreenChanged = this.dispatch((draft, data) => {
       draft.fullscreen = data.fullscreen;
-    }, Events.STATE_FULLSCREEN_CHANGE);
+    });
     this.on(Events.FULLSCREEN_CHANGE, setFullscreenChanged);
 
     const setTracks = this.dispatch((draft, data) => {
       draft.tracks = data.tracks;
-    }, Events.STATE_TRACKS);
+    });
     this.on(Events.MEDIA_STATE_TRACKS, setTracks);
 
     const setTrack = this.dispatch((draft, data) => {
       draft.track = data.track;
       draft.trackAutoSwitch = data.auto;
-    }, Events.STATE_TRACK_CHANGE);
+    });
     this.on(Events.MEDIA_STATE_TRACKCHANGE, setTrack);
 
     const setSubtitle = this.dispatch((draft, data) => {
       draft.subtitle = data.subtitle;
-    }, Events.STATE_SUBTITLE_CHANGE);
+    });
     this.on(Events.PLAYER_STATE_SUBTITLECHANGE, setSubtitle);
 
     const setSubtitleText = this.dispatch((draft, data) => {
       draft.subtitleText = data.text;
-    }, Events.STATE_SUBTITLETEXT_CHANGE);
+    });
     this.on(Events.PLAYER_STATE_SUBTITLETEXTCHANGE, setSubtitleText);
 
     const setPlaybackRate = this.dispatch((draft, data) => {
       draft.playbackRate = data.playbackRate;
-    }, Events.STATE_PLAYBACKRATE_CHANGE);
+    });
     this.on(Events.PLAYER_STATE_RATECHANGE, setPlaybackRate);
 
     const setPip = this.dispatch((draft, data) => {
       draft.pip = data.pip;
-    }, Events.STATE_PIP_CHANGE);
+    });
     this.on(Events.PIP_CHANGE, setPip);
 
     const setAudioLanguages = this.dispatch((draft, data) => {
       draft.audioLanguages = data.audioLanguages;
-    }, Events.STATE_AUDIOLANGUAGES);
+    });
     this.on(Events.MEDIA_STATE_AUDIOLANGUAGES, setAudioLanguages);
+
+    const setDimensions = this.dispatch((draft, data) => {
+      draft.width = data.width;
+      draft.height = data.height;
+    });
+    this.on(Events.DIMENSIONS_CHANGE, setDimensions);
 
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
       prevState: null,
     } as IStateChangeEventData);
-
-    const setDimensions = this.dispatch((draft, data) => {
-      draft.width = data.width;
-      draft.height = data.height;
-    }, Events.STATE_DIMENSIONS_CHANGE);
-    this.on(Events.DIMENSIONS_CHANGE, setDimensions);
   }
 
   public getState(): IState {
     return this.state;
   }
 
-  public dispatch = (fn, emitEvent: Events) => {
+  public dispatch = fn => {
     return (data?: any) => {
       const newState = produce(this.state, draft => {
         fn(draft, data);
@@ -317,21 +408,154 @@ export class StateExtension extends Module {
       const prevState = this.state;
       this.state = newState;
 
-      if (![Events.STATE_CURRENTTIME_CHANGE].includes(emitEvent)) {
-        this.instance.log('StateExtension.change')(emitEvent, {
-          state: this.state,
-        });
+      const eventQueue = [];
+      const push = eventName => eventQueue.push(eventName);
+
+      // Define state events
+      if (!prevState.ready && this.state.ready) {
+        push(Events.STATE_READY);
       }
 
-      this.emit(emitEvent, {
-        state: this.state,
-        prevState,
-      } as IStateChangeEventData);
+      if (!prevState.playRequested && this.state.playRequested) {
+        push(Events.STATE_PLAY_REQUESTED);
+      }
 
-      this.emit(Events.STATE_CHANGE, {
-        state: this.state,
-        prevState,
-      } as IStateChangeEventData);
+      if (!prevState.started && this.state.started) {
+        push(Events.STATE_STARTED);
+      }
+
+      if (!prevState.contentStarted && this.state.contentStarted) {
+        push(Events.STATE_CONTENT_STARTED);
+      }
+
+      if (!prevState.playing && this.state.playing) {
+        push(Events.STATE_PLAYING);
+      }
+
+      if (!prevState.paused && this.state.paused) {
+        push(Events.STATE_PAUSED);
+      }
+
+      if (!prevState.contentEnded && this.state.contentEnded) {
+        push(Events.STATE_CONTENT_ENDED);
+      }
+
+      if (!prevState.ended && this.state.ended) {
+        push(Events.STATE_ENDED);
+      }
+
+      if (
+        prevState.currentTime !== this.state.currentTime ||
+        prevState.adBreakCurrentTime !== this.state.adBreakCurrentTime
+      ) {
+        push(Events.STATE_CURRENTTIME_CHANGE);
+      }
+
+      if (prevState.duration !== this.state.duration) {
+        push(Events.STATE_DURATION_CHANGE);
+      }
+
+      if (!prevState.buffering && this.state.buffering) {
+        push(Events.STATE_BUFFERING);
+      }
+
+      if (prevState.adBreaks !== this.state.adBreaks) {
+        push(Events.STATE_ADBREAKS);
+      }
+
+      if (prevState.adBreak && !this.state.adBreak) {
+        push(Events.STATE_ADBREAK_ENDED);
+      }
+
+      if (!prevState.adBreak && this.state.adBreak) {
+        push(Events.STATE_ADBREAK_STARTED);
+      }
+
+      if (prevState.ad && !this.state.ad) {
+        push(Events.STATE_AD_ENDED);
+      }
+
+      if (!prevState.ad && this.state.ad) {
+        push(Events.STATE_AD_STARTED);
+      }
+
+      if (prevState.bufferedPercentage !== this.state.bufferedPercentage) {
+        push(Events.STATE_BUFFERED_CHANGE);
+      }
+
+      if (!prevState.error && this.state.error) {
+        push(Events.STATE_ERROR);
+      }
+
+      if (prevState.volume !== this.state.volume) {
+        push(Events.STATE_VOLUME_CHANGE);
+      }
+
+      if (!prevState.fullscreenSupported && this.state.fullscreenSupported) {
+        push(Events.STATE_FULLSCREEN_SUPPORTED);
+      }
+
+      if (prevState.fullscreen !== this.state.fullscreen) {
+        push(Events.STATE_FULLSCREEN_CHANGE);
+      }
+
+      if (prevState.tracks !== this.state.tracks) {
+        push(Events.STATE_TRACKS);
+      }
+
+      if (
+        prevState.track !== this.state.track ||
+        prevState.trackAutoSwitch !== this.state.trackAutoSwitch
+      ) {
+        push(Events.STATE_TRACK_CHANGE);
+      }
+
+      if (prevState.subtitle !== this.state.subtitle) {
+        push(Events.STATE_SUBTITLE_CHANGE);
+      }
+
+      if (prevState.subtitleText !== this.state.subtitleText) {
+        push(Events.STATE_SUBTITLETEXT_CHANGE);
+      }
+
+      if (prevState.playbackRate !== this.state.playbackRate) {
+        push(Events.STATE_PLAYBACKRATE_CHANGE);
+      }
+
+      if (prevState.pip !== this.state.pip) {
+        push(Events.STATE_PIP_CHANGE);
+      }
+
+      if (prevState.audioLanguages !== this.state.audioLanguages) {
+        push(Events.STATE_AUDIOLANGUAGES);
+      }
+
+      if (
+        prevState.width !== this.state.width ||
+        prevState.height !== this.state.height
+      ) {
+        push(Events.STATE_DIMENSIONS_CHANGE);
+      }
+
+      if (eventQueue.length) {
+        const log = this.instance.log('StateExtension');
+
+        eventQueue.forEach(eventName => {
+          if (!['state:currenttime-change'].includes(eventName)) {
+            log(eventName);
+          }
+
+          this.emit(eventName, {
+            state: this.state,
+            prevState,
+          } as IStateChangeEventData);
+        });
+
+        this.emit(Events.STATE_CHANGE, {
+          state: this.state,
+          prevState,
+        } as IStateChangeEventData);
+      }
     };
   };
 }
