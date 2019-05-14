@@ -413,3 +413,13 @@ Picture in picture mode will put the player container at the right bottom of the
   ],
 }
 </div>
+
+### Keyboard navigation
+
+By default, the player is controllable by using various [keyboard keys](Features.md?id=keyboard-navigation). Setting it to `focus` will only make the player controllable by keyboard controls when it has focus.
+
+```javascript
+{
+  keyboardNavigation: true; // or: false, or focus.
+}
+```

@@ -1,8 +1,9 @@
-* [Home](/)
-* Getting started
-  * [Configuration](Configuration.md)
-  * [API](API.md)
-* Development
-  * [Create a module](CreateAModule.md)
-  * [Theming](Theming.md)
-  * [Module structure](ModuleStructure.md)
+- [Home](/)
+- Getting started
+  - [Configuration](Configuration.md)
+  - [API](API.md)
+  - [Features](Features.md)
+- Development
+  - [Create a module](CreateAModule.md)
+  - [Theming](Theming.md)
+  - [Module structure](ModuleStructure.md)
