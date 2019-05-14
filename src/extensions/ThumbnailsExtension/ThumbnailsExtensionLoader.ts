@@ -12,6 +12,17 @@ export const ThumbnailsExtensionLoader = {
   create: async (instance: IInstance) => new ThumbnailsExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
-    return !!config.thumbnails && !!config.thumbnails.src;
+    if (!config.thumbnails || !config.thumbnails.src) {
+      return false;
+    }
+
+    if (
+      config.thumbnails.src.substring(config.thumbnails.src.length - 4) !==
+      '.vtt'
+    ) {
+      return false;
+    }
+
+    return true;
   },
 } as IModuleLoader<ThumbnailsExtension>;
