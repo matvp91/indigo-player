@@ -15,10 +15,9 @@ export const ThumbnailsExtensionLoader = {
     if (!config.thumbnails || !config.thumbnails.src) {
       return false;
     }
-
+    const ext = config.thumbnails.src.split(".").pop();
     if (
-      config.thumbnails.src.substring(config.thumbnails.src.length - 4) !==
-      '.vtt'
+      ext !== "vtt" && ext !== "bif"
     ) {
       return false;
     }

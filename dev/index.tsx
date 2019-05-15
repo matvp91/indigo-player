@@ -27,8 +27,9 @@ const player = IndigoPlayer.init(
     thumbnails: {
       src: './thumbnails.vtt',
     },
+    // BIF Files
     // thumbnails: {
-    //   src: './thumbnails.vtt',
+    //   src: './thumbnails.bif',
     // },
     // freewheel: {
     //   clientSide: true,
