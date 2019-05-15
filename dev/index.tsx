@@ -24,13 +24,13 @@ const player = IndigoPlayer.init(
       locale: 'en-US',
       image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
     },
-    thumbnails: {
-      src: './thumbnails.vtt',
-    },
-    // BIF Files
     // thumbnails: {
-    //   src: './thumbnails.bif',
+    //   src: './thumbnails.vtt',
     // },
+    // BIF Files
+    thumbnails: {
+      src: './thumbnails.bif',
+    },
     // freewheel: {
     //   clientSide: true,
     //   network: 96749,
