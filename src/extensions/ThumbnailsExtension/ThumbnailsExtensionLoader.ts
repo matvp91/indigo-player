@@ -9,16 +9,18 @@ import {
 export const ThumbnailsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new ThumbnailsExtension(instance),
+  create: async (instance: IInstance) =>
+    import(/* webpackChunkName: 'ThumbnailsExtension' */ '@src/extensions/ThumbnailsExtension/ThumbnailsExtension').then(
+      ({ ThumbnailsExtension }) => new ThumbnailsExtension(instance),
+    ),
 
   isSupported: ({ config }: { config: Config }): boolean => {
     if (!config.thumbnails || !config.thumbnails.src) {
       return false;
     }
-    const ext = config.thumbnails.src.split(".").pop();
-    if (
-      ext !== "vtt" && ext !== "bif"
-    ) {
+
+    const ext = config.thumbnails.src.split('.').pop();
+    if (ext !== 'vtt' && ext !== 'bif') {
       return false;
     }
 

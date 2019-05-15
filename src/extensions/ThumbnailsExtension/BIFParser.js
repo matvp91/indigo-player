@@ -50,7 +50,7 @@ function validate(magicNumber) {
  *
  * @param {ArrayBuffer} arrayBuffer
  */
-export class BIFParser {
+export default class BIFParser {
   constructor(arrayBuffer) {
     // Magic Number
     // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-MagicNumber
@@ -65,7 +65,10 @@ export class BIFParser {
 
     // Number of BIF images
     // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-NumberofBIFimages
-    this.numberOfBIFImages = this.data.getUint32(NUMBER_OF_BIF_IMAGES_OFFSET, true);
+    this.numberOfBIFImages = this.data.getUint32(
+      NUMBER_OF_BIF_IMAGES_OFFSET,
+      true,
+    );
 
     // Version
     // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-Version
@@ -73,12 +76,12 @@ export class BIFParser {
 
     this.bifIndex = this.generateBIFIndex(true);
 
-    this.bifDimensions = {width: 240, height: 180};
+    this.bifDimensions = { width: 240, height: 180 };
 
     try {
       this.getInitialImageDimensions();
-    } catch(e) {
-      console.warn("BIF Parser", e.stack);
+    } catch (e) {
+      console.warn('BIF Parser', e.stack);
     }
   }
 
@@ -100,7 +103,8 @@ export class BIFParser {
       const bifIndexEntryTimestampOffset = bifIndexEntryOffset;
       const bifIndexEntryAbsoluteOffset = bifIndexEntryOffset + 4;
 
-      const nextBifIndexEntryAbsoluteOffset = bifIndexEntryAbsoluteOffset + BIF_INDEX_ENTRY_LENGTH;
+      const nextBifIndexEntryAbsoluteOffset =
+        bifIndexEntryAbsoluteOffset + BIF_INDEX_ENTRY_LENGTH;
 
       // Documented example, items within `[]`are used to generate the frame.
       // 64, 65, 66, 67 | 68, 69, 70, 71
@@ -108,7 +112,10 @@ export class BIFParser {
       // 72, 73, 74, 75 | 76, 77, 78, 79
       // Frame 1 timestamp | [absolute offset of frame]
       const offset = this.data.getUint32(bifIndexEntryAbsoluteOffset, true);
-      const nextOffset = this.data.getUint32(nextBifIndexEntryAbsoluteOffset, true);
+      const nextOffset = this.data.getUint32(
+        nextBifIndexEntryAbsoluteOffset,
+        true,
+      );
       const timestamp = this.data.getUint32(bifIndexEntryTimestampOffset, true);
 
       bifIndex.push({
@@ -127,16 +134,24 @@ export class BIFParser {
    */
   getInitialImageDimensions() {
     const image = 'data:image/jpeg;base64,';
-    const src = `${image}${btoa(String.fromCharCode.apply(null,
-      new Uint8Array(this.arrayBuffer.slice(this.bifIndex[0].offset, this.bifIndex[0].offset + this.bifIndex[0].length))
-    ))}`;
+    const src = `${image}${btoa(
+      String.fromCharCode.apply(
+        null,
+        new Uint8Array(
+          this.arrayBuffer.slice(
+            this.bifIndex[0].offset,
+            this.bifIndex[0].offset + this.bifIndex[0].length,
+          ),
+        ),
+      ),
+    )}`;
     const img = new Image();
     img.src = src;
     img.onload = () => {
-      if (!img.width || !img.height) throw "Missing image dimensions";
+      if (!img.width || !img.height) throw 'Missing image dimensions';
       this.bifDimensions = {
         width: img.width,
-        height: img.height
+        height: img.height,
       };
     };
   }
@@ -158,9 +173,14 @@ export class BIFParser {
       return image;
     }
 
-    const src = `${image}${btoa(String.fromCharCode.apply(null,
-      new Uint8Array(this.arrayBuffer.slice(frame.offset, frame.offset + frame.length))
-    ))}`;
+    const src = `${image}${btoa(
+      String.fromCharCode.apply(
+        null,
+        new Uint8Array(
+          this.arrayBuffer.slice(frame.offset, frame.offset + frame.length),
+        ),
+      ),
+    )}`;
 
     // Build our image object using image dimensions and our newest source
     return {
@@ -169,8 +189,8 @@ export class BIFParser {
       x: 0,
       y: 0,
       width: this.bifDimensions.width,
-      height: this.bifDimensions.height
-    }
+      height: this.bifDimensions.height,
+    };
   }
 
   /**
@@ -185,13 +205,18 @@ export class BIFParser {
 
       images.push({
         start: frame.timestamp / 1000,
-        src: `${image}${btoa(String.fromCharCode.apply(null,
-            new Uint8Array(this.arrayBuffer.slice(frame.offset, frame.offset + frame.length))
-          ))}`,
+        src: `${image}${btoa(
+          String.fromCharCode.apply(
+            null,
+            new Uint8Array(
+              this.arrayBuffer.slice(frame.offset, frame.offset + frame.length),
+            ),
+          ),
+        )}`,
         x: 0,
         y: 0,
         width: this.bifDimensions.width,
-        height: this.bifDimensions.height
+        height: this.bifDimensions.height,
       });
     });
     return images;
