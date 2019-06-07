@@ -22,7 +22,7 @@ interface ControlsViewProps {
   pipTooltipText: string;
   settingsTooltipText: string;
   fullscreenIcon: string;
-  isFullscreenDisabled: boolean;
+  isFullscreenSupported: boolean;
   fullscreenTooltipText: string;
   isSettingsTabActive: boolean;
   playOrPause();
@@ -79,8 +79,8 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           name="fullscreen"
           icon={props.fullscreenIcon}
           onClick={props.toggleFullscreen}
-          disabled={props.isFullscreenDisabled}
           tooltip={props.fullscreenTooltipText}
+          disabled={!props.isFullscreenSupported}
         />
       </div>
     </>
@@ -118,7 +118,7 @@ function mapProps(info: IInfo): ControlsViewProps {
     settingsTooltipText: createTooltipText('Settings'),
     fullscreenIcon: !info.data.isFullscreen ? 'fullscreen' : 'fullscreen-exit',
     toggleFullscreen: info.actions.toggleFullscreen,
-    isFullscreenDisabled: !info.data.fullscreenSupported,
+    isFullscreenSupported: info.data.fullscreenSupported,
     fullscreenTooltipText: createTooltipText(
       info.data.isFullscreen ? 'Exit full screen' : 'Full screen',
       'f',

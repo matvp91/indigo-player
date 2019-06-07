@@ -10,8 +10,8 @@ export class FullscreenExtension extends Module {
   public name: string = 'FullscreenExtension';
 
   private documentPos: {
-    x: number,
-    y: number,
+    x: number;
+    y: number;
   };
 
   constructor(instance: IInstance) {

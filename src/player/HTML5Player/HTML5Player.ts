@@ -50,8 +50,12 @@ export class HTML5Player extends Player {
     });
 
     this.mediaElement.addEventListener('volumechange', () => {
+      let volume = this.mediaElement.volume;
+      if (this.mediaElement.muted) {
+        volume = 0;
+      }
       this.emit(Events.PLAYER_STATE_VOLUMECHANGE, {
-        volume: this.mediaElement.volume,
+        volume,
       } as IVolumeChangeEventData);
     });
 

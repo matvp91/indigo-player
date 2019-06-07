@@ -3,9 +3,9 @@
   user-select: none;
   cursor: pointer;
   outline: none;
-}
 
-.igui_button_state-disabled {
-  pointer-events: none;
-  opacity: .5;
+  &.igui_button_state-disabled {
+    pointer-events: none;
+    opacity: 0.5 !important;
+  }
 }
