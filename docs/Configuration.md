@@ -414,6 +414,30 @@ Picture in picture mode will put the player container at the right bottom of the
 }
 </div>
 
+#### Rewind
+
+this setting displays a button on the control bar that allows you to go back in the video, the value must be entered in seconds.
+
+```javascript
+{
+  ui: {
+    rewind: 10, // by default, rewind is not enable and the button is not display
+  },
+}
+```
+
+#### Forward
+
+this setting displays a button on the control bar that allows you to move forward in the video, the value must be entered in seconds.
+
+```javascript
+{
+  ui: {
+    forward: 10, // by default, forward is not enable and the button is not display
+  },
+}
+```
+
 ### Keyboard navigation
 
 By default, the player is controllable by using various [keyboard keys](Features.md?id=keyboard-navigation). Setting it to `focus` will only make the player controllable by keyboard controls when it has focus.

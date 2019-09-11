@@ -161,6 +161,8 @@ export interface Config {
     pip: boolean;
     image?: string;
     ignoreStylesheet?: boolean;
+    rewind?: number;
+    forward?: number;
   };
 
   sources: Format[];

@@ -45,6 +45,8 @@ export function createConfig(input: Config): Config {
         lockControlsVisibility: false,
         locale: 'en-US',
         pip: false,
+        rewind: 0,
+        forward: 0
       },
       sources: [],
       subtitles: [],

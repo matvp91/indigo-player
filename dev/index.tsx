@@ -21,8 +21,10 @@ const player = IndigoPlayer.init(
     ui: {
       pip: true,
       lockControlsVisibility: false,
-      locale: 'en-US',
+      locale: 'fr-FR',
       image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
+      rewind: 30,
+      forward: 30
     },
     // thumbnails: {
     //   src: './thumbnails.vtt',

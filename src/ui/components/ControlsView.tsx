@@ -14,7 +14,11 @@ interface ControlsViewProps {
   isCenterClickAllowed: boolean;
   showRebuffer: boolean;
   playIcon: string;
+  rewindIcon: string;
+  forwardIcon: string;
   playTooltipText: string;
+  rewindTooltipText: string;
+  forwardTooltipText: string;
   showSubtitlesToggle: boolean;
   isSubtitleActive: boolean;
   subtitleToggleTooltipText: string;
@@ -25,7 +29,11 @@ interface ControlsViewProps {
   isFullscreenSupported: boolean;
   fullscreenTooltipText: string;
   isSettingsTabActive: boolean;
+  rewind: number;
+  forward: number;
   playOrPause();
+  startRewind();
+  startForward();
   toggleActiveSubtitle();
   togglePip();
   toggleSettings();
@@ -46,6 +54,22 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           onClick={props.playOrPause}
           tooltip={props.playTooltipText}
         />
+        {props.rewind > 0 && (
+          <Button
+            name="rewind"
+            icon={props.rewindIcon}
+            onClick={props.startRewind}
+            tooltip={props.rewindTooltipText}
+          />
+        )}
+        {props.forward > 0 && (
+          <Button
+            name="forward"
+            icon={props.forwardIcon}
+            onClick={props.startForward}
+            tooltip={props.forwardTooltipText}
+          />
+        )}
         <VolumeButton />
         <TimeStat />
         <div className="igui_container_controls_seekbar">
@@ -93,16 +117,30 @@ function mapProps(info: IInfo): ControlsViewProps {
       shortcut ? `(${shortcut})` : ''
     }`.trim();
   };
-
+  
   return {
     isCenterClickAllowed: info.data.isCenterClickAllowed,
     isSettingsTabActive: info.data.settingsTab !== SettingsTabs.NONE,
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
+    rewindIcon: 'rewind',
+    forwardIcon: 'forward',
     playOrPause: info.actions.playOrPause,
+    startRewind: info.actions.rewind,
+    startForward: info.actions.forward,
     playTooltipText: createTooltipText(
       info.data.playRequested ? 'Pause' : 'Play',
       'k',
+    ),
+    rewindTooltipText: createTooltipText(
+      info.data.getTranslation('Rewind {s} seconds', {
+        s: 10
+      }), '←'
+    ),
+    forwardTooltipText: createTooltipText(
+      info.data.getTranslation('Forward {s} seconds', {
+        s: 10
+      }), '→'
     ),
     showSubtitlesToggle: !!info.data.subtitles.length,
     isSubtitleActive: !!info.data.activeSubtitle,
@@ -123,5 +161,7 @@ function mapProps(info: IInfo): ControlsViewProps {
       info.data.isFullscreen ? 'Exit full screen' : 'Full screen',
       'f',
     ),
+    rewind: info.data.rewind,
+    forward: info.data.forward
   };
 }
