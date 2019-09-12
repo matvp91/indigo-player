@@ -517,6 +517,7 @@ export class StateStore
       image: this.props.instance.config.ui.image,
       rewind: this.props.instance.config.ui.rewind,
       forward: this.props.instance.config.ui.forward,
+      logo: this.props.instance.config.ui.logo,
       nodIcon,
 
       // Player

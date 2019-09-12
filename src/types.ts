@@ -163,6 +163,7 @@ export interface Config {
     ignoreStylesheet?: boolean;
     rewind?: number;
     forward?: number;
+    logo?: object;
   };
 
   sources: Format[];

@@ -43,6 +43,7 @@ export interface IData {
   rewind: number;
   forward: number;
   nodIcon: string;
+  logo: object;
   getTranslation(text: string, params?: object): string;
 }
 

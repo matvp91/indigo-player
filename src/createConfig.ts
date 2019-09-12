@@ -46,7 +46,8 @@ export function createConfig(input: Config): Config {
         locale: 'en-US',
         pip: false,
         rewind: 0,
-        forward: 0
+        forward: 0,
+        logo: {}
       },
       sources: [],
       subtitles: [],
