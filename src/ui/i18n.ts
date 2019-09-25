@@ -1,4 +1,5 @@
 // List of language codes: http://www.lingoes.net/en/translator/langcode.htm
+import { mergeDeep } from '../utils/mergeDeep';
 
 export const translations = {
   'en-US': {
@@ -83,9 +84,14 @@ export const translations = {
   },
 };
 
-export const getTranslation = languageCode => (text, params?: object) => {
-  if (translations[languageCode] && translations[languageCode][text]) {
-    let res = translations[languageCode][text];
+let translationsMerge = false
+
+export const getTranslation = (languageCode, translationsUi) => (text, params?: object) => {
+  if(!translationsMerge) {
+    translationsMerge = mergeDeep(translations, translationsUi);
+  }
+  if (translationsMerge[languageCode] && translationsMerge[languageCode][text]) {
+    let res = translationsMerge[languageCode][text];
     if (params && Object.keys(params).length > 0) {
       for (var k in params) {
         res = res.replace(new RegExp("\\{" + k + "\\}", "gi"), params[k]);

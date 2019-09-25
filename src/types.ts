@@ -158,6 +158,7 @@ export interface Config {
     enabled: boolean;
     lockControlsVisibility: boolean;
     locale: string;
+    translations?: object;
     pip: boolean;
     image?: string;
     ignoreStylesheet?: boolean;

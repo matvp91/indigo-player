@@ -316,7 +316,8 @@ export class StateStore
   };
 
   private getTranslation = (text: string, params?: object): string => {
-    return getTranslation(this.props.instance.config.ui.locale)(text, params);
+    //todo add extend language
+    return getTranslation(this.props.instance.config.ui.locale, this.props.instance.config.ui.translations)(text, params);
   };
 
   /**
