@@ -380,6 +380,7 @@ export interface IController extends IModule {
 }
 
 export interface IPlayer extends IModule {
+  mediaElement?: HTMLVideoElement;
   load();
   unload();
 
