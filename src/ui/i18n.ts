@@ -55,6 +55,24 @@ export const translations = {
     'Enable subtitles': 'Untertitel an',
     'Disable subtitles': 'Untertitel aus',
   },
+  'hi-IN': {
+    Play: 'चलाएँ',
+    Pause: 'रोकें',
+    Mute: 'ध्वनि बंद करें',
+    Unmute: 'ध्वनि शुरू करें',
+    Miniplayer: 'लघु संस्करण',
+    Settings: 'नियंत्रण',
+    'Full screen': 'पूर्ण संस्करण',
+    'Exit full screen': 'पूर्ण संस्करण से बाहर निकलें',
+    Speed: 'गति',
+    'Normal speed': 'सामान्य',
+    Subtitles: 'उपशीर्षक',
+    'No subtitles': 'उपशीर्षक उपलब्ध नहीं है',
+    Quality: 'गुणवत्ता',
+    'Automatic quality': 'स्वचालित',
+    'Enable subtitles': 'उपशीर्षक जारी रखें',
+    'Disable subtitles': 'उपशीर्षक बंद करें',
+  },
 };
 
 export const getTranslation = languageCode => text => {
