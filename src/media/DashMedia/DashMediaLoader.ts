@@ -15,10 +15,7 @@ import { getDrmSupport } from '@src/utils/getDrmSupport';
 export const DashMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
-  create: (instance: IInstance) =>
-    import(/* webpackChunkName: 'DashMedia' */ '@src/media/DashMedia/DashMedia').then(
-      ({ DashMedia }) => new DashMedia(instance),
-    ),
+  create: (instance: IInstance) => new DashMedia(instance),
 
   isSupported: async (
     instance: IInstance,

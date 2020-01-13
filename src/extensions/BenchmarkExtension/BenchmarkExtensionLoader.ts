@@ -9,7 +9,7 @@ import {
 export const BenchmarkExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new BenchmarkExtension(instance),
+  create: (instance: IInstance) => new BenchmarkExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<BenchmarkExtension>;

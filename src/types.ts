@@ -338,7 +338,7 @@ export interface IHooks {
 
 export interface IModuleLoader<T> {
   type: ModuleLoaderTypes;
-  create(instance: IInstance): T | Promise<T>;
+  create(instance: IInstance): T;
   isSupported(
     instance: IInstance,
     isSupportedArgs?: any,

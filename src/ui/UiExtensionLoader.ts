@@ -5,10 +5,7 @@ import { UiExtension } from '@src/ui/UiExtension';
 export const UiExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: (instance: Instance) =>
-    import(/* webpackChunkName: 'UiExtension' */ '@src/ui/UiExtension').then(
-      ({ UiExtension }) => new UiExtension(instance),
-    ),
+  create: (instance: Instance) => new UiExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean =>
     config.ui && config.ui.enabled,

@@ -9,7 +9,7 @@ import {
 export const FullscreenExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new FullscreenExtension(instance),
+  create: (instance: IInstance) => new FullscreenExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<FullscreenExtension>;

@@ -9,7 +9,7 @@ import {
 export const KeyboardNavigationExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) =>
+  create: (instance: IInstance) =>
     new KeyboardNavigationExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean =>

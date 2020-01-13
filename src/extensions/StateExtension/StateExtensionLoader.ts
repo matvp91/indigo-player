@@ -5,7 +5,7 @@ import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
 export const StateExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: Instance) => new StateExtension(instance),
+  create: (instance: Instance) => new StateExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<StateExtension>;

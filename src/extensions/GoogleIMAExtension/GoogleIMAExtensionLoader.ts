@@ -9,7 +9,7 @@ import {
 export const GoogleIMAExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new GoogleIMAExtension(instance),
+  create: (instance: IInstance) => new GoogleIMAExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
     return !!config.googleIMA;
