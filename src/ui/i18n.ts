@@ -91,6 +91,23 @@ export const translations = {
     'Enable subtitles': 'उपशीर्षके सूरू करा',
     'Disable subtitles': 'उपशीर्षके बंद करा',
   },
+  'pt-BR': {
+    Play: 'Reproduzir',
+    Pause: 'Pausar',
+    Mute: 'Mudo',
+    Unmute: 'Ativar som',
+    Miniplayer: 'Minireprodutor',
+    Settings: 'Configuraçes',
+    'Full screen': 'Tela cheia',
+    'Exit full screen': 'Sair da tela cheia',
+    Speed: 'Velocidade',
+    'Normal speed': 'Normal',
+    Subtitles: 'Legenda',
+    'No subtitles': 'Sem legenda',
+    Quality: 'Qualidade',
+    'Automatic quality': 'Automática',
+    'Enable subtitles': 'Habilitar legenda',
+    'Disable subtitles': 'Desabilitar legenda',
 };
 
 export const getTranslation = languageCode => text => {
