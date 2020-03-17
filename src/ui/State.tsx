@@ -456,7 +456,7 @@ export class StateStore
       this.props.player.tracks.sort(
         (a, b) => Number(b.height) - Number(a.height),
       ),
-      'height',
+      'bandwidth',
     );
 
     let activeTrack = null;

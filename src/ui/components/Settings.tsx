@@ -15,7 +15,10 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
             item: SettingsTabs.TRACKS,
             label: props.data.getTranslation('Quality'),
             info: `${
-              props.data.activeTrack ? props.data.activeTrack.width : ''
+              props.data.activeTrack ?
+              (props.data.activeTrack.width ?
+                  (""+props.data.activeTrack.width+"x"+props.data.activeTrack.height+", "):"")
+              +(props.data.activeTrack.bandwidth/1e6).toPrecision(2)+"M" : ''
             }`,
           },
           props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLES) && {
@@ -55,7 +58,8 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
       items={[
         ...props.data.tracks.map(track => ({
           item: track,
-          label: `${track.width}`,
+          label: `${(track.width?(""+track.width+"x"+track.height+", "):"")
+                     +(track.bandwidth/1e6).toPrecision(2)+"M"}`,
         })),
         {
           item: 'auto',
