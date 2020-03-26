@@ -108,6 +108,7 @@ export const translations = {
     'Automatic quality': 'Automática',
     'Enable subtitles': 'Habilitar legenda',
     'Disable subtitles': 'Desabilitar legenda',
+  },
 };
 
 export const getTranslation = languageCode => text => {
