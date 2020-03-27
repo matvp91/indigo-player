@@ -5,6 +5,7 @@ import {
   ErrorCodes,
   Events,
   Format,
+  IAudioLanguageEventData,
   IAudioLanguagesEventData,
   IEventData,
   IInstance,
@@ -36,7 +37,7 @@ export class DashMedia extends Media {
     id: track.id,
     width: track.width,
     height: track.height,
-    bandwidth: track.bandwidth,
+    bitrate: track.bandwidth,
   });
 
   public async load() {
@@ -52,6 +53,14 @@ export class DashMedia extends Media {
     this.player.addEventListener(
       'adaptation',
       this.onAdaptationEvent.bind(this),
+    );
+    this.player.addEventListener(
+      'trackschanged',
+      this.onTracksChanged.bind(this),
+    );
+    this.player.addEventListener(
+      'variantchanged',
+      this.onVariantChanged.bind(this),
     );
 
     this.emit(Events.SHAKA_INSTANCE, {
@@ -91,21 +100,7 @@ export class DashMedia extends Media {
     try {
       await this.player.load(this.instance.format.src);
 
-      const tracks = this.player
-        .getVariantTracks()
-        .filter(track => track.type === 'variant')
-        .sort((a, b) => b.bandwidth - a.bandwidth)
-        .map(this.formatTrack);
-
-      this.emit(Events.MEDIA_STATE_TRACKS, {
-        tracks,
-      } as ITracksEventData);
-
-      const audioLanguages = this.player.getAudioLanguages();
-
-      this.emit(Events.MEDIA_STATE_AUDIOLANGUAGES, {
-        audioLanguages,
-      } as IAudioLanguagesEventData);
+      this.updateAudioLanguages();
     } catch (error) {
       this.onError(error);
     }
@@ -140,6 +135,12 @@ export class DashMedia extends Media {
 
   public selectAudioLanguage(language: string) {
     this.player.selectAudioLanguage(language);
+
+    this.emit(Events.MEDIA_STATE_AUDIOLANGUAGECHANGE, {
+      audioLanguage: language,
+    } as IAudioLanguageEventData);
+
+    this.updateTracks();
   }
 
   private emitTrackChange() {
@@ -171,5 +172,55 @@ export class DashMedia extends Media {
 
     const estimatedBandwidth = this.player.getStats().estimatedBandwidth;
     this.instance.storage.set('estimatedBandwidth', estimatedBandwidth);
+  }
+
+  private onTracksChanged() {
+    this.updateAudioLanguage();
+    this.updateTracks();
+  }
+
+  private onVariantChanged() {
+    this.updateAudioLanguage();
+    this.updateTracks();
+  }
+
+  private updateAudioLanguages() {
+    const audioLanguages = this.player.getAudioLanguages();
+
+    this.emit(Events.MEDIA_STATE_AUDIOLANGUAGES, {
+      audioLanguages,
+    } as IAudioLanguagesEventData);
+  }
+
+  private updateAudioLanguage() {
+    const variant = this.player
+      .getVariantTracks()
+      .find(variant => variant.active);
+
+    if (!variant) {
+      return;
+    }
+
+    this.emit(Events.MEDIA_STATE_AUDIOLANGUAGECHANGE, {
+      audioLanguage: variant.language,
+    } as IAudioLanguageEventData);
+  }
+
+  private updateTracks() {
+    const activeLanguage = this.player
+      .getVariantTracks()
+      .find(track => track.active).language;
+
+    const tracks = this.player
+      .getVariantTracks()
+      .filter(
+        track => track.type === 'variant' && track.language === activeLanguage,
+      )
+      .sort((a, b) => b.bandwidth - a.bandwidth)
+      .map(this.formatTrack);
+
+    this.emit(Events.MEDIA_STATE_TRACKS, {
+      tracks,
+    } as ITracksEventData);
   }
 }

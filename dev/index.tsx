@@ -24,13 +24,13 @@ const player = IndigoPlayer.init(
       locale: 'en-US',
       image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
     },
-    // thumbnails: {
-    //   src: './thumbnails.vtt',
-    // },
-    // BIF Files
     thumbnails: {
-      src: './thumbnails.bif',
+      src: './thumbnails.vtt',
     },
+    // BIF Files
+    // thumbnails: {
+    //   src: './thumbnails.bif',
+    // },
     // freewheel: {
     //   clientSide: true,
     //   network: 96749,
@@ -56,11 +56,11 @@ const player = IndigoPlayer.init(
       //   src:
       //     'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd',
       // },
-      // {
-      //   type: 'hls',
-      //   src:
-      //     'https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo/vier/dedag/volledigeafleveringen/133fc7a62dea3da106ba0b9f54f6e83d4f6777ec/DE_DAG_1_8_F0261554/DE_DAG_1_8_F0261554.m3u8',
-      // },
+      {
+        type: 'hls',
+        src:
+          'https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo/vier/dedag/volledigeafleveringen/133fc7a62dea3da106ba0b9f54f6e83d4f6777ec/DE_DAG_1_8_F0261554/DE_DAG_1_8_F0261554.m3u8',
+      },
       // {
       //   type: 'hls',
       //   src: 'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
@@ -70,11 +70,11 @@ const player = IndigoPlayer.init(
       //   src:
       //     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
       // },
-      {
-        type: 'mp4',
-        src:
-          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      },
+      // {
+      //   type: 'mp4',
+      //   src:
+      //     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      // },
       // {
       //   type: 'mp4',
       //   src:

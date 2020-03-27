@@ -53,6 +53,7 @@ export interface IState {
   playbackRate: number;
 
   audioLanguages: string[];
+  audioLanguage: string;
 
   width: number;
   height: number;
@@ -108,6 +109,7 @@ export class StateExtension extends Module {
     playbackRate: 1,
 
     audioLanguages: [],
+    audioLanguage: null,
 
     width: null,
     height: null,
@@ -378,6 +380,11 @@ export class StateExtension extends Module {
     });
     this.on(Events.MEDIA_STATE_AUDIOLANGUAGES, setAudioLanguages);
 
+    const setAudioLanguage = this.dispatch((draft, data) => {
+      draft.audioLanguage = data.audioLanguage;
+    });
+    this.on(Events.MEDIA_STATE_AUDIOLANGUAGECHANGE, setAudioLanguage);
+
     const setDimensions = this.dispatch((draft, data) => {
       draft.width = data.width;
       draft.height = data.height;
@@ -528,6 +535,10 @@ export class StateExtension extends Module {
 
       if (prevState.audioLanguages !== this.state.audioLanguages) {
         push(Events.STATE_AUDIOLANGUAGES);
+      }
+
+      if (prevState.audioLanguage !== this.state.audioLanguage) {
+        push(Events.STATE_AUDIOLANGUAGE_CHANGE);
       }
 
       if (
