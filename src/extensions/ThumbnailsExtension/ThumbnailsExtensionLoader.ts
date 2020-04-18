@@ -9,10 +9,7 @@ import {
 export const ThumbnailsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) =>
-    import(/* webpackChunkName: 'ThumbnailsExtension' */ '@src/extensions/ThumbnailsExtension/ThumbnailsExtension').then(
-      ({ ThumbnailsExtension }) => new ThumbnailsExtension(instance),
-    ),
+  create: (instance: IInstance) => new ThumbnailsExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
     if (!config.thumbnails || !config.thumbnails.src) {

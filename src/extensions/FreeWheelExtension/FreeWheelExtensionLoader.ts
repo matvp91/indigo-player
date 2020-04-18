@@ -9,7 +9,7 @@ import {
 export const FreeWheelExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new FreeWheelExtension(instance),
+  create: (instance: IInstance) => new FreeWheelExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
     return config.freewheel && config.freewheel.clientSide;

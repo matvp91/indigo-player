@@ -9,7 +9,7 @@ import {
 export const PipExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new PipExtension(instance),
+  create: (instance: IInstance) => new PipExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<PipExtension>;

@@ -9,7 +9,7 @@ import {
 export const SubtitlesExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new SubtitlesExtension(instance),
+  create: (instance: IInstance) => new SubtitlesExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
     return config.subtitles && config.subtitles.length > 0;

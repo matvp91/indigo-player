@@ -11,10 +11,7 @@ import { isSupported } from 'hls.js/src/is-supported';
 export const HlsMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
 
-  create: (instance: IInstance) =>
-    import(/* webpackChunkName: 'HlsMedia' */ '@src/media/HlsMedia/HlsMedia').then(
-      ({ HlsMedia }) => new HlsMedia(instance),
-    ),
+  create: (instance: IInstance) => new HlsMedia(instance),
 
   isSupported: (instance: IInstance, format: Format): boolean => {
     if (instance.player.name !== 'HTML5Player') {

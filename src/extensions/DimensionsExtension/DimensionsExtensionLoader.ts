@@ -9,7 +9,7 @@ import {
 export const DimensionsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
 
-  create: async (instance: IInstance) => new DimensionsExtension(instance),
+  create: (instance: IInstance) => new DimensionsExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => true,
 } as IModuleLoader<DimensionsExtension>;
