@@ -1,6 +1,8 @@
 import { Module } from '@src/Module';
 import { Events, IEventData, IInstance } from '@src/types';
-import * as screenfull from 'screenfull';
+
+import * as sfDefault from 'screenfull';
+const screenfull = sfDefault as sfDefault.Screenfull;
 
 interface IFullscreenEventData extends IEventData {
   fullscreen: boolean;
