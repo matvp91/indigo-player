@@ -11,11 +11,18 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
       <SettingsSelect
         onClick={props.actions.setSettingsTab}
         items={[
+          props.data.visibleSettingsTabs.includes(SettingsTabs.AUDIOLANGUAGES) && {
+            item: SettingsTabs.AUDIOLANGUAGES,
+            label: props.data.getTranslation('Language'),
+            info: `${
+              props.data.activeAudioLanguage ? props.data.activeAudioLanguage : ''
+            }`,
+          },
           props.data.visibleSettingsTabs.includes(SettingsTabs.TRACKS) && {
             item: SettingsTabs.TRACKS,
             label: props.data.getTranslation('Quality'),
             info: `${
-              props.data.activeTrack ? props.data.activeTrack.width : ''
+              props.data.selectedTrack !== 'auto' && props.data.activeTrack ? props.data.activeTrack.height : ''
             }`,
           },
           props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLES) && {
@@ -55,7 +62,7 @@ tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
       items={[
         ...props.data.tracks.map(track => ({
           item: track,
-          label: `${track.width}`,
+          label: `${track.width}x${track.height} (${Math.floor(track.bitrate / 1000)}kbps)`,
         })),
         {
           item: 'auto',
@@ -128,6 +135,26 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
       ]}
     />
   </>
+);
+
+tabs[SettingsTabs.AUDIOLANGUAGES] = (props: SettingsProps) => (
+  <>
+    <SettingsHeader
+      title={props.data.getTranslation('Language')}
+      onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
+    />
+    <SettingsSelect
+      selected={props.data.activeAudioLanguage}
+      onClick={audioLanguage => {
+        props.actions.selectAudioLanguage(audioLanguage);
+        props.actions.toggleSettings();
+      }}
+      items={props.data.audioLanguages.map(audioLanguage => ({
+          item: audioLanguage,
+          label: audioLanguage,
+        }))}
+    />
+    </>
 );
 
 interface SettingsHeaderProps {

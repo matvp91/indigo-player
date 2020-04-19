@@ -94,6 +94,6 @@ export class HlsMedia extends Media {
     id,
     width: track.width,
     height: track.height,
-    bandwidth: track.bitrate,
+    bitrate: track.bitrate,
   });
 }

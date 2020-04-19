@@ -202,7 +202,7 @@ export interface ITrack {
   id: number;
   width: number;
   height: number;
-  bandwidth: number;
+  bitrate: number;
 }
 
 // Ads
@@ -270,6 +270,10 @@ export interface IPlaybackRateChangeEventData extends IEventData {
 
 export interface IAudioLanguagesEventData extends IEventData {
   audioLanguages: string[];
+}
+
+export interface IAudioLanguageEventData extends IEventData {
+  audioLanguage: string
 }
 
 export interface ITrackChangeEventData extends IEventData {

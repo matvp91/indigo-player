@@ -41,6 +41,8 @@ export interface IData {
   isMobile: boolean;
   image: string;
   nodIcon: string;
+  audioLanguages: string[];
+  activeAudioLanguage: string;
   getTranslation(text: string): string;
 }
 
@@ -63,6 +65,7 @@ export interface IActions {
   setPlaybackRate(playbackRate: number);
   togglePip();
   toggleActiveSubtitle();
+  selectAudioLanguage(audioLanguage: string);
 }
 
 export interface IInfo {
@@ -83,6 +86,7 @@ export enum SettingsTabs {
   TRACKS,
   SUBTITLES,
   PLAYBACKRATES,
+  AUDIOLANGUAGES,
 }
 
 export interface IStateStore {

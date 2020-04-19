@@ -1,21 +1,7 @@
-import {
-  AdBreakType,
-  Events,
-  IInstance,
-  IThumbnail,
-  ITrack,
-  KeyboardNavigationPurpose,
-  Subtitle,
-} from '@src/types';
+import { AdBreakType, Events, IInstance, IThumbnail, ITrack, KeyboardNavigationPurpose, Subtitle } from '@src/types';
 import { getTranslation } from '@src/ui/i18n';
 import { triggerEvent } from '@src/ui/triggerEvent';
-import {
-  IActions,
-  IData,
-  SettingsTabs,
-  ViewTypes,
-  IStateStore,
-} from '@src/ui/types';
+import { IActions, IData, IStateStore, SettingsTabs, ViewTypes } from '@src/ui/types';
 import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
 import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
 import uniqBy from 'lodash/uniqBy';
@@ -303,6 +289,10 @@ export class StateStore
     this.selectSubtitle(this.props.player.subtitle ? null : subtitle);
   };
 
+  private selectAudioLanguage = (audioLanguage: string) => {
+    this.props.instance.selectAudioLanguage(audioLanguage);
+  };
+
   private togglePip = () => {
     (this.props.instance.getModule('PipExtension') as any).togglePip();
   };
@@ -452,6 +442,10 @@ export class StateStore
       }
     }
 
+    const audioLanguages = this.props.player.audioLanguages;
+
+    const activeAudioLanguage = this.props.player.audioLanguage;
+
     const tracks = uniqBy<ITrack>(
       this.props.player.tracks.sort(
         (a, b) => Number(b.height) - Number(a.height),
@@ -461,9 +455,7 @@ export class StateStore
 
     let activeTrack = null;
     if (this.props.player.track) {
-      activeTrack = tracks.find(
-        track => track.id === this.props.player.track.id,
-      );
+      activeTrack = this.props.player.tracks.find(track => track.id === this.props.player.track.id);
     }
 
     let selectedTrack = activeTrack;
@@ -481,6 +473,9 @@ export class StateStore
     }
     if (tracks.length) {
       visibleSettingsTabs.push(SettingsTabs.TRACKS);
+    }
+    if (audioLanguages.length) {
+      visibleSettingsTabs.push(SettingsTabs.AUDIOLANGUAGES);
     }
 
     let pipSupported = false;
@@ -550,6 +545,10 @@ export class StateStore
       activeSubtitle,
       activeThumbnail: this.state.activeThumbnail,
 
+      // Audio languages
+      audioLanguages,
+      activeAudioLanguage,
+
       // i18n
       getTranslation: this.getTranslation,
     } as IData;
@@ -574,6 +573,7 @@ export class StateStore
       toggleActiveSubtitle: this.toggleActiveSubtitle,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,
+      selectAudioLanguage: this.selectAudioLanguage,
     } as IActions;
   }
 }
