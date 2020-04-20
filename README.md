@@ -13,6 +13,7 @@ Highly extensible, modern, JavaScript player. 👊
 [![](https://img.shields.io/github/license/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/snyk/vulnerabilities/github/matvp91/indigo-player.svg)](https://github.com/matvp91/indigo-player)
 [![](https://img.shields.io/npm/types/indigo-player.svg)](https://www.npmjs.com/package/indigo-player)
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hy/indigo-player)
 
 * **Strict defined API**, which makes it easy to build analytics and various other plugins on top of indigo-player.
 * **Dynamic bundle loading**, automatically determines and loads which modules are needed for playback.
