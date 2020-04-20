@@ -32,7 +32,7 @@ Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
 ## Getting started
 
-**In a browser**
+**1) In a browser**
 
 The example below will load a simple MP4 file, and attempt to autoplay it.
 
@@ -60,7 +60,7 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
 </html>
 ```
 
-**As a module in your bundle**
+**or 2) As a module in your bundle**
 
 ```
 yarn add indigo-player
