@@ -32,6 +32,8 @@ Visit the [documentation](https://matvp91.github.io/indigo-player). 😎
 
 ## Getting started
 
+**In a browser**
+
 The example below will load a simple MP4 file, and attempt to autoplay it.
 
 ```html
@@ -56,6 +58,24 @@ The example below will load a simple MP4 file, and attempt to autoplay it.
     </script>
   </body>
 </html>
+```
+
+**As a module in your bundle**
+
+```
+yarn add indigo-player
+```
+
+```
+npm i indigo-player
+```
+
+```javascript
+import IndigoPlayer from "indigo-player";
+// Bundle the css file too, or provide your own.
+import "indigo-player/lib/indigo-theme.css";
+
+const player = IndigoPlayer.init(container, config);
 ```
 
 ## Mentions
