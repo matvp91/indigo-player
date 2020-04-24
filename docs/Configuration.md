@@ -85,7 +85,7 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 ```javascript
 {
   sources: [
-    // Play a Dash manifest
+    // Play an HLS manifest
     {
       type: 'hls',
       src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
@@ -110,7 +110,7 @@ Set one or multiple sources of your video asset. indigo-player will take the fir
 ```javascript
 {
   sources: [
-    // Play a Dash manifest
+    // Play an MP4 file
     {
       type: 'mp4',
       src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
