@@ -1,3 +1,5 @@
+**Note:** Due to other commitments, I'm having a hard time responding to issues (& actually getting them fixed for you guys). I'd be more than happy to accept PR's.
+
 <p align="center">
   <a href="https://github.com/matvp91/indigo-player">
     <img align="center" src="https://raw.githubusercontent.com/matvp91/indigo-player/master/docs/indigo-player.png">
