@@ -158,9 +158,13 @@ export interface Config {
     enabled: boolean;
     lockControlsVisibility: boolean;
     locale: string;
+    translations?: object;
     pip: boolean;
     image?: string;
     ignoreStylesheet?: boolean;
+    rewind?: number;
+    forward?: number;
+    logo?: object;
   };
 
   sources: Format[];
@@ -376,6 +380,7 @@ export interface IController extends IModule {
 }
 
 export interface IPlayer extends IModule {
+  mediaElement?: HTMLVideoElement;
   load();
   unload();
 

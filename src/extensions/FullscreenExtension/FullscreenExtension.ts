@@ -18,12 +18,12 @@ export class FullscreenExtension extends Module {
 
   constructor(instance: IInstance) {
     super(instance);
-
-    if (screenfull.enabled) {
+    
+    if (screenfull && screenfull.enabled) {
       this.emit(Events.FULLSCREEN_SUPPORTED);
 
       screenfull.on('change', () => {
-        const fullscreen: boolean = screenfull.isFullscreen;
+        const fullscreen: boolean = (screenfull && screenfull.isFullscreen);
 
         this.handleDocumentPos(fullscreen);
 
@@ -32,11 +32,25 @@ export class FullscreenExtension extends Module {
         } as IFullscreenEventData);
       });
     }
+    else if(instance.env.isIOS) {
+      this.on(Events.READY, this.onReady.bind(this));
+    }
+    
+    
+  }
+  
+  public onReady() {
+    if(this.instance.player.mediaElement.webkitEnterFullscreen) {
+      this.emit(Events.FULLSCREEN_SUPPORTED);
+    }
   }
 
   public toggleFullscreen() {
-    if (screenfull.enabled) {
+    if (screenfull && screenfull.enabled) {
       screenfull.toggle(this.instance.container);
+    }
+    else if(this.instance.env.isIOS && this.instance.player.mediaElement.webkitEnterFullscreen) {
+      this.instance.player.mediaElement.webkitEnterFullscreen()
     }
   }
 

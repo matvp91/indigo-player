@@ -388,6 +388,21 @@ Instead of a black background or the first frame of the video element (if applic
 }
 ```
 
+#### Logo
+
+Display a logo
+
+```javascript
+{
+  ui: {
+    logo: {
+      url: 'https://example.com/my-logo.png',
+      position: ['bottom', 'right'] // by default position of the logo is top left
+    }
+  },
+}
+```
+
 #### Picture in Picture
 
 Picture in picture mode will put the player container at the right bottom of the screen. You can move the PIP container by dragging it by the handle at the top of the player (your cursor should change to a drag icon).
@@ -413,6 +428,30 @@ Picture in picture mode will put the player container at the right bottom of the
   ],
 }
 </div>
+
+#### Rewind
+
+this setting displays a button on the control bar that allows you to go back in the video, the value must be entered in seconds.
+
+```javascript
+{
+  ui: {
+    rewind: 10, // by default, rewind is not enable and the button is not display
+  },
+}
+```
+
+#### Forward
+
+this setting displays a button on the control bar that allows you to move forward in the video, the value must be entered in seconds.
+
+```javascript
+{
+  ui: {
+    forward: 10, // by default, forward is not enable and the button is not display
+  },
+}
+```
 
 ### Keyboard navigation
 

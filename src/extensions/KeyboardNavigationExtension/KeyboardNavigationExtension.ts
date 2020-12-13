@@ -62,7 +62,7 @@ export class KeyboardNavigationExtension extends Module {
 
       // Seeks back x seconds.
       case KeyCodes.LEFT_ARROW:
-        let prevTime = this.getState().currentTime - SKIP_CURRENTTIME_OFFSET;
+        let prevTime = this.getState().currentTime - ((this.instance.config.ui.rewind > 0) ? this.instance.config.ui.rewind : SKIP_CURRENTTIME_OFFSET);
         if (prevTime < 0) {
           prevTime = 0;
         }
@@ -73,7 +73,7 @@ export class KeyboardNavigationExtension extends Module {
 
       // Seeks forward x seconds.
       case KeyCodes.RIGHT_ARROW:
-        let nextTime = this.getState().currentTime + SKIP_CURRENTTIME_OFFSET;
+        let nextTime = this.getState().currentTime + ((this.instance.config.ui.forward > 0) ? this.instance.config.ui.forward : SKIP_CURRENTTIME_OFFSET);
         if (nextTime > this.getState().duration) {
           nextTime = this.getState().duration;
         }
