@@ -27,8 +27,14 @@ export class ThumbnailsExtension extends Module {
 
     this.thumbnails = json
       .map(item => {
-        const url = parse(item.part);
-        const parts = parse(url.hash.replace('#', '?'), true);
+        let url = parse(item.part, {});
+
+        // Use path relative to the .vtt as a fallback
+        if (url.protocol === '') {
+          url = parse(`${file}/../${item.part}`, {});
+        }
+
+        const parts = parse(url.hash.replace('#', '?'), {}, true);
         const [x, y, width, height] = parts.query.xywh.split(',').map(Number);
 
         url.set('hash', null);
