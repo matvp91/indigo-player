@@ -109,6 +109,24 @@ export const translations = {
     'Enable subtitles': 'Habilitar legenda',
     'Disable subtitles': 'Desabilitar legenda',
   },
+  'fa-IR': {
+    Play: 'پخش',
+    Pause: 'توقف',
+    Mute: 'قطع صدا',
+    Unmute: 'وصل صدا',
+    Miniplayer: 'پخش کننده کوچک',
+    Settings: 'تنظیمات',
+    'Full screen': 'تمام صفحه',
+    'Exit full screen': 'خروج از تمام صفحه',
+    Speed: 'سرعت',
+    'Normal speed': 'عادی',
+    Subtitles: 'زیرنویس',
+    'No subtitles': 'بدون زیرنویس',
+    Quality: 'کیفیت',
+    'Automatic quality': 'خودکار',
+    'Enable subtitles': 'فعالسازی زیرنویس',
+    'Disable subtitles': 'غیرفعالسازی زیرنویس',
+  },
 };
 
 export const getTranslation = languageCode => text => {
