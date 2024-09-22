@@ -1,5 +1,5 @@
 > [!TIP]
-> Hey stranger, I'm working on an end-to-end solution nowadays. Check https://github.com/matvp91/mixwave for more info!
+> Hey friend, I'm working on an end-to-end solution nowadays. Check https://github.com/matvp91/mixwave for more info!
 
 **Note:** Due to other commitments, I'm having a hard time responding to issues (& actually getting them fixed for you guys). I'd be more than happy to accept PR's.
 
