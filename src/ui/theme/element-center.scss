@@ -13,4 +13,24 @@
       background-color: rgba(0, 0, 0, .5);
     }
   }
+  .igui_logo {
+    position: absolute;
+    margin: 20px;
+    pointer-events: all;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: auto;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    outline: none;
+    width: 15%;
+    height: 15%;
+  }
+  .igui_logo_bottom {
+    bottom: 0;
+  }
+  .igui_logo_right {
+    right: 0;
+  }
 }

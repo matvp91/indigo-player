@@ -240,6 +240,14 @@ export class StateStore
       }
     }
   };
+  
+  private rewind = () => {
+    this.props.instance.seekTo(this.props.player.currentTime - this.props.instance.config.ui.rewind);
+  }
+  
+  private forward = () => {
+    this.props.instance.seekTo(this.props.player.currentTime + this.props.instance.config.ui.forward);
+  }
 
   private toggleFullscreen = () => {
     (this.props.instance.getModule(
@@ -307,8 +315,9 @@ export class StateStore
     (this.props.instance.getModule('PipExtension') as any).togglePip();
   };
 
-  private getTranslation = (text: string): string => {
-    return getTranslation(this.props.instance.config.ui.locale)(text);
+  private getTranslation = (text: string, params?: object): string => {
+    //todo add extend language
+    return getTranslation(this.props.instance.config.ui.locale, this.props.instance.config.ui.translations)(text, params);
   };
 
   /**
@@ -507,6 +516,9 @@ export class StateStore
       visibleSettingsTabs,
       isMobile: this.props.instance.env.isMobile,
       image: this.props.instance.config.ui.image,
+      rewind: this.props.instance.config.ui.rewind,
+      forward: this.props.instance.config.ui.forward,
+      logo: this.props.instance.config.ui.logo,
       nodIcon,
 
       // Player
@@ -562,6 +574,8 @@ export class StateStore
   private createActions(): IActions {
     return {
       playOrPause: this.playOrPause,
+      rewind: this.rewind,
+      forward: this.forward,
       toggleFullscreen: this.toggleFullscreen,
       setVolumeControlsOpen: this.setVolumeControlsOpen,
       toggleMute: this.toggleMute,

@@ -40,13 +40,18 @@ export interface IData {
   activeThumbnail: IThumbnail;
   isMobile: boolean;
   image: string;
+  rewind: number;
+  forward: number;
   nodIcon: string;
-  getTranslation(text: string): string;
+  logo: object;
+  getTranslation(text: string, params?: object): string;
 }
 
 export interface IActions {
   playOrPause(origin?: string);
   startSeeking();
+  rewind();
+  forward();
   seekToPercentage(percentage: number);
   setVolume(volume: number);
   setVolumeControlsOpen(isVolumeControlsOpen: boolean);

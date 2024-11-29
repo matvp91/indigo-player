@@ -156,6 +156,7 @@ function createWebpackConfig(build, argv) {
           }),
         ],
         devServer: {
+          disableHostCheck: true,
           contentBase: './dev',
         },
       };
